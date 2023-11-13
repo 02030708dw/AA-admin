@@ -105,8 +105,8 @@ export default {
             }
           ],
           onChange: (value, assName) => {
-            const assObj = this.formItems.find(it => it.name === assName)
-            this.$set(assObj, 'hidden', value === 1)
+            /*const assObj = this.formItems.find(it => it.name === assName)
+            this.$set(assObj, 'hidden', value === 1)*/
           }
         },
         {

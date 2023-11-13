@@ -10,11 +10,11 @@ import './api/http'
 import '../mock'
 
 import '@/components/common'
-
+import VueCompositionAPI from '@vue/composition-api'
 import LayoutStore from '@/layouts/index'
 import { resetRouter } from './router/index'
 import Cookies from 'js-cookie'
-
+Vue.use(VueCompositionAPI)
 Vue.use(LayoutStore, {
   state: {
     isFixedNavBar: true,

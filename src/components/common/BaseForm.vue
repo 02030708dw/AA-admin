@@ -3,13 +3,14 @@
     <el-form
       ref="form"
       :label-position="config.labelPosition || 'right' "
-      :label-width="(config.labelWidth || 80) + 'px'"
+      :label-width="(config.labelWidth || 100) + 'px'"
       :size="config.size || 'small'"
     >
       <el-form-item
         v-for="(item, i) of innerFormItems"
         :key="i"
         :label="item.label"
+        :class="{ 'is-required': item.validator || item.required }"
       >
         <el-col :span="24">
           <el-input
@@ -22,6 +23,8 @@
             :maxlength="item.maxLength"
             :rows="item.rows || 5"
             class="form-item"
+            :disabled="item.disabled||false"
+            @input="item.onChange ? item.onChange(item.value, item.associatedOption || '') : (() => {})"
           />
           <el-select
             v-else-if="item.type === 'select' && !item.hidden"
@@ -32,6 +35,7 @@
             clearable
             style="width: 100%"
             class="form-item"
+            :disabled="item.disabled||false"
             @change="item.onChange ? item.onChange(item.value, item.associatedOption || '') : (() => {})"
           >
             <el-option
@@ -49,6 +53,7 @@
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             class="form-item"
+            :disabled="item.disabled||false"
             style="width: 100%"
             :size="config.size || 'small'"
           />
@@ -57,6 +62,7 @@
             v-model="item.value"
             type="date"
             range-separator="-"
+            :disabled="item.disabled||false"
             :placeholder="item.placeholder || '请选择日期'"
             class="form-item"
             :size="config.size || 'small'"
@@ -64,6 +70,7 @@
           <el-date-picker
             v-else-if="item.type === 'datetime' && !item.hidden"
             v-model="item.value"
+            :disabled="item.disabled||false"
             type="datetime"
             :placeholder="item.placeholder || '请选择日期'"
             class="form-item"
@@ -72,6 +79,7 @@
           <el-time-picker
             v-else-if="item.type === 'time' && !item.hidden"
             v-model="item.value"
+            :disabled="item.disabled||false"
             arrow-control
             :picker-options="{
               selectableRange: '00:00:00 - 23:59:59'
@@ -83,6 +91,7 @@
           <el-radio-group
             v-if="item.type === 'radio-group' && !item.hidden"
             v-model="item.value"
+            :disabled="item.disabled||false"
             :size="config.size || 'small'"
             @change="item.onChange ? item.onChange(item.value, item.associatedOption || '') : (() => {})"
           >
@@ -96,6 +105,7 @@
           <el-checkbox-group
             v-if="item.type === 'check-group' && !item.hidden"
             v-model="item.value"
+            :disabled="item.disabled||false"
             :size="config.size || 'small'"
             @change="item.onChange ? item.onChange(item.value, item.associatedOption || '') : (() => {})"
           >

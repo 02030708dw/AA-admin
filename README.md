@@ -2,7 +2,7 @@
 
 ```shell
 # 进入项目目录
-cd vue-admin-work
+cd AA-admin
 # 安装依赖
 npm i
 # 本地开发 启动项目

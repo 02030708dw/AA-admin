@@ -13,7 +13,7 @@
           <div class="logo-wrapper">
             <img :src="require('@/assets/work_logo.png')" />
           </div>
-          <div class="title margin-left">Vue Admin Work</div>
+          <div class="title margin-left">Vue2.6</div>
         </div>
         <div class="form-container">
           <div class="item-wrapper">

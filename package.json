@@ -1,5 +1,5 @@
 {
-  "name": "vue-admin-work",
+  "name": "AIAadmin",
   "version": "v2.0.1",
   "author": "qingqingxunan <353087890@qq.com>",
   "private": true,
@@ -19,6 +19,7 @@
     ]
   },
   "dependencies": {
+    "@vue/composition-api": "^1.7.2",
     "axios": "^0.21.0",
     "clipboard": "^2.0.8",
     "core-js": "^3.6.5",

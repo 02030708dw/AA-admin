@@ -2,7 +2,7 @@ import { baseAddress } from '@/api/url'
 import Mock from 'mockjs'
 import { baseData } from '../base'
 
-export const adminRoutes = [
+/*export const adminRoutes = [
   {
     menuUrl: '/authority',
     menuName: '系统管理',
@@ -201,7 +201,153 @@ export const adminRoutes = [
       }
     ]
   }
-]
+]*/
+export const adminRoutes = [
+  {
+    menuUrl: '/authority',
+    menuName: '系统管理',
+    icon: 'system',
+    tip: 'new',
+    children: [
+      {
+        menuUrl: '/authority/department',
+        menuName: '部门管理',
+        tip: 'new'
+      },
+      {
+        menuUrl: '/authority/user',
+        menuName: '用户管理',
+        tip: 'circle'
+      },
+      {
+        menuUrl: '/authority/role',
+        menuName: '角色管理',
+        tip: '12'
+      },
+      {
+        menuUrl: '/authority/menu',
+        menuName: '菜单管理'
+      }
+    ]
+  },
+  {
+    menuUrl: '/list',
+    menuName: '列表页面',
+    icon: 'list',
+    children: [
+      {
+        menuUrl: '/list/table',
+        menuName: '表格'
+      },
+      {
+        menuUrl: '/list/table-with-search',
+        menuName: '表格搜索'
+      },
+      {
+        menuUrl: '/list/table-custom',
+        menuName: '自定义表格'
+      },
+      {
+        menuUrl: '/list/grid-list',
+        menuName: '卡片列表'
+      }
+    ]
+  },
+  {
+    menuUrl: '/form',
+    menuName: '表单页面',
+    tip: 'circle',
+    icon: 'form',
+    children: [
+      {
+        menuUrl: '/form/base-form-view',
+        menuName: '基本表单',
+        cacheable: true
+      },
+      {
+        menuUrl: '/form/advance-form',
+        menuName: '高级表单',
+        cacheable: true
+      },
+      {
+        menuUrl: '/form/step-form',
+        menuName: '分步表单'
+      },
+      {
+        menuUrl: '/form/tip',
+        menuName: '通知提示'
+      }
+    ]
+  },
+  {
+    menuUrl: '/m_administrator',
+    menuName: '管理员管理',
+    tip: 'dot',
+    icon: 'list',
+    children: [
+      {
+        menuUrl: '/m_administrator/addm',
+        menuName: '新增管理员',
+        cacheable: true
+      },
+      {
+        menuUrl: "/m_administrator/listm",
+        menuName: "管理员列表",
+      },/*
+      {
+        menuUrl: "/m_administrator/listlg",
+        menuName: "管理员日志",
+      },*/
+    ]
+  },
+  /*{
+    menuUrl: "/m_announce",
+    menuName: "系统公告",
+    tip: "dot",
+    icon: "PostcardIcon",
+    parentPath: '',
+    children: [
+      {
+        parentPath: '/m_announce',
+        menuUrl: "/m_announce/lista",
+        menuName: "公告列表",
+        cacheable: true,
+      },
+      {
+        parentPath: '/m_announce',
+        menuUrl: "/m_announce/add",
+        menuName: "新增公告",
+        cacheable: true,
+      },
+    ]
+  },
+  {
+    menuUrl: "/m_platform",
+    menuName: "平台商管理",
+    tip: "dot",
+    icon: "PostcardIcon",
+    parentPath: '',
+    children: [
+      {
+        parentPath: '/m_platform',
+        menuUrl: "/m_platform/addp",
+        menuName: "新增平台商",
+        cacheable: true,
+      },
+      {
+        parentPath: '/m_platform',
+        menuUrl: "/m_platform/listp",
+        menuName: "平台商列表",
+        cacheable: true,
+      },
+      {
+        parentPath: '/m_platform',
+        menuUrl: "/m_platform/listmer",
+        menuName: "查询商户",
+      },
+    ]
+  }*/
+];
 export const editorRoutes = [
   {
     menuUrl: '/list',

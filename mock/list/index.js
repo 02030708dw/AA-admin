@@ -111,6 +111,7 @@ Mock.mock(RegExp(getTableList), function ({ body }) {
         'address': function () {
           return Random.city(true)
         },
+        roleName:()=>'管理员'+Math.floor(Math.random()*20+1),
         'lastLoginTime': Random.now('yyyy-MM-dd HH:mm:ss'),
         'lastLoginIp': function () {
           return Random.ip()

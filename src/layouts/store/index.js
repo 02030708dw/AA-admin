@@ -39,7 +39,8 @@ export default {
       showSearch: true,
       showMessage: true,
       showFullScreen: true,
-      showRefresh: true
+      showRefresh: true,
+      showSetting:true
     }
   },
   start({ state, actions }) {

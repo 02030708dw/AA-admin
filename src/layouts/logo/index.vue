@@ -12,7 +12,7 @@
       <span
         v-show="!state.isCollapse || alwaysShow"
         class="logo-title"
-      >vue-admin-work</span>
+      >AIA admin</span>
     </transition>
   </div>
 </template>

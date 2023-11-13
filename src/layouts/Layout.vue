@@ -29,10 +29,10 @@
       @click="closeMenu"
     ></div>
     <SettingInfo ref="settingInfo" />
-    <Setting
+<!--    <Setting
       @open-drawer="openSettingDrawer"
       @open-source="openSource"
-    />
+    />-->
   </div>
 </template>
 
@@ -42,7 +42,12 @@ export default {
   name: 'Layout',
   data() {
     return {
-      state: store.state
+      state: store.state,
+    }
+  },
+  provide(){
+    return {
+      setIsSetting:()=>this.changeSetting()
     }
   },
   computed: {
@@ -70,9 +75,12 @@ export default {
     window.removeEventListener('resize', this.handleScreenResize)
   },
   methods: {
-    openSettingDrawer() {
+    changeSetting(){
       this.$refs.settingInfo.show()
     },
+    /*openSettingDrawer() {
+      this.$refs.settingInfo.show()
+    },*/
     openSource() {
       this.$refs.myNotice.show()
     },

@@ -28,6 +28,11 @@
       @click="onRefrehRoute"
     >&#xe6a8;</span>
     <span
+      v-if="state.actionItem.showSetting"
+      class="iconfont action-item"
+      @click="onSetting"
+    ><i class="el-icon-s-tools"></i></span>
+    <span
       v-if="state.actionItem.showFullScreen && state.device !== 'mobile'"
       class="iconfont action-item"
       @click="onScreenFull"
@@ -61,6 +66,7 @@ export default {
       state: store.state
     }
   },
+  inject:['setIsSetting'],
   methods: {
     onShowSearch() {
       this.showSearchContent = !this.showSearchContent
@@ -83,6 +89,9 @@ export default {
         return false
       }
       screenfull.toggle()
+    },
+    onSetting() {
+      this.setIsSetting()
     },
     onRefrehRoute() {
       this.$router.replace({ path: '/redirect' + this.$route.path })
