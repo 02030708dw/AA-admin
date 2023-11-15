@@ -53,7 +53,13 @@ module.exports = [
     type: 'get',
     response: config => {
       const { token } = config.query
-      const info = users[token]
+      const info = {
+        name: users[token],
+        role: 'admin',
+        avatar: {
+          aa: 'sdfdf'
+        }
+      }
 
       // mock error
       if (!info) {

@@ -28,6 +28,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <LangSelect class="LangSelect-container" />
   </div>
 </template>
 
@@ -35,11 +36,13 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import LangSelect from '@/components/LangSelect'
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    LangSelect
   },
   computed: {
     ...mapGetters([
@@ -83,7 +86,9 @@ export default {
   .breadcrumb-container {
     float: left;
   }
-
+  .LangSelect-container{
+    float: right;
+  }
   .right-menu {
     float: right;
     height: 100%;

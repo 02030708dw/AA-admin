@@ -33,8 +33,19 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           await store.dispatch('user/getInfo')
-
+          // .then(res => {
+          console.log(store.getters.avatar)
+          //   router.addRoutes(store.getters.avatar) // 动态添加可访问路由表
+          //   next({ ...to, replace: true })
+          // })
           next()
+          // store.dispatch('GetInfo').then(res => { // 拉取info
+          //   const roles = res.data.role;
+          //   store.dispatch('GenerateRoutes', { roles }).then(() => { // 生成可访问的路由表
+          //     router.addRoutes(store.getters.avatar) // 动态添加可访问路由表
+          //     next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+          //   })
+          // })
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')

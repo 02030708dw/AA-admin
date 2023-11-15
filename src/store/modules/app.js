@@ -5,7 +5,8 @@ const state = {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
-  device: 'desktop'
+  device: 'desktop',
+  language: Cookies.get('language') || 'zh'
 }
 
 const mutations = {
@@ -25,10 +26,19 @@ const mutations = {
   },
   TOGGLE_DEVICE: (state, device) => {
     state.device = device
+  },
+  // ...其他配置项省略...
+  SET_LANGUAGE: (state, language) => {
+    state.language = language
+    Cookies.set('language', language)
   }
 }
 
 const actions = {
+  // ...其他配置项省略...
+  setLanguage({ commit }, language) {
+    commit('SET_LANGUAGE', language)
+  },
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')
   },
