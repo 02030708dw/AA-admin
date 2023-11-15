@@ -1,90 +1,97 @@
-import { resetRouter } from '@/router/index'
-import Cookies from 'js-cookie'
+import { login, logout, getInfo } from '@/api/user'
+import { getToken, setToken, removeToken } from '@/utils/auth'
+import { resetRouter } from '@/router'
 
-const userInfoString = localStorage.getItem('userInfo')
-const userInfo = JSON.parse(userInfoString || '{}')
-const state = {
-  userId: userInfo.userId || '',
-  userName: userInfo.userName || '',
-  userNickName: userInfo.userNickName || '',
-  roleId: userInfo.userId || '',
-  roles: userInfo.roles || [],
-  avatar: userInfo.avatar || '',
-  token: userInfo.token || ''
+const getDefaultState = () => {
+  return {
+    token: getToken(),
+    name: '',
+    avatar: ''
+  }
 }
 
-const getters = {
-  getAvatar(state) {
-    return state.avatar || require('@/assets/img_avatar_example.gif')
+const state = getDefaultState()
+
+const mutations = {
+  RESET_STATE: (state) => {
+    Object.assign(state, getDefaultState())
   },
-  getUserName(state) {
-    return state.userName
+  SET_TOKEN: (state, token) => {
+    state.token = token
   },
-  getNickName(state) {
-    return state.userNickName
+  SET_NAME: (state, name) => {
+    state.name = name
   },
-  getRoles(state) {
-    return state.roles
+  SET_AVATAR: (state, avatar) => {
+    state.avatar = avatar
   }
 }
 
 const actions = {
-  saveUserInfo({ commit }, userInfo) {
+  // user login
+  login({ commit }, userInfo) {
+    const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      try {
-        commit('SAVE_USER_INFO', userInfo)
+      login({ username: username.trim(), password: password }).then(response => {
+        const { data } = response
+        commit('SET_TOKEN', data.token)
+        setToken(data.token)
         resolve()
-      } catch (error) {
+      }).catch(error => {
         reject(error)
-      }
+      })
     })
   },
-  logout({ commit, dispatch }) {
-    return new Promise((resolve, reject) => {
-      try {
-        dispatch('router/delAllRoute', null, { root: true })
-        commit('LOGOUT')
-        resolve()
-      } catch (error) {
-        reject(error)
-      }
-    })
-  }
-}
 
-const mutations = {
-  SAVE_USER_INFO(state, userInfo) {
-    state.userId = userInfo.userId
-    state.userName = userInfo.userName
-    state.userNickName = userInfo.userNickName
-    state.avatar = userInfo.avatar
-    state.roleId = userInfo.roleId
-    state.roles = userInfo.roles
-    state.token = userInfo.token
-    localStorage.setItem('userInfo', JSON.stringify(userInfo))
-    Cookies.set('admin-token', userInfo.token, {
-      expires: 1
+  // get user info
+  getInfo({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getInfo(state.token).then(response => {
+        const { data } = response
+
+        if (!data) {
+          return reject('Verification failed, please Login again.')
+        }
+
+        const { name, avatar } = data
+
+        commit('SET_NAME', name)
+        commit('SET_AVATAR', avatar)
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
     })
   },
-  LOGOUT(state) {
-    // 这里只是在本地模拟删除了用户信息，在真实场景下需要 调后台登出接口 来真正实现登出功能
-    state.userId = ''
-    state.userName = ''
-    state.userNickName = ''
-    state.roleId = ''
-    state.roles = []
-    state.avatar = ''
-    state.token = ''
-    resetRouter()
-    Cookies.remove('admin-token')
-    localStorage.removeItem('userInfo')
+
+  // user logout
+  logout({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      logout(state.token).then(() => {
+        removeToken() // must remove  token  first
+        resetRouter()
+        commit('RESET_STATE')
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // remove token
+  resetToken({ commit }) {
+    return new Promise(resolve => {
+      removeToken() // must remove  token  first
+      commit('RESET_STATE')
+      resolve()
+    })
   }
 }
 
 export default {
   namespaced: true,
   state,
-  getters,
-  actions,
-  mutations
+  mutations,
+  actions
 }
+
