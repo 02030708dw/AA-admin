@@ -155,13 +155,34 @@ export const constantRoutes = [
     children: [
       {
         path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        meta: { title: 'ExternalLink', icon: 'link' }
       }
     ]
   },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
+]
+export const asyncRoutes = [
+  {
+    path: '/test',
+    component: Layout,
+    meta: { title: 'test', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'test',
+        name: 'test',
+        component: () => import('@/views/t_mode/index'),
+        meta: { title: 'test', icon: 'form' }
+      },
+      {
+        path: 'test2',
+        name: 'test2',
+        component: () => import('@/views/t_mode/index'),
+        meta: { title: 'test2', icon: 'form' }
+      }
+    ]
+  }
 ]
 
 const createRouter = () => new Router({
@@ -173,9 +194,23 @@ const createRouter = () => new Router({
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+// 重置路由列表
 export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
+}
+// 添加路由列表
+export function newRouter(Rou) {
+  const newRoutes = router.options.routes.concat(Rou)
+  // 侧边栏刷新
+  router.options.routes = newRoutes
+  // 更新路由配置
+  router.matcher = new Router({
+    mode: 'hash', // 或 'hash'
+    base: process.env.BASE_URL,
+    routes: newRoutes
+  }).matcher
+  console.log('进来了')
 }
 
 export default router

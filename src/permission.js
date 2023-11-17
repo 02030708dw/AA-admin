@@ -34,7 +34,7 @@ router.beforeEach(async(to, from, next) => {
           // get user info
           await store.dispatch('user/getInfo')
           // .then(res => {
-          console.log(store.getters.avatar)
+          // console.log(store.getters.avatar)
           //   router.addRoutes(store.getters.avatar) // 动态添加可访问路由表
           //   next({ ...to, replace: true })
           // })

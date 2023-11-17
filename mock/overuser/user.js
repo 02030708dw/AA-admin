@@ -57,7 +57,7 @@ module.exports = [
         name: users[token],
         role: 'admin',
         avatar: {
-          aa: 'sdfdf'
+          aa: ['v', 'a', 'u']
         }
       }
 

@@ -1,6 +1,6 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { resetRouter } from '@/router'
+import { resetRouter, newRouter, asyncRoutes } from '@/router'
 
 const getDefaultState = () => {
   return {
@@ -32,7 +32,7 @@ const mutations = {
 }
 
 const actions = {
-  // user login
+  // 登录
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
@@ -47,7 +47,7 @@ const actions = {
     })
   },
 
-  // get user info
+  // 获取用户信息
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
@@ -62,6 +62,8 @@ const actions = {
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_ROLE', role)
+        // 权限处理
+        newRouter(asyncRoutes)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -69,7 +71,7 @@ const actions = {
     })
   },
 
-  // user logout
+  // 退出登录
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
@@ -83,7 +85,7 @@ const actions = {
     })
   },
 
-  // remove token
+  // 删除token
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first

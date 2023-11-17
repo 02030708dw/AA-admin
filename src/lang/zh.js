@@ -5,6 +5,7 @@ export default {
     Table: '表格',
     Tree: '树',
     Form: '表单',
+    Nested: '多级',
     ExternalLink: '链接'
   },
   role: {
