@@ -1,4 +1,5 @@
 import router from './router'
+import { newRouter, asyncRoutes } from './router'
 import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
@@ -33,12 +34,12 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           await store.dispatch('user/getInfo')
-          // .then(res => {
-          // console.log(store.getters.avatar)
-          //   router.addRoutes(store.getters.avatar) // 动态添加可访问路由表
-          //   next({ ...to, replace: true })
-          // })
-          next()
+            .then(res => {
+              // 权限处理
+              newRouter(asyncRoutes)
+              next({ ...to, replace: true })
+            })
+          // next()
           // store.dispatch('GetInfo').then(res => { // 拉取info
           //   const roles = res.data.role;
           //   store.dispatch('GenerateRoutes', { roles }).then(() => { // 生成可访问的路由表
