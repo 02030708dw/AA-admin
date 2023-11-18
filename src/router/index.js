@@ -161,7 +161,7 @@ export const constantRoutes = [
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 export const asyncRoutes = [
   {
@@ -201,16 +201,18 @@ export function resetRouter() {
 }
 // 添加路由列表
 export function newRouter(Rou) {
-  const newRoutes = router.options.routes.concat(Rou)
+  if (Object.values(router.options.routes).length > Object.values(constantRoutes).length) {
+    return
+  }
+  const newRoutes = constantRoutes.concat(Rou)
   // 侧边栏刷新
   router.options.routes = newRoutes
   // 更新路由配置
   router.matcher = new Router({
-    mode: 'hash', // 或 'hash'
+    // mode: 'history', // 或 'hash'
     base: process.env.BASE_URL,
     routes: newRoutes
   }).matcher
-  console.log('进来了')
 }
 
 export default router

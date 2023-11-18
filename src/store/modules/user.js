@@ -19,7 +19,7 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_NAME: (state, name) => {
+  SET_USEROBJ: (state, name) => {
     state.name = name
   },
   SET_AVATAR: (state, avatar) => {
@@ -53,9 +53,13 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
+        const { userObj, avatar } = data
+        // 权限处理
+        if (userObj.roles === 'admin') {
+          newRouter(asyncRoutes)
+        }
 
-        commit('SET_NAME', name)
+        commit('SET_USEROBJ', userObj)
         commit('SET_AVATAR', avatar)
         resolve(data)
       }).catch(error => {
