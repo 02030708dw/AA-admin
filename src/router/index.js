@@ -152,7 +152,7 @@ export const constantRoutes = [
   {
     path: '/system',
     component: Layout,
-    name: "system",
+    name: 'system',
     meta: { title: 'systemmanage', icon: 'el-icon-s-help' },
     children: [
       {
@@ -179,7 +179,7 @@ export const constantRoutes = [
         meta: { title: 'ExternalLink', icon: 'link' }
       }
     ]
-  },
+  }
 
   // 404 page must be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }
