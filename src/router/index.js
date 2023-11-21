@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
+
 import Layout from '@/layout'
 
 /**
@@ -145,6 +146,26 @@ export const constantRoutes = [
         component: () => import('@/views/nested/menu2/index'),
         name: 'Menu2',
         meta: { title: 'menu2' }
+      }
+    ]
+  },
+  {
+    path: '/system',
+    component: Layout,
+    name: "system",
+    meta: { title: 'systemmanage', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'authority',
+        name: 'authority',
+        component: () => import('@/views/systemmag/authority/index'),
+        meta: { title: 'authoritymanage', icon: 'form' }
+      },
+      {
+        path: 'role',
+        name: 'role',
+        component: () => import('@/views/systemmag/role/index'),
+        meta: { title: 'rolemanage', icon: 'form' }
       }
     ]
   },

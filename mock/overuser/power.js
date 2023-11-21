@@ -13,21 +13,41 @@
 
 const data = [
   {
+    id: 1,
     name: 'test',
     statu: true,
     children: [
-      { path: 'test', name: 'test', statu: true },
-      { path: 'test2', name: 'test2', statu: true }
+      { id: 62, name: 'test', statu: true },
+      { id: 82, name: 'test2', statu: true }
     ]
   },
   {
+    id: 2,
     name: 'test',
     statu: true,
     children: [
-      { path: 'test', name: 'test', statu: true },
-      { path: 'test2', name: 'test2', statu: true }
+      { id: 12, name: 'test', statu: true },
+      { id: 16, name: 'test2', statu: true }
     ]
-  }
+  },
+  {
+    id: 3,
+    name: 'usermag',
+    statu: false,
+    children: []
+  },
+  {
+    id: 4,
+    name: 'mesmag',
+    statu: true,
+    children: []
+  },
+  {
+    id: 5,
+    name: 'test',
+    statu: false,
+    children: []
+  },
 ]
 
 module.exports = [
