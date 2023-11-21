@@ -1,13 +1,12 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { resetRouter } from '@/router'
+import { resetRouter, newRouter, asyncRoutes } from '@/router'
 
 const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: '',
-    role: ''
+    avatar: ''
   }
 }
 
@@ -20,19 +19,16 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_NAME: (state, name) => {
+  SET_USEROBJ: (state, name) => {
     state.name = name
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
-  },
-  SET_ROLE: (state, role) => {
-    state.role = role
   }
 }
 
 const actions = {
-  // user login
+  // 登录
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
@@ -47,7 +43,7 @@ const actions = {
     })
   },
 
-  // get user info
+  // 获取用户信息
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
@@ -57,11 +53,14 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar, role } = data
+        const { userObj, avatar } = data
+        // 权限处理
+        if (userObj.roles === 'admin') {
+          newRouter(asyncRoutes)
+        }
 
-        commit('SET_NAME', name)
+        commit('SET_USEROBJ', userObj)
         commit('SET_AVATAR', avatar)
-        commit('SET_ROLE', role)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -69,7 +68,7 @@ const actions = {
     })
   },
 
-  // user logout
+  // 退出登录
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
@@ -83,7 +82,7 @@ const actions = {
     })
   },
 
-  // remove token
+  // 删除token
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
