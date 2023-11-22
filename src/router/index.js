@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
+
 import Layout from '@/layout'
 
 /**
@@ -148,6 +149,26 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/system',
+    component: Layout,
+    name: 'system',
+    meta: { title: 'systemmanage', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'authority',
+        name: 'authority',
+        component: () => import('@/views/systemmag/authority/index'),
+        meta: { title: 'authoritymanage', icon: 'form' }
+      },
+      {
+        path: 'role',
+        name: 'role',
+        component: () => import('@/views/systemmag/role/index'),
+        meta: { title: 'rolemanage', icon: 'form' }
+      }
+    ]
+  },
 
   {
     path: 'external-link',
@@ -158,7 +179,7 @@ export const constantRoutes = [
         meta: { title: 'ExternalLink', icon: 'link' }
       }
     ]
-  },
+  }
 
   // 404 page must be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }

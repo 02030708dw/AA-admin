@@ -6,7 +6,10 @@ export default {
     Tree: '树',
     Form: '表单',
     Nested: '多级',
-    ExternalLink: '链接'
+    ExternalLink: '链接',
+    authoritymanage: '权限管理',
+    rolemanage: '角色管理',
+    systemmanage: '系统管理'
   },
   role: {
     permission: '权限'

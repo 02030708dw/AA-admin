@@ -5,7 +5,9 @@ const TokenKey = 'token'
 export function getToken() {
   return Cookies.get(TokenKey)
 }
-
+export function getLange() {
+  return Cookies.get('language')
+}
 export function setToken(token) {
   return Cookies.set(TokenKey, token)
 }
