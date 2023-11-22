@@ -36,13 +36,13 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    proxy: {
-      '/': {
-        target: 'http://192.168.124.16:8000',
-        changeOrigin: true
-      }
-    },
-    // before: require('./mock/mock-server.js')
+    // proxy: {
+    //   '/': {
+    //     target: 'http://192.168.124.16:8000',
+    //     changeOrigin: true
+    //   }
+    // },
+    before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -93,7 +93,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

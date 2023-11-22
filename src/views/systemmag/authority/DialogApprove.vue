@@ -1,5 +1,5 @@
 <template>
-  <div v-show="show" class="conent">
+  <div class="conent" v-show="show">
     <div class="container">
       <el-card class="box-card">
         <!-- title -->
@@ -9,17 +9,18 @@
         <!-- 一级菜单输入框 -->
         <el-form ref="form" :model="additem" label-width="80px">
           <el-row>
-            <el-col
-              :span="6"
-            ><el-form-item label="权限名称:">
-              <el-input
-                v-model="additem.name"
-                placeholder="清输入权限名称"
-              /> </el-form-item></el-col>
-            <el-col
-              :span="6"
-            ><el-form-item label="状态:">
-              <el-switch v-model="additem.statu" active-color="#13ce66" /> </el-form-item></el-col>
+            <el-col :span="6"
+              ><el-form-item label="权限名称:">
+                <el-input
+                  v-model="additem.name"
+                  placeholder="清输入权限名称"
+                ></el-input> </el-form-item
+            ></el-col>
+            <el-col :span="6"
+              ><el-form-item label="状态:">
+                <el-switch v-model="additem.statu" active-color="#13ce66">
+                </el-switch> </el-form-item
+            ></el-col>
           </el-row>
         </el-form>
         <!-- 二级菜单输入框 -->
@@ -32,12 +33,12 @@
           <el-table-column prop="name" label="" width="80">
             <template slot-scope="scope">
               <el-button
+                @click="getdelitem(scope.row)"
                 type="danger"
                 icon="el-icon-delete"
                 circle
                 size="mini"
-                @click="getdelitem(scope.row)"
-              />
+              ></el-button>
             </template>
           </el-table-column>
           <!-- 二级名称 -->
@@ -46,13 +47,14 @@
               <el-input
                 v-model="scope.row.name"
                 placeholder="请输入权限名称"
-              />
+              ></el-input>
             </template>
           </el-table-column>
           <!-- 二级状态 -->
           <el-table-column prop="" label="状态" width="180">
             <template slot-scope="scope">
-              <el-switch v-model="scope.row.statu" active-color="#13ce66" />
+              <el-switch v-model="scope.row.statu" active-color="#13ce66">
+              </el-switch>
             </template>
           </el-table-column>
         </el-table>
@@ -65,20 +67,16 @@
               circle
               size="mini"
               @click="getadditem"
-            />
+            ></el-button>
           </el-col>
           <!-- 取消 确定 -->
           <el-col :span="5" :offset="7">
-            <el-button
-              type="primary"
-              size="small"
-              @click="getdetermine"
-            >确定</el-button>
-            <el-button
-              type="info"
-              size="small"
-              @click="getcancel"
-            >取消</el-button>
+            <el-button type="primary" size="small" @click="getdetermine"
+              >确定</el-button
+            >
+            <el-button type="info" size="small" @click="getcancel"
+              >取消</el-button
+            >
           </el-col>
         </el-row>
       </el-card>
@@ -88,66 +86,87 @@
 
 <script>
 export default {
-  name: 'DialogApprove',
+  name: "AddRoute",
   props: {
     // 弹窗状态
     show: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       additem: {
-        name: '',
+        name: "",
         statu: false,
-        children: [{ name: '', statu: false, id: 0 }]
-      }
-    }
+        children: [{ name: "", statu: false, id: 0 }],
+      },
+    };
   },
   methods: {
     // 取消事件
     getcancel() {
-      this.$emit('cancel')
+      this.$emit("cancel");
       this.additem = {
-        name: '',
+        name: "",
         statu: false,
-        children: [{ name: '', statu: false, id: 0 }]
-      }
+        children: [{ name: "", statu: false, id: 0 }],
+      };
     },
     // 新增一行
     getadditem() {
-      const index = this.additem.children.length
+      let index = this.additem.children.length;
       this.additem.children.push({
         id: index,
-        name: '',
-        statu: false
-      })
+        name: "",
+        statu: false,
+      });
     },
     // 删除一行
     getdelitem(item) {
-      const newArray = this.additem.children.filter((it) => it.id !== item.id)
-      this.additem.children = newArray
+      let newArray = this.additem.children.filter((it) => it.id !== item.id);
+      this.additem.children = newArray;
     },
     // 确定事件
     getdetermine() {
       // 校验数据是否填写完整
-      if (this.additem.name === '') {
-        return
+      if (this.additem.name === "") {
+        this.$message({
+          showClose: true,
+          message: "请填写权限名称",
+          type: "warning",
+        });
+        return;
       }
       // 检查children是否为空
       if (this.additem.children.length === 0) {
-        return
+        this.$message({
+          showClose: true,
+          message: "请填写至少一条二级权限",
+          type: "warning",
+        });
+        return;
       }
-      for (const child of this.additem.children) {
+      for (let child of this.additem.children) {
         // 检查name是否为空
-        if (child.name === '') {
-          return
+        if (child.name === "") {
+          this.$message({
+            showClose: true,
+            message: "信息不能为空",
+            type: "warning",
+          });
+          return;
         }
       }
-    }
-  }
-}
+      this.$message({
+        showClose: true,
+        message: "添加成功",
+        type: "success",
+      });
+      this.$emit("confirm", this.additem);
+    },
+  },
+};
 </script>
 
 <style lang="scss">

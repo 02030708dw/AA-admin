@@ -26,11 +26,11 @@ const users = {
 module.exports = [
   // user login
   {
-    url: '/vue-admin-template/user/login',
+    url: '/sys/admin/login',
     type: 'post',
     response: config => {
-      const { username } = config.body
-      const token = tokens[username]
+      const { userName } = config.body
+      const token = tokens[userName]
 
       // mock error
       if (!token) {

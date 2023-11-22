@@ -4,7 +4,7 @@ import { resetRouter, newRouter, asyncRoutes } from '@/router'
 
 const getDefaultState = () => {
   return {
-    token: getToken(),
+    token: '',
     name: '',
     avatar: ''
   }
@@ -33,11 +33,13 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ userName: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        const { resCode, resDesc, resultSet } = response
+        console.log("登录", response);
+        commit('SET_TOKEN', resultSet)
+        setToken(resultSet.accessToken)
         resolve()
       }).catch(error => {
+        console.log("登录失败", error);
         reject(error)
       })
     })

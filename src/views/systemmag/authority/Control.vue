@@ -8,19 +8,17 @@
 </template>
 
 <script>
-
 export default {
-  name: 'Control',
+  name: "Control",
 
   methods: {
     // 添加一级菜单
     getaddroute() {
-      this.$emit('changeShow')
-    }
-  }
-}
+      this.$emit("changeShow");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

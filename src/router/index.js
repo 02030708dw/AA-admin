@@ -43,7 +43,6 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
@@ -152,14 +151,14 @@ export const constantRoutes = [
   {
     path: '/system',
     component: Layout,
-    name: 'system',
-    meta: { title: 'systemmanage', icon: 'el-icon-s-help' },
+    name: "system",
+    meta: { title: 'systemmanage', icon: 'el-icon-s-tools' },
     children: [
       {
         path: 'authority',
         name: 'authority',
         component: () => import('@/views/systemmag/authority/index'),
-        meta: { title: 'authoritymanage', icon: 'form' }
+        meta: { title: 'RightsManagement', icon: 'form' }
       },
       {
         path: 'role',
@@ -169,7 +168,150 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/account',
+    component: Layout,
+    name: "account",
+    meta: { title: 'accountmanage', icon: 'el-icon-user-solid' },
+    children: [
+      {
+        path: 'user',
+        name: 'user',
+        component: () => import('@/views/accountmag/usermag/index'),
+        meta: { title: 'authoritymanage', icon: 'el-icon-s-custom' }
+      },
+      {
+        path: 'membermag',
+        name: 'membermag',
+        component: () => import('@/views/accountmag/membermag/index'),
+        meta: { title: 'membermanagement', icon: 'el-icon-star-on' }
+      },
+      {
+        path: 'agent',
+        name: 'agent',
+        component: () => import('@/views/accountmag/agentmag/index'),
+        meta: { title: 'agentmanagement', icon: 'el-icon-news' }
+      }
+    ]
+  },
+  {
+    path: '/finance',
+    component: Layout,
+    name: "finance",
+    meta: { title: 'financemanage', icon: 'el-icon-s-marketing' },
+    children: [
+      {
+        path: 'memberrecharge',
+        name: 'memberrecharge',
+        component: () => import('@/views/financemag/memberrecharge/index'),
+        meta: { title: 'memberrecharge', icon: 'el-icon-s-finance' }
+      },
+      {
+        path: 'agentwithdrawal',
+        name: 'agentwithdrawal',
+        component: () => import('@/views/financemag/agentwithdrawal/index'),
+        meta: { title: 'agentwithdrawal', icon: 'el-icon-s-cooperation' }
+      },
+      {
+        path: 'memberwithdrawal',
+        name: 'memberwithdrawal',
+        component: () => import('@/views/financemag/memberwithdrawal/index'),
+        meta: { title: 'memberwithdrawal', icon: 'el-icon-goods' }
+      },
+      {
+        path: 'rechargechannel',
+        name: 'rechargechannel',
+        component: () => import('@/views/financemag/rechargechannel/index'),
+        meta: { title: 'rechargechannel', icon: 'el-icon-box' }
+      },
+      {
+        path: 'crechargeonfiguration',
+        name: 'crechargeonfiguration',
+        component: () => import('@/views/financemag/crechargeonfiguration/index'),
+        meta: { title: 'crechargeonfiguration', icon: 'el-icon-setting' }
+      },
+      {
+        path: 'withdrawalchannel',
+        name: 'withdrawalchannel',
+        component: () => import('@/views/financemag/withdrawalchannel/index'),
+        meta: { title: 'withdrawalchannel', icon: 'el-icon-position' }
+      }
+    ]
+  },
+  {
+    path: '/thirdpartypayment',
+    component: Layout,
+    children: [
+      {
+        path: 'thirdpartypayment',
+        name: 'thirdpartypayment',
+        component: () => import('@/views/thirdpartypayment/index'),
+        meta: { title: 'thirdpartypayment', icon: 'el-icon-s-fold' }
+      }
+    ]
+  },
+  {
+    path: '/reportformsmag',
+    component: Layout,
+    children: [
+      {
+        path: 'reportformsmag',
+        name: 'reportformsmag',
+        component: () => import('@/views/reportformsmag/index'),
+        meta: { title: 'reportformsmag', icon: 'el-icon-s-data' }
+      }
+    ]
+  },
+  {
+    path: '/gamer',
+    component: Layout,
+    children: [
+      {
+        path: 'gamer',
+        name: 'gamer',
+        component: () => import('@/views/gamermag/index'),
+        meta: { title: 'gamer', icon: 'el-icon-coordinate' }
+      }
+    ]
+  },
+  {
+    path: '/game',
+    component: Layout,
+    children: [
+      {
+        path: 'game',
+        name: 'game',
+        component: () => import('@/views/gamemag/index'),
+        meta: { title: 'game', icon: 'el-icon-mouse' }
+      }
+    ]
+  },
+  {
+    path: '/messagemag',
+    component: Layout,
+    name: "messagemag",
+    meta: { title: 'messagemag', icon: 'el-icon-chat-dot-square' },
+    children: [
+      {
+        path: 'noticetypemag',
+        name: 'noticetypemag',
+        component: () => import('@/views/messagemag/noticetypemag/index'),
+        meta: { title: 'AnnouncementType', icon: 'el-icon-c-scale-to-original' }
+      },
+      {
+        path: 'noticemag',
+        name: 'noticemag',
+        component: () => import('@/views/messagemag/noticemag/index'),
+        meta: { title: 'Noticemanage', icon: 'el-icon-s-promotion' }
+      },
+      {
+        path: 'membermsg',
+        name: 'membermsg',
+        component: () => import('@/views/messagemag/membermsg/index'),
+        meta: { title: 'Membermessages', icon: 'el-icon-message-solid' }
+      }
+    ]
+  },
   {
     path: 'external-link',
     component: Layout,
@@ -179,7 +321,7 @@ export const constantRoutes = [
         meta: { title: 'ExternalLink', icon: 'link' }
       }
     ]
-  }
+  },
 
   // 404 page must be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }
