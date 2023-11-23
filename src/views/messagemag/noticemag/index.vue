@@ -2,24 +2,49 @@
   <el-card>
     <Control></Control>
     <!-- 表格 -->
-    <Table></Table>
+    <Table :tableData="tableData"></Table>
+    <Pagination :total="total" @PageChange="getnoticedata"></Pagination>
+    <noticeAdd></noticeAdd>
   </el-card>
 </template>
 
 <script>
-// 表格
 import Table from "./Table.vue";
-// 顶部操作
 import Control from "./Control";
+import Pagination from "@/components/Pagination/Pagination.vue";
+import noticeAdd from "./noticeAdd.vue";
+import { noticePage } from "@/api/message/notice";
 export default {
   components: {
     Table,
     Control,
+    Pagination,
+    noticeAdd,
   },
   data() {
     return {
-      tableData: [{ title: "111", time: "2023/11/22", status: false }],
+      tableData: [],
+      total: 0,
+      pageNo: 1,
     };
+  },
+  methods: {
+    // 请求分页数据
+    getnoticedata(index) {
+      this.pageNo = index;
+      noticePage({ pageNo: index, pageSize: 10 })
+        .then((res) => {
+          console.log(res);
+          this.total = res.resultSet.total;
+          this.tableData = res.resultSet.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  created() {
+    this.getnoticedata();
   },
 };
 </script>

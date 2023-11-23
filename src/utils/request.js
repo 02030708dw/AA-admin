@@ -10,7 +10,7 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
-// request interceptor
+// request interceptor  
 service.interceptors.request.use(
   config => {
     // do something before request is sent
@@ -43,7 +43,7 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-    console.log(res)
+
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.resCode !== '000000') {

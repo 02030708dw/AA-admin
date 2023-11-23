@@ -28,7 +28,19 @@ export default {
     messagemag: '消息管理',
     AnnouncementType: '公告类型管理',
     Noticemanage: '公告管理',
-    Membermessages: '会员消息管理'
+    Membermessages: '会员消息管理',
+    SerialNumber: "序号",
+    RoleName: "角色名称",
+    RoleCode: "角色编码",
+    state: "状态",
+    Creationtime: "创建时间",
+    Updatetime: "更新时间",
+    Updatedby: "更新人",
+    notes: "备注",
+    operate: "操作",
+    delete: "删除",
+    edit: "编辑"
+
 
   },
   role: {
