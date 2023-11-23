@@ -53,13 +53,11 @@ export default {
       html: "",
       toolbarConfig: {
         excludeKeys: [
-          // 排除菜单组，写菜单组 key 的值即可
           "group-video", //去掉视频
         ],
       },
       editorConfig: { placeholder: "请输入内容..." },
       mode: "default",
-
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
