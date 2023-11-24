@@ -1,20 +1,24 @@
 <template>
-  <div class="dashboard-container">
-    <div class="dashboard-text">userObj: {{ userObj }}</div>
-  </div>
+  <el-card>
+    <daily></daily>
+    <Monthlyreport></Monthlyreport>
+  </el-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
+// 平台日报
+import daily from "./daily.vue";
+// 平台月报
+import Monthlyreport from "./Monthlyreport.vue";
 export default {
-  name: 'Dashboard',
-  computed: {
-    ...mapGetters([
-      'userObj'
-    ])
-  }
-}
+  components: {
+    daily,
+    Monthlyreport,
+  },
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style lang="scss" scoped>

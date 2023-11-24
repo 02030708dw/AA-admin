@@ -33,6 +33,8 @@ import {
   getrolePage,
   getroleupdateStatus,
   getroleAdd,
+  getroleDel,
+  getroleEdit,
 } from "@/api/systemmag/role";
 export default {
   components: {
@@ -70,9 +72,11 @@ export default {
     },
     // 更新角色状态
     getupdateStatus(e) {
+      console.log(e);
       getroleupdateStatus({ id: e.Id, status: e.status })
         .then((res) => {
-          console.log(res);
+          // 刷新数据
+          this.getroledata(this.pageNo);
         })
         .catch((err) => {
           console.log(err);
@@ -95,11 +99,25 @@ export default {
     },
     // 删除角色
     getroledel(Id) {
-      console.log(Id);
+      getroleDel(Id)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     // 编辑角色
-    getroleEditor(e) {
-      console.log(e);
+    getroleEditor({ code, id, remark, roleName, status }) {
+      getroleEdit({ code, id, remark, roleName, status })
+        .then((res) => {
+          console.log(res);
+          // 刷新数据
+          this.getroledata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     // 弹窗
     getAdddialog() {

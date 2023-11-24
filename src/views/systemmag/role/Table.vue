@@ -33,7 +33,9 @@
             >edit</el-button
           >
           <!-- <el-button type="text" style="color: #e6a23c">权限</el-button> -->
+
           <el-button
+            slot="reference"
             type="text"
             style="color: red"
             @click="getroledel(scope.row.id)"
@@ -55,6 +57,11 @@ export default {
         return [];
       },
     },
+  },
+  data() {
+    return {
+      visible: false,
+    };
   },
   methods: {
     // 更新角色状态

@@ -73,7 +73,7 @@ export default {
         this.ruleForm = data;
       }
     },
-    // 确定添加事件
+    // 确定事件
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
