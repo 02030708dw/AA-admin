@@ -14,7 +14,32 @@ export function gamerPage({ pageNo, pageSize }) {
 export function gamerAdd(data) {
     return request({
         url: "/game/gamer/add",
-        method: "get",
+        method: "post",
         data,
     })
 }
+// 删除
+export function gamerDel({ id }) {
+    return request({
+        url: `/game/gamer/del/${id}`,
+        method: "get",
+
+    })
+}
+// 编辑
+export function gamerEdit(data) {
+    return request({
+        url: "/game/gamer/edit",
+        method: "post",
+        data,
+    })
+}
+// 状态修改
+export function gamerupdateStatus(data) {
+    return request({
+        url: "/game/gamer/updateStatus",
+        method: "post",
+        data,
+    })
+}
+

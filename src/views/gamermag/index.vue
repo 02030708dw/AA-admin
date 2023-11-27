@@ -1,9 +1,15 @@
 <template>
   <el-card>
     <Control @gamerAdd="getGamerAddshow"></Control>
-    <Table :tableData="tableData"></Table>
+    <Table
+      :tableData="tableData"
+      @eitor="getGamerEitorShow"
+      @delete="getGamerDelete"
+      @updateStatus="getGamerupdateStatus"
+    ></Table>
     <Pagination @PageChange="getroledata" :total="total"></Pagination>
     <GamerAdd ref="GamerAdd" @confirm="getGamerAdd"></GamerAdd>
+    <GamerEitor ref="GamerEitor" @confirm="getGamerEitor"></GamerEitor>
   </el-card>
 </template>
 
@@ -14,13 +20,21 @@ import Table from "./Table.vue";
 import Control from "./Control";
 import Pagination from "@/components/Pagination/Pagination.vue";
 import GamerAdd from "./GamerAdd.vue";
-import { gamerPage, gamerAdd } from "@/api/gamer/gamer";
+import GamerEitor from "./GamerEitor.vue";
+import {
+  gamerPage,
+  gamerAdd,
+  gamerDel,
+  gamerEdit,
+  gamerupdateStatus,
+} from "@/api/gamer/gamer";
 export default {
   components: {
     Table,
     Control,
     Pagination,
     GamerAdd,
+    GamerEitor,
   },
   data() {
     return {
@@ -55,7 +69,51 @@ export default {
     getGamerAdd(e) {
       gamerAdd(e)
         .then((res) => {
-          console.log(res);
+          // 刷新数据
+          this.getroledata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 删除
+    getGamerDelete(id) {
+      gamerDel({ id })
+        .then((res) => {
+          // 刷新数据
+          this.getroledata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 编辑事件
+    getGamerEitorShow(e) {
+      this.$refs.GamerEitor.getAddstatus(e);
+    },
+    getGamerEitor(item) {
+      gamerEdit({
+        gamerId: item.id,
+        status: item.status,
+        name: item.name,
+        incomeUrl: item.incomeUrl,
+        cashUrl: item.cashUrl,
+        betUrl: item.betUrl,
+      })
+        .then((res) => {
+          // 刷新数据
+          this.getroledata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 状态修改
+    getGamerupdateStatus(data) {
+      console.log(data);
+      gamerupdateStatus({ gamerId: data.id, status: data.status })
+        .then((res) => {
+          this.getroledata(this.pageNo);
         })
         .catch((err) => {
           console.log(err);

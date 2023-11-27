@@ -6,25 +6,38 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" label="序号" width="100" />
-      <el-table-column prop="name" label="名称" width="280" />
-      <el-table-column prop="id" label="头像" width="250" />
-      <el-table-column prop="sex" label="性别" width="400" />
-      <el-table-column prop="address" label="地址" width="180" />
-      <el-table-column prop="time" label="上次登录时间" width="180" />
-      <el-table-column prop="" label="状态" width="240">
+      <el-table-column type="index" :label="$t('SerialNumber')" width="100" />
+      <el-table-column prop="userName" :label="$t('name')" width="280" />
+      <el-table-column prop="telPhone" :label="$t('phone')" width="300" />
+      <el-table-column prop="" :label="$t('state')" width="240">
         <template slot-scope="scope">
           <div>
-            <el-switch v-model="scope.row.status" active-color="#13ce66">
+            <el-switch
+              v-model="scope.row.status"
+              active-color="#13ce66"
+              @change="getupdateStatus($event, scope.row.id)"
+              :active-value="1"
+              :inactive-value="0"
+            >
             </el-switch>
           </div>
         </template>
       </el-table-column>
 
-      <el-table-column prop="" label="操作" width="200">
+      <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c">修改</el-button>
-          <el-button type="text" style="color: red">删除</el-button>
+          <el-button
+            @click="getEitor(scope.row)"
+            type="text"
+            style="color: #e6a23c"
+            >{{ $t("edit") }}</el-button
+          >
+          <el-button
+            @click="getdel(scope.row.id)"
+            type="text"
+            style="color: red"
+            >{{ $t("delete") }}</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -40,6 +53,17 @@ export default {
       default: () => {
         return [];
       },
+    },
+  },
+  methods: {
+    getdel(id) {
+      this.$emit("userdel", id);
+    },
+    getupdateStatus(status, Id) {
+      this.$emit("updateStatus", { status: status, id: Id });
+    },
+    getEitor(item) {
+      this.$emit("usereitor", item);
     },
   },
 };

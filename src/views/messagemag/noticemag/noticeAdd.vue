@@ -1,13 +1,19 @@
 <template>
   <!-- 新增角色弹窗 -->
   <el-dialog title="新增公告" :visible.sync="dialogVisible" width="60%">
-    <el-form label-position="top">
+    <el-form
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="100px"
+      class="demo-ruleForm"
+    >
       <!-- 标题 -->
-      <el-form-item label="公告标题" prop="name">
-        <el-input></el-input>
+      <el-form-item label="公告标题" prop="title">
+        <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <!-- 内容 -->
-      <el-form-item label="公告内容" prop="" s>
+      <el-form-item label="公告内容" prop="content">
         <Toolbar
           style="border: 1px solid #ccc; border-bottom: 0px"
           :editor="editor"
@@ -16,7 +22,7 @@
         />
         <Editor
           style="height: 350px; overflow-y: hidden; border: 1px solid #ccc"
-          v-model="html"
+          v-model="ruleForm.content"
           :defaultConfig="editorConfig"
           :mode="mode"
           @onCreated="onCreated"
@@ -24,33 +30,47 @@
       </el-form-item>
 
       <!-- 公告类型 -->
-      <el-form-item label="公告类型">
-        <!-- <el-select placeholder="请选择公告类型" style="width: 100%">
-          <el-option label="公告类型1"></el-option>
-          <el-option label="公告类型2"></el-option>
-        </el-select> -->
+      <el-form-item label="公告类型" prop="noteTypeId">
+        <el-select
+          v-model="ruleForm.noteTypeId"
+          placeholder="请选择公告类型"
+          style="width: 30%"
+        >
+          <el-option
+            v-for="(item, index) in noticetype"
+            :key="index"
+            :value="item.id"
+            :label="item.name"
+          ></el-option>
+        </el-select>
       </el-form-item>
       <!-- 公告状态 -->
-      <el-form-item label="公告状态" prop="name">
-        <el-switch :active-value="1" :inactive-value="0"></el-switch>
+      <el-form-item label="公告状态" prop="status">
+        <el-switch
+          v-model="ruleForm.status"
+          :active-value="1"
+          :inactive-value="0"
+        ></el-switch>
       </el-form-item>
     </el-form>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="getAddstatus()">取 消</el-button>
-      <el-button type="primary" @click="getconfirm()">确 定</el-button>
+      <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
+      <el-button type="primary" @click="getconfirm()">{{
+        $t("determine")
+      }}</el-button>
     </span>
   </el-dialog>
 </template>
   
 <script>
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+import { noticetypePage } from "@/api/message/noticetype";
 export default {
   components: { Editor, Toolbar },
   data() {
     return {
       editor: null,
-      html: "",
       toolbarConfig: {
         excludeKeys: [
           "group-video", //去掉视频
@@ -61,24 +81,55 @@ export default {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        name: "",
+        title: "",
+        noteTypeId: null,
         status: 0,
+        content: "",
       },
       rules: {
-        name: [{ required: true, message: "清输入公告类型", trigger: "blur" }],
+        title: [{ required: true, message: "请输入公告标题", trigger: "blur" }],
+        content: [
+          { required: true, message: "请输入公告内容", trigger: "blur" },
+        ],
+        noteTypeId: [
+          { required: true, message: "请选择公告类型", trigger: "blur" },
+        ],
       },
+      // 公告类型
+      noticetype: [],
     };
+  },
+  created() {
+    this.getnoticetypePage();
   },
   methods: {
     onCreated(editor) {
       this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
     },
+    // 请求公告类型
+    getnoticetypePage() {
+      this.noticetype = [];
+      noticetypePage({ pageNo: 1, pageSize: 100 })
+        .then((res) => {
+          for (let i = 0; i < res.resultSet.data.length; i++) {
+            this.noticetype.push({
+              id: res.resultSet.data[i].id,
+              name: res.resultSet.data[i].name,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     // 改变弹窗状态
     getAddstatus() {
       if (!this.dialogVisible) {
         this.ruleForm = {
-          name: "",
+          title: "",
+          noteTypeId: null,
           status: 0,
+          content: "",
         };
       }
       this.dialogVisible = !this.dialogVisible;
@@ -87,7 +138,6 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          console.log("添加公告", this.ruleForm);
           this.$emit("confirm", this.ruleForm);
           // 关闭弹窗
           this.dialogVisible = false;
@@ -101,6 +151,7 @@ export default {
       });
     },
   },
+
   beforeDestroy() {
     const editor = this.editor;
     if (editor == null) return;

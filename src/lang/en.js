@@ -11,5 +11,6 @@ export default {
     permission: 'permission'
   },
   name: 'name',
-  Lange: 'Lange'
+  Lange: 'Lange',
+
 }

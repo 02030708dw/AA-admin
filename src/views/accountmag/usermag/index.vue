@@ -1,53 +1,121 @@
 <template>
   <el-card>
     <!-- 顶部操作 -->
-    <Control></Control>
+    <Control @userAdd="getUserAddShow"></Control>
     <!-- 表格 -->
-    <Table :tableData="tableData"></Table>
+    <Table
+      @usereitor="getUserEitorShow"
+      @updateStatus="getUserupdateStatus"
+      :tableData="tableData"
+      @userdel="getUserDel"
+    ></Table>
+    <Pagination @PageChange="getuserdata" :total="total"></Pagination>
+    <UserAdd ref="UserAdd" @confirm="getUserAdd"></UserAdd>
+    <UserEitor ref="UserEitor" @confirm="getUserEitor"></UserEitor>
   </el-card>
 </template>
 
 <script>
+import {
+  userPage,
+  userDel,
+  userAdd,
+  userEitor,
+  userUpdateStatus,
+} from "@/api/account/user";
 // 表格
 import Table from "./Table.vue";
 // 顶部操作
 import Control from "./Control";
+import Pagination from "@/components/Pagination/Pagination.vue";
+import UserAdd from "./UserAdd.vue";
+import UserEitor from "./UserEitor.vue";
 export default {
   components: {
     Table,
     Control,
+    Pagination,
+    UserAdd,
+    UserEitor,
   },
   data() {
     return {
-      tableData: [
-        {
-          id: "01254",
-          name: "admin",
-          time: "2023/11/22",
-          address: "123",
-          status: false,
-          sex: "男",
-        },
-        {
-          id: "34505",
-          name: "admin1",
-          time: "2023/11/22",
-          address: "123",
-          sex: "男",
-
-          status: false,
-        },
-        {
-          id: "024548",
-          name: "admin2",
-          time: "2023/11/22",
-          address: "123",
-          sex: "女",
-
-          status: true,
-        },
-      ],
+      // 总条数
+      total: 0,
+      // 页码
+      pageNo: 1,
+      tableData: [],
     };
+  },
+  created() {
+    this.getuserdata();
+  },
+  methods: {
+    // 请求分页数据
+    getuserdata(index) {
+      this.pageNo = index;
+      userPage({ pageNo: index, pageSize: 10 })
+        .then((res) => {
+          this.total = res.resultSet.total;
+          this.tableData = res.resultSet.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 显示用户添加弹窗
+    getUserAddShow() {
+      this.$refs.UserAdd.getAddstatus();
+    },
+    // 添加用户
+    getUserAdd(e) {
+      userAdd(e)
+        .then((res) => {
+          this.getuserdata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 删除用户
+    getUserDel(id) {
+      userDel(id)
+        .then((res) => {
+          this.getuserdata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 改变用户状态
+    getUserupdateStatus(e) {
+      userUpdateStatus({ status: e.status, userId: e.id })
+        .then((res) => {
+          this.getuserdata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 显示编辑弹窗
+    getUserEitorShow(data) {
+      this.$refs.UserEitor.getAddstatus(data);
+    },
+    // 编辑用户
+    getUserEitor(data) {
+      userEitor({
+        id: data.id,
+        status: data.status,
+        telPhone: data.telPhone,
+        userName: data.userName,
+      })
+        .then((res) => {
+          this.getuserdata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>

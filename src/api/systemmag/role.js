@@ -19,9 +19,9 @@ export function getroleAdd(data) {
 // 角色删除
 export function getroleDel(id) {
     return request({
-        url: '/sys/role/del',
+        url: `/sys/role/del/${id}`,
         method: 'get',
-        params: { id }
+
     })
 }
 //角色编辑

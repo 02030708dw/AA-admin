@@ -18,11 +18,11 @@ export function addnotice(data) {
     })
 }
 // 删除接口
-export function delnotice(Id) {
+export function delnotice(id) {
     return request({
-        url: '/msg/note/del',
-        method: 'get',
-        params: { Id }
+        url: `/msg/note/del/${id}`,
+        method: 'get'
+
     })
 }
 // 修改接口

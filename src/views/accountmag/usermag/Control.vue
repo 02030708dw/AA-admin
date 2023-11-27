@@ -1,12 +1,17 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button type="primary">新增</el-button>
+    <el-button @click="getAdd()" type="primary">{{ $t("increase") }}</el-button>
   </el-row>
 </template>
   
   <script>
 export default {
   name: "Control",
+  methods: {
+    getAdd() {
+      this.$emit("userAdd");
+    },
+  },
 };
 </script>
   

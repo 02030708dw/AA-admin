@@ -101,6 +101,8 @@ export default {
     getroledel(Id) {
       getroleDel(Id)
         .then((res) => {
+          // 刷新数据
+          this.getroledata(this.pageNo);
           console.log(res);
         })
         .catch((err) => {
