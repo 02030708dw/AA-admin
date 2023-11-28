@@ -1,24 +1,19 @@
 <template>
-  <div>
-    <!-- 新增按钮 -->
-    <el-row>
-      <el-button type="primary" @click="getaddroute">新增</el-button>
-    </el-row>
-  </div>
+  <el-row style="padding-bottom: 10px">
+    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+  </el-row>
 </template>
-
-<script>
+          
+  <script>
 export default {
   name: "Control",
-
   methods: {
-    // 添加一级菜单
-    getaddroute() {
-      this.$emit("changeShow");
+    getAdd() {
+      this.$emit("AuthorityAdd");
     },
   },
 };
 </script>
-
-<style lang="scss" scoped>
+          
+          <style>
 </style>

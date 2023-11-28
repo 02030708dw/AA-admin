@@ -1,22 +1,73 @@
 <template>
   <el-card>
-    <!-- 顶部操作 -->
-    <Control></Control>
     <!-- 表格 -->
-    <Table></Table>
+    <Table
+      @transfer="getAgenttransfer"
+      :tableData="tableData"
+      @updateStatus="getAgentUdateStatus"
+    ></Table>
+    <Pagination :total="total" @PageChange="getAgentdata"></Pagination>
   </el-card>
 </template>
 
 <script>
 // 表格组件
 import Table from "./Table.vue";
-import Control from "./Control.vue";
+
+// 分页
+import Pagination from "@/components/Pagination/Pagination.vue";
+import {
+  AgentPage,
+  AgentTransfer,
+  AgentUpdateStatus,
+} from "@/api/account/agent";
 export default {
-  components: { Table, Control },
+  components: { Table, Pagination },
   data() {
     return {
+      // 总条数
+      total: 0,
+      // 页码
+      pageNo: 1,
       tableData: [],
     };
+  },
+  created() {
+    this.getAgentdata(1);
+  },
+  methods: {
+    // 获取分页数据
+    getAgentdata(index) {
+      // 记录当前页码
+      this.pageNo = index;
+      AgentPage({ pageNo: index, pageSize: 10 })
+        .then((res) => {
+          this.total = res.resultSet.total;
+          this.tableData = res.resultSet.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 改变状态
+    getAgentUdateStatus(data) {
+      console.log(data);
+      AgentUpdateStatus({
+        id: data.id,
+        operate: data.type,
+        status: data.status,
+      })
+        .then((res) => {
+          this.getAgentdata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 转移
+    getAgenttransfer(data) {
+      console.log(data);
+    },
   },
 };
 </script>

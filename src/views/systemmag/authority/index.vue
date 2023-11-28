@@ -1,52 +1,117 @@
 <template>
   <el-card>
-    <Control @changeShow="changeShow" />
-    <Table :select="select" @changeShow="changeSelect" />
-    <!-- 新增弹窗 -->
-    <DialogApprove :show="show" @cancel="getcancel" />
+    <Control @AuthorityAdd="getAuthorityAddShow"></Control>
+    <Table
+      :tableData="tableData"
+      @delete="getAuthorityDel"
+      @updateStatus="getAuthorityUdateStatus"
+      @eitor="getAuthorityEitorShow"
+    ></Table>
+    <Pagination :total="total" @PageChange="getAuthoritydata"></Pagination>
+    <AuthorityAdd ref="AuthorityAdd" @confirm="getAuthorityAdd"></AuthorityAdd>
+    <AuthorityEditor
+      ref="AuthorityEditor"
+      @confirm="getAuthorityEitor"
+    ></AuthorityEditor>
   </el-card>
 </template>
 
 <script>
-
-// 新增路由弹窗
-import DialogApprove from './DialogApprove.vue'
-import Control from './Control'
-import Table from './Table'
+// 表格
+import Table from "./Table.vue";
+// 顶部操作
+import Control from "./Control";
+// 分页组件
+import Pagination from "@/components/Pagination/Pagination.vue";
+// 添加
+import AuthorityAdd from "./AuthorityAdd.vue";
+// 编辑
+import AuthorityEditor from "./AuthorityEditor.vue";
+import {
+  getAuthorityPage,
+  getAuthorityAdd,
+  getAuthorityDel,
+  getAuthorityEdit,
+  getAuthorityUdateStatus,
+} from "@/api/systemmag/authority";
 export default {
-  components: {
-    DialogApprove,
-    Control,
-    Table
-  },
+  components: { Table, Control, Pagination, AuthorityAdd, AuthorityEditor },
   data() {
     return {
-      // 表格数据
+      // 总条数
+      total: 0,
+      // 页码
+      pageNo: 1,
       tableData: [],
-      // 新增弹窗状态
-      show: false,
-      showUpdate: false,
-      // 查询
-      select: true
-    }
+    };
   },
-
+  created() {
+    this.getAuthoritydata(1);
+  },
   methods: {
-    /*
-    *  修改数据值
-    */
-    changeShow() {
-      this.show = true
+    // 获取分页数据
+    getAuthoritydata(index = 1) {
+      // 记录当前页码
+      this.pageNo = index;
+      getAuthorityPage({ pageNo: index, pageSize: 10 })
+        .then((res) => {
+          this.total = res.resultSet.total;
+          this.tableData = res.resultSet.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    changeSelect(Boolean) {
-      this.select = Boolean
+    // 显示添加
+    getAuthorityAddShow() {
+      this.$refs.AuthorityAdd.getAddstatus();
     },
-    // 取消添加事件
-    getcancel() {
-      this.show = false
-    }
-  }
-}
+    // 添加
+    getAuthorityAdd(data) {
+      getAuthorityAdd(data)
+        .then((res) => {
+          this.getAuthoritydata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 显示编辑
+    getAuthorityEitorShow(data) {
+      this.$refs.AuthorityEditor.getAddstatus(data);
+    },
+    // 编辑
+    getAuthorityEitor(data) {
+      getAuthorityEdit(data)
+        .then((res) => {
+          this.getAuthoritydata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 删除
+    getAuthorityDel(id) {
+      getAuthorityDel(id)
+        .then((res) => {
+          this.getAuthoritydata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 修改状态
+    getAuthorityUdateStatus(data) {
+      getAuthorityUdateStatus({ id: data.id, status: data.status })
+        .then((res) => {
+          this.getAuthoritydata(this.pageNo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss">

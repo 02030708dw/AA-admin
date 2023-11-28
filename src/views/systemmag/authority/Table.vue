@@ -1,111 +1,104 @@
 <template>
   <el-card>
-    <!-- 表格 -->
-    <el-table :data="tableData" style="width: 100%" row-key="id">
-      <!-- 标题 -->
-      <el-table-column prop="name" label="名称" width="200" />
-      <!-- 状态 -->
-      <el-table-column label="状态" width="200">
+    <el-table
+      :data="tableData"
+      :border="true"
+      :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }"
+    >
+      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
+      <el-table-column
+        prop="authorityName"
+        :label="$t('PermissionName')"
+        width="250"
+      />
+      <el-table-column prop="id" :label="$t('PermissionID')" width="250" />
+      <el-table-column prop="code" :label="$t('Permissioncode')" width="200" />
+      <el-table-column
+        prop="parentId"
+        :label="$t('ParentnodeID')"
+        width="200"
+      />remark
+      <el-table-column prop="" :label="$t('Permissiontype')" width="200">
+        <template slot-scope="scope">
+          <span>{{ scope.row.type | AuthorityType }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="remark" :label="$t('Notes')" width="200" />
+
+      <el-table-column prop="" :label="$t('state')" width="150">
         <template slot-scope="scope">
           <div>
-            <el-switch v-model="scope.row.statu" active-color="#13ce66" />
+            <el-switch
+              @change="getupdateStatus($event, scope.row.id)"
+              v-model="scope.row.status"
+              active-color="#13ce66"
+              :active-value="1"
+              :inactive-value="0"
+            >
+            </el-switch>
           </div>
         </template>
       </el-table-column>
-      <!-- 操作 -->
-      <el-table-column label="操作" width="120">
+
+      <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <div style="width: 100%; display: flex; justify-content: space-around">
-            <!-- 添加 -->
-            <el-button
-              v-if="scope.row.children"
-              type="primary"
-              circle
-              icon="el-icon-plus"
-              style="font-size: 12px"
-              size="mini"
-              @click="getadditem(scope.row)"
-            />
-            <!-- 编辑 -->
-            <el-button
-              type="warning"
-              icon="el-icon-edit"
-              circle
-              style="font-size: 12px; margin-left: 0px"
-              size="mini"
-              @click="getedititem()"
-            />
-            <!-- 删除 -->
-            <el-popconfirm title="确定要删除此菜单吗？">
-              <el-button
-                slot="reference"
-                type="danger"
-                style="font-size: 12px"
-                size="mini"
-                icon="el-icon-delete"
-                circle
-              />
-            </el-popconfirm>
-          </div>
+          <el-button type="text" @click="geteroleEitor(scope.row)">{{
+            $t("edit")
+          }}</el-button>
+
+          <el-button
+            slot="reference"
+            type="text"
+            style="color: red"
+            @click="getroledel(scope.row.id)"
+            >{{ $t("delete") }}</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination layout="prev, pager, next" :total="100" />
   </el-card>
 </template>
-
-<script>
-import { getPower } from '@/api/power'
+    
+    <script>
 export default {
-  name: 'Table',
+  name: "Table",
   props: {
-    select: Boolean
-  },
-  data() {
-    return {
-      // 表格数据
-      tableData: []
-    }
-  },
-  created() {
-    if (this.select) {
-      this.getpowerData()
-    }
-  },
-  with: {
-    select: () => {
-      this.getpowerData()
-    }
+    tableData: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
   },
   methods: {
-    // 请求数据
-    getpowerData() {
-      getPower()
-        .then((res) => {
-          this.tableData = [...this.tableData, ...res.data]
-          console.log(this.tableData)
-          this.$emit('changeSelect', false)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    // 删除事件
+    getroledel(Id) {
+      this.$emit("delete", Id);
     },
-    // 添加二级菜单
-    getadditem(item) {
-      this.tableData.forEach((it, index) => {
-        if (it.id === item.id) {
-          console.log(index)
-        }
-      })
+    // 编辑事件
+    geteroleEitor(item) {
+      this.$emit("eitor", item);
     },
-    // 删除菜单
-    getdelitem(item) {},
-    // 编辑菜单
-    getedititem(item) {}
-  }
-}
+    // 状态修改
+    getupdateStatus(e, Id) {
+      this.$emit("updateStatus", { status: e, id: Id });
+    },
+  },
+  filters: {
+    AuthorityType(value) {
+      switch (value) {
+        case 1:
+          return "菜单";
+        case 2:
+          return "按钮";
+        case 3:
+          return "功能";
+      }
+    },
+  },
+};
 </script>
-
-<style lang="scss" scoped>
-
+    
+    <style>
 </style>
