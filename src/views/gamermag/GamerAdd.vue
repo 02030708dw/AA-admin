@@ -1,6 +1,9 @@
 <template>
-  <!-- 新增角色弹窗 -->
-  <el-dialog title="新增游戏商" :visible.sync="dialogVisible" width="50%">
+  <el-dialog
+    :title="$t('AddGameMerchant')"
+    :visible.sync="dialogVisible"
+    width="50%"
+  >
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -8,20 +11,26 @@
       label-width="150px"
       class="demo-ruleForm"
     >
-      <el-form-item label="游戏商名称" prop="name">
+      <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="投注信息接口地址" prop="betUrl">
+      <el-form-item
+        :label="$t('Bettinginformationinterfaceaddress')"
+        prop="betUrl"
+      >
         <el-input v-model="ruleForm.betUrl"></el-input>
       </el-form-item>
-      <el-form-item label="积分接口地址" prop="cashUrl">
+      <el-form-item :label="$t('Integralinterfaceaddress')" prop="cashUrl">
         <el-input v-model="ruleForm.cashUrl"></el-input>
       </el-form-item>
-      <el-form-item label="充值接口地址" prop="incomeUrl">
+      <el-form-item :label="$t('Rechargeinterfaceaddress')" prop="incomeUrl">
         <el-input v-model="ruleForm.incomeUrl"></el-input>
       </el-form-item>
-      <el-form-item label="游戏类型" prop="type">
-        <el-select v-model="ruleForm.type" placeholder="请选择游戏类型">
+      <el-form-item :label="$t('typesof')" prop="type">
+        <el-select
+          v-model="ruleForm.type"
+          :placeholder="$t('Pleaseselectagametype')"
+        >
           <el-option
             v-for="(item, index) in gamertype"
             :key="index"
@@ -30,7 +39,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="游戏商状态" prop="status">
+      <el-form-item :label="$t('state')" prop="status">
         <el-switch
           :active-value="1"
           :inactive-value="0"
@@ -39,8 +48,10 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="getAddstatus()">取 消</el-button>
-      <el-button type="primary" @click="getconfirm()">确 定</el-button>
+      <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
+      <el-button type="primary" @click="getconfirm()">
+        {{ $t("determine") }}</el-button
+      >
     </span>
   </el-dialog>
 </template>

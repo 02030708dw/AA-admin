@@ -1,6 +1,9 @@
 <template>
-  <!-- 新增角色弹窗 -->
-  <el-dialog title="新增公告类型" :visible.sync="dialogVisible" width="40%">
+  <el-dialog
+    :title="$t('AddAnnouncementtype')"
+    :visible.sync="dialogVisible"
+    width="40%"
+  >
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -8,11 +11,11 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <el-form-item label="公告类型" prop="name">
+      <el-form-item :label="$t('typesof')" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
 
-      <el-form-item label="公告状态" prop="status">
+      <el-form-item :label="$t('state')" prop="status">
         <el-switch
           :active-value="1"
           :inactive-value="0"
@@ -22,8 +25,10 @@
     </el-form>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="getAddstatus()">取 消</el-button>
-      <el-button type="primary" @click="getconfirm()">确 定</el-button>
+      <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
+      <el-button type="primary" @click="getconfirm()">{{
+        $t("determine")
+      }}</el-button>
     </span>
   </el-dialog>
 </template>

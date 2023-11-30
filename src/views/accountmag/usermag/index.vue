@@ -72,8 +72,13 @@ export default {
       userAdd(e)
         .then((res) => {
           this.getuserdata(this.pageNo);
+          this.$message({
+            message: "添加成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("添加失败!");
           console.log(err);
         });
     },
@@ -82,8 +87,13 @@ export default {
       userDel(id)
         .then((res) => {
           this.getuserdata(this.pageNo);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("删除失败!");
           console.log(err);
         });
     },
@@ -91,9 +101,14 @@ export default {
     getUserupdateStatus(e) {
       userUpdateStatus({ status: e.status, userId: e.id })
         .then((res) => {
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
           this.getuserdata(this.pageNo);
         })
         .catch((err) => {
+          this.$message.error("修改失败!");
           console.log(err);
         });
     },
@@ -110,9 +125,14 @@ export default {
         userName: data.userName,
       })
         .then((res) => {
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
           this.getuserdata(this.pageNo);
         })
         .catch((err) => {
+          this.$message.error("编辑失败!");
           console.log(err);
         });
     },

@@ -78,9 +78,14 @@ export default {
     getWithdrawalchannelsAdd(data) {
       WithdrawalchannelsAdd(data)
         .then((res) => {
+          this.$message({
+            message: "添加成功!",
+            type: "success",
+          });
           this.getWithdrawalchannelsdata(this.pageNo);
         })
         .catch((err) => {
+          this.$message.error("添加失败!");
           console.log(err);
         });
     },
@@ -92,8 +97,13 @@ export default {
       WithdrawalchannelsEdit(data)
         .then((res) => {
           this.getWithdrawalchannelsdata(this.pageNo);
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("编辑失败!");
           console.log(err);
         });
     },
@@ -102,8 +112,13 @@ export default {
       WithdrawalchannelsDel(id)
         .then((res) => {
           this.getWithdrawalchannelsdata(this.pageNo);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("删除失败!");
           console.log(err);
         });
     },
@@ -112,8 +127,13 @@ export default {
       WithdrawalchannelsUdateStatus({ id: data.id, status: data.status })
         .then((res) => {
           this.getWithdrawalchannelsdata(this.pageNo);
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("修改失败!");
           console.log(err);
         });
     },

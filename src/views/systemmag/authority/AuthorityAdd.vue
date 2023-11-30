@@ -93,7 +93,6 @@ export default {
   methods: {
     // 改变弹窗状态
     getAddstatus() {
-      this.dialogVisible = !this.dialogVisible;
       // 关闭时清空
       if (!this.dialogVisible) {
         this.ruleForm = {
@@ -105,6 +104,7 @@ export default {
           type: null,
         };
       }
+      this.dialogVisible = !this.dialogVisible;
     },
     // 确定添加事件
     getconfirm() {

@@ -1,6 +1,9 @@
 <template>
-  <!-- 新增角色弹窗 -->
-  <el-dialog title="新增公告" :visible.sync="dialogVisible" width="60%">
+  <el-dialog
+    :title="$t('EditAnnouncement')"
+    :visible.sync="dialogVisible"
+    width="60%"
+  >
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -9,11 +12,11 @@
       class="demo-ruleForm"
     >
       <!-- 标题 -->
-      <el-form-item label="公告标题" prop="title">
+      <el-form-item :label="$t('AnnouncementTitle')" prop="title">
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <!-- 内容 -->
-      <el-form-item label="公告内容" prop="content">
+      <el-form-item :label="$t('Announcementcontent')" prop="content">
         <Toolbar
           style="border: 1px solid #ccc; border-bottom: 0px"
           :editor="editor"
@@ -30,10 +33,10 @@
       </el-form-item>
 
       <!-- 公告类型 -->
-      <el-form-item label="公告类型" prop="noteTypeId">
+      <el-form-item :label="$t('typesof')" prop="noteTypeId">
         <el-select
           v-model="ruleForm.noteTypeId"
-          placeholder="请选择公告类型"
+          :placeholder="$t('Pleaseselecttheannouncementtype')"
           style="width: 30%"
         >
           <el-option
@@ -45,7 +48,7 @@
         </el-select>
       </el-form-item>
       <!-- 公告状态 -->
-      <el-form-item label="公告状态" prop="status">
+      <el-form-item :label="$t('state')" prop="status">
         <el-switch
           v-model="ruleForm.status"
           :active-value="1"
@@ -65,7 +68,7 @@
     
   <script>
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
-import { noticetypePage } from "@/api/message/noticetype";
+import { NoticeData } from "@/api/message/noticetype";
 export default {
   components: { Editor, Toolbar },
   data() {
@@ -109,12 +112,12 @@ export default {
     // 请求公告类型
     getnoticetypePage() {
       this.noticetype = [];
-      noticetypePage({ pageNo: 1, pageSize: 100 })
+      NoticeData()
         .then((res) => {
-          for (let i = 0; i < res.resultSet.data.length; i++) {
+          for (let i = 0; i < res.resultSet.length; i++) {
             this.noticetype.push({
-              id: res.resultSet.data[i].id,
-              name: res.resultSet.data[i].name,
+              id: res.resultSet[i].id,
+              name: res.resultSet[i].name,
             });
           }
         })

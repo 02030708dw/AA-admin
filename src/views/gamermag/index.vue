@@ -71,9 +71,14 @@ export default {
         .then((res) => {
           // 刷新数据
           this.getroledata(this.pageNo);
+          this.$message({
+            message: "添加成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("添加失败!");
         });
     },
     // 删除
@@ -82,9 +87,14 @@ export default {
         .then((res) => {
           // 刷新数据
           this.getroledata(this.pageNo);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("删除失败!");
         });
     },
     // 编辑事件
@@ -103,9 +113,14 @@ export default {
         .then((res) => {
           // 刷新数据
           this.getroledata(this.pageNo);
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("编辑失败!");
         });
     },
     // 状态修改
@@ -114,9 +129,14 @@ export default {
       gamerupdateStatus({ gamerId: data.id, status: data.status })
         .then((res) => {
           this.getroledata(this.pageNo);
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("修改失败!");
         });
     },
   },

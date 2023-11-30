@@ -46,6 +46,7 @@ export default {
   Updatetime: "更新时间",
   Updatedby: "更新人",
   notes: "备注",
+  EditAnnouncement: "编辑公告",
   operate: "操作",
   delete: "删除",
   edit: "编辑",
@@ -66,6 +67,8 @@ export default {
   Adduser: "添加用户",
   Edituser: "编辑用户",
   AnnouncementTitle: "公告标题",
+  Announcementcontent: "公告内容",
+  Newannouncement: "新增公告",
   PublishRevoke: "发布/撤销",
   Channelname: "渠道名称",
   Channeltype: "渠道类型",
@@ -114,5 +117,15 @@ export default {
   oldMemberId: "原始会员ID",
   targetMemberId: "目标会员ID",
   oldAgentId: "原始代理id",
-  targetAgentId: "目标代理id"
+  targetAgentId: "目标代理id",
+  Deletesuccessful: "删除成功!",
+  AddGameMerchant: "添加游戏商",
+  Pleaseselectagametype: "请选择游戏类型",
+  EditGameMerchant: "编辑游戏商",
+  AddAnnouncementtype: "添加公告类型",
+  EditAnnouncementType: "编辑公告类型",
+  Pleaseselecttheannouncementtype: "请选择公告类型",
+  publisher: "发布人:",
+  Revocationby: "撤销人:",
+  Pleaseentertheoperator: "请输入操作人"
 }

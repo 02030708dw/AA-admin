@@ -35,8 +35,10 @@
             style="color: #e6a23c"
             >{{ $t("edit") }}</el-button
           >
+
           <el-button
             @click="getdel(scope.row.id)"
+            slot="reference"
             type="text"
             style="color: red"
             >{{ $t("delete") }}</el-button
@@ -44,6 +46,33 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 状态修改弹窗 -->
+    <el-dialog
+      :title="$t('PublishRevoke')"
+      :visible.sync="dialogVisible"
+      width="30%"
+      @close="gethandelClose"
+    >
+      <el-row style="display: flex; align-items: center">
+        <el-col :span="4">{{
+          UdateStatusData.status ? $t("publisher") : $t("Revocationby")
+        }}</el-col>
+        <el-col :span="18"
+          ><el-input
+            :placeholder="$t('Pleaseentertheoperator')"
+            v-model="operator"
+          ></el-input
+        ></el-col>
+      </el-row>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">{{
+          $t("cancellation")
+        }}</el-button>
+        <el-button type="primary" @click="getupdateStatusok">{{
+          $t("determine")
+        }}</el-button>
+      </span>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -58,6 +87,16 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      dialogVisible: false,
+      UdateStatusData: {
+        status: "",
+        id: "",
+      },
+      operator: "",
+    };
+  },
   methods: {
     // 编辑
     getEitor(item) {
@@ -65,15 +104,46 @@ export default {
     },
     // 删除
     getdel(id) {
-      this.$emit("NoticeDel", id);
+      this.$confirm("确定删除此公告吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$emit("NoticeDel", id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
     //状态修改
     getupdateStatus(status, id) {
-      this.$emit("NoticeUpdateStatus", { status: status, id: id });
+      this.dialogVisible = !this.dialogVisible;
+      this.UdateStatusData.status = status;
+      this.UdateStatusData.id = id;
+    },
+    getupdateStatusok() {
+      if (!this.operator) {
+        return this.$message.error("请输入操作人!");
+      }
+      this.$emit("NoticeUpdateStatus", {
+        status: this.UdateStatusData.status,
+        id: this.UdateStatusData.id,
+        publisher: this.UdateStatusData.status ? this.operator : "",
+        canceler: this.UdateStatusData.status ? "" : this.operator,
+      });
+      this.dialogVisible = !this.dialogVisible;
+    },
+    gethandelClose() {
+      this.operator = "";
+      this.$emit("UdateStatusClose");
     },
   },
 };
-</script>
+</script>2509960727Zmy
 
 <style>
 </style>

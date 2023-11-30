@@ -98,7 +98,7 @@ export default {
       item: {
         status: null,
         id: "",
-        type: 1,
+        type: null,
       },
     };
   },
@@ -114,7 +114,7 @@ export default {
       this.item = {
         status: null,
         id: "",
-        type: 1,
+        type: null,
       };
       this.dialogVisible = false;
     },
@@ -130,7 +130,7 @@ export default {
       this.item = {
         status: null,
         id: "",
-        type: 1,
+        type: null,
       };
       this.dialogVisible = false;
     },

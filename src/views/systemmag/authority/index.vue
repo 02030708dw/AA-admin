@@ -70,9 +70,14 @@ export default {
     getAuthorityAdd(data) {
       getAuthorityAdd(data)
         .then((res) => {
+          this.$message({
+            message: "添加成功!",
+            type: "success",
+          });
           this.getAuthoritydata(this.pageNo);
         })
         .catch((err) => {
+          this.$message.error("添加失败!");
           console.log(err);
         });
     },
@@ -84,9 +89,14 @@ export default {
     getAuthorityEitor(data) {
       getAuthorityEdit(data)
         .then((res) => {
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
           this.getAuthoritydata(this.pageNo);
         })
         .catch((err) => {
+          this.$message.error("编辑失败!");
           console.log(err);
         });
     },
@@ -95,8 +105,13 @@ export default {
       getAuthorityDel(id)
         .then((res) => {
           this.getAuthoritydata(this.pageNo);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("删除失败!");
           console.log(err);
         });
     },
@@ -105,8 +120,13 @@ export default {
       getAuthorityUdateStatus({ id: data.id, status: data.status })
         .then((res) => {
           this.getAuthoritydata(this.pageNo);
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("修改失败!");
           console.log(err);
         });
     },

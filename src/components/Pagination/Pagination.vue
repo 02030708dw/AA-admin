@@ -37,14 +37,6 @@ export default {
     handlePageChange(e) {
       this.$emit("PageChange", e);
     },
-    // // 上一页
-    // handelPrecClick(e) {
-    //   console.log(e);
-    // },
-    // // 下一页
-    // handelNextClick(e) {
-    //   console.log(e);
-    // },
   },
 };
 </script>

@@ -59,8 +59,14 @@ export default {
       })
         .then((res) => {
           this.getAgentdata(this.pageNo);
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("修改失败!");
+
           console.log(err);
         });
     },

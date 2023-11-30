@@ -59,7 +59,20 @@ export default {
   methods: {
     // 删除
     getdel(id) {
-      this.$emit("gamedel", id);
+      this.$confirm("确定删除此款游戏?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$emit("gamedel", id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
     // 编辑
     getEitor(item) {

@@ -70,9 +70,14 @@ export default {
       gameAdd(e)
         .then((res) => {
           this.getgamedata(this.pageNo);
+          this.$message({
+            message: "添加成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("添加失败!");
         });
     },
     // 删除
@@ -80,8 +85,13 @@ export default {
       gameDel(e)
         .then((res) => {
           this.getgamedata(this.pageNo);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("删除失败!");
           console.log(err);
         });
     },
@@ -101,8 +111,13 @@ export default {
       })
         .then((res) => {
           this.getgamedata(this.pageNo);
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("编辑失败!");
           console.log(err);
         });
     },
@@ -111,9 +126,14 @@ export default {
       gameupdateStatus({ status: e.status, gameId: e.id })
         .then((res) => {
           this.getgamedata(this.pageNo);
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("修改失败!");
         });
     },
   },

@@ -63,8 +63,13 @@ export default {
       agentTransfer(data)
         .then((res) => {
           this.getMemberPage(this.pageNo);
+          this.$message({
+            message: "代理转移成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("代理转移失败!");
           console.log(err);
         });
     },
@@ -72,8 +77,13 @@ export default {
       MemberTransfer(data)
         .then((res) => {
           this.getMemberPage(this.pageNo);
+          this.$message({
+            message: "会员转移成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("会员转移失败!");
           console.log(err);
         });
     },
@@ -92,9 +102,14 @@ export default {
     getMemberUdateStatus(data) {
       MemberUpdateStatus({ memberId: data.id, status: data.status })
         .then((res) => {
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
           this.getMemberPage(this.pageNo);
         })
         .catch((err) => {
+          this.$message.error("修改失败!");
           console.log(err);
         });
     },

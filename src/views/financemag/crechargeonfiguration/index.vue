@@ -82,9 +82,14 @@ export default {
       RechargeAdd(data)
         .then((res) => {
           this.getRechargedata(this.pageNo);
+          this.$message({
+            message: "添加成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("添加失败!");
         });
     },
     // 查询
@@ -103,9 +108,14 @@ export default {
       RechargeDel(id)
         .then((res) => {
           this.getRechargedata(this.pageNo);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("删除失败!");
         });
     },
     // 显示编辑
@@ -128,9 +138,14 @@ export default {
       })
         .then((res) => {
           this.getRechargedata(this.pageNo);
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("编辑失败!");
         });
     },
     // 修改状态
@@ -138,9 +153,14 @@ export default {
       RechargeUdateStatus({ id: data.id, status: data.status })
         .then((res) => {
           this.getRechargedata(this.pageNo);
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("修改失败!");
         });
     },
   },

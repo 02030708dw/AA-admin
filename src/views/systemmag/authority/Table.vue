@@ -74,7 +74,20 @@ export default {
   methods: {
     // 删除事件
     getroledel(Id) {
-      this.$emit("delete", Id);
+      this.$confirm("确定删除此条权限?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$emit("delete", Id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
     // 编辑事件
     geteroleEitor(item) {

@@ -19,9 +19,8 @@ export function addnoticetype(data) {
 // 删除接口
 export function delnoticetype(Id) {
     return request({
-        url: '/msg/noteType/del',
+        url: `/msg/noteType/del/${Id}`,
         method: 'get',
-        params: { Id }
     })
 }
 // 修改接口
@@ -38,6 +37,14 @@ export function updateStatus(data) {
         url: '/msg/noteType/updateStatus',
         method: 'post',
         data
+    })
+}
+
+// 公告类型接口
+export function NoticeData() {
+    return request({
+        url: '/msg/noteType/typeList',
+        method: 'post',
     })
 }
 

@@ -3,6 +3,7 @@
     <Control @NoticeAdd="getNoticeAddShow"></Control>
     <!-- 表格 -->
     <Table
+      @UdateStatusClose="getnoticedata"
       :tableData="tableData"
       @NoticeDel="getNoticeDel"
       @NoticeUpdateStatus="getNoticeUpdateStatus"
@@ -44,7 +45,7 @@ export default {
   },
   methods: {
     // 请求分页数据
-    getnoticedata(index) {
+    getnoticedata(index = this.pageNo) {
       this.pageNo = index;
       noticePage({ pageNo: index, pageSize: 10 })
         .then((res) => {
@@ -63,19 +64,29 @@ export default {
     getNoticeAdd(e) {
       addnotice(e)
         .then((res) => {
-          this.getnoticedata();
+          this.getnoticedata(this.pageNo);
+          this.$message({
+            message: "添加成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
+          this.$message.error("添加失败!");
         });
     },
     // 删除
     getNoticeDel(id) {
       delnotice(id)
         .then((res) => {
-          this.getnoticedata();
+          this.getnoticedata(this.pageNo);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("删除失败!");
           console.log(err);
         });
     },
@@ -92,19 +103,42 @@ export default {
         title: data.title,
       })
         .then((res) => {
-          this.getnoticedata();
+          this.getnoticedata(this.pageNo);
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("编辑失败!");
           console.log(err);
         });
     },
     // 状态修改
-    getNoticeUpdateStatus(status, id) {
-      console.log(status, id);
+    getNoticeUpdateStatus(data) {
+      console.log(data);
+      // return;
+      updateStatus({
+        status: data.status,
+        id: data.id,
+        canceler: data.canceler,
+        publisher: data.publisher,
+      })
+        .then((res) => {
+          // this.getnoticedata(this.pageNo);
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
+        })
+        .catch((err) => {
+          this.$message.error("修改失败!");
+          console.log(err);
+        });
     },
   },
   created() {
-    this.getnoticedata();
+    this.getnoticedata(1);
   },
 };
 </script>

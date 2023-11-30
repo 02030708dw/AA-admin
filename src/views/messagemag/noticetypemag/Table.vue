@@ -6,12 +6,13 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" label="序号" width="200" />
-      <el-table-column prop="name" label="公告类型" width="350" />
-      <el-table-column prop="" label="状态" width="300">
+      <el-table-column type="index" :label="$t('SerialNumber')" width="200" />
+      <el-table-column prop="name" :label="$t('typesof')" width="350" />
+      <el-table-column prop="" :label="$t('state')" width="300">
         <template slot-scope="scope">
           <div>
             <el-switch
+              @change="getUdateStatus($event, scope.row.id)"
               :active-value="1"
               :inactive-value="0"
               v-model="scope.row.status"
@@ -21,15 +22,20 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" label="操作" width="350">
+      <el-table-column prop="" :label="$t('operate')" width="350">
         <template slot-scope="scope">
           <el-button
             type="text"
             style="color: #e6a23c"
             @click="getEditor(scope.row)"
-            >修改</el-button
+            >{{ $t("edit") }}</el-button
           >
-          <el-button type="text" style="color: red">删除</el-button>
+          <el-button
+            type="text"
+            style="color: red"
+            @click="getEdl(scope.row.id)"
+            >{{ $t("delete") }}</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -48,9 +54,30 @@ export default {
     },
   },
   methods: {
-    // 修改公告类型
+    // 编辑
     getEditor(item) {
       this.$emit("EditorShow", item);
+    },
+    // 删除
+    getEdl(Id) {
+      this.$confirm("确定删除此公告类型吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$emit("Edl", Id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+    // 修改状态
+    getUdateStatus(e, id) {
+      this.$emit("UdateStatus", { status: e, id: id });
     },
   },
 };

@@ -78,8 +78,13 @@ export default {
       channelUdateStatus({ channelId: data.id, status: data.status })
         .then((res) => {
           this.getchanneldata(this.pageNo);
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("修改失败!");
           console.log(err);
         });
     },
@@ -88,8 +93,13 @@ export default {
       channelDel(id)
         .then((res) => {
           this.getchanneldata(this.pageNo);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("删除失败!");
           console.log(err);
         });
     },
@@ -107,8 +117,13 @@ export default {
       })
         .then((res) => {
           this.getchanneldata(this.pageNo);
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("编辑失败!");
           console.log(err);
         });
     },
@@ -121,8 +136,13 @@ export default {
       channelAdd(data)
         .then((res) => {
           this.getchanneldata(this.pageNo);
+          this.$message({
+            message: "添加成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("添加失败!");
           console.log(err);
         });
     },

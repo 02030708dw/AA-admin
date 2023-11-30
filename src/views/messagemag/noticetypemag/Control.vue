@@ -1,6 +1,8 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button type="primary" @click="getrolenoticetypeAdd()">新增</el-button>
+    <el-button type="primary" @click="getrolenoticetypeAdd()">{{
+      $t("increase")
+    }}</el-button>
   </el-row>
 </template>
         

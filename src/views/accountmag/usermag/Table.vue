@@ -57,7 +57,20 @@ export default {
   },
   methods: {
     getdel(id) {
-      this.$emit("userdel", id);
+      this.$confirm("确定删除此用户?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$emit("userdel", id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
     getupdateStatus(status, Id) {
       this.$emit("updateStatus", { status: status, id: Id });

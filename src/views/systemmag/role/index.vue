@@ -72,13 +72,17 @@ export default {
     },
     // 更新角色状态
     getupdateStatus(e) {
-      console.log(e);
       getroleupdateStatus({ id: e.Id, status: e.status })
         .then((res) => {
+          this.$message({
+            message: "修改成功!",
+            type: "success",
+          });
           // 刷新数据
           this.getroledata(this.pageNo);
         })
         .catch((err) => {
+          this.$message.error("修改失败!");
           console.log(err);
         });
     },
@@ -103,9 +107,13 @@ export default {
         .then((res) => {
           // 刷新数据
           this.getroledata(this.pageNo);
-          console.log(res);
+          this.$message({
+            message: "删除成功!",
+            type: "success",
+          });
         })
         .catch((err) => {
+          this.$message.error("删除失败!");
           console.log(err);
         });
     },
@@ -113,11 +121,15 @@ export default {
     getroleEditor({ code, id, remark, roleName, status }) {
       getroleEdit({ code, id, remark, roleName, status })
         .then((res) => {
-          console.log(res);
+          this.$message({
+            message: "编辑成功!",
+            type: "success",
+          });
           // 刷新数据
           this.getroledata(this.pageNo);
         })
         .catch((err) => {
+          this.$message.error("编辑失败!");
           console.log(err);
         });
     },

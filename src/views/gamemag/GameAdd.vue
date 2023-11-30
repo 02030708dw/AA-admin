@@ -1,5 +1,4 @@
 <template>
-  <!-- 新增角色弹窗 -->
   <el-dialog :title="$t('Addgame')" :visible.sync="dialogVisible" width="50%">
     <el-form
       :model="ruleForm"
