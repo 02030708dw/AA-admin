@@ -41,7 +41,7 @@ module.exports = {
         target: 'http://192.168.124.16:8000',
         changeOrigin: true
       }
-    },
+    }
     // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
