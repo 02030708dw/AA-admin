@@ -8,11 +8,10 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
-    url: '/sys/admin/page',
-    method: 'get',
-    params: { token }
+    url: '/sys/admin/info',
+    method: 'get'
   })
 }
 export function logout() {

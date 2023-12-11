@@ -33,22 +33,22 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ userName: username.trim(), password: password }).then(response => {
-        const { resCode, resDesc, resultSet } = response
-        console.log("登录", response);
+        const { resultSet } = response
+        console.log('登录', resultSet)
         commit('SET_TOKEN', resultSet)
-        setToken(resultSet.accessToken)
+        setToken(resultSet)
         resolve()
       }).catch(error => {
-        console.log("登录失败", error);
+        console.log('登录失败', error)
         reject(error)
       })
     })
   },
 
   // 获取用户信息
-  getInfo({ commit, state }) {
+  getInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo().then(response => {
         const { data } = response
 
         if (!data) {
