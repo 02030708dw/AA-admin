@@ -17,7 +17,7 @@ service.interceptors.request.use(
     // do something before request is sent
 
     if (getToken()) {
-      // 设置请求头
+      // 设置请求头 q
       config.headers[getTokenHeader()] = getTokenPrefix() + getToken()
       config.headers['language'] = getLange()
     }
