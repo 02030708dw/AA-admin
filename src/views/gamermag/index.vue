@@ -1,40 +1,40 @@
 <template>
   <el-card>
-    <Control @gamerAdd="getGamerAddshow"></Control>
+    <Control @gamerAdd="getGamerAddshow" @query="getquery" @resetting="getresetting" />
     <Table
-      :tableData="tableData"
+      :table-data="tableData"
       @eitor="getGamerEitorShow"
       @delete="getGamerDelete"
       @updateStatus="getGamerupdateStatus"
-    ></Table>
-    <Pagination @PageChange="getroledata" :total="total"></Pagination>
-    <GamerAdd ref="GamerAdd" @confirm="getGamerAdd"></GamerAdd>
-    <GamerEitor ref="GamerEitor" @confirm="getGamerEitor"></GamerEitor>
+    />
+    <Pagination :total="total" @PageChange="getroledata" />
+    <GamerAdd ref="GamerAdd" @confirm="getGamerAdd" />
+    <GamerEitor ref="GamerEitor" @confirm="getGamerEitor" />
   </el-card>
 </template>
 
 <script>
 // 表格
-import Table from "./Table.vue";
+import Table from './Table.vue'
 // 顶部操作
-import Control from "./Control";
-import Pagination from "@/components/Pagination/Pagination.vue";
-import GamerAdd from "./GamerAdd.vue";
-import GamerEitor from "./GamerEitor.vue";
+import Control from './Control'
+import Pagination from '@/components/Pagination/Pagination.vue'
+import GamerAdd from './GamerAdd.vue'
+import GamerEitor from './GamerEitor.vue'
 import {
   gamerPage,
   gamerAdd,
   gamerDel,
   gamerEdit,
-  gamerupdateStatus,
-} from "@/api/gamer/gamer";
+  gamerupdateStatus
+} from '@/api/gamer/gamer'
 export default {
   components: {
     Table,
     Control,
     Pagination,
     GamerAdd,
-    GamerEitor,
+    GamerEitor
   },
   data() {
     return {
@@ -43,63 +43,77 @@ export default {
       // 页码
       pageNo: 1,
       tableData: [],
-    };
+      name: '',
+      status: null
+    }
   },
   created() {
-    this.getroledata(1);
+    this.getroledata(1)
   },
   methods: {
     // 请求分页数据
     getroledata(index) {
       // 记录当前页码
-      this.pageNo = index;
-      gamerPage({ pageNo: index, pageSize: 10 })
+      this.pageNo = index
+      gamerPage({ pageNo: index, pageSize: 10, name: this.name, status: this.status })
         .then((res) => {
-          this.total = res.resultSet.total;
-          this.tableData = res.resultSet.data;
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
+    },
+    // 条件查询
+    getquery(e) {
+      this.name = e.name
+      this.status = e.status
+      this.getroledata(1)
+    },
+    // 重置
+    getresetting() {
+      this.name = ''
+      this.status = null
+      this.getroledata(1)
     },
     getGamerAddshow() {
-      this.$refs.GamerAdd.getAddstatus();
+      this.$refs.GamerAdd.getAddstatus()
     },
     // 添加
     getGamerAdd(e) {
       gamerAdd(e)
         .then((res) => {
           // 刷新数据
-          this.getroledata(this.pageNo);
+          this.getroledata(this.pageNo)
           this.$message({
-            message: "添加成功!",
-            type: "success",
-          });
+            message: '添加成功!',
+            type: 'success'
+          })
         })
         .catch((err) => {
-          console.log(err);
-          this.$message.error("添加失败!");
-        });
+          console.log(err)
+          this.$message.error('添加失败!')
+        })
     },
     // 删除
     getGamerDelete(id) {
       gamerDel({ id })
         .then((res) => {
           // 刷新数据
-          this.getroledata(this.pageNo);
+          this.getroledata(this.pageNo)
           this.$message({
-            message: "删除成功!",
-            type: "success",
-          });
+            message: '删除成功!',
+            type: 'success'
+          })
         })
         .catch((err) => {
-          console.log(err);
-          this.$message.error("删除失败!");
-        });
+          console.log(err)
+          this.$message.error('删除失败!')
+        })
     },
     // 编辑事件
     getGamerEitorShow(e) {
-      this.$refs.GamerEitor.getAddstatus(e);
+      this.$refs.GamerEitor.getAddstatus(e)
     },
     getGamerEitor(item) {
       gamerEdit({
@@ -108,39 +122,39 @@ export default {
         name: item.name,
         incomeUrl: item.incomeUrl,
         cashUrl: item.cashUrl,
-        betUrl: item.betUrl,
+        betUrl: item.betUrl
       })
         .then((res) => {
           // 刷新数据
-          this.getroledata(this.pageNo);
+          this.getroledata(this.pageNo)
           this.$message({
-            message: "编辑成功!",
-            type: "success",
-          });
+            message: '编辑成功!',
+            type: 'success'
+          })
         })
         .catch((err) => {
-          console.log(err);
-          this.$message.error("编辑失败!");
-        });
+          console.log(err)
+          this.$message.error('编辑失败!')
+        })
     },
     // 状态修改
     getGamerupdateStatus(data) {
-      console.log(data);
+      console.log(data)
       gamerupdateStatus({ gamerId: data.id, status: data.status })
         .then((res) => {
-          this.getroledata(this.pageNo);
+          this.getroledata(this.pageNo)
           this.$message({
-            message: "修改成功!",
-            type: "success",
-          });
+            message: '修改成功!',
+            type: 'success'
+          })
         })
         .catch((err) => {
-          console.log(err);
-          this.$message.error("修改失败!");
-        });
-    },
-  },
-};
+          console.log(err)
+          this.$message.error('修改失败!')
+        })
+    }
+  }
+}
 </script>
 <style>
 </style>

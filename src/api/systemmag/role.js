@@ -1,49 +1,41 @@
 // 角色模块
-import request from "@/utils/request"
-//获取角色分页
-export function getrolePage({ pageNo, pageSize }) {
-    return request({
-        url: '/sys/role/page',
-        method: 'get',
-        params: { pageNo, pageSize }
-    })
+import request from '@/utils/request'
+// 获取角色分页
+export function getrolePage({ pageNo, pageSize, code, roleName, status }) {
+  return request({
+    url: '/sys/role/page',
+    method: 'get',
+    params: { pageNo, pageSize, code, roleName, status }
+  })
 }
-//角色新增
+// 角色新增
 export function getroleAdd(data) {
-    return request({
-        url: '/sys/role/add',
-        method: 'post',
-        data
-    })
+  return request({
+    url: '/sys/role/add',
+    method: 'post',
+    data
+  })
 }
 // 角色删除
 export function getroleDel(id) {
-    return request({
-        url: `/sys/role/del/${id}`,
-        method: 'get',
-
-    })
+  return request({
+    url: `/sys/role/del/${id}`,
+    method: 'get'
+  })
 }
-//角色编辑
+// 角色编辑
 export function getroleEdit(data) {
-    return request({
-        url: '/sys/role/edit',
-        method: 'post',
-        data
-    })
+  return request({
+    url: '/sys/role/edit',
+    method: 'post',
+    data
+  })
 }
-//角色状态修改
+// 角色状态修改
 export function getroleupdateStatus(data) {
-    return request({
-        url: '/sys/role/updateStatus',
-        method: 'post',
-        data
-    })
+  return request({
+    url: '/sys/role/updateStatus',
+    method: 'post',
+    data
+  })
 }
-
-
-
-
-
-
-

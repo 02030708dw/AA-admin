@@ -1,5 +1,6 @@
-import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { login, logout } from '@/api/user'
+import { UserInfo } from '@/api/account/user'
+import { setToken, removeToken } from '@/utils/auth'
 import { resetRouter, newRouter, asyncRoutes } from '@/router'
 
 const getDefaultState = () => {
@@ -46,24 +47,24 @@ const actions = {
   },
 
   // 获取用户信息
-  getInfo({ commit }) {
-    return new Promise((resolve, reject) => {
-      getInfo().then(response => {
-        const { data } = response
+  async getInfo({ commit }) {
+    return await new Promise((resolve, reject) => {
+      UserInfo().then(response => {
+        // const { data } = response
 
-        if (!data) {
-          return reject('Verification failed, please Login again.')
-        }
+        // if (!data) {
+        //   return reject('Verification failed, please Login again.')
+        // }
 
-        const { userObj, avatar } = data
+        // const { userObj, avatar } = data
         // 权限处理
-        if (userObj.roles === 'admin') {
-          newRouter(asyncRoutes)
-        }
+        // if (userObj.roles === 'admin') {
+        //   newRouter(asyncRoutes)
+        // }
 
-        commit('SET_USEROBJ', userObj)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
+        // commit('SET_USEROBJ', userObj)
+        // commit('SET_AVATAR', avatar)
+        resolve(response)
       }).catch(error => {
         reject(error)
       })

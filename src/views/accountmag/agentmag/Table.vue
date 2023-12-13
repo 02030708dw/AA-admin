@@ -7,29 +7,29 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
-      <el-table-column prop="userName" :label="$t('username')" width="280" />
-      <el-table-column prop="password" :label="$t('password')" width="280" />
-      <el-table-column prop="realName" :label="$t('name')" width="280" />
-      <el-table-column prop="telPhone" :label="$t('phone')" width="280" />
+      <el-table-column prop="userName" :label="$t('username')" width="" />
+      <el-table-column prop="password" :label="$t('password')" width="" />
+      <el-table-column prop="realName" :label="$t('name')" width="" />
+      <el-table-column prop="telPhone" :label="$t('phone')" width="" />
 
       <el-table-column
         prop="assiRate"
         :label="$t('Matchablerebate')"
-        width="280"
+        width=""
       />
-      <el-table-column prop="parentId" :label="$t('parentId')" width="280" />
+      <el-table-column prop="parentId" :label="$t('parentId')" width="" />
       <el-table-column
         prop="parentRate"
         :label="$t('Superiorrebate')"
-        width="280"
+        width=""
       />
       <el-table-column
         prop="memberPlugUrl"
         :label="$t('Memberregistrationpromotionaddress')"
-        width="280"
+        width=""
       />
 
-      <el-table-column prop="" :label="$t('state')" width="150">
+      <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
             <el-switch
@@ -44,7 +44,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="" :label="$t('operate')" width="200">
+      <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" @click="geteroleEitor(scope.row)">{{
             $t("Transfersubordinateagents")

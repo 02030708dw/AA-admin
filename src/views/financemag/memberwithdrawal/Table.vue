@@ -33,94 +33,131 @@
       <el-table-column
         prop=""
         :label="$t('Reviewstatus')"
-        aduitTime
+        aduit-time
         width="200"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.aduitStatus | FaduitStatus }}</span>
-        </template></el-table-column
-      >
+        </template></el-table-column>
       <el-table-column prop="aduitTime" :label="$t('Audittime')" width="200" />
       <el-table-column
         prop="rejection"
         :label="$t('Reasonforrejection')"
         width="200"
       />
-      <!-- <el-table-column prop="" :label="$t('state')" width="150">
+      <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <div>
-            <el-switch
-              @change="getupdateStatus($event, scope.row.id)"
-              v-model="scope.row.status"
-              active-color="#13ce66"
-              :active-value="1"
-              :inactive-value="0"
-            >
-            </el-switch>
-          </div>
+          <el-button type="text" @click="getaudit(1)"> {{ $t("passthrough") }} </el-button>
+          <el-button type="text" style="color: red;" @click="getaudit(2)"> {{ $t("reject") }} </el-button>
+          <el-button type="text" style="color: #a4a4a4;" @click="getaudit(3)"> {{ $t("cancellation") }} </el-button>
         </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column prop="" :label="$t('operate')" width="200">
-        <template slot-scope="scope">
-          <el-button type="text" @click="geteroleEitor(scope.row)">{{
-            $t("edit")
-          }}</el-button>
-
-          <el-button
-            slot="reference"
-            type="text"
-            style="color: red"
-            @click="getroledel(scope.row.id)"
-            >{{ $t("delete") }}</el-button
-          >
-        </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
+    <!-- 驳回原因弹窗 -->
+    <el-dialog
+      title="驳回原因"
+      :visible.sync="dialogVisible"
+      width="30%"
+    >
+      <span>请输入驳回原因</span>
+      <el-input
+        v-model="reason"
+        style="margin-top: 10px;"
+        type="textarea"
+        :rows="4"
+        :placeholder="$t('Pleaseenterthereasonforrejection')"
+      />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="getaudit(2)">跳 过</el-button>
+        <el-button type="primary" @click="getaudit(2)">确 定</el-button>
+      </span>
+    </el-dialog>
   </el-card>
 </template>
-    
-    <script>
+
+<script>
+import { Audit } from '@/api/finance/memberwithdrawal'
 export default {
-  name: "Table",
-  props: {
-    tableData: {
-      type: Array,
-      default: () => {
-        return [];
-      },
-    },
-  },
-  methods: {
-    // 删除事件
-    getroledel(Id) {
-      this.$emit("delete", Id);
-    },
-    // 编辑事件
-    geteroleEitor(item) {
-      this.$emit("eitor", item);
-    },
-    // 状态修改
-    getupdateStatus(e, Id) {
-      this.$emit("updateStatus", { status: e, id: Id });
-    },
-  },
+  name: 'Table',
   filters: {
     FaduitStatus(value) {
       switch (value) {
         case 0:
-          return "待审核";
+          return '待审核'
         case 1:
-          return "待审核";
+          return '审核通过'
         case 2:
-          return "驳回";
+          return '驳回'
         case 3:
-          return "已取消";
+          return '已取消'
       }
-    },
+    }
   },
-};
+  props: {
+    tableData: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      reason: '' // 驳回原因
+    }
+  },
+  methods: {
+    // 删除事件
+    getroledel(Id) {
+      this.$emit('delete', Id)
+    },
+    // 编辑事件
+    geteroleEitor(item) {
+      this.$emit('eitor', item)
+    },
+    // 状态修改
+    getupdateStatus(e, Id) {
+      this.$emit('updateStatus', { status: e, id: Id })
+    },
+    getaudit(index) {
+      switch (index) {
+        // 通过
+        case 1:
+          Audit({ auditStatus: index, reason: '', recordId: '' }).then(res => {
+            console.log(res)
+          }).catch(err => {
+            console.log(err)
+          })
+          break
+        // 驳回
+        case 2:
+          if (this.dialogVisible) {
+            Audit({ auditStatus: index, reason: this.reason, recordId: '' }).then(res => {
+              console.log(res)
+            }).catch(err => {
+              console.log(err)
+            })
+            this.dialogVisible = false
+            this.reason = ''
+          } else {
+            this.dialogVisible = true
+          }
+          // 弹窗驳回原因
+          break
+        // 取消
+        case 3:
+          Audit({ auditStatus: index, reason: '', recordId: '' }).then(res => {
+            console.log(res)
+          }).catch(err => {
+            console.log(err)
+          })
+          break
+      }
+    }
+  }
+}
 </script>
-    
+
     <style>
 </style>

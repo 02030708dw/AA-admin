@@ -7,19 +7,18 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="100" />
-      <el-table-column prop="userName" :label="$t('name')" width="280" />
-      <el-table-column prop="telPhone" :label="$t('phone')" width="300" />
-      <el-table-column prop="" :label="$t('state')" width="240">
+      <el-table-column prop="userName" :label="$t('name')" width="" />
+      <el-table-column prop="telPhone" :label="$t('phone')" width="" />
+      <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
             <el-switch
               v-model="scope.row.status"
               active-color="#13ce66"
-              @change="getupdateStatus($event, scope.row.id)"
               :active-value="1"
               :inactive-value="0"
-            >
-            </el-switch>
+              @change="getupdateStatus($event, scope.row.id)"
+            />
           </div>
         </template>
       </el-table-column>
@@ -27,17 +26,15 @@
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
           <el-button
-            @click="getEitor(scope.row)"
             type="text"
             style="color: #e6a23c"
-            >{{ $t("edit") }}</el-button
-          >
+            @click="getEitor(scope.row)"
+          >{{ $t("edit") }}</el-button>
           <el-button
-            @click="getdel(scope.row.id)"
             type="text"
             style="color: red"
-            >{{ $t("delete") }}</el-button
-          >
+            @click="getdel(scope.row.id)"
+          >{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -46,40 +43,40 @@
 
 <script>
 export default {
-  name: "Table",
+  name: 'Table',
   props: {
     tableData: {
       type: Array,
       default: () => {
-        return [];
-      },
-    },
+        return []
+      }
+    }
   },
   methods: {
     getdel(id) {
-      this.$confirm("确定删除此用户?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('确定删除此用户?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(() => {
-          this.$emit("userdel", id);
+          this.$emit('userdel', id)
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
     getupdateStatus(status, Id) {
-      this.$emit("updateStatus", { status: status, id: Id });
+      this.$emit('updateStatus', { status: status, id: Id })
     },
     getEitor(item) {
-      this.$emit("usereitor", item);
-    },
-  },
-};
+      this.$emit('usereitor', item)
+    }
+  }
+}
 </script>
 
 <style>

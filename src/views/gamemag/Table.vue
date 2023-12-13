@@ -7,22 +7,39 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
-      <el-table-column prop="name" :label="$t('name')" width="200" />
-      <el-table-column prop="threeId" :label="$t('ThirdpartyID')" width="200" />
+      <el-table-column prop="name" :label="$t('name')" width="" />
+      <el-table-column prop="threeId" :label="$t('ThirdpartyID')" width="" />
 
-      <el-table-column prop="type" :label="$t('typesof')" width="200" />
-
-      <el-table-column prop="" :label="$t('state')" width="150">
+      <el-table-column prop="" :label="$t('typesof')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch
+            {{ scope.row.type | TypeF }}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="" :label="$t('state')" width="">
+        <template slot-scope="scope">
+          <div>
+            <el-select
+              v-model="scope.row.status"
+              :placeholder="$t('state')"
+              style="width: 150px;margin-left: 10px"
               @change="getupdateStatus($event, scope.row.id)"
+            >
+              <el-option
+                v-for="(item, index) in statusType"
+                :key="index"
+                :value="item.index"
+                :label="item.title"
+              />
+            </el-select>
+            <!-- <el-switch
               v-model="scope.row.status"
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-            >
-            </el-switch>
+              @change="getupdateStatus($event, scope.row.id)"
+            /> -->
           </div>
         </template>
       </el-table-column>
@@ -37,8 +54,7 @@
             type="text"
             style="color: red"
             @click="getdel(scope.row.id)"
-            >{{ $t("delete") }}</el-button
-          >
+          >{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -47,43 +63,70 @@
 
 <script>
 export default {
-  name: "Table",
+  name: 'Table',
+  data() {
+    return {
+      statusType: [
+        { title: '停用', index: 0 },
+        { title: '启用', index: 1 },
+        { title: '游戏商维护中', index: 2 }
+      ]
+    }
+  },
+  filters: {
+    TypeF(value) {
+      switch (value) {
+        case 0:
+          return '未分类'
+        case 1:
+          return '真人'
+        case 2:
+          return '体育'
+        case 3:
+          return '老虎机'
+        case 4:
+          return '棋牌'
+        case 5:
+          return '彩票'
+      }
+    }
+  },
   props: {
     tableData: {
       type: Array,
       default: () => {
-        return [];
-      },
-    },
+        return []
+      }
+    }
   },
   methods: {
     // 删除
     getdel(id) {
-      this.$confirm("确定删除此款游戏?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('确定删除此款游戏?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(() => {
-          this.$emit("gamedel", id);
+          this.$emit('gamedel', id)
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
     // 编辑
     getEitor(item) {
-      this.$emit("gameeitor", item);
+      this.$emit('gameeitor', item)
     },
     // 改变状态
     getupdateStatus(status, Id) {
-      this.$emit("updateStatus", { status: status, id: Id });
-    },
-  },
-};
+      this.$emit('updateStatus', { status: status, id: Id })
+    }
+  }
+}
 </script>
 
 <style>

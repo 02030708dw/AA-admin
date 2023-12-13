@@ -2,30 +2,48 @@
   <!-- 新增角色弹窗 -->
   <el-dialog :title="$t('Editgame')" :visible.sync="dialogVisible" width="50%">
     <el-form
+      ref="ruleForm"
       :model="ruleForm"
       :rules="rules"
-      ref="ruleForm"
       label-width="150px"
       class="demo-ruleForm"
     >
       <el-form-item :label="$t('gamename')" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+        <el-input v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item :label="$t('GamemerchantsID')" prop="gamerId">
-        <el-input v-model="ruleForm.gamerId"></el-input>
+        <el-input v-model="ruleForm.gamerId" />
       </el-form-item>
       <el-form-item :label="$t('ThirdpartyID')" prop="threeId">
-        <el-input v-model="ruleForm.threeId"></el-input>
+        <el-input v-model="ruleForm.threeId" />
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
-        <el-input v-model="ruleForm.type"></el-input>
+        <el-select
+          v-model="ruleForm.type"
+          :placeholder="$t('typesof')"
+          style="width: 200px;margin-left: 10px"
+        >
+          <el-option
+            v-for="(item, index) in typeArrList"
+            :key="index"
+            :value="item.index"
+            :label="item.title"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          :active-value="1"
-          :inactive-value="0"
+        <el-select
           v-model="ruleForm.status"
-        ></el-switch>
+          :placeholder="$t('state')"
+          style="width: 200px;margin-left: 10px"
+        >
+          <el-option
+            v-for="(item, index) in statusType"
+            :key="index"
+            :value="item.index"
+            :label="item.title"
+          />
+        </el-select>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -36,68 +54,81 @@
     </span>
   </el-dialog>
 </template>
-      
-      <script>
+
+<script>
 export default {
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
-      //表单数据
+      // 表单数据
       ruleForm: {
         gamerId: null,
-        name: "",
+        name: '',
         status: 0,
-        threeId: "",
-        type: null,
+        threeId: '',
+        type: null
       },
-
+      // 状态
+      statusType: [
+        { title: '停用', index: 0 },
+        { title: '启用', index: 1 },
+        { title: '游戏商维护中', index: 2 }
+      ],
+      // 类型
+      typeArrList: [
+        { title: '真人', index: 1 },
+        { title: '体育', index: 2 },
+        { title: '老虎机', index: 3 },
+        { title: '棋牌', index: 4 },
+        { title: '彩票', index: 5 }
+      ],
       rules: {
-        name: [{ required: true, message: "请输入游戏名称", trigger: "blur" }],
+        name: [{ required: true, message: '请输入游戏名称', trigger: 'blur' }],
         threeId: [
-          { required: true, message: "请输入第三方id", trigger: "blur" },
+          { required: true, message: '请输入第三方id', trigger: 'blur' }
         ],
-        gamerId: [{ required: true, message: "请输游戏商id", trigger: "blur" }],
-        type: [{ required: true, message: "请输游戏类型", trigger: "blur" }],
-      },
-    };
+        gamerId: [{ required: true, message: '请输游戏商id', trigger: 'blur' }],
+        type: [{ required: true, message: '请输游戏类型', trigger: 'blur' }]
+      }
+    }
   },
   methods: {
     // 改变弹窗状态
     getEitorstatus(data) {
-      this.dialogVisible = !this.dialogVisible;
+      this.dialogVisible = !this.dialogVisible
       // 关闭时清空
       if (!this.dialogVisible) {
         this.ruleForm = {
           gamerId: null,
-          name: "",
+          name: '',
           status: 0,
-          threeId: "",
-          type: null,
-        };
+          threeId: '',
+          type: null
+        }
       } else {
-        this.ruleForm = data;
-        console.log(this.ruleForm);
+        this.ruleForm = data
+        console.log(this.ruleForm)
       }
     },
     // 确定添加事件
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.$emit("confirm", this.ruleForm);
+          this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
-          this.dialogVisible = false;
+          this.dialogVisible = false
         } else {
           this.$message({
-            message: "请填写完整信息!",
-            type: "warning",
-          });
-          return false;
+            message: '请填写完整信息!',
+            type: 'warning'
+          })
+          return false
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
     <style>
 </style>

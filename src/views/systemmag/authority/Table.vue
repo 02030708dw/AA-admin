@@ -10,16 +10,16 @@
       <el-table-column
         prop="authorityName"
         :label="$t('PermissionName')"
-        width="250"
+        width=""
       />
-      <el-table-column prop="id" :label="$t('PermissionID')" width="250" />
-      <el-table-column prop="code" :label="$t('Permissioncode')" width="200" />
+      <el-table-column prop="id" :label="$t('PermissionID')" width="" />
+      <el-table-column prop="code" :label="$t('Permissioncode')" width="" />
       <el-table-column
         prop="parentId"
         :label="$t('ParentnodeID')"
-        width="200"
+        width=""
       />remark
-      <el-table-column prop="" :label="$t('Permissiontype')" width="200">
+      <el-table-column prop="" :label="$t('Permissiontype')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.type | AuthorityType }}</span>
         </template>

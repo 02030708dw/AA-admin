@@ -7,19 +7,18 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="120" />
-      <el-table-column prop="roleName" :label="$t('RoleName')" width="200" />
-      <el-table-column prop="code" :label="$t('RoleCode')" width="200" />
-      <el-table-column prop="" :label="$t('state')" width="150">
+      <el-table-column prop="roleName" :label="$t('RoleName')" width="" />
+      <el-table-column prop="code" :label="$t('RoleCode')" width="" />
+      <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
             <el-switch
-              @change="getupdateStatus($event, scope.row.id)"
               v-model="scope.row.status"
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-            >
-            </el-switch>
+              @change="getupdateStatus($event, scope.row.id)"
+            />
           </div>
         </template>
       </el-table-column>
@@ -43,8 +42,7 @@
             type="text"
             style="color: red"
             @click="getroledel(scope.row.id)"
-            >{{ $t("delete") }}</el-button
-          >
+          >{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -53,48 +51,48 @@
 
 <script>
 export default {
-  name: "Table",
+  name: 'Table',
   props: {
     tableData: {
       type: Array,
       default: () => {
-        return [];
-      },
-    },
+        return []
+      }
+    }
   },
   data() {
     return {
-      visible: false,
-    };
+      visible: false
+    }
   },
   methods: {
     // 更新角色状态
     getupdateStatus(e, Id) {
-      this.$emit("updateStatus", { status: e, Id: Id });
+      this.$emit('updateStatus', { status: e, Id: Id })
     },
     // 删除角色
     getroledel(Id) {
-      this.$confirm("确定删除此角色?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('确定删除此角色?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(() => {
-          this.$emit("roledel", Id);
+          this.$emit('roledel', Id)
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
     // 编辑角色
     geteroleEitor(item) {
-      this.$emit("roleEditor", item);
-    },
-  },
-};
+      this.$emit('roleEditor', item)
+    }
+  }
+}
 </script>
 
 <style>

@@ -5,28 +5,28 @@
     width="60%"
   >
     <el-form
+      ref="ruleForm"
       :model="ruleForm"
       :rules="rules"
-      ref="ruleForm"
       label-width="100px"
       class="demo-ruleForm"
     >
       <!-- 标题 -->
       <el-form-item :label="$t('AnnouncementTitle')" prop="title">
-        <el-input v-model="ruleForm.title"></el-input>
+        <el-input v-model="ruleForm.title" />
       </el-form-item>
       <!-- 内容 -->
       <el-form-item :label="$t('Announcementcontent')" prop="content">
         <Toolbar
           style="border: 1px solid #ccc; border-bottom: 0px"
           :editor="editor"
-          :defaultConfig="toolbarConfig"
+          :default-config="toolbarConfig"
           :mode="mode"
         />
         <Editor
-          style="height: 350px; overflow-y: hidden; border: 1px solid #ccc"
           v-model="ruleForm.content"
-          :defaultConfig="editorConfig"
+          style="height: 350px; overflow-y: hidden; border: 1px solid #ccc"
+          :default-config="editorConfig"
           :mode="mode"
           @onCreated="onCreated"
         />
@@ -40,11 +40,11 @@
           style="width: 30%"
         >
           <el-option
-            v-for="(item, index) in noticetype"
+            v-for="(item, index) in noticetypePage"
             :key="index"
             :value="item.id"
             :label="item.name"
-          ></el-option>
+          />
         </el-select>
       </el-form-item>
       <!-- 公告状态 -->
@@ -53,10 +53,9 @@
           v-model="ruleForm.status"
           :active-value="1"
           :inactive-value="0"
-        ></el-switch>
+        />
       </el-form-item>
     </el-form>
-
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">{{
@@ -65,104 +64,89 @@
     </span>
   </el-dialog>
 </template>
-    
-  <script>
-import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
-import { NoticeData } from "@/api/message/noticetype";
+
+<script>
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 export default {
+  props: {
+    noticetypePage: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   components: { Editor, Toolbar },
   data() {
     return {
       editor: null,
       toolbarConfig: {
         excludeKeys: [
-          "group-video", //去掉视频
-        ],
+          'group-video' // 去掉视频
+        ]
       },
-      editorConfig: { placeholder: "请输入内容..." },
-      mode: "default",
+      editorConfig: { placeholder: '请输入内容...' },
+      mode: 'default',
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        title: "",
+        title: '',
         noteTypeId: null,
         status: 0,
-        content: "",
+        content: ''
       },
       rules: {
-        title: [{ required: true, message: "请输入公告标题", trigger: "blur" }],
+        title: [{ required: true, message: '请输入公告标题', trigger: 'blur' }],
         content: [
-          { required: true, message: "请输入公告内容", trigger: "blur" },
+          { required: true, message: '请输入公告内容', trigger: 'blur' }
         ],
         noteTypeId: [
-          { required: true, message: "请选择公告类型", trigger: "blur" },
-        ],
-      },
-      // 公告类型
-      noticetype: [],
-    };
+          { required: true, message: '请选择公告类型', trigger: 'blur' }
+        ]
+      }
+    }
   },
-  created() {
-    this.getnoticetypePage();
+  beforeDestroy() {
+    const editor = this.editor
+    if (editor == null) return
+    editor.destroy() // 组件销毁时，及时销毁编辑器
   },
   methods: {
     onCreated(editor) {
-      this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
-    },
-    // 请求公告类型
-    getnoticetypePage() {
-      this.noticetype = [];
-      NoticeData()
-        .then((res) => {
-          for (let i = 0; i < res.resultSet.length; i++) {
-            this.noticetype.push({
-              id: res.resultSet[i].id,
-              name: res.resultSet[i].name,
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.editor = Object.seal(editor) // 一定要用 Object.seal() ，否则会报错
     },
     // 改变弹窗状态
     getAddstatus(data) {
-      this.dialogVisible = !this.dialogVisible;
+      this.dialogVisible = !this.dialogVisible
       if (!this.dialogVisible) {
         this.ruleForm = {
-          title: "",
+          title: '',
           noteTypeId: null,
           status: 0,
-          content: "",
-        };
+          content: ''
+        }
       } else {
-        this.ruleForm = data;
+        this.ruleForm = data
       }
     },
     // 确定添加事件
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.$emit("confirm", this.ruleForm);
+          this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
-          this.dialogVisible = false;
+          this.dialogVisible = false
         } else {
           this.$message({
-            message: "请填写完整信息!",
-            type: "warning",
-          });
-          return false;
+            message: '请填写完整信息!',
+            type: 'warning'
+          })
+          return false
         }
-      });
-    },
-  },
-
-  beforeDestroy() {
-    const editor = this.editor;
-    if (editor == null) return;
-    editor.destroy(); // 组件销毁时，及时销毁编辑器
-  },
-};
+      })
+    }
+  }
+}
 </script>
   <style src="@wangeditor/editor/dist/css/style.css"></style>
   <style>

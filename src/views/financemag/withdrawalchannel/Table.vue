@@ -7,14 +7,14 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
-      <el-table-column prop="name" :label="$t('Channelname')" width="280" />
-      <el-table-column prop="" :label="$t('Channeltype')" width="280">
+      <el-table-column prop="name" :label="$t('Channelname')" width="" />
+      <el-table-column prop="" :label="$t('Channeltype')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.type | Channeltype }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column prop="" :label="$t('state')" width="150">
+      <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
             <el-switch
@@ -29,7 +29,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="" :label="$t('operate')" width="200">
+      <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
