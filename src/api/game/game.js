@@ -41,3 +41,12 @@ export function gameEdit(data) {
     data
   })
 }
+
+// 修改热门游戏
+export function gameisHot(data) {
+  return request({
+    url: '/game/game/setHot',
+    method: 'post',
+    data
+  })
+}

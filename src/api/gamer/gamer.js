@@ -42,4 +42,12 @@ export function gamerupdateStatus(data) {
     data
   })
 }
+// 绑定游戏商游戏类型
+export function gamerbind(data) {
+  return request({
+    url: '/game/gamer/bind',
+    method: 'post',
+    data
+  })
+}
 

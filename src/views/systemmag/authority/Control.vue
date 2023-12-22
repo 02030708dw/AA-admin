@@ -3,17 +3,17 @@
     <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
   </el-row>
 </template>
-          
-  <script>
+
+<script>
 export default {
-  name: "Control",
+  name: 'Control',
   methods: {
     getAdd() {
-      this.$emit("AuthorityAdd");
-    },
-  },
-};
+      this.$emit('AuthorityAdd')
+    }
+  }
+}
 </script>
-          
+
           <style>
 </style>

@@ -1,20 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
-    <el-input
-      v-model="keywords"
-      style="width: 300px; margin-left: 10px"
-      placeholder="请输入渠道ID"
-      class="input-with-select"
-      :clearable="true"
-      @clear="getclear"
-    >
-      <el-button
-        slot="append"
-        icon="el-icon-search"
-        @click="getquery"
-      />
-    </el-input>
     <el-select
       v-model="type"
       :placeholder="$t('typesof')"
@@ -28,7 +14,7 @@
       />
     </el-select>
     <el-input
-      v-model="name"
+      v-model="channelId"
       style="width: 200px; margin-left: 10px"
       :placeholder="$t('ChannelID')"
     />

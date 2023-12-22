@@ -17,6 +17,19 @@
           </div>
         </template>
       </el-table-column>
+      <el-table-column prop="" :label="$t('PopularGames')" width="">
+        <template slot-scope="scope">
+          <div>
+            <el-switch
+              v-model="scope.row.isHot"
+              active-color="#13ce66"
+              :active-value="1"
+              :inactive-value="0"
+              @change="getupdateisHot($event, scope.row.id)"
+            />
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
@@ -33,13 +46,6 @@
                 :label="item.title"
               />
             </el-select>
-            <!-- <el-switch
-              v-model="scope.row.status"
-              active-color="#13ce66"
-              :active-value="1"
-              :inactive-value="0"
-              @change="getupdateStatus($event, scope.row.id)"
-            /> -->
           </div>
         </template>
       </el-table-column>
@@ -124,6 +130,10 @@ export default {
     // 改变状态
     getupdateStatus(status, Id) {
       this.$emit('updateStatus', { status: status, id: Id })
+    },
+    // 修改热门游戏
+    getupdateisHot(status, Id) {
+      this.$emit('getisHot', { isHot: status, gameId: Id })
     }
   }
 }

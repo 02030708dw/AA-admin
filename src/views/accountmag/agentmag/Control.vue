@@ -1,7 +1,7 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <!-- <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button> -->
-    <el-input v-model="userName" style="width: 200px;" :placeholder="$t('username')" />
+    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-input v-model="userName" style="width: 200px;margin-left: 10px" :placeholder="$t('username')" />
     <el-select
       v-model="status"
       :placeholder="$t('state')"
@@ -42,6 +42,10 @@ export default {
       this.userName = ''
       this.status = null
       this.$emit('resetting')
+    },
+    // 添加代理
+    getAdd() {
+      this.$emit('AgentAdd')
     }
   }
 }

@@ -36,13 +36,12 @@
         <template slot-scope="scope">
           <div>
             <el-switch
-              @change="getupdateStatus($event, scope.row.id)"
               v-model="scope.row.status"
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-            >
-            </el-switch>
+              @change="getupdateStatus($event, scope.row.id)"
+            />
           </div>
         </template>
       </el-table-column>
@@ -52,14 +51,18 @@
           <el-button type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
-
+          <el-button
+            slot="reference"
+            type="text"
+            style="color: #4c8e75"
+            @click="getbind(scope.row.id)"
+          >{{ $t("Bindgametypes") }}</el-button>
           <el-button
             slot="reference"
             type="text"
             style="color: red"
             @click="getroledel(scope.row.id)"
-            >{{ $t("delete") }}</el-button
-          >
+          >{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -68,59 +71,63 @@
 
 <script>
 export default {
-  name: "Table",
-  props: {
-    tableData: {
-      type: Array,
-      default: () => {
-        return [];
-      },
-    },
-  },
-  methods: {
-    // 删除事件
-    getroledel(Id) {
-      this.$confirm("确定删除此游戏商?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.$emit("delete", Id);
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
-    },
-    // 编辑事件
-    geteroleEitor(item) {
-      this.$emit("eitor", item);
-    },
-    // 状态修改
-    getupdateStatus(e, Id) {
-      this.$emit("updateStatus", { status: e, id: Id });
-    },
-  },
+  name: 'Table',
   filters: {
     GamerType(value) {
       switch (value) {
         case 1:
-          return "真人";
+          return '真人'
         case 2:
-          return "体育";
+          return '体育'
         case 3:
-          return "老虎机";
+          return '老虎机'
         case 4:
-          return "棋牌";
+          return '棋牌'
         case 5:
-          return "彩票";
+          return '彩票'
       }
-    },
+    }
   },
-};
+  props: {
+    tableData: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
+  methods: {
+    // 删除事件
+    getroledel(Id) {
+      this.$confirm('确定删除此游戏商?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$emit('delete', Id)
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
+    },
+    // 编辑事件
+    geteroleEitor(item) {
+      this.$emit('eitor', item)
+    },
+    // 状态修改
+    getupdateStatus(e, Id) {
+      this.$emit('updateStatus', { status: e, id: Id })
+    },
+    // 绑定游戏类型
+    getbind(id) {
+      this.$emit('bind', id)
+    }
+  }
+}
 </script>
 
 <style>

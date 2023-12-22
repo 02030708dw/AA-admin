@@ -1,26 +1,26 @@
 <template>
   <el-card>
-    <Control @Agequery="getAgequery" @resetting="getresetting" />
+    <Control @AgentAdd="getAgentAddShow" @Agequery="getAgequery" @resetting="getresetting" />
     <!-- 表格 -->
     <Table :table-data="tableData" @transfer="getAgenttransfer" @updateStatus="getAgentUdateStatus" />
     <Pagination :total="total" @PageChange="getAgentdata" />
+    <AgentAdd ref="AgentAdd" @confirm="getAgentAdd" />
   </el-card>
 </template>
-
 <script>
 // 表格组件
 import Table from './Table.vue'
 import Control from './Control.vue'
 // 分页
 import Pagination from '@/components/Pagination/Pagination.vue'
+import AgentAdd from './AgentAdd.vue'
 import {
   AgentPage,
-  AgentTransfer,
-  AgentUpdateStatus
-
+  AgentUpdateStatus,
+  AddAgent
 } from '@/api/account/agent'
 export default {
-  components: { Table, Pagination, Control },
+  components: { Table, Pagination, Control, AgentAdd },
   data() {
     return {
       // 总条数
@@ -48,6 +48,20 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    getAgentAddShow() {
+      this.$refs.AgentAdd.getAddstatus()
+    },
+    getAgentAdd(e) {
+      AddAgent(e).then(res => {
+        this.getAgentdata(this.pageNo)
+        this.$message({
+          message: '添加成功!',
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message.error('添加失败!')
+      })
     },
     getAgequery(e) {
       this.userName = e.userName

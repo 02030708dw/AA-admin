@@ -29,7 +29,8 @@ export default {
     AnnouncementType: '公告类型管理',
     Noticemanage: '公告管理',
     Membermessages: '会员消息管理',
-    My: '我的'
+    My: '我的',
+    Currencymanagement: '币种管理'
 
   },
   role: {
@@ -141,5 +142,13 @@ export default {
   toexamine: '审核',
   reject: '驳回',
   passthrough: '通过',
-  Pleaseenterthereasonforrejection: '请输入驳回原因'
+  Pleaseenterthereasonforrejection: '请输入驳回原因',
+  AddProxy: '添加代理',
+  Allocablerebates: '可分配返点',
+  realName: '真实姓名',
+  Currency: '币种',
+  AddCurrency: '添加币种',
+  EditCurrency: '编辑币种',
+  PopularGames: '热门游戏',
+  Bindgametypes: '绑定游戏类型'
 }

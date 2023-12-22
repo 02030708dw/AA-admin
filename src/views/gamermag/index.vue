@@ -6,10 +6,12 @@
       @eitor="getGamerEitorShow"
       @delete="getGamerDelete"
       @updateStatus="getGamerupdateStatus"
+      @bind="getbindShow"
     />
     <Pagination :total="total" @PageChange="getroledata" />
     <GamerAdd ref="GamerAdd" @confirm="getGamerAdd" />
     <GamerEitor ref="GamerEitor" @confirm="getGamerEitor" />
+    <BindGamer ref="BindGamer" @confirm="getBind" />
   </el-card>
 </template>
 
@@ -21,12 +23,14 @@ import Control from './Control'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import GamerAdd from './GamerAdd.vue'
 import GamerEitor from './GamerEitor.vue'
+import BindGamer from './GamerBind.vue'
 import {
   gamerPage,
   gamerAdd,
   gamerDel,
   gamerEdit,
-  gamerupdateStatus
+  gamerupdateStatus,
+  gamerbind
 } from '@/api/gamer/gamer'
 export default {
   components: {
@@ -34,7 +38,8 @@ export default {
     Control,
     Pagination,
     GamerAdd,
-    GamerEitor
+    GamerEitor,
+    BindGamer
   },
   data() {
     return {
@@ -152,6 +157,21 @@ export default {
           console.log(err)
           this.$message.error('修改失败!')
         })
+    },
+    // 绑定游戏商游戏类型
+    getbindShow(id) {
+      this.$refs.BindGamer.getAddstatus(id)
+    },
+    getBind(e) {
+      gamerbind({ gamerId: e.gamerId, types: e.types }).then(res => {
+        this.getroledata(this.pageNo)
+        this.$message({
+          message: '绑定成功!',
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message.error('绑定失败!')
+      })
     }
   }
 }

@@ -22,7 +22,7 @@
       :placeholder="$t('agenId')"
     />
     <el-input
-      v-model="agentId"
+      v-model="cashChannelId"
       style="width: 200px; margin-left: 10px"
       :placeholder="$t('WithdrawalchannelID')"
     />

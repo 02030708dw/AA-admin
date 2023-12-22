@@ -218,6 +218,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/Currency',
+    component: Layout,
+    children: [
+      {
+        path: 'Currency',
+        name: 'Currency',
+        component: () => import('@/views/Currency/index'),
+        meta: { title: 'Currencymanagement', icon: 'el-icon-bank-card' }
+      }
+    ]
+  },
+  {
     path: '/My',
     component: Layout,
     children: [

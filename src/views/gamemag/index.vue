@@ -6,6 +6,7 @@
       @gamedel="getGameDel"
       @gameeitor="getGameEitorShow"
       @updateStatus="getGameupdateStatus"
+      @getisHot="getisHot"
     />
     <Pagination :total="total" @PageChange="getgamedata" />
     <GameAdd ref="GameAdd" @confirm="getGameAdd" />
@@ -24,7 +25,8 @@ import {
   gameAdd,
   gameDel,
   gameupdateStatus,
-  gameEdit
+  gameEdit,
+  gameisHot
 } from '@/api/game/game'
 export default {
   components: {
@@ -153,6 +155,18 @@ export default {
           console.log(err)
           this.$message.error('修改失败!')
         })
+    },
+    // 修改热门游戏
+    getisHot(e) {
+      gameisHot(e).then(res => {
+        this.getgamedata(this.pageNo)
+        this.$message({
+          message: '设置热门游戏成功!',
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message.error('设置失败!')
+      })
     }
   }
 }

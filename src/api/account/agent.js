@@ -26,3 +26,12 @@ export function AgentUpdateStatus(data) {
     data
   })
 }
+
+// 添加代理
+export function AddAgent(data) {
+  return request({
+    url: '/user/agent/addByAdmin',
+    method: 'post',
+    data
+  })
+}
