@@ -21,6 +21,8 @@
         <template slot-scope="scope">
           <div>
             <el-switch
+              active-text="热门"
+              inactive-text="普通"
               v-model="scope.row.isHot"
               active-color="#13ce66"
               :active-value="1"

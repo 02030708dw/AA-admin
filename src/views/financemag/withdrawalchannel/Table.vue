@@ -23,6 +23,8 @@
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
+              active-text="启用"
+              inactive-text="停用"
             >
             </el-switch>
           </div>

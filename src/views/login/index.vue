@@ -9,12 +9,13 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">{{$t('Login')}}</h3>
+        <LangSelect :Color="Color"></LangSelect>
       </div>
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <svg-icon icon-class="user"/>
         </span>
         <el-input
           ref="username"
@@ -54,21 +55,24 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
-      >Login</el-button>
+      >{{$t('Login')}}</el-button>
 
-      <div class="tips">
+      <!-- <div class="tips">
         <span style="margin-right: 20px">username: admin</span>
         <span> password: any</span>
-      </div>
+      </div> -->
     </el-form>
   </div>
 </template>
 
 <script>
 // import { validUsername } from '@/utils/validate'
-
+import LangSelect from '../../components/LangSelect/index.vue'
 export default {
   name: 'Login',
+  components: {
+    LangSelect
+  },
   data() {
     const validateUsername = (rule, value, callback) => {
       // if (!validUsername(value)) {
@@ -85,8 +89,9 @@ export default {
       }
     }
     return {
+      Color: 'white',
       loginForm: {
-        username: 'admin12',
+        username: 'admin',
         password: '123456'
       },
       loginRules: {
@@ -235,7 +240,7 @@ $light_gray: #eee;
 
   .title-container {
     position: relative;
-
+    display: flex;
     .title {
       font-size: 26px;
       color: $light_gray;

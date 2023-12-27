@@ -29,17 +29,18 @@
         width=""
       />
 
-      <el-table-column prop="" :label="$t('state')" width="">
+      <el-table-column prop="" :label="$t('state')" width="200">
         <template slot-scope="scope">
           <div>
             <el-switch
-              @change="getupdateStatus($event, scope.row.id)"
               v-model="scope.row.status"
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-            >
-            </el-switch>
+              active-text="启用"
+              inactive-text="停用"
+              @change="getupdateStatus($event, scope.row.id)"
+            />
           </div>
         </template>
       </el-table-column>
@@ -60,15 +61,15 @@
       <el-row>
         <label>冻结/解冻类型:</label>
         <el-select
-          style="margin-left: 10px"
           v-model="item.type"
+          style="margin-left: 10px"
           placeholder="请选择类型"
         >
-          <el-option value="1" label="只冻结/解冻代理"></el-option>
+          <el-option value="1" label="只冻结/解冻代理" />
           <el-option
             value="2"
             label="冻结/解冻代理以及代理下的所有会员"
-          ></el-option>
+          />
         </el-select>
       </el-row>
       <span slot="footer" class="dialog-footer">
@@ -80,66 +81,66 @@
     </el-dialog>
   </el-card>
 </template>
-    
-    <script>
+
+<script>
 export default {
-  name: "Table",
+  name: 'Table',
   props: {
     tableData: {
       type: Array,
       default: () => {
-        return [];
-      },
-    },
+        return []
+      }
+    }
   },
   data() {
     return {
       dialogVisible: false,
       item: {
         status: null,
-        id: "",
-        type: null,
-      },
-    };
+        id: '',
+        type: null
+      }
+    }
   },
   methods: {
     // 状态修改
     getupdateStatus(e, Id) {
-      this.dialogVisible = true;
-      this.item.status = e;
-      this.item.id = Id;
+      this.dialogVisible = true
+      this.item.status = e
+      this.item.id = Id
     },
     getconfirm() {
-      this.$emit("updateStatus", this.item);
+      this.$emit('updateStatus', this.item)
       this.item = {
         status: null,
-        id: "",
-        type: null,
-      };
-      this.dialogVisible = false;
+        id: '',
+        type: null
+      }
+      this.dialogVisible = false
     },
     // 取消
 
     cancellation() {
       if (this.item.status == 0) {
-        this.item.status = 1;
+        this.item.status = 1
       } else {
-        this.item.status = 0;
+        this.item.status = 0
       }
-      this.$emit("updateStatus", this.item);
+      this.$emit('updateStatus', this.item)
       this.item = {
         status: null,
-        id: "",
-        type: null,
-      };
-      this.dialogVisible = false;
+        id: '',
+        type: null
+      }
+      this.dialogVisible = false
     },
     geteroleEitor(item) {
-      this.$emit("transfer", item);
-    },
-  },
-};
+      this.$emit('transfer', item)
+    }
+  }
+}
 </script>
-    
+
     <style>
 </style>

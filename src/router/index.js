@@ -158,12 +158,19 @@ export const constantRoutes = [
   {
     path: '/reportformsmag',
     component: Layout,
+    meta: { title: 'reportformsmag', icon: 'el-icon-s-marketing' },
     children: [
       {
-        path: 'reportformsmag',
-        name: 'reportformsmag',
-        component: () => import('@/views/reportformsmag/index'),
-        meta: { title: 'reportformsmag', icon: 'el-icon-s-data' }
+        path: 'Dailyreportmanagement',
+        name: 'Dailyreportmanagement',
+        component: () => import('@/views/reportformsmag/dailyreport/index.vue'),
+        meta: { title: 'Dailyreportmanagement', icon: 'el-icon-document-copy' }
+      },
+      {
+        path: 'Monthlyreportmanagement',
+        name: 'Monthlyreportmanagement',
+        component: () => import('@/views/reportformsmag/monthlyreportingform/index.vue'),
+        meta: { title: 'Monthlyreportmanagement', icon: 'el-icon-takeaway-box' }
       }
     ]
   },

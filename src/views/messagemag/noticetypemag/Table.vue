@@ -12,13 +12,14 @@
         <template slot-scope="scope">
           <div>
             <el-switch
-              @change="getUdateStatus($event, scope.row.id)"
+              v-model="scope.row.status"
               :active-value="1"
               :inactive-value="0"
-              v-model="scope.row.status"
               active-color="#13ce66"
-            >
-            </el-switch>
+              active-text="启用"
+              inactive-text="停用"
+              @change="getUdateStatus($event, scope.row.id)"
+            />
           </div>
         </template>
       </el-table-column>
@@ -28,60 +29,58 @@
             type="text"
             style="color: #e6a23c"
             @click="getEditor(scope.row)"
-            >{{ $t("edit") }}</el-button
-          >
+          >{{ $t("edit") }}</el-button>
           <el-button
             type="text"
             style="color: red"
             @click="getEdl(scope.row.id)"
-            >{{ $t("delete") }}</el-button
-          >
+          >{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
   </el-card>
 </template>
-  
-  <script>
+
+<script>
 export default {
-  name: "Table",
+  name: 'Table',
   props: {
     tableData: {
       type: Array,
       default: () => {
-        return [];
-      },
-    },
+        return []
+      }
+    }
   },
   methods: {
     // 编辑
     getEditor(item) {
-      this.$emit("EditorShow", item);
+      this.$emit('EditorShow', item)
     },
     // 删除
     getEdl(Id) {
-      this.$confirm("确定删除此公告类型吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('确定删除此公告类型吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(() => {
-          this.$emit("Edl", Id);
+          this.$emit('Edl', Id)
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
     // 修改状态
     getUdateStatus(e, id) {
-      this.$emit("UdateStatus", { status: e, id: id });
-    },
-  },
-};
+      this.$emit('UdateStatus', { status: e, id: id })
+    }
+  }
+}
 </script>
-  
+
   <style>
 </style>

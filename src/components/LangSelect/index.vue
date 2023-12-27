@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dropdown trigger="click" class="international" @command="handleSetLanguage">
-      <div style="padding: 0 15px;display: flex; align-items: center; justify-content: center; height: 70px;">
+      <div style="padding: 0 15px;display: flex; align-items: center; justify-content: center; height: 70px;" :style="{color:Color}">
         {{ $t('Lange') }}
       </div>
       <el-dropdown-menu slot="dropdown">
@@ -16,6 +16,11 @@
 <script>
 export default {
   name: 'LangSelect',
+  props: {
+    Color: {
+      type: String,
+    }
+  },
   data() {
     return {
 

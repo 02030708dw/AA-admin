@@ -22,6 +22,8 @@
               @change="getupdateStatus($event, scope.row.id)"
               :active-value="1"
               :inactive-value="0"
+              active-text="发布"
+              inactive-text="撤销"
             >
             </el-switch>
           </div>

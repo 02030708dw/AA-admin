@@ -30,7 +30,9 @@ export default {
     Noticemanage: '公告管理',
     Membermessages: '会员消息管理',
     My: '我的',
-    Currencymanagement: '币种管理'
+    Currencymanagement: '币种管理',
+    Monthlyreportmanagement: '月报表管理',
+    Dailyreportmanagement: '日报表管理'
 
   },
   role: {
@@ -150,5 +152,12 @@ export default {
   AddCurrency: '添加币种',
   EditCurrency: '编辑币种',
   PopularGames: '热门游戏',
-  Bindgametypes: '绑定游戏类型'
+  Bindgametypes: '绑定游戏类型',
+  Login: '登录',
+  Date: '日期',
+  Bettingamount: '投注金额',
+  Awardamount: '派奖金额',
+  Withdrawalamount: '提现金额',
+  Rechargeamount: '充值金额',
+  Profitamount: '盈利金额'
 }
