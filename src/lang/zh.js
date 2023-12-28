@@ -159,5 +159,9 @@ export default {
   Awardamount: '派奖金额',
   Withdrawalamount: '提现金额',
   Rechargeamount: '充值金额',
-  Profitamount: '盈利金额'
+  Profitamount: '盈利金额',
+  ReasonForRejection: '驳回原因',
+  RechargeChannels: '充值渠道',
+  PaymentCardNumber: '收款卡号',
+  payee: '收款人'
 }

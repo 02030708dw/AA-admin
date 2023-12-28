@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @SelectDate="getDateSelect"/>
-    <Table :tableData="tableData"/>
+    <Control ref="ControlView" @SelectDate="getDateSelect" />
+    <Table :table-data="tableData" />
   </el-card>
 </template>
 <script>

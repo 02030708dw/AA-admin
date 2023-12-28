@@ -21,9 +21,9 @@
         <template slot-scope="scope">
           <div>
             <el-switch
+              v-model="scope.row.isHot"
               active-text="热门"
               inactive-text="普通"
-              v-model="scope.row.isHot"
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
@@ -72,15 +72,6 @@
 <script>
 export default {
   name: 'Table',
-  data() {
-    return {
-      statusType: [
-        { title: '停用', index: 0 },
-        { title: '启用', index: 1 },
-        { title: '游戏商维护中', index: 2 }
-      ]
-    }
-  },
   filters: {
     TypeF(value) {
       switch (value) {
@@ -105,6 +96,15 @@ export default {
       default: () => {
         return []
       }
+    }
+  },
+  data() {
+    return {
+      statusType: [
+        { title: '停用', index: 0 },
+        { title: '启用', index: 1 },
+        { title: '游戏商维护中', index: 2 }
+      ]
     }
   },
   methods: {

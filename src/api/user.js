@@ -17,6 +17,6 @@ export function getInfo() {
 export function logout() {
   return request({
     url: '/sys/admin/logOut',
-    method: 'post'
+    method: 'get'
   })
 }

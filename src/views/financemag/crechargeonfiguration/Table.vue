@@ -6,7 +6,7 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
+      <el-table-column prop="channelId" :label="$t('ChannelID')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
       <el-table-column prop="alipay" :label="$t('Alipayaccount')" width="" />
       <el-table-column
@@ -15,7 +15,6 @@
         width=""
       />
       <el-table-column prop="bankName" :label="$t('BankName')" width="" />
-      <el-table-column prop="channelId" :label="$t('ChannelID')" width="" />
       <el-table-column
         prop="coin"
         :label="$t('Virtualcoinaddress')"
