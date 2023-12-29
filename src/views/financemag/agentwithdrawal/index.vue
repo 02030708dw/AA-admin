@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <Control @query="getquery" @resetting="getresetting" />
-    <Table :table-data="tableData" />
+    <Control ref="ControlView" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" />
     <Pagination :total="total" />
   </el-card>
 </template>
@@ -34,6 +34,28 @@ export default {
     this.getAgentWtihdrawaldata(1)
   },
   methods: {
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      AgentWtihdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, agentId: this.agentId, cashChannelId: this.cashChannelId })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch((err) => {
+          console.log(err)
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
+    // 请求列表
     getAgentWtihdrawaldata(index) {
       // 记录当前页码
       this.pageNo = index

@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -33,13 +34,12 @@
       <el-table-column
         prop=""
         :label="$t('Reviewstatus')"
-        aduitTime
+        aduit-time
         width="200"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.aduitStatus | FaduitStatus }}</span>
-        </template></el-table-column
-      >
+        </template></el-table-column>
       <el-table-column prop="aduitTime" :label="$t('Audittime')" width="200" />
       <el-table-column
         prop="rejection"
@@ -66,7 +66,7 @@
             <el-button type="text" @click="geteroleEitor(scope.row)">{{
               $t("edit")
             }}</el-button>
-  
+
             <el-button
               slot="reference"
               type="text"
@@ -79,48 +79,55 @@
     </el-table>
   </el-card>
 </template>
-      
-      <script>
+
+<script>
 export default {
-  name: "Table",
-  props: {
-    tableData: {
-      type: Array,
-      default: () => {
-        return [];
-      },
-    },
-  },
-  methods: {
-    // 删除事件
-    getroledel(Id) {
-      this.$emit("delete", Id);
-    },
-    // 编辑事件
-    geteroleEitor(item) {
-      this.$emit("eitor", item);
-    },
-    // 状态修改
-    getupdateStatus(e, Id) {
-      this.$emit("updateStatus", { status: e, id: Id });
-    },
-  },
+  name: 'Table',
   filters: {
     FaduitStatus(value) {
       switch (value) {
         case 0:
-          return "待审核";
+          return '待审核'
         case 1:
-          return "待审核";
+          return '待审核'
         case 2:
-          return "驳回";
+          return '驳回'
         case 3:
-          return "已取消";
+          return '已取消'
       }
-    },
+    }
   },
-};
+  props: {
+    tableData: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
+  data() {
+    return { loading: false }
+  },
+  methods: {
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
+    },
+    // 删除事件
+    getroledel(Id) {
+      this.$emit('delete', Id)
+    },
+    // 编辑事件
+    geteroleEitor(item) {
+      this.$emit('eitor', item)
+    },
+    // 状态修改
+    getupdateStatus(e, Id) {
+      this.$emit('updateStatus', { status: e, id: Id })
+    }
+  }
+}
 </script>
-      
+
       <style>
 </style>

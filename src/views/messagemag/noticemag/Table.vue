@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -19,32 +20,29 @@
             <el-switch
               v-model="scope.row.status"
               active-color="#13ce66"
-              @change="getupdateStatus($event, scope.row.id)"
               :active-value="1"
               :inactive-value="0"
               active-text="发布"
               inactive-text="撤销"
-            >
-            </el-switch>
+              @change="getupdateStatus($event, scope.row.id)"
+            />
           </div>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="280">
         <template slot-scope="scope">
           <el-button
-            @click="getEitor(scope.row)"
             type="text"
             style="color: #e6a23c"
-            >{{ $t("edit") }}</el-button
-          >
+            @click="getEitor(scope.row)"
+          >{{ $t("edit") }}</el-button>
 
           <el-button
-            @click="getdel(scope.row.id)"
             slot="reference"
             type="text"
             style="color: red"
-            >{{ $t("delete") }}</el-button
-          >
+            @click="getdel(scope.row.id)"
+          >{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -59,12 +57,12 @@
         <el-col :span="4">{{
           UdateStatusData.status ? $t("publisher") : $t("Revocationby")
         }}</el-col>
-        <el-col :span="18"
-          ><el-input
-            :placeholder="$t('Pleaseentertheoperator')"
-            v-model="operator"
-          ></el-input
-        ></el-col>
+        <el-col
+          :span="18"
+        ><el-input
+          v-model="operator"
+          :placeholder="$t('Pleaseentertheoperator')"
+        /></el-col>
       </el-row>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">{{
@@ -80,71 +78,76 @@
 
 <script>
 export default {
-  name: "Table",
+  name: 'Table',
   props: {
     tableData: {
       type: Array,
       default: () => {
-        return [];
-      },
-    },
+        return []
+      }
+    }
   },
   data() {
     return {
       dialogVisible: false,
       UdateStatusData: {
-        status: "",
-        id: "",
+        status: '',
+        id: ''
       },
-      operator: "",
-    };
+      operator: '',
+      loading: false
+    }
   },
   methods: {
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
+    },
     // 编辑
     getEitor(item) {
-      this.$emit("NoticeEitor", item);
+      this.$emit('NoticeEitor', item)
     },
     // 删除
     getdel(id) {
-      this.$confirm("确定删除此公告吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('确定删除此公告吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(() => {
-          this.$emit("NoticeDel", id);
+          this.$emit('NoticeDel', id)
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
-    //状态修改
+    // 状态修改
     getupdateStatus(status, id) {
-      this.dialogVisible = !this.dialogVisible;
-      this.UdateStatusData.status = status;
-      this.UdateStatusData.id = id;
+      this.dialogVisible = !this.dialogVisible
+      this.UdateStatusData.status = status
+      this.UdateStatusData.id = id
     },
     getupdateStatusok() {
       if (!this.operator) {
-        return this.$message.error("请输入操作人!");
+        return this.$message.error('请输入操作人!')
       }
-      this.$emit("NoticeUpdateStatus", {
+      this.$emit('NoticeUpdateStatus', {
         status: this.UdateStatusData.status,
         id: this.UdateStatusData.id,
-        publisher: this.UdateStatusData.status ? this.operator : "",
-        canceler: this.UdateStatusData.status ? "" : this.operator,
-      });
-      this.dialogVisible = !this.dialogVisible;
+        publisher: this.UdateStatusData.status ? this.operator : '',
+        canceler: this.UdateStatusData.status ? '' : this.operator
+      })
+      this.dialogVisible = !this.dialogVisible
     },
     gethandelClose() {
-      this.operator = "";
-      this.$emit("UdateStatusClose");
-    },
-  },
-};
+      this.operator = ''
+      this.$emit('UdateStatusClose')
+    }
+  }
+}
 </script>2509960727Zmy
 
 <style>

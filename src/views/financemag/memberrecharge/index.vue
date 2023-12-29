@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <Control @Gamequery="getgetquery" @resetting="getresetting" />
-    <Table :table-data="tableData" @option="getoption" />
+    <Control ref="ControlView" @Gamequery="getgetquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" @option="getoption" />
     <Pagination :total="total" @PageChange="memberrechargedata" />
     <Dialog ref="DialogView" @toexamine="gettoexamine" />
   </el-card>
@@ -39,11 +39,32 @@ export default {
     this.memberrechargedata(1)
   },
   methods: {
+    // 刷新
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      MemberrechargelPage({ pageNo: this.pageNo, pageSize: 10, amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, date: this.date, memberId: this.memberId }).then(res => {
+        this.total = res.resultSet.total
+        this.tableData = res.resultSet.data
+        setTimeout(() => {
+          this.$refs.ControlView.HandelBtnStatus()
+          this.$refs.TableView.HandelLoading(false)
+        }, 1000)
+        this.$message({ message: '刷新成功!', type: 'success' })
+      }).catch(err => {
+        console.log(err)
+        setTimeout(() => {
+          this.$refs.TableView.HandelLoading(false)
+          this.$refs.ControlView.HandelBtnStatus()
+        })
+        this.$message.error('刷新失败!')
+      })
+    },
     // 请求分页数据
     memberrechargedata(index) {
       this.pageNo = index
       MemberrechargelPage({ pageNo: index, pageSize: 10, amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, date: this.date, memberId: this.memberId }).then(res => {
         console.log(res.resultSet.data)
+        this.total = res.resultSet.total
         this.tableData = res.resultSet.data
       }).catch(err => {
         console.log(err)

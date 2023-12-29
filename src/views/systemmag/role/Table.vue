@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -64,10 +65,15 @@ export default {
   },
   data() {
     return {
-      visible: false
+      visible: false,
+      loading: false
     }
   },
   methods: {
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
+    },
     // 更新角色状态
     getupdateStatus(e, Id) {
       this.$emit('updateStatus', { status: e, Id: Id })

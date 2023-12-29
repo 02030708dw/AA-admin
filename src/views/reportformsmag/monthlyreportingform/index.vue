@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @SelectDate="getDateSelect" />
-    <Table :table-data="tableData" />
+    <Control ref="ControlView" @Refresh="HandelRefresh" @SelectDate="getDateSelect" />
+    <Table ref="TableView" :table-data="tableData" />
   </el-card>
 </template>
 <script>
@@ -15,13 +15,36 @@ export default {
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      startMonth: '',
+      endMonth: ''
     }
   },
   mounted() {
     this.getDateData()
   },
   methods: {
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      getMonthlyreport({ startMonth: this.startMonth, endMonth: this.endMonth })
+        .then((res) => {
+          this.tableData = res.resultSet
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch((err) => {
+          console.log(err)
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          }, 1000)
+          this.$message.error('刷新失败!')
+        })
+    },
+    // 刷新
     getDateData() {
       const currentDate = new Date()
       const endMonth =
@@ -39,6 +62,8 @@ export default {
         (date.getMonth() + 1 < 10
           ? '0' + (date.getMonth() + 1)
           : date.getMonth() + 1)
+      this.startMonth = startMonth
+      this.endMonth = endMonth
       this.getMonthlyreportdata(startMonth, endMonth)
       this.$refs.ControlView.pagesDate({ startMonth, endMonth })
     },
@@ -55,6 +80,8 @@ export default {
     },
     // 请求数据
     getDateSelect(e) {
+      this.startMonth = e.startMonth
+      this.endMonth = e.endMonth
       this.getMonthlyreportdata(e.startMonth, e.endMonth)
     }
   }

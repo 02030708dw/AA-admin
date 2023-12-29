@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -57,13 +58,17 @@ export default {
   },
   data() {
     return {
-
+      loading: false
     }
   },
   methods: {
     // 操作
     HandelOption(id, type) {
       this.$emit('option', { id: id, auditStatus: type })
+    },
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
     }
   }
 }

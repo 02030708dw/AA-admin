@@ -32,6 +32,9 @@
       @click="getquery()"
     >查询</el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
+    <!-- 刷新按钮 -->
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
   </el-row>
 </template>
 
@@ -48,10 +51,20 @@ export default {
         { title: '审核通过', index: 1 },
         { title: '驳回', index: 2 },
         { title: '已取消', index: 3 }
-      ]
+      ],
+      btnIcoType: true
     }
   },
   methods: {
+    // 刷新
+    HandelRefresh() {
+      this.$emit('Refresh')
+      this.btnIcoType = false
+    },
+    // 改变按钮状态
+    HandelBtnStatus() {
+      this.btnIcoType = true
+    },
     getquery() {
       this.$emit('query', {
         aduitStatus: this.aduitStatus,

@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -73,7 +74,16 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      loading: false
+    }
+  },
   methods: {
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
+    },
     // 删除事件
     getroledel(Id) {
       this.$confirm('确定删除此条配置吗?', '提示', {

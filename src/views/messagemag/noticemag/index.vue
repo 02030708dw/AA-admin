@@ -1,8 +1,9 @@
 <template>
   <el-card>
-    <Control @resetting="getresetting" @query="getquery" @NoticeAdd="getNoticeAddShow" />
+    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @NoticeAdd="getNoticeAddShow" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table
+      ref="TableView"
       :table-data="tableData"
       @UdateStatusClose="getnoticedata"
       @NoticeDel="getNoticeDel"
@@ -52,6 +53,28 @@ export default {
     this.getnoticetypePage()
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      noticePage({ pageNo: this.pageNo, pageSize: 10, noteTypeId: this.noteTypeId, status: this.status })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 请求公告类型
     getnoticetypePage() {
       this.noticetypePage = []

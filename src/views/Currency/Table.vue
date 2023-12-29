@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -62,7 +63,16 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      loading: false
+    }
+  },
   methods: {
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
+    },
     // 编辑
     geteroleEitor(item) {
       this.$emit('eitor', item)

@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -25,13 +26,12 @@
         <template slot-scope="scope">
           <div>
             <el-switch
-              @change="getupdateStatus($event, scope.row.id)"
               v-model="scope.row.status"
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-            >
-            </el-switch>
+              @change="getupdateStatus($event, scope.row.id)"
+            />
           </div>
         </template>
       </el-table-column>
@@ -49,45 +49,52 @@
     </el-table>
   </el-card>
 </template>
-    
-    <script>
-export default {
-  name: "Table",
-  props: {
-    tableData: {
-      type: Array,
-      default: () => {
-        return [];
-      },
-    },
-  },
-  methods: {
-    // 删除事件
 
-    // 编辑事件
-    Membershiptransfer(item) {
-      this.$emit("Membershiptransfer", item);
-    },
-    Proxytransfer(item) {
-      this.$emit("Proxytransfer", item);
-    },
-    // 状态修改
-    getupdateStatus(e, Id) {
-      this.$emit("updateStatus", { status: e, id: Id });
-    },
-  },
+<script>
+export default {
+  name: 'Table',
   filters: {
     Channeltype(value) {
       switch (value) {
         case 0:
-          return "冻结";
+          return '冻结'
         case 1:
-          return "正常";
+          return '正常'
       }
-    },
+    }
   },
-};
+  props: {
+    tableData: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
+  data() {
+    return {
+      loading: false
+    }
+  },
+  methods: {
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
+    },
+    // 编辑事件
+    Membershiptransfer(item) {
+      this.$emit('Membershiptransfer', item)
+    },
+    Proxytransfer(item) {
+      this.$emit('Proxytransfer', item)
+    },
+    // 状态修改
+    getupdateStatus(e, Id) {
+      this.$emit('updateStatus', { status: e, id: Id })
+    }
+  }
+}
 </script>
-    
+
     <style>
 </style>

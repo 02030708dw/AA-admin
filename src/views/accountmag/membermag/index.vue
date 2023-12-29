@@ -1,8 +1,9 @@
 <template>
   <el-card>
-    <Control @Memquery="getMemquery" @resetting="getresetting" />
+    <Control ref="ControlView" @Memquery="getMemquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table
+      ref="TableView"
       :table-data="tableData"
       @updateStatus="getMemberUdateStatus"
       @Membershiptransfer="getMembershiptransfer"
@@ -52,6 +53,29 @@ export default {
     this.getMemberPage()
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      MemberPage({ pageNo: this.pageNo, pageSize: 10, agentId: this.agentId, username: this.userName, status: this.status })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch((err) => {
+          console.log(err)
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     getMembershiptransfer(data) {
       this.$refs.Membershiptransfer.getAddstatus(data)
     },

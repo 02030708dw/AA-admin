@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <Control @query="getquery" @resetting="getresetting"/>
-    <Table :table-data="tableData" />
+    <Control ref="ControlView" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" />
     <Pagination :total="total" @PageChange="getMemWitdata" />
   </el-card>
 </template>
@@ -34,6 +34,28 @@ export default {
     this.getMemWitdata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      MemberwithdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, memberId: this.memberId, cashChannelId: this.cashChannelId })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     getMemWitdata(index) {
       // 记录当前页码
       this.pageNo = index

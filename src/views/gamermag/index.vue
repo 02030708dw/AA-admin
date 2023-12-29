@@ -1,7 +1,8 @@
 <template>
   <el-card>
-    <Control @gamerAdd="getGamerAddshow" @query="getquery" @resetting="getresetting" />
+    <Control ref="ControlView" @Refresh="HandelRefresh" @gamerAdd="getGamerAddshow" @query="getquery" @resetting="getresetting" />
     <Table
+      ref="TableView"
       :table-data="tableData"
       @eitor="getGamerEitorShow"
       @delete="getGamerDelete"
@@ -56,6 +57,28 @@ export default {
     this.getroledata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      gamerPage({ pageNo: this.pageNo, pageSize: 10, name: this.name, status: this.status })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 请求分页数据
     getroledata(index) {
       // 记录当前页码

@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <Control @CurrencyAdd="getCurrencyAddShow" @query="getquery" @resetting="getresetting" />
-    <Table :table-data="tableData" @delete="getDel" @eitor="getCurrencyEditShow" />
+    <Control ref="ControlView" @CurrencyAdd="getCurrencyAddShow" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" @delete="getDel" @eitor="getCurrencyEditShow" />
     <Pagination :total="total" @PageChange="getCurrencydata" />
     <AddCurrency ref="AddCurrency" @confirm="getCurrencyAdd" />
     <EditCurrency ref="EditCurrency" @confirm="getCurrencyEdit" />
@@ -39,6 +39,28 @@ export default {
     this.getCurrencydata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      CurrencytPage({ pageNo: this.pageNo, pageSize: 10, currency: this.currency, status: this.status })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 请求分页列表
     getCurrencydata(index) {
       this.pageNo = index

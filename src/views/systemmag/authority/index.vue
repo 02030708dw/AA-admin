@@ -1,7 +1,8 @@
 <template>
   <el-card>
-    <Control @AuthorityAdd="getAuthorityAddShow" />
+    <Control ref="ControlView" @AuthorityAdd="getAuthorityAddShow" @Refresh="HandelRefresh" />
     <Table
+      ref="TableView"
       :table-data="tableData"
       @delete="getAuthorityDel"
       @updateStatus="getAuthorityUdateStatus"
@@ -49,6 +50,28 @@ export default {
     this.getAuthoritydata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      getAuthorityPage({ pageNo: this.pageNo, pageSize: 10 })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          }, 1000)
+          this.$message.error('刷新失败!')
+        })
+    },
     // 获取分页数据
     getAuthoritydata(index = 1) {
       // 记录当前页码

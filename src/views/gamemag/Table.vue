@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -104,10 +105,15 @@ export default {
         { title: '停用', index: 0 },
         { title: '启用', index: 1 },
         { title: '游戏商维护中', index: 2 }
-      ]
+      ],
+      loading: false
     }
   },
   methods: {
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
+    },
     // 删除
     getdel(id) {
       this.$confirm('确定删除此款游戏?', '提示', {

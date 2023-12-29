@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -54,7 +55,16 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      loading: false
+    }
+  },
   methods: {
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
+    },
     getdel(id) {
       this.$confirm('确定删除此用户?', '提示', {
         confirmButtonText: '确定',

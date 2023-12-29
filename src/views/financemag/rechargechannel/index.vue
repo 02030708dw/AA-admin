@@ -1,8 +1,9 @@
 <template>
   <el-card>
     <!-- 充值渠道管理 -->
-    <Control @RechargeannelAdd="getChannelAddShow" @query="getquery" @resetting="getresetting"/>
+    <Control ref="ControlView" @RechargeannelAdd="getChannelAddShow" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table
+      ref="TableView"
       :table-data="tableData"
       @updateStatus="getChannelUpdateStatus"
       @delete="getChannelDelete"
@@ -64,6 +65,28 @@ export default {
     this.getchanneldata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      channelPage({ pageNo: this.pageNo, pageSize: 10, status: this.status, type: this.type, name: this.name })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 请求分页数据
     getchanneldata(index) {
       // 记录当前页码

@@ -2,12 +2,15 @@
   <el-card>
     <!-- 顶部操作 -->
     <Control
+      ref="ControlView"
+      @Refresh="HandelRefresh"
       @userAdd="getUserAddShow"
       @userquery="getuserquery"
       @resetting="getresetting"
     />
     <!-- 表格 -->
     <Table
+      ref="TableView"
       :table-data="tableData"
       @usereitor="getUserEitorShow"
       @updateStatus="getUserupdateStatus"
@@ -57,6 +60,33 @@ export default {
     this.getuserdata()
   },
   methods: {
+    // 刷新
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      userPage({
+        pageNo: this.pageNo,
+        pageSize: 10,
+        userName: this.userName,
+        status: this.status
+      })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch((err) => {
+          console.log(err)
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 请求分页数据
     getuserdata(index, data = null) {
       this.pageNo = index

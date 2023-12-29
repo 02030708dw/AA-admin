@@ -1,8 +1,8 @@
 <template>
   <el-card>
-    <Control @resetting="getresetting" @roleAdd="getAdddialog" @rolequery="getrolequery" />
+    <Control ref="ControlView" @resetting="getresetting" @roleAdd="getAdddialog" @rolequery="getrolequery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table :table-data="tableData" @updateStatus="getupdateStatus" @roledel="getroledel" @roleEditor="getEditordialog" />
+    <Table ref="TableView" :table-data="tableData" @updateStatus="getupdateStatus" @roledel="getroledel" @roleEditor="getEditordialog" />
     <!-- 分页组件 -->
     <Pagination :total="total" @PageChange="getroledata" />
     <!-- 添加组件 -->
@@ -59,11 +59,31 @@ export default {
     this.getroledata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      getrolePage({ pageNo: this.pageNo, pageSize: 10, code: this.code, roleName: this.roleName, status: this.status })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message.error('刷新失败!')
+        })
+    },
     // 请求角色分页数据
     getroledata(index) {
       // 记录当前页码
       this.pageNo = index
-
       // 条件查询
       getrolePage({ pageNo: index, pageSize: 10, code: this.code, roleName: this.roleName, status: this.status })
         .then((res) => {

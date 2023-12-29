@@ -1,7 +1,8 @@
 <template>
   <el-card>
-    <Control @query="getquery" @resetting="getresetting" @WithdrawalchannelsAdd="getWithdrawalchannelsAddShow" />
+    <Control ref="ControlView" @Refresh="HandelRefresh" @query="getquery" @resetting="getresetting" @WithdrawalchannelsAdd="getWithdrawalchannelsAddShow" />
     <Table
+      ref="TableView"
       :table-data="tableData"
       @delete="getWithdrawalchannelsDel"
       @eitor="getWithdrawalchannelsEitorShow"
@@ -61,6 +62,28 @@ export default {
     this.getWithdrawalchannelsdata()
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      WithdrawalchannelsPage({ pageNo: this.pageNo, pageSize: 10, name: this.name, status: this.status, type: this.type })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 获取分页数据
     getWithdrawalchannelsdata(index) {
       // 记录当前页码

@@ -11,6 +11,9 @@
       :picker-options="pickerOptions"
       @blur="heandlerTime"
     />
+    <!-- 刷新按钮 -->
+    <el-button v-if="btnIcoType" style="margin-left: 10px;" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
+    <el-button v-else style="margin-left: 10px;" type="success" icon="el-icon-loading" disabled>刷新</el-button>
   </el-row>
 </template>
 
@@ -46,7 +49,8 @@ export default {
           }
         ]
       },
-      value: ''
+      value: '',
+      btnIcoType: true
     }
   },
   methods: {
@@ -65,6 +69,15 @@ export default {
     // 日期回显
     pagesDate(data) {
       this.value = [data.startMonth, data.endMonth]
+    },
+    // 刷新
+    HandelRefresh() {
+      this.$emit('Refresh')
+      this.btnIcoType = false
+    },
+    // 改变按钮状态
+    HandelBtnStatus() {
+      this.btnIcoType = true
     }
   }
 }

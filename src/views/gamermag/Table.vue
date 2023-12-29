@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <el-table
+      v-loading="loading"
       :data="tableData"
       :border="true"
       :header-cell-style="{ 'text-align': 'center' }"
@@ -98,6 +99,11 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      loading: false
+    }
+  },
   methods: {
     // 删除事件
     getroledel(Id) {
@@ -127,6 +133,10 @@ export default {
     // 绑定游戏类型
     getbind(id) {
       this.$emit('bind', id)
+    },
+    // 改变loading
+    HandelLoading(status) {
+      this.loading = status
     }
   }
 }

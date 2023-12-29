@@ -1,7 +1,8 @@
 <template>
   <el-card>
-    <Control @resetting="getresetting" @gameAdd="getGameAddShow" @Gamequery="getGamequery" />
+    <Control ref="ControlView" @resetting="getresetting" @gameAdd="getGameAddShow" @Gamequery="getGamequery" @Refresh="HandelRefresh" />
     <Table
+      ref="TableView"
       :table-data="tableData"
       @gamedel="getGameDel"
       @gameeitor="getGameEitorShow"
@@ -53,6 +54,28 @@ export default {
     this.getgamedata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      gamePage({ pageNo: this.pageNo, pageSize: 10, gamerId: this.gamerId, name: this.name, type: this.type, status: this.status })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 请求分页数据
     getgamedata(index, data = null) {
       // 记录当前页码

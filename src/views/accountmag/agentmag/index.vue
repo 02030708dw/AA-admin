@@ -1,8 +1,8 @@
 <template>
   <el-card>
-    <Control @AgentAdd="getAgentAddShow" @Agequery="getAgequery" @resetting="getresetting" />
+    <Control ref="ControlView" @Refresh="HandelRefresh" @AgentAdd="getAgentAddShow" @Agequery="getAgequery" @resetting="getresetting" />
     <!-- 表格 -->
-    <Table :table-data="tableData" @transfer="getAgenttransfer" @updateStatus="getAgentUdateStatus" />
+    <Table ref="TableView" :table-data="tableData" @transfer="getAgenttransfer" @updateStatus="getAgentUdateStatus" />
     <Pagination :total="total" @PageChange="getAgentdata" />
     <AgentAdd ref="AgentAdd" @confirm="getAgentAdd" />
   </el-card>
@@ -36,6 +36,28 @@ export default {
     this.getAgentdata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      AgentPage({ pageNo: this.pageNo, pageSize: 10, userName: this.userName, status: this.status })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch((err) => {
+          console.log(err)
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 获取分页数据
     getAgentdata(index) {
       // 记录当前页码

@@ -1,7 +1,8 @@
 <template>
   <el-card>
-    <Control @resetting="getresetting" @query="getquery" @noticetypeAdd="getAdddialog" />
+    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @noticetypeAdd="getAdddialog" @Refresh="HandelRefresh" />
     <Table
+      ref="TableView"
       :table-data="tableData"
       @Edl="getDel"
       @EditorShow="getnottypeeditorshow"
@@ -50,6 +51,28 @@ export default {
     this.getnoticetypedata(1)
   },
   methods: {
+    // 刷新事件
+    HandelRefresh() {
+      this.$refs.TableView.HandelLoading(true)
+      // 请求数据
+      noticetypePage({ pageNo: this.pageNo, pageSize: 10, name: this.name, status: this.status })
+        .then((res) => {
+          this.total = res.resultSet.total
+          this.tableData = res.resultSet.data
+          setTimeout(() => {
+            this.$refs.ControlView.HandelBtnStatus()
+            this.$refs.TableView.HandelLoading(false)
+          }, 1000)
+          this.$message({ message: '刷新成功!', type: 'success' })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            this.$refs.TableView.HandelLoading(false)
+            this.$refs.ControlView.HandelBtnStatus()
+          })
+          this.$message.error('刷新失败!')
+        })
+    },
     // 删除公告类型
     getDel(id) {
       delnoticetype(id)
@@ -101,7 +124,7 @@ export default {
           })
         })
         .catch((err) => {
-          console.log(res)
+          console.log(err)
           this.$message.error('编辑失败!')
         })
     },
@@ -115,7 +138,7 @@ export default {
           })
         })
         .catch((err) => {
-          console.log(res)
+          console.log(err)
           this.$message.error('修改失败!')
         })
     },
@@ -131,7 +154,7 @@ export default {
           })
         })
         .catch((err) => {
-          console.log(res)
+          console.log(err)
           this.$message.error('添加失败!')
         })
     },
