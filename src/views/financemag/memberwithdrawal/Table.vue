@@ -48,9 +48,9 @@
       />
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <el-button type="text" @click="getaudit(1)"> {{ $t("passthrough") }} </el-button>
-          <el-button type="text" style="color: red;" @click="getaudit(2)"> {{ $t("reject") }} </el-button>
-          <el-button type="text" style="color: #a4a4a4;" @click="getaudit(3)"> {{ $t("cancellation") }} </el-button>
+          <el-button type="text" @click="getaudit(1,scope.row.id)"> {{ $t("passthrough") }} </el-button>
+          <el-button type="text" style="color: red;" @click="getaudit(2,scope.row.id)"> {{ $t("reject") }} </el-button>
+          <el-button type="text" style="color: #a4a4a4;" @click="getaudit(3,scope.row.id)"> {{ $t("cancellation") }} </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -106,7 +106,8 @@ export default {
     return {
       dialogVisible: false,
       reason: '', // 驳回原因
-      loading: false
+      loading: false,
+      Id: ''
     }
   },
   methods: {
@@ -126,11 +127,14 @@ export default {
     getupdateStatus(e, Id) {
       this.$emit('updateStatus', { status: e, id: Id })
     },
-    getaudit(index) {
+    getaudit(index, id = null) {
+      if (id) {
+        this.Id = id
+      }
       switch (index) {
         // 通过
         case 1:
-          Audit({ auditStatus: index, reason: '', recordId: '' }).then(res => {
+          Audit({ auditStatus: index, reason: '', recordId: this.Id }).then(res => {
             console.log(res)
           }).catch(err => {
             console.log(err)
@@ -139,7 +143,7 @@ export default {
         // 驳回
         case 2:
           if (this.dialogVisible) {
-            Audit({ auditStatus: index, reason: this.reason, recordId: '' }).then(res => {
+            Audit({ auditStatus: index, reason: this.reason, recordId: this.Id }).then(res => {
               console.log(res)
             }).catch(err => {
               console.log(err)
@@ -153,7 +157,7 @@ export default {
           break
         // 取消
         case 3:
-          Audit({ auditStatus: index, reason: '', recordId: '' }).then(res => {
+          Audit({ auditStatus: index, reason: '', recordId: this.Id }).then(res => {
             console.log(res)
           }).catch(err => {
             console.log(err)
