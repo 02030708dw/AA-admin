@@ -30,7 +30,7 @@
       />
       <el-table-column prop="type" :label="$t('typesof')" width="160">
         <template slot-scope="scope">
-          <span>{{ scope.row.type | GamerType }}</span>
+          <span>{{ scope.row.typeList | GamerType }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('state')" width="150">
@@ -58,7 +58,7 @@
             slot="reference"
             type="text"
             style="color: #4c8e75"
-            @click="getbind(scope.row.id)"
+            @click="getbind(scope.row.id,scope.row.typeList)"
           >{{ $t("Bindgametypes") }}</el-button>
           <el-button
             slot="reference"
@@ -77,18 +77,27 @@ export default {
   name: 'Table',
   filters: {
     GamerType(value) {
-      switch (value) {
-        case 1:
-          return '真人'
-        case 2:
-          return '体育'
-        case 3:
-          return '老虎机'
-        case 4:
-          return '棋牌'
-        case 5:
-          return '彩票'
+      const TypeArrList = []
+      for (let i = 0; i < value.length; i++) {
+        switch (value[i]) {
+          case 1:
+            TypeArrList.push('真人')
+            break
+          case 2:
+            TypeArrList.push('体育')
+            break
+          case 3:
+            TypeArrList.push('老虎机')
+            break
+          case 4:
+            TypeArrList.push('棋牌')
+            break
+          case 5:
+            TypeArrList.push('彩票')
+            break
+        }
       }
+      return TypeArrList.join(',')
     }
   },
   props: {
@@ -131,8 +140,9 @@ export default {
       this.$emit('updateStatus', { status: e, id: Id })
     },
     // 绑定游戏类型
-    getbind(id) {
-      this.$emit('bind', id)
+    getbind(id, data) {
+      console.log('绑定游戏类型', data)
+      this.$emit('bind', { id: id, data: data })
     },
     // 改变loading
     HandelLoading(status) {

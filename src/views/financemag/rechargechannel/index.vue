@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <!-- 充值渠道管理 -->
-    <Control ref="ControlView" @RechargeannelAdd="getChannelAddShow" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" :channelnamedata="ChannelnameData" @RechargeannelAdd="getChannelAddShow" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table
       ref="TableView"
       :table-data="tableData"
@@ -55,6 +55,8 @@ export default {
       // 页码
       pageNo: 1,
       tableData: [],
+      // 渠道名称
+      ChannelnameData: [],
       // 条件查询
       name: '',
       status: null,
@@ -73,6 +75,7 @@ export default {
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
+          this.GetChannelname()
           setTimeout(() => {
             this.$refs.ControlView.HandelBtnStatus()
             this.$refs.TableView.HandelLoading(false)
@@ -95,6 +98,20 @@ export default {
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
+          this.GetChannelname()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    // 获取渠道名称
+    GetChannelname() {
+      channelPage({ pageNo: 1, pageSize: 10000, status: this.status, type: this.type, name: this.name })
+        .then((res) => {
+          this.ChannelnameData = []
+          for (let i = 0; i < res.resultSet.data.length; i++) {
+            this.ChannelnameData.push(res.resultSet.data[i].name)
+          }
         })
         .catch((err) => {
           console.log(err)

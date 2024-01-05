@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     // 改变弹窗状态
-    getAddstatus(id) {
+    getAddstatus(data) {
       this.dialogVisible = !this.dialogVisible
       // 关闭时清空
       if (!this.dialogVisible) {
@@ -72,7 +72,8 @@ export default {
           types: [] // 游戏类型
         }
       } else {
-        this.ruleForm.gamerId = id
+        this.ruleForm.gamerId = data.id
+        this.ruleForm.types = data.data
       }
     },
     // 确定添加事件

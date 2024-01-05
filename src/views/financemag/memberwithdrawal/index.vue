@@ -30,6 +30,34 @@ export default {
       cashChannelId: ''
     }
   },
+
+  computed: {
+    A_T_Recharge() {
+      return this.$store.state.autorefresh.A_T_Recharge
+    }
+  },
+  watch: {
+    A_T_Recharge: {
+      handler() {
+        const _that = this
+        const time = setInterval(() => {
+          if (this.$store.state.autorefresh.A_T_Recharge) {
+            MemberwithdrawalPage({ pageNo: _that.pageNo, pageSize: 10, aduitStatus: _that.aduitStatus, memberId: _that.memberId, cashChannelId: _that.cashChannelId })
+              .then((res) => {
+                _that.total = res.resultSet.total
+                _that.tableData = res.resultSet.data
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          } else {
+            clearInterval(time)
+          }
+        }, 3000)
+      },
+      immediate: true
+    }
+  },
   created() {
     this.getMemWitdata(1)
   },

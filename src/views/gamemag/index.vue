@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @resetting="getresetting" @gameAdd="getGameAddShow" @Gamequery="getGamequery" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" :gameriddata="GamerIdData" @resetting="getresetting" @gameAdd="getGameAddShow" @Gamequery="getGamequery" @Refresh="HandelRefresh" />
     <Table
       ref="TableView"
       :table-data="tableData"
@@ -10,8 +10,8 @@
       @getisHot="getisHot"
     />
     <Pagination :total="total" @PageChange="getgamedata" />
-    <GameAdd ref="GameAdd" @confirm="getGameAdd" />
-    <GameEitor ref="GameEitor" @confirm="getGameEitor" />
+    <GameAdd ref="GameAdd" :gameriddata="GamerIdData" @confirm="getGameAdd" />
+    <GameEitor ref="GameEitor" :gameriddata="GamerIdData" @confirm="getGameEitor" />
   </el-card>
 </template>
 
@@ -29,6 +29,9 @@ import {
   gameEdit,
   gameisHot
 } from '@/api/game/game'
+import {
+  gamerPage
+} from '@/api/gamer/gamer'
 export default {
   components: {
     Table,
@@ -47,13 +50,26 @@ export default {
       gamerId: '',
       name: '',
       type: null,
-      status: null
+      status: null,
+      // 游戏商id
+      GamerIdData: []
     }
   },
   created() {
     this.getgamedata(1)
+    this.GetGamerPages()
   },
   methods: {
+    // 获取游戏商id
+    GetGamerPages() {
+      gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.GamerIdData.push(res.resultSet.data[i].id)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)

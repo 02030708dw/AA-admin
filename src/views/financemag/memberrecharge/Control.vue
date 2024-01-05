@@ -13,10 +13,14 @@
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
     <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
+    <!-- 开启自动刷新 -->
+    <el-button v-if="!this.$store.state.autorefresh.M_Recharge" type="info" icon="el-icon-refresh" @click="GetUpdataRefresh">开启自动刷新</el-button>
+    <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">关闭自动刷新</el-button>
   </el-row>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Control',
   data() {
@@ -42,7 +46,18 @@ export default {
       btnIcoType: true
     }
   },
+  computed: {
+    ...mapGetters([
+      'M_Recharge'
+    ])
+  },
   methods: {
+    // 开启自动刷新
+    GetUpdataRefresh() {
+      this.$store.commit('autorefresh/GetUpdataRefreshMRecharge')
+      // this.$emit('UpdataRefresh')
+      // console.log(this.$store.state.autorefresh.M_Recharge)
+    },
     // 刷新
     HandelRefresh() {
       this.$emit('Refresh')

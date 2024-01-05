@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @Refresh="HandelRefresh" @query="getquery" @resetting="getresetting" @WithdrawalchannelsAdd="getWithdrawalchannelsAddShow" />
+    <Control ref="ControlView" :channelnamedata="ChannelnameData" @Refresh="HandelRefresh" @query="getquery" @resetting="getresetting" @WithdrawalchannelsAdd="getWithdrawalchannelsAddShow" />
     <Table
       ref="TableView"
       :table-data="tableData"
@@ -53,6 +53,8 @@ export default {
       // 页码
       pageNo: 1,
       tableData: [],
+      // 渠道名称
+      ChannelnameData: [],
       name: '',
       status: null,
       type: null
@@ -70,6 +72,8 @@ export default {
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
+          // 获取渠道名称
+          this.GetChannelname()
           setTimeout(() => {
             this.$refs.ControlView.HandelBtnStatus()
             this.$refs.TableView.HandelLoading(false)
@@ -92,6 +96,20 @@ export default {
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
+          this.GetChannelname()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    // 获取渠道名称
+    GetChannelname() {
+      WithdrawalchannelsPage({ pageNo: 1, pageSize: 1000000, name: this.name, status: this.status, type: this.type })
+        .then((res) => {
+          this.ChannelnameData = []
+          for (let i = 0; i < res.resultSet.data.length; i++) {
+            this.ChannelnameData.push(res.resultSet.data[i].name)
+          }
         })
         .catch((err) => {
           console.log(err)

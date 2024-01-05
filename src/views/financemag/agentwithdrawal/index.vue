@@ -2,7 +2,7 @@
   <el-card>
     <Control ref="ControlView" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" />
-    <Pagination :total="total" />
+    <Pagination :total="total" @PageChange="getAgentWtihdrawaldata"/>
   </el-card>
 </template>
 
@@ -28,6 +28,36 @@ export default {
       aduitStatus: null, // 审核状态
       agentId: '', // 代理
       cashChannelId: ''
+    }
+  },
+  computed: {
+    A_Recharge() {
+      return this.$store.state.autorefresh.A_Recharge
+    }
+  },
+  watch: {
+    // 监听是否开启自动刷新
+    A_Recharge: {
+      handler() {
+        const _that = this
+        const time = setInterval(() => {
+          if (this.$store.state.autorefresh.A_Recharge) {
+          // 开启
+            AgentWtihdrawalPage({ pageNo: _that.pageNo, pageSize: 10, aduitStatus: _that.aduitStatus, agentId: _that.agentId, cashChannelId: _that.cashChannelId })
+              .then((res) => {
+                _that.total = res.resultSet.total
+                _that.tableData = res.resultSet.data
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          } else {
+          // 清除
+            clearInterval(time)
+          }
+        }, 3000)
+      },
+      immediate: true
     }
   },
   created() {

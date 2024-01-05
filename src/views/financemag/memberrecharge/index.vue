@@ -1,4 +1,5 @@
 <template>
+  <!-- 会员充值管理 -->
   <el-card>
     <Control ref="ControlView" @Gamequery="getgetquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" @option="getoption" />
@@ -13,6 +14,8 @@ import Table from './Table.vue'
 import Control from './Control.vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import Dialog from './Dialog.vue'
+import { mapState } from 'vuex'
+import { time } from 'echarts'
 export default {
   components: {
     Table,
@@ -35,10 +38,56 @@ export default {
       memberId: ''
     }
   },
+  computed: {
+    M_Recharge() {
+      return this.$store.state.autorefresh.M_Recharge
+    }
+  },
+  watch: {
+    M_Recharge: {
+      handler(newvalue, oldvalue) {
+        const _that = this
+        const time = setInterval(() => {
+          if (this.$store.state.autorefresh.M_Recharge) {
+          // 刷新
+            MemberrechargelPage({ pageNo: _that.pageNo, pageSize: 10, amount: _that.amount, auditStatus: _that.auditStatus, cardNo: _that.cardNo, channelId: _that.channelId, date: _that.date, memberId: _that.memberId }).then(res => {
+              console.log(res.resultSet.data)
+              _that.total = res.resultSet.total
+              _that.tableData = res.resultSet.data
+            }).catch(err => {
+              console.log(err)
+            })
+          } else {
+          // 清除
+            clearInterval(time)
+          }
+        }, 3000)
+      },
+      immediate: true
+    }
+  },
   created() {
     this.memberrechargedata(1)
   },
   methods: {
+    // 自动刷新开启关闭
+    // getUpdataRefresh() {
+    //   const _that = this
+    //   console.log(this.$store.state.autorefresh.M_Recharge, this.M_Recharge)
+    //   const time = setInterval(() => {
+    //     if (this.$store.state.autorefresh.M_Recharge) {
+    //       MemberrechargelPage({ pageNo: _that.pageNo, pageSize: 10, amount: _that.amount, auditStatus: _that.auditStatus, cardNo: _that.cardNo, channelId: _that.channelId, date: _that.date, memberId: _that.memberId }).then(res => {
+    //         console.log(res.resultSet.data)
+    //         _that.total = res.resultSet.total
+    //         _that.tableData = res.resultSet.data
+    //       }).catch(err => {
+    //         console.log(err)
+    //       })
+    //     } else {
+    //       clearInterval(time)
+    //     }
+    //   }, 60000)
+    // },
     // 刷新
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
@@ -48,7 +97,7 @@ export default {
         setTimeout(() => {
           this.$refs.ControlView.HandelBtnStatus()
           this.$refs.TableView.HandelLoading(false)
-        }, 1000)
+        }, 60000)
         this.$message({ message: '刷新成功!', type: 'success' })
       }).catch(err => {
         console.log(err)

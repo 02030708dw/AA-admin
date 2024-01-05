@@ -9,7 +9,7 @@
       @Membershiptransfer="getMembershiptransfer"
       @Proxytransfer="getProxytransfer"
     />
-    <Pagination :total="total" />
+    <Pagination :total="total" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer ref="Proxytransfer" @confirm="getProxytransferok" />
   </el-card>

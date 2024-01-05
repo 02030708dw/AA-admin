@@ -182,8 +182,8 @@ export default {
         })
     },
     // 绑定游戏商游戏类型
-    getbindShow(id) {
-      this.$refs.BindGamer.getAddstatus(id)
+    getbindShow(data) {
+      this.$refs.BindGamer.getAddstatus(data)
     },
     getBind(e) {
       gamerbind({ gamerId: e.gamerId, types: e.types }).then(res => {

@@ -35,6 +35,9 @@
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
     <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
+    <!-- 开启自动刷新 -->
+    <el-button v-if="!this.$store.state.autorefresh.A_T_Recharge" type="info" icon="el-icon-refresh" @click="GetUpdataRefresh">开启自动刷新</el-button>
+    <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">关闭自动刷新</el-button>
   </el-row>
 </template>
 
@@ -56,6 +59,10 @@ export default {
     }
   },
   methods: {
+    // 自动刷新开关
+    GetUpdataRefresh() {
+      this.$store.commit('autorefresh/GetUpdataRefreshATRecharge')
+    },
     // 刷新
     HandelRefresh() {
       this.$emit('Refresh')

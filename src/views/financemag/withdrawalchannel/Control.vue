@@ -1,11 +1,23 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
-    <el-input
+    <!-- <el-input
       v-model="name"
       style="width: 200px; margin-left: 10px"
       :placeholder="$t('Channelname')"
-    />
+    /> -->
+    <el-select
+      v-model="name"
+      :placeholder="$t('Channelname')"
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in channelnamedata"
+        :key="index"
+        :value="item"
+        :label="item"
+      />
+    </el-select>
     <el-select
       v-model="status"
       :placeholder="$t('state')"
@@ -46,6 +58,14 @@
 <script>
 export default {
   name: 'Control',
+  props: {
+    channelnamedata: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       name: '',

@@ -10,9 +10,25 @@
       <el-form-item :label="$t('gamename')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <el-form-item :label="$t('GamemerchantsID')" prop="gamerId">
+      <!-- <el-form-item :label="$t('GamemerchantsID')" prop="gamerId">
         <el-input v-model="ruleForm.gamerId" />
+      </el-form-item> -->
+
+      <el-form-item :label="$t('GamemerchantsID')" prop="gamerId">
+        <el-select
+          v-model="ruleForm.gamerId"
+          :placeholder="$t('GamemerchantsID')"
+          style="width: 200px;margin-left: 10px"
+        >
+          <el-option
+            v-for="(item, index) in gameriddata"
+            :key="index"
+            :value="item"
+            :label="item"
+          />
+        </el-select>
       </el-form-item>
+
       <el-form-item :label="$t('ThirdpartyID')" prop="threeId">
         <el-input v-model="ruleForm.threeId" />
       </el-form-item>
@@ -56,6 +72,14 @@
 
 <script>
 export default {
+  props: {
+    gameriddata: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       // 弹窗状态

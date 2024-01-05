@@ -2,11 +2,23 @@
   <el-row style="padding-bottom: 10px">
     <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
     <!-- 条件查询 -->
-    <el-input
+    <!-- <el-input
       v-model="name"
       style="width: 200px; margin-left: 10px"
       :placeholder="$t('Channelname')"
-    />
+    /> -->
+    <el-select
+      v-model="name"
+      :placeholder="$t('Channelname')"
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in channelnamedata"
+        :key="index"
+        :value="item"
+        :label="item"
+      />
+    </el-select>
     <el-select
       v-model="status"
       :placeholder="$t('state')"
@@ -48,8 +60,18 @@
 <script>
 export default {
   name: 'Control',
+  props: {
+    // 渠道名称
+    channelnamedata: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
+      // 渠道名称
       name: '',
       status: null,
       type: null,
