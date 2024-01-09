@@ -19,7 +19,11 @@
           <div> {{ scope.row.aduitStatus | typeF }} </div>
         </template>
       </el-table-column>
-      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="" />
+      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="" >
+        <template slot-scope="scope">
+          <div> {{ scope.row.aduitTime | timeF }} </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="rejection" :label="$t('ReasonForRejection')" width="" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
@@ -32,6 +36,7 @@
   </el-card>
 </template>
 <script >
+import { formatDate } from '../../../utils/formattime'
 export default {
   name: 'Table',
   filters: {
@@ -46,6 +51,9 @@ export default {
         case 3:
           return '已取消'
       }
+    },
+    timeF(value) {
+      return formatDate(value)
     }
   },
   props: {

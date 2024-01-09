@@ -1,7 +1,21 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
-    <el-input v-model="noteTypeId" style="width: 200px;margin-left:10px;" :placeholder="$t('ChanneltypeID')" />
+    <!-- <el-input v-model="noteTypeId" style="width: 200px;margin-left:10px;" :placeholder="$t('ChanneltypeID')" /> -->
+
+    <el-select
+      v-model="noteTypeId"
+      :placeholder="$t('ChanneltypeID')"
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in NoticetypeData"
+        :key="index"
+        :value="item"
+        :label="item"
+      />
+    </el-select>
+
     <el-select
       v-model="status"
       :placeholder="$t('state')"
@@ -23,6 +37,7 @@
 </template>
 
 <script>
+import { noticetypePage } from '@/api/message/noticetype'
 export default {
   name: 'Control',
   data() {
@@ -33,10 +48,25 @@ export default {
         { title: '停用', index: 0 },
         { title: '启用', index: 1 }
       ],
-      btnIcoType: true
+      btnIcoType: true,
+      NoticetypeData: []
     }
   },
+  created() {
+    this.GetNoticetypePage()
+  },
   methods: {
+    // 获取公告类型id
+    GetNoticetypePage() {
+      this.NoticetypeData = []
+      noticetypePage({ pageNo: 1, pageSize: 1000000 }).then(res => {
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.NoticetypeData.push(res.resultSet.data[i].id)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     getAdd() {
       this.$emit('NoticeAdd')
     },

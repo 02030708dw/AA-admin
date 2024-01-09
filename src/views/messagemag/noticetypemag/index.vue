@@ -8,7 +8,11 @@
       @EditorShow="getnottypeeditorshow"
       @UdateStatus="getUdateStatus"
     />
-    <Pagination :total="total" @PageChange="getnoticetypedata" />
+    <Pagination
+      :total="total"
+      @PageSizeChange="HandelPagesChange"
+      @PageChange="getnoticetypedata"
+    />
     <NoticetypeAdd ref="nottypeadd" @confirm="getaddnoticetype" />
     <NoticetypeEditor
       ref="nottypeeditor"
@@ -44,18 +48,23 @@ export default {
       total: 0,
       pageNo: 1,
       name: '',
-      status: null
+      status: null,
+      PagesSize: 10
     }
   },
   created() {
     this.getnoticetypedata(1)
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getnoticetypedata(this.pageNo)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      noticetypePage({ pageNo: this.pageNo, pageSize: 10, name: this.name, status: this.status })
+      noticetypePage({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -91,7 +100,7 @@ export default {
     // 请求分页数据
     getnoticetypedata(index) {
       this.pageNo = index
-      noticetypePage({ pageNo: index, pageSize: 10, name: this.name, status: this.status })
+      noticetypePage({ pageNo: index, pageSize: this.PagesSize, name: this.name, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

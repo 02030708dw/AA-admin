@@ -9,7 +9,7 @@
       @updateStatus="getGamerupdateStatus"
       @bind="getbindShow"
     />
-    <Pagination :total="total" @PageChange="getroledata" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
     <GamerAdd ref="GamerAdd" @confirm="getGamerAdd" />
     <GamerEitor ref="GamerEitor" @confirm="getGamerEitor" />
     <BindGamer ref="BindGamer" @confirm="getBind" />
@@ -50,18 +50,23 @@ export default {
       pageNo: 1,
       tableData: [],
       name: '',
-      status: null
+      status: null,
+      PagesSize: 10
     }
   },
   created() {
     this.getroledata(1)
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getroledata(this.pageNo)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      gamerPage({ pageNo: this.pageNo, pageSize: 10, name: this.name, status: this.status })
+      gamerPage({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -83,7 +88,7 @@ export default {
     getroledata(index) {
       // 记录当前页码
       this.pageNo = index
-      gamerPage({ pageNo: index, pageSize: 10, name: this.name, status: this.status })
+      gamerPage({ pageNo: index, pageSize: this.PagesSize, name: this.name, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

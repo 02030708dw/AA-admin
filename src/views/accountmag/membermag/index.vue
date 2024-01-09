@@ -9,7 +9,7 @@
       @Membershiptransfer="getMembershiptransfer"
       @Proxytransfer="getProxytransfer"
     />
-    <Pagination :total="total" @PageChange="getMemberPage" />
+    <Pagination @PageSizeChange="HandelPagesChange" :total="total" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer ref="Proxytransfer" @confirm="getProxytransferok" />
   </el-card>
@@ -46,7 +46,8 @@ export default {
       tableData: [],
       agentId: '',
       userName: '',
-      status: null
+      status: null,
+      PagesSize: 10
     }
   },
   created() {
@@ -57,7 +58,7 @@ export default {
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      MemberPage({ pageNo: this.pageNo, pageSize: 10, agentId: this.agentId, username: this.userName, status: this.status })
+      MemberPage({ pageNo: this.pageNo, pageSize: this.PagesSize, agentId: this.agentId, username: this.userName, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -110,11 +111,15 @@ export default {
           console.log(err)
         })
     },
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getMemberPage(this.pageNo)
+    },
     getMemberPage(index) {
       // 记录当前页码
       this.pageNo = index
 
-      MemberPage({ pageNo: index, pageSize: 10, agentId: this.agentId, username: this.userName, status: this.status })
+      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, username: this.userName, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

@@ -16,7 +16,7 @@
       @updateStatus="getUserupdateStatus"
       @userdel="getUserDel"
     />
-    <Pagination :total="total" @PageChange="getuserdata" />
+    <Pagination @PageSizeChange="HandelPagesChange" :total="total" @PageChange="getuserdata" />
     <UserAdd ref="UserAdd" @confirm="getUserAdd" />
     <UserEitor ref="UserEitor" @confirm="getUserEitor" />
   </el-card>
@@ -53,19 +53,24 @@ export default {
       pageNo: 1,
       tableData: [],
       userName: '',
-      status: ''
+      status: '',
+      PagesSize: 10
     }
   },
   created() {
     this.getuserdata()
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getuserdata(this.pageNo)
+    },
     // 刷新
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       userPage({
         pageNo: this.pageNo,
-        pageSize: 10,
+        pageSize: this.PagesSize,
         userName: this.userName,
         status: this.status
       })
@@ -88,12 +93,11 @@ export default {
         })
     },
     // 请求分页数据
-    getuserdata(index, data = null) {
+    getuserdata(index) {
       this.pageNo = index
-
       userPage({
         pageNo: index,
-        pageSize: 10,
+        pageSize: this.PagesSize,
         userName: this.userName,
         status: this.status
       })

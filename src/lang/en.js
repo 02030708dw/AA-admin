@@ -32,8 +32,8 @@ export default {
     My: 'My',
     Currencymanagement: 'Currency management',
     Monthlyreportmanagement: 'Monthlyreport Management',
-    Dailyreportmanagement: 'Dailyreport Management'
-
+    Dailyreportmanagement: 'Dailyreport Management',
+    memberrebates: 'memberrebates'
   },
   role: {
     permission: 'Permission'
@@ -163,5 +163,6 @@ export default {
   ReasonForRejection: 'ReasonForRejection',
   RechargeChannels: 'RechargeChannels',
   PaymentCardNumber: 'PaymentCardNumber',
-  payee: 'payee'
+  payee: 'payee',
+  UserId: 'UserId'
 }

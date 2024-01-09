@@ -1,9 +1,10 @@
 <template>
   <!-- 会员充值管理 -->
   <el-card>
-    <Control ref="ControlView" @Gamequery="getgetquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <!-- @Refresh="HandelRefresh" -->
+    <Control ref="ControlView" @Refresh="HandelRefresh" @Gamequery="getgetquery" @resetting="getresetting" />
     <Table ref="TableView" :table-data="tableData" @option="getoption" />
-    <Pagination :total="total" @PageChange="memberrechargedata" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="memberrechargedata" />
     <Dialog ref="DialogView" @toexamine="gettoexamine" />
   </el-card>
 </template>
@@ -14,8 +15,6 @@ import Table from './Table.vue'
 import Control from './Control.vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import Dialog from './Dialog.vue'
-import { mapState } from 'vuex'
-import { time } from 'echarts'
 export default {
   components: {
     Table,
@@ -35,7 +34,8 @@ export default {
       cardNo: '',
       channelId: '',
       date: '',
-      memberId: ''
+      memberId: '',
+      PagesSize: 10
     }
   },
   computed: {
@@ -50,7 +50,7 @@ export default {
         const time = setInterval(() => {
           if (this.$store.state.autorefresh.M_Recharge) {
           // 刷新
-            MemberrechargelPage({ pageNo: _that.pageNo, pageSize: 10, amount: _that.amount, auditStatus: _that.auditStatus, cardNo: _that.cardNo, channelId: _that.channelId, date: _that.date, memberId: _that.memberId }).then(res => {
+            MemberrechargelPage({ pageNo: _that.pageNo, pageSize: this.PagesSize, amount: _that.amount, auditStatus: _that.auditStatus, cardNo: _that.cardNo, channelId: _that.channelId, date: _that.date, memberId: _that.memberId }).then(res => {
               console.log(res.resultSet.data)
               _that.total = res.resultSet.total
               _that.tableData = res.resultSet.data
@@ -70,34 +70,16 @@ export default {
     this.memberrechargedata(1)
   },
   methods: {
-    // 自动刷新开启关闭
-    // getUpdataRefresh() {
-    //   const _that = this
-    //   console.log(this.$store.state.autorefresh.M_Recharge, this.M_Recharge)
-    //   const time = setInterval(() => {
-    //     if (this.$store.state.autorefresh.M_Recharge) {
-    //       MemberrechargelPage({ pageNo: _that.pageNo, pageSize: 10, amount: _that.amount, auditStatus: _that.auditStatus, cardNo: _that.cardNo, channelId: _that.channelId, date: _that.date, memberId: _that.memberId }).then(res => {
-    //         console.log(res.resultSet.data)
-    //         _that.total = res.resultSet.total
-    //         _that.tableData = res.resultSet.data
-    //       }).catch(err => {
-    //         console.log(err)
-    //       })
-    //     } else {
-    //       clearInterval(time)
-    //     }
-    //   }, 60000)
-    // },
     // 刷新
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      MemberrechargelPage({ pageNo: this.pageNo, pageSize: 10, amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, date: this.date, memberId: this.memberId }).then(res => {
+      MemberrechargelPage({ pageNo: this.pageNo, pageSize: this.PagesSize, amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, date: this.date, memberId: this.memberId }).then(res => {
         this.total = res.resultSet.total
         this.tableData = res.resultSet.data
         setTimeout(() => {
           this.$refs.ControlView.HandelBtnStatus()
           this.$refs.TableView.HandelLoading(false)
-        }, 60000)
+        }, 1000)
         this.$message({ message: '刷新成功!', type: 'success' })
       }).catch(err => {
         console.log(err)
@@ -111,13 +93,17 @@ export default {
     // 请求分页数据
     memberrechargedata(index) {
       this.pageNo = index
-      MemberrechargelPage({ pageNo: index, pageSize: 10, amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, date: this.date, memberId: this.memberId }).then(res => {
-        console.log(res.resultSet.data)
+      MemberrechargelPage({ pageNo: index, pageSize: this.PagesSize, amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, date: this.date, memberId: this.memberId }).then(res => {
         this.total = res.resultSet.total
         this.tableData = res.resultSet.data
       }).catch(err => {
         console.log(err)
       })
+    },
+    // 改变每页条数
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.memberrechargedata(this.pageNo)
     },
     // 条件查询
     getgetquery(e) {

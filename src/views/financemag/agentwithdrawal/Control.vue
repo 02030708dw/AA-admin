@@ -16,16 +16,31 @@
       />
     </el-select>
 
-    <el-input
+    <el-select
       v-model="agentId"
-      style="width: 200px; margin-left: 10px"
       :placeholder="$t('agenId')"
-    />
-    <el-input
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in AgentData "
+        :key="index"
+        :value="item"
+        :label="item"
+      />
+    </el-select>
+
+    <el-select
       v-model="cashChannelId"
-      style="width: 200px; margin-left: 10px"
       :placeholder="$t('WithdrawalchannelID')"
-    />
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in channelData "
+        :key="index"
+        :value="item"
+        :label="item"
+      />
+    </el-select>
     <el-button
       style="margin-left: 10px"
       type="primary"
@@ -42,6 +57,8 @@
 </template>
 
 <script>
+import { AgentPage } from '@/api/account/agent'
+import { channelPage } from '@/api/finance/rechargechannel'
 export default {
   name: 'Control',
   data() {
@@ -55,10 +72,38 @@ export default {
         { title: '驳回', index: 2 },
         { title: '已取消', index: 3 }
       ],
-      btnIcoType: true
+      btnIcoType: true,
+      AgentData: [],
+      channelData: []
     }
   },
+  created() {
+    this.GetAgentPage()
+    this.GetChannelPage()
+  },
   methods: {
+    // 获取代理id
+    GetAgentPage() {
+      this.AgentData = []
+      AgentPage({ pageNo: 1, pageSize: 10000 }).then(res => {
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.AgentData.push(res.resultSet.data[i].id)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    // 获取渠道id
+    GetChannelPage() {
+      this.channelData = []
+      channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.channelData.push(res.resultSet.data[i].id)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     // 开启关闭自动刷新
     GetUpdataRefresh() {
       this.$store.commit('autorefresh/GetUpdataRefreshARecharge')

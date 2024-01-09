@@ -16,7 +16,11 @@
       @eitor="getRechargeEitorShow"
       @updateStatus="getRechargeUdateStatus"
     />
-    <Pagination :total="total" @PageChange="getRechargedata" />
+    <Pagination
+      :total="total"
+      @PageSizeChange="HandelPagesChange"
+      @PageChange="getRechargedata"
+    />
     <rechargeAdd ref="rechargeAdd" @confirm="getRechargeAdd" />
     <rechargeEitor
       ref="rechargeEitor"
@@ -60,18 +64,23 @@ export default {
       pageNo: 1,
       tableData: [],
       type: null,
-      channelId: ''
+      channelId: '',
+      PagesSize: 10
     }
   },
   created() {
     this.getRechargedata(1)
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getRechargedata(this.pageNo)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      RechargePage({ pageNo: this.pageNo, pageSize: 10, channelId: this.channelId, type: this.type })
+      RechargePage({ pageNo: this.pageNo, pageSize: this.PagesSize, channelId: this.channelId, type: this.type })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -93,7 +102,7 @@ export default {
     getRechargedata(index = 1) {
       // 记录当前页码
       this.pageNo = index
-      RechargePage({ pageNo: index, pageSize: 10, channelId: this.channelId, type: this.type })
+      RechargePage({ pageNo: index, pageSize: this.PagesSize, channelId: this.channelId, type: this.type })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

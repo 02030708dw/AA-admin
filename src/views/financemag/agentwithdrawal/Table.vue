@@ -40,47 +40,22 @@
         <template slot-scope="scope">
           <span>{{ scope.row.aduitStatus | FaduitStatus }}</span>
         </template></el-table-column>
-      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="200" />
+      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="200" >
+        <template slot-scope="scope">
+          <span>{{ scope.row.aduitTime | timeF }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="rejection"
         :label="$t('Reasonforrejection')"
         width="200"
       />
-      <!-- <el-table-column prop="" :label="$t('state')" width="150">
-          <template slot-scope="scope">
-            <div>
-              <el-switch
-                @change="getupdateStatus($event, scope.row.id)"
-                v-model="scope.row.status"
-                active-color="#13ce66"
-                :active-value="1"
-                :inactive-value="0"
-              >
-              </el-switch>
-            </div>
-          </template>
-        </el-table-column> -->
-
-      <!-- <el-table-column prop="" :label="$t('operate')" width="200">
-          <template slot-scope="scope">
-            <el-button type="text" @click="geteroleEitor(scope.row)">{{
-              $t("edit")
-            }}</el-button>
-
-            <el-button
-              slot="reference"
-              type="text"
-              style="color: red"
-              @click="getroledel(scope.row.id)"
-              >{{ $t("delete") }}</el-button
-            >
-          </template>
-        </el-table-column> -->
     </el-table>
   </el-card>
 </template>
 
 <script>
+import { formatDate } from '../../../utils/formattime'
 export default {
   name: 'Table',
   filters: {
@@ -95,6 +70,9 @@ export default {
         case 3:
           return '已取消'
       }
+    },
+    timeF(value) {
+      return formatDate(value)
     }
   },
   props: {

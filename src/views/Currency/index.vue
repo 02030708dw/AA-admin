@@ -2,7 +2,11 @@
   <el-card>
     <Control ref="ControlView" @CurrencyAdd="getCurrencyAddShow" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" @delete="getDel" @eitor="getCurrencyEditShow" />
-    <Pagination :total="total" @PageChange="getCurrencydata" />
+    <Pagination
+      :total="total"
+      @PageSizeChange="HandelPagesChange"
+      @PageChange="getCurrencydata"
+    />
     <AddCurrency ref="AddCurrency" @confirm="getCurrencyAdd" />
     <EditCurrency ref="EditCurrency" @confirm="getCurrencyEdit" />
   </el-card>
@@ -32,18 +36,23 @@ export default {
       // 币种
       currency: '',
       // 状态
-      status: null
+      status: null,
+      PagesSize: 10
     }
   },
   created() {
     this.getCurrencydata(1)
+    this.getCurrencydata(this.pageNo)
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      CurrencytPage({ pageNo: this.pageNo, pageSize: 10, currency: this.currency, status: this.status })
+      CurrencytPage({ pageNo: this.pageNo, pageSize: this.PagesSize, currency: this.currency, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -64,7 +73,7 @@ export default {
     // 请求分页列表
     getCurrencydata(index) {
       this.pageNo = index
-      CurrencytPage({ pageNo: index, pageSize: 10, currency: this.currency, status: this.status }).then(res => {
+      CurrencytPage({ pageNo: index, pageSize: this.PagesSize, currency: this.currency, status: this.status }).then(res => {
         this.total = res.resultSet.total
         this.tableData = res.resultSet.data
       }).catch(err => {

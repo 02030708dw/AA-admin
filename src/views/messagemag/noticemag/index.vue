@@ -10,7 +10,7 @@
       @NoticeUpdateStatus="getNoticeUpdateStatus"
       @NoticeEitor="getNotcieEitorShow"
     />
-    <Pagination :total="total" @PageChange="getnoticedata" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange"  @PageChange="getnoticedata" />
     <noticeAdd ref="noticeAdd" :noticetype-page="noticetypePage" @confirm="getNoticeAdd" />
     <noticeEitor ref="noticeEitor" :noticetype-page="noticetypePage" @confirm="getNoticeEitor" />
   </el-card>
@@ -45,7 +45,8 @@ export default {
       pageNo: 1,
       noteTypeId: '', // 公告类型id
       status: null, // 状态
-      noticetypePage: []
+      noticetypePage: [],
+      PagesSize: 10
     }
   },
   created() {
@@ -53,11 +54,15 @@ export default {
     this.getnoticetypePage()
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getnoticedata(this.pageNo)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      noticePage({ pageNo: this.pageNo, pageSize: 10, noteTypeId: this.noteTypeId, status: this.status })
+      noticePage({ pageNo: this.pageNo, pageSize: this.PagesSize, noteTypeId: this.noteTypeId, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -93,7 +98,7 @@ export default {
     // 请求分页数据
     getnoticedata(index = 1) {
       this.pageNo = index
-      noticePage({ pageNo: index, pageSize: 10, noteTypeId: this.noteTypeId, status: this.status })
+      noticePage({ pageNo: index, pageSize: this.PagesSize, noteTypeId: this.noteTypeId, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

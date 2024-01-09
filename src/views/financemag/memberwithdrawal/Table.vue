@@ -40,7 +40,11 @@
         <template slot-scope="scope">
           <span>{{ scope.row.aduitStatus | FaduitStatus }}</span>
         </template></el-table-column>
-      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="200" />
+      <el-table-column prop="" :label="$t('Audittime')" width="200" >
+        <template slot-scope="scope">
+          <span>{{ scope.row.aduitTime | timeF }}</span>
+        </template></el-table-column>
+      </el-table-column>
       <el-table-column
         prop="rejection"
         :label="$t('Reasonforrejection')"
@@ -77,6 +81,7 @@
 </template>
 
 <script>
+import { formatDate } from '../../../utils/formattime'
 import { Audit } from '@/api/finance/memberwithdrawal'
 export default {
   name: 'Table',
@@ -92,6 +97,9 @@ export default {
         case 3:
           return '已取消'
       }
+    },
+    timeF(value) {
+      return formatDate(value)
     }
   },
   props: {

@@ -92,6 +92,12 @@ export const constantRoutes = [
         meta: { title: 'membermanagement', icon: 'el-icon-star-on' }
       },
       {
+        path: 'Memberrebates',
+        name: 'memberrebates',
+        component: () => import('@/views/accountmag/memberrebates/index'),
+        meta: { title: 'memberrebates', icon: 'el-icon-thumb' }
+      },
+      {
         path: 'agent',
         name: 'agent',
         component: () => import('@/views/accountmag/agentmag/index'),

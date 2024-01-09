@@ -16,16 +16,31 @@
       />
     </el-select>
 
-    <el-input
+    <el-select
       v-model="memberId"
-      style="width: 200px; margin-left: 10px"
       :placeholder="$t('MemberID')"
-    />
-    <el-input
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in channelData"
+        :key="index"
+        :value="item"
+        :label="item"
+      />
+    </el-select>
+    <el-select
       v-model="cashChannelId"
-      style="width: 200px; margin-left: 10px"
       :placeholder="$t('WithdrawalchannelID')"
-    />
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in MemberData"
+        :key="index"
+        :value="item"
+        :label="item"
+      />
+    </el-select>
+
     <el-button
       style="margin-left: 10px"
       type="primary"
@@ -42,6 +57,10 @@
 </template>
 
 <script>
+import {
+  MemberPage
+} from '@/api/account/member'
+import { channelPage } from '@/api/finance/rechargechannel'
 export default {
   name: 'Control',
   data() {
@@ -55,10 +74,36 @@ export default {
         { title: '驳回', index: 2 },
         { title: '已取消', index: 3 }
       ],
-      btnIcoType: true
+      btnIcoType: true,
+      channelData: [],
+      MemberData: []
     }
   },
+  created() {
+    this.GetChannelPage()
+    this.GetMemberPage()
+  },
   methods: {
+    GetChannelPage() {
+      this.channelData = []
+      channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.channelData.push(res.resultSet.data[i].id)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    GetMemberPage() {
+      this.MemberData = []
+      MemberPage({ pageNo: 1, pageSize: 10000 }).then(res => {
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.MemberData.push(res.resultSet.data[i].id)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     // 自动刷新开关
     GetUpdataRefresh() {
       this.$store.commit('autorefresh/GetUpdataRefreshATRecharge')

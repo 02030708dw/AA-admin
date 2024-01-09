@@ -1,6 +1,7 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @AuthorityAdd="getAuthorityAddShow" @Refresh="HandelRefresh" />
+    <!-- @Refresh="HandelRefresh" -->
+    <Control ref="ControlView" @AuthorityAdd="getAuthorityAddShow"  />
     <Table
       ref="TableView"
       :table-data="tableData"
@@ -8,7 +9,11 @@
       @updateStatus="getAuthorityUdateStatus"
       @eitor="getAuthorityEitorShow"
     />
-    <Pagination :total="total" @PageChange="getAuthoritydata" />
+    <Pagination
+      :total="total"
+      @PageSizeChange="HandelPagesChange"
+      @PageChange="getAuthoritydata"
+    />
     <AuthorityAdd ref="AuthorityAdd" @confirm="getAuthorityAdd" />
     <AuthorityEditor
       ref="AuthorityEditor"
@@ -43,7 +48,8 @@ export default {
       total: 0,
       // 页码
       pageNo: 1,
-      tableData: []
+      tableData: [],
+      PagesSize: 10
     }
   },
   created() {
@@ -54,7 +60,7 @@ export default {
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      getAuthorityPage({ pageNo: this.pageNo, pageSize: 10 })
+      getAuthorityPage({ pageNo: this.pageNo, pageSize: this.PagesSize })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -72,11 +78,15 @@ export default {
           this.$message.error('刷新失败!')
         })
     },
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getAuthoritydata(this.pageNo)
+    },
     // 获取分页数据
     getAuthoritydata(index = 1) {
       // 记录当前页码
       this.pageNo = index
-      getAuthorityPage({ pageNo: index, pageSize: 10 })
+      getAuthorityPage({ pageNo: index, pageSize: this.PagesSize })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

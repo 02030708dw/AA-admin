@@ -4,7 +4,7 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @updateStatus="getupdateStatus" @roledel="getroledel" @roleEditor="getEditordialog" />
     <!-- 分页组件 -->
-    <Pagination :total="total" @PageChange="getroledata" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
     <!-- 添加组件 -->
     <RoleAdd ref="roleadd" @confirm="getadd" />
     <!-- 编辑组件 -->
@@ -51,18 +51,23 @@ export default {
       pageNo: 1,
       status: null,
       code: '',
-      roleName: ''
+      roleName: '',
+      PagesSize: 10
     }
   },
   created() {
     // 初始化角色数据
     this.getroledata(1)
+    this.getroledata(this.pageNo)
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      getrolePage({ pageNo: this.pageNo, pageSize: 10, code: this.code, roleName: this.roleName, status: this.status })
+      getrolePage({ pageNo: this.pageNo, pageSize: this.PagesSize, code: this.code, roleName: this.roleName, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -85,7 +90,7 @@ export default {
       // 记录当前页码
       this.pageNo = index
       // 条件查询
-      getrolePage({ pageNo: index, pageSize: 10, code: this.code, roleName: this.roleName, status: this.status })
+      getrolePage({ pageNo: index, pageSize: this.PagesSize, code: this.code, roleName: this.roleName, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

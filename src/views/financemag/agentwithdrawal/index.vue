@@ -1,8 +1,13 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <!-- @Refresh="HandelRefresh" -->
+    <Control ref="ControlView" @Refresh="HandelRefresh" @query="getquery" @resetting="getresetting" />
     <Table ref="TableView" :table-data="tableData" />
-    <Pagination :total="total" @PageChange="getAgentWtihdrawaldata"/>
+    <Pagination
+      :total="total"
+      @PageSizeChange="HandelPagesChange"
+      @PageChange="getAgentWtihdrawaldata"
+    />
   </el-card>
 </template>
 
@@ -27,7 +32,8 @@ export default {
       tableData: [],
       aduitStatus: null, // 审核状态
       agentId: '', // 代理
-      cashChannelId: ''
+      cashChannelId: '',
+      PagesSize: 10
     }
   },
   computed: {
@@ -43,7 +49,7 @@ export default {
         const time = setInterval(() => {
           if (this.$store.state.autorefresh.A_Recharge) {
           // 开启
-            AgentWtihdrawalPage({ pageNo: _that.pageNo, pageSize: 10, aduitStatus: _that.aduitStatus, agentId: _that.agentId, cashChannelId: _that.cashChannelId })
+            AgentWtihdrawalPage({ pageNo: _that.pageNo, pageSize: this.PagesSize, aduitStatus: _that.aduitStatus, agentId: _that.agentId, cashChannelId: _that.cashChannelId })
               .then((res) => {
                 _that.total = res.resultSet.total
                 _that.tableData = res.resultSet.data
@@ -86,11 +92,15 @@ export default {
         })
     },
     // 请求列表
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getAgentWtihdrawaldata(this.pageNo)
+    },
     getAgentWtihdrawaldata(index) {
       // 记录当前页码
       this.pageNo = index
 
-      AgentWtihdrawalPage({ pageNo: index, pageSize: 10, aduitStatus: this.aduitStatus, agentId: this.agentId, cashChannelId: this.cashChannelId })
+      AgentWtihdrawalPage({ pageNo: index, pageSize: this.PagesSize, aduitStatus: this.aduitStatus, agentId: this.agentId, cashChannelId: this.cashChannelId })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

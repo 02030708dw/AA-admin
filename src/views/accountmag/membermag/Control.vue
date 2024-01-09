@@ -1,9 +1,18 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <!-- <el-button type="primary">新增</el-button> -->
-    <!-- 条件筛选框 -->
     <el-input v-model="userName" style="width: 200px;" :placeholder="$t('username')" />
-    <el-input v-model="agentId" style="width: 200px;margin-left:10px;" :placeholder="$t('agenId')" />
+    <el-select
+      v-model="agentId"
+      :placeholder="$t('agenId')"
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in agentIddata"
+        :key="index"
+        :value="item"
+        :label="item"
+      />
+    </el-select>
     <el-select
       v-model="status"
       :placeholder="$t('state')"
@@ -25,6 +34,8 @@
 </template>
 
 <script>
+// 获取代理id
+import { AgentPage } from '@/api/account/agent'
 export default {
   name: 'Control',
   data() {
@@ -36,10 +47,26 @@ export default {
         { title: '停用', index: 0 },
         { title: '启用', index: 1 }
       ],
-      btnIcoType: true
+      btnIcoType: true,
+      agentIddata: []
     }
   },
+  created() {
+    this.getAgentPage()
+  },
   methods: {
+    // 获取代理id
+    getAgentPage() {
+      this.agentIddata = []
+      AgentPage({ pageNo: 1, pageSize: 100000 }).then(res => {
+        console.log(res.resultSet.data)
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.agentIddata.push(res.resultSet.data[i].id)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     getquery() {
       this.$emit('Memquery', {
         agentId: this.agentId,

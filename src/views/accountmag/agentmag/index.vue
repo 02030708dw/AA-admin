@@ -3,7 +3,7 @@
     <Control ref="ControlView" @Refresh="HandelRefresh" @AgentAdd="getAgentAddShow" @Agequery="getAgequery" @resetting="getresetting" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @transfer="getAgenttransfer" @updateStatus="getAgentUdateStatus" />
-    <Pagination :total="total" @PageChange="getAgentdata" />
+    <Pagination @PageSizeChange="HandelPagesChange"  :total="total" @PageChange="getAgentdata" />
     <AgentAdd ref="AgentAdd" @confirm="getAgentAdd" />
   </el-card>
 </template>
@@ -29,17 +29,22 @@ export default {
       pageNo: 1,
       tableData: [],
       userName: '',
-      status: null
+      status: null,
+      PagesSize: 10
     }
   },
   created() {
     this.getAgentdata(1)
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getAgentdata(this.pageNo)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      AgentPage({ pageNo: this.pageNo, pageSize: 10, userName: this.userName, status: this.status })
+      AgentPage({ pageNo: this.pageNo, pageSize: this.PagesSize, userName: this.userName, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -62,7 +67,7 @@ export default {
     getAgentdata(index) {
       // 记录当前页码
       this.pageNo = index
-      AgentPage({ pageNo: index, pageSize: 10, userName: this.userName, status: this.status })
+      AgentPage({ pageNo: index, pageSize: this.PagesSize, userName: this.userName, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

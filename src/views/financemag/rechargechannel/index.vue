@@ -9,7 +9,11 @@
       @delete="getChannelDelete"
       @eitor="getChannelEitorShow"
     />
-    <Pagination :total="total" @PageChange="getchanneldata" />
+    <Pagination
+      :total="total"
+      @PageSizeChange="HandelPagesChange"
+      @PageChange="getchanneldata"
+    />
     <RechargechannelAdd
       ref="RechargechannelAdd"
       @confirm="getChannelAdd"
@@ -60,18 +64,23 @@ export default {
       // 条件查询
       name: '',
       status: null,
-      type: null
+      type: null,
+      PagesSize: 10
     }
   },
   created() {
     this.getchanneldata(1)
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getchanneldata(this.pageNo)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      channelPage({ pageNo: this.pageNo, pageSize: 10, status: this.status, type: this.type, name: this.name })
+      channelPage({ pageNo: this.pageNo, pageSize: this.PagesSize, status: this.status, type: this.type, name: this.name })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -94,7 +103,7 @@ export default {
     getchanneldata(index) {
       // 记录当前页码
       this.pageNo = index
-      channelPage({ pageNo: index, pageSize: 10, status: this.status, type: this.type, name: this.name })
+      channelPage({ pageNo: index, pageSize: this.PagesSize, status: this.status, type: this.type, name: this.name })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

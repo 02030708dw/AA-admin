@@ -9,7 +9,7 @@
       @updateStatus="getGameupdateStatus"
       @getisHot="getisHot"
     />
-    <Pagination :total="total" @PageChange="getgamedata" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getgamedata" />
     <GameAdd ref="GameAdd" :gameriddata="GamerIdData" @confirm="getGameAdd" />
     <GameEitor ref="GameEitor" :gameriddata="GamerIdData" @confirm="getGameEitor" />
   </el-card>
@@ -52,7 +52,8 @@ export default {
       type: null,
       status: null,
       // 游戏商id
-      GamerIdData: []
+      GamerIdData: [],
+      PagesSize: 10
     }
   },
   created() {
@@ -60,6 +61,10 @@ export default {
     this.GetGamerPages()
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getgamedata(this.pageNo)
+    },
     // 获取游戏商id
     GetGamerPages() {
       gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
@@ -74,7 +79,7 @@ export default {
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      gamePage({ pageNo: this.pageNo, pageSize: 10, gamerId: this.gamerId, name: this.name, type: this.type, status: this.status })
+      gamePage({ pageNo: this.pageNo, pageSize: this.PagesSize, gamerId: this.gamerId, name: this.name, type: this.type, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -93,10 +98,10 @@ export default {
         })
     },
     // 请求分页数据
-    getgamedata(index, data = null) {
+    getgamedata(index) {
       // 记录当前页码
       this.pageNo = index
-      gamePage({ pageNo: index, pageSize: 10, gamerId: this.gamerId, name: this.name, type: this.type, status: this.status })
+      gamePage({ pageNo: index, pageSize: this.PagesSize, gamerId: this.gamerId, name: this.name, type: this.type, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

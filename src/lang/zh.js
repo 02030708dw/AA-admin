@@ -32,7 +32,8 @@ export default {
     My: '我的',
     Currencymanagement: '币种管理',
     Monthlyreportmanagement: '月报表管理',
-    Dailyreportmanagement: '日报表管理'
+    Dailyreportmanagement: '日报表管理',
+    memberrebates: '会员返点管理'
 
   },
   role: {
@@ -163,5 +164,6 @@ export default {
   ReasonForRejection: '驳回原因',
   RechargeChannels: '充值渠道',
   PaymentCardNumber: '收款卡号',
-  payee: '收款人'
+  payee: '收款人',
+  UserId: '用户Id'
 }

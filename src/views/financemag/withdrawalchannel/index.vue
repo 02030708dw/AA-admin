@@ -8,7 +8,8 @@
       @eitor="getWithdrawalchannelsEitorShow"
       @updateStatus="getWithdrawalchannelsUdateStatus"
     />
-    <Pagination :total="total" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange"
+    @PageChange="getWithdrawalchannelsdata"/>
     <withdrawalchannelsAdd
       ref="withdrawalchannelsAdd"
       @confirm="getWithdrawalchannelsAdd"
@@ -57,18 +58,23 @@ export default {
       ChannelnameData: [],
       name: '',
       status: null,
-      type: null
+      type: null,
+      PagesSize: 10
     }
   },
   created() {
     this.getWithdrawalchannelsdata()
   },
   methods: {
+    HandelPagesChange(e) {
+      this.PagesSize = e
+      this.getWithdrawalchannelsdata(this.pageNo)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      WithdrawalchannelsPage({ pageNo: this.pageNo, pageSize: 10, name: this.name, status: this.status, type: this.type })
+      WithdrawalchannelsPage({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, status: this.status, type: this.type })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -92,7 +98,7 @@ export default {
     getWithdrawalchannelsdata(index) {
       // 记录当前页码
       this.pageNo = index
-      WithdrawalchannelsPage({ pageNo: index, pageSize: 10, name: this.name, status: this.status, type: this.type })
+      WithdrawalchannelsPage({ pageNo: index, pageSize: this.PagesSize, name: this.name, status: this.status, type: this.type })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
