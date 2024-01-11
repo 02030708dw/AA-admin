@@ -9,19 +9,46 @@
     >
       <el-table-column prop="channelId" :label="$t('ChannelID')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
-      <el-table-column prop="alipay" :label="$t('Alipayaccount')" width="" />
-      <el-table-column
+      <!-- <el-table-column prop="alipay" :label="$t('Alipayaccount')" width="" /> -->
+      <!-- <el-table-column
         prop="bankCardNo"
         :label="$t('Bankaccount')"
         width=""
-      />
-      <el-table-column prop="bankName" :label="$t('BankName')" width="" />
-      <el-table-column
+      /> -->
+      <el-table-column  label="充值信息" width="500">
+        <template slot-scope="scope">
+          <div class="info_box">
+            <div v-if="scope.row.alipay" class="item_box">
+              <div class="item_title">{{ $t('Alipayaccount') }}:</div>
+              <div class="item_conent">{{ scope.row.alipay }}</div>
+            </div>
+            <div v-if="scope.row.bankName" class="item_box">
+              <div class="item_title">{{ $t('BankName') }}:</div>
+              <div class="item_conent">{{ scope.row.bankName }}</div>
+            </div>
+            <div v-if="scope.row.bankCardNo" class="item_box">
+              <div class="item_title">{{ $t('Bankaccount') }}:</div>
+              <div class="item_conent">{{ scope.row.bankCardNo }}</div>
+            </div>
+            <div v-if="scope.row.coin" class="item_box">
+              <div class="item_title">{{ $t('Virtualcoinaddress') }}:</div>
+              <div class="item_conent">{{ scope.row.coin }}</div>
+            </div>
+            <div v-if="scope.row.wechat" class="item_box">
+              <div class="item_title">{{ $t('WeChataccount') }}:</div>
+              <div class="item_conent">{{ scope.row.wechat }}</div>
+            </div>
+
+          </div>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column prop="bankName" :label="$t('BankName')" width="" /> -->
+      <!-- <el-table-column
         prop="coin"
         :label="$t('Virtualcoinaddress')"
         width=""
-      />
-      <el-table-column prop="wechat" :label="$t('WeChataccount')" width="" />
+      /> -->
+      <!-- <el-table-column prop="wechat" :label="$t('WeChataccount')" width="" /> -->
       <el-table-column prop="" :label="$t('Channeltype')" width="">
         <template slot-scope="scope">
           <div>
@@ -127,5 +154,29 @@ export default {
 }
 </script>
 
-    <style>
+    <style lang="scss" scoped>
+    .info_box{
+      margin: 0 auto;
+      width: 400px;
+      .item_box{
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        .item_title{
+          font-size: 16px;
+          font-weight: 520;
+          width: 150px;
+          text-align: right;
+          //text-align: justify;
+          //text-align-last: justify;
+        }
+        .item_conent{
+          margin-left: 5px;
+          font-size: 18px;
+          font-weight: 520;
+          text-align: left;
+        }
+      }
+    }
 </style>

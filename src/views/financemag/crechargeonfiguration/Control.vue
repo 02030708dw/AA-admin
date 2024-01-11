@@ -19,7 +19,7 @@
       style="width: 200px;margin-left: 10px"
     >
       <el-option
-        v-for="(item, index) in channelIdList"
+        v-for="(item, index) in channelidList"
         :key="index"
         :value="item"
         :label="item"
@@ -38,9 +38,17 @@
 </template>
 
 <script>
-import { channelPage } from '../../../api/finance/rechargechannel'
+// import { channelPage } from '../../../api/finance/rechargechannel'
 export default {
   name: 'Control',
+  props: {
+    channelidList: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       keywords: '',
@@ -59,17 +67,16 @@ export default {
       btnIcoType: true
     }
   },
-  created() { this.getchannelId() },
   methods: {
     // 获取渠道id
-    getchannelId() {
-      channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
-        this.channelIdList = []
-        for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.channelIdList.push(res.resultSet.data[i].id)
-        }
-      })
-    },
+    // getchannelId() {
+    //   channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
+    //     this.channelIdList = []
+    //     for (let i = 0; i < res.resultSet.data.length; i++) {
+    //       this.channelIdList.push(res.resultSet.data[i].id)
+    //     }
+    //   })
+    // },
     getAdd() {
       this.$emit('RechargelAdd')
     },

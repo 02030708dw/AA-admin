@@ -6,24 +6,24 @@
     width="50%"
   >
     <el-form
+      ref="ruleForm"
       :model="ruleForm"
       :rules="rules"
-      ref="ruleForm"
       label-width="150px"
       class="demo-ruleForm"
     >
       <el-form-item :label="$t('Channelname')" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+        <el-input v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item :label="$t('Channeltype')" prop="type">
-        <el-input v-model="ruleForm.type"></el-input>
+        <el-input v-model="ruleForm.type" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch
+          v-model="ruleForm.status"
           :active-value="1"
           :inactive-value="0"
-          v-model="ruleForm.status"
-        ></el-switch>
+        />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -34,26 +34,26 @@
     </span>
   </el-dialog>
 </template>
-    
-    <script>
+
+<script>
 export default {
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
-      //表单数据
+      // 表单数据
       ruleForm: {
-        name: "",
+        name: '',
         status: 0,
-        type: null,
+        type: null
       },
-      //游戏类型选项
+      // 游戏类型选项
 
       rules: {
-        name: [{ required: true, message: "请输入渠道名称", trigger: "blur" }],
-        type: [{ required: true, message: "请输入渠道类型", trigger: "blur" }],
-      },
-    };
+        name: [{ required: true, message: '请输入渠道名称', trigger: 'blur' }],
+        type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }]
+      }
+    }
   },
   methods: {
     // 改变弹窗状态
@@ -61,31 +61,31 @@ export default {
       // 关闭时清空
       if (!this.dialogVisible) {
         this.ruleForm = {
-          name: "",
+          name: '',
           status: 0,
-          type: null,
-        };
+          type: null
+        }
       }
-      this.dialogVisible = !this.dialogVisible;
+      this.dialogVisible = !this.dialogVisible
     },
     // 确定添加事件
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.$emit("confirm", this.ruleForm);
+          this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
-          this.dialogVisible = false;
+          this.dialogVisible = false
         } else {
           this.$message({
-            message: "请填写完整信息!",
-            type: "warning",
-          });
-          return false;
+            message: '请填写完整信息!',
+            type: 'warning'
+          })
+          return false
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
   <style>
 </style>

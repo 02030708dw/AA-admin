@@ -15,7 +15,7 @@
         <el-input v-model="ruleForm.account" />
       </el-form-item>
       <el-form-item :label="$t('ChannelID')" prop="channelId">
-        <el-input v-model="ruleForm.channelId" />
+        <el-input v-model="ruleForm.channelId" disabled="true" />
       </el-form-item>
       <!-- 渠道类型 -->
       <el-form-item :label="$t('Channeltype')" prop="type">

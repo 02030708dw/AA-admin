@@ -2,14 +2,16 @@
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
     <Control ref="ControlView" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
-    <Table ref="TableView" :table-data="tableData" />
+    <Table ref="TableView" :table-data="tableData" @info="Handelinfo" />
     <Pagination @PageSizeChange="HandelPagesChange" :total="total" @PageChange="getMemWitdata" />
+    <InfoView ref="infoview"></InfoView>
   </el-card>
 </template>
 
 <script>
 import Table from './Table.vue'
 import Control from './Control.vue'
+import InfoView from './InfoView.vue'
 // 分页
 import Pagination from '@/components/Pagination/Pagination.vue'
 import { MemberwithdrawalPage } from '@/api/finance/memberwithdrawal'
@@ -17,7 +19,8 @@ export default {
   components: {
     Table,
     Pagination,
-    Control
+    Control,
+    InfoView
   },
   data() {
     return {
@@ -64,6 +67,9 @@ export default {
     this.getMemWitdata(1)
   },
   methods: {
+    Handelinfo(e) {
+      this.$refs.infoview.getAddstatus(e)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)

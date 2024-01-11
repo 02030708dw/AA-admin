@@ -3,9 +3,10 @@
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
     <Control ref="ControlView" @Refresh="HandelRefresh" @Gamequery="getgetquery" @resetting="getresetting" />
-    <Table ref="TableView" :table-data="tableData" @option="getoption" />
+    <Table ref="TableView" :table-data="tableData" @option="getoption" @info="Handelinfo"/>
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="memberrechargedata" />
     <Dialog ref="DialogView" @toexamine="gettoexamine" />
+    <InfoView ref="infoview"></InfoView>
   </el-card>
 </template>
 
@@ -15,12 +16,14 @@ import Table from './Table.vue'
 import Control from './Control.vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import Dialog from './Dialog.vue'
+import InfoView from './InfoView.vue'
 export default {
   components: {
     Table,
     Control,
     Pagination,
-    Dialog
+    Dialog,
+    InfoView
   },
   data() {
     return {
@@ -70,6 +73,9 @@ export default {
     this.memberrechargedata(1)
   },
   methods: {
+    Handelinfo(e) {
+      this.$refs.infoview.getAddstatus(e)
+    },
     // 刷新
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)

@@ -2,26 +2,32 @@
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
     <Control ref="ControlView" @Refresh="HandelRefresh" @query="getquery" @resetting="getresetting" />
-    <Table ref="TableView" :table-data="tableData" />
+    <Table ref="TableView" @option="getoption" :table-data="tableData" @info="Handelinfo" />
     <Pagination
       :total="total"
       @PageSizeChange="HandelPagesChange"
       @PageChange="getAgentWtihdrawaldata"
     />
+    <Dialog ref="DialogView" @toexamine="gettoexamine" />
+    <InfoView ref="infoview"></InfoView>
   </el-card>
 </template>
 
 <script>
+import Dialog from './Dialog.vue'
 import Table from './Table.vue'
 import Control from './Control.vue'
 // 分页
+import InfoView from './InfoView.vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
-import { AgentWtihdrawalPage } from '@/api/finance/agentwithdrawal'
+import { AgentWtihdrawalPage, AgentWtihdrawalToexamine } from '@/api/finance/agentwithdrawal'
 export default {
   components: {
     Table,
     Pagination,
-    Control
+    Control,
+    Dialog,
+    InfoView
   },
   data() {
     return {
@@ -70,6 +76,26 @@ export default {
     this.getAgentWtihdrawaldata(1)
   },
   methods: {
+    Handelinfo(e) {
+      this.$refs.infoview.getAddstatus(e)
+    },
+    gettoexamine(e) {
+      // 审核
+      AgentWtihdrawalToexamine({ auditStatus: e.type, recordId: e.id, reason: e.reason }).then(res => {
+        // 刷新数据
+        this.getAgentWtihdrawaldata(this.pageNo)
+        this.$message({
+          message: '操作成功!',
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message.error('操作失败!')
+      })
+    },
+    getoption(e) {
+      console.log(e)
+      this.$refs.DialogView.HandelDialogStatus(e)
+    },
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       AgentWtihdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, agentId: this.agentId, cashChannelId: this.cashChannelId })

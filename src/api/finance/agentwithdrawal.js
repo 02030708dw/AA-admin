@@ -9,3 +9,13 @@ export function AgentWtihdrawalPage({ pageNo, pageSize, aduitStatus, agentId, ca
     params: { pageNo, pageSize, aduitStatus, agentId, cashChannelId }
   })
 }
+
+// 代理提现审核
+
+export function AgentWtihdrawalToexamine(data) {
+  return request({
+    url: '/finance/agentCashRecord/audit',
+    method: 'post',
+    data
+  })
+}

@@ -7,29 +7,32 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
       <el-table-column prop="memberId" :label="$t('MemberID')" width="" />
       <el-table-column prop="amount" :label="$t('amountofmoney')" width="" />
       <el-table-column prop="channel" :label="$t('RechargeChannels')" width="" />
       <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" />
       <el-table-column prop="bankName" :label="$t('BankName')" width="" />
       <el-table-column prop="payee" :label="$t('payee')" width="" />
-      <el-table-column prop="" :label="$t('Reviewstatus')" width="">
+      <el-table-column prop="" :label="$t('Reviewstatus')" width="150">
         <template slot-scope="scope">
-          <div> {{ scope.row.aduitStatus | typeF }} </div>
+          <div class="status_box">
+            <div class="title_box">{{ scope.row.aduitStatus | typeF }}</div>
+            <!-- 驳回原因 -->
+            <div v-if="scope.row.aduitStatus === 2" class="text_box">驳回原因:{{ scope.row.rejection }}</div>
+          </div>
         </template>
       </el-table-column>
-      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="" >
+      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="">
         <template slot-scope="scope">
           <div> {{ scope.row.aduitTime | timeF }} </div>
         </template>
       </el-table-column>
-      <el-table-column prop="rejection" :label="$t('ReasonForRejection')" width="" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button type="text" @click="HandelOption(scope.row.id,1)">{{ $t('passthrough') }}</el-button>
-          <el-button type="text" style="color:red;" @click="HandelOption(scope.row.id,2)">{{ $t('reject') }}</el-button>
-          <el-button type="text" style="color: black;" @click="HandelOption(scope.row.id,3)"> {{ $t('cancellation') }}</el-button>
+          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">查看详情</el-button>
+          <el-button v-if="scope.row.aduitStatus === 0" type="text" @click="HandelOption(scope.row.id,1)">{{ $t('passthrough') }}</el-button>
+          <el-button v-if="scope.row.aduitStatus === 0" type="text" style="color:red;" @click="HandelOption(scope.row.id,2)">{{ $t('reject') }}</el-button>
+          <el-button v-if="scope.row.aduitStatus === 0" type="text" style="color: black;" @click="HandelOption(scope.row.id,3)"> {{ $t('cancellation') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -77,10 +80,18 @@ export default {
     // 改变loading
     HandelLoading(status) {
       this.loading = status
+    },
+    HandelInfo(item) {
+      this.$emit('info', item)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+  .status_box{
 
+    .text_box{
+      font-size: 10px;
+    }
+  }
 </style>

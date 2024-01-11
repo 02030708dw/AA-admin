@@ -2,6 +2,7 @@
   <el-card>
     <Control
       ref="ControlView"
+      :channelid-list="channelIdList"
       @RechargelAdd="getRechargeAddShow"
       @query="getRechargeQuery"
       @clear="getRechargedata"
@@ -21,7 +22,11 @@
       @PageSizeChange="HandelPagesChange"
       @PageChange="getRechargedata"
     />
-    <rechargeAdd ref="rechargeAdd" @confirm="getRechargeAdd" />
+    <rechargeAdd
+      ref="rechargeAdd"
+      :channelid-list="channelIdList"
+      @confirm="getRechargeAdd"
+    />
     <rechargeEitor
       ref="rechargeEitor"
       @confirm="getRechargeEitor"
@@ -39,6 +44,7 @@ import Pagination from '@/components/Pagination/Pagination.vue'
 // 添加配置
 import rechargeAdd from './RechargeAdd.vue'
 import rechargeEitor from './RechargeEitor.vue'
+import { channelPage } from '../../../api/finance/rechargechannel'
 // 接口
 import {
   RechargePage,
@@ -65,13 +71,25 @@ export default {
       tableData: [],
       type: null,
       channelId: '',
-      PagesSize: 10
+      PagesSize: 10,
+      // 渠道id
+      channelIdList: []
     }
   },
   created() {
     this.getRechargedata(1)
+    this.getchannelId()
   },
   methods: {
+    // 获取渠道id
+    getchannelId() {
+      channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
+        this.channelIdList = []
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.channelIdList.push(res.resultSet.data[i].id)
+        }
+      })
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getRechargedata(this.pageNo)

@@ -15,8 +15,22 @@
         <el-input v-model="ruleForm.account" />
       </el-form-item>
       <el-form-item :label="$t('ChannelID')" prop="channelId">
-        <el-input v-model="ruleForm.channelId" />
+        <el-select
+          v-model="ruleForm.channelId"
+          :placeholder="$t('typesof')"
+          style="width: 200px"
+        >
+          <el-option
+            v-for="(item, index) in channelidList"
+            :key="index"
+            :value="item"
+            :label="item"
+          />
+        </el-select>
       </el-form-item>
+      <!-- <el-form-item :label="$t('ChannelID')" prop="channelId">
+        <el-input v-model="ruleForm.channelId" />
+      </el-form-item> -->
       <!-- 渠道类型 -->
       <el-form-item :label="$t('Channeltype')" prop="type">
         <el-select
@@ -67,6 +81,14 @@
 
 <script>
 export default {
+  props: {
+    channelidList: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       // 弹窗状态
