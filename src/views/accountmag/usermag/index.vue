@@ -93,7 +93,7 @@ export default {
         })
     },
     // 请求分页数据
-    getuserdata(index) {
+    getuserdata(index = 1) {
       this.pageNo = index
       userPage({
         pageNo: index,
