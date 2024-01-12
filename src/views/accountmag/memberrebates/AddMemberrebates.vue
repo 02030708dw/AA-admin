@@ -7,31 +7,31 @@
       label-width="150px"
       class="demo-ruleForm"
     >
-      <el-form-item :label="$t('GamemerchantsID')" prop="gamerId">
+      <el-form-item label="选择游戏商" prop="gamerId">
         <el-select
           v-model="ruleForm.gamerId"
-          :placeholder="$t('GamemerchantsID')"
+          placeholder="选择游戏商"
           style="width: 200px; margin-left: 10px"
         >
           <el-option
             v-for="(item, index) in gamerIdData"
             :key="index"
-            :value="item"
-            :label="item"
+            :value="item.index"
+            :label="item.title"
           />
         </el-select>
       </el-form-item>
-      <el-form-item :label="$t('MemberID')" prop="memberId">
+      <el-form-item label="选择会员" prop="memberId">
         <el-select
           v-model="ruleForm.memberId"
-          :placeholder="$t('MemberID')"
+          placeholder="选择会员"
           style="width: 200px; margin-left: 10px"
         >
           <el-option
             v-for="(item, index) in memberData"
             :key="index"
-            :value="item"
-            :label="item"
+            :value="item.index"
+            :label="item.title"
           />
         </el-select>
       </el-form-item>

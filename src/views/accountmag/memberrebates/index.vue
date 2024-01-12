@@ -129,20 +129,28 @@ export default {
     },
     // 获取游戏商id
     GetGamerPages() {
+      this.GamerIdData = []
       gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.GamerIdData.push(res.resultSet.data[i].id)
+          this.GamerIdData.push({
+            title: res.resultSet.data[i].name,
+            index: res.resultSet.data[i].id
+          })
         }
       }).catch(err => {
         console.log(err)
       })
+      console.log('游戏商信息', this.GamerIdData)
     },
     // 获取会员id
     GetMemberPage() {
       this.MemberData = []
       MemberPage({ pageNo: 1, pageSize: 10000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.MemberData.push(res.resultSet.data[i].id)
+          this.MemberData.push({
+            title: res.resultSet.data[i].userName,
+            index: res.resultSet.data[i].id
+          })
         }
       }).catch(err => {
         console.log(err)

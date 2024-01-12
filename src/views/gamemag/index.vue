@@ -69,7 +69,10 @@ export default {
     GetGamerPages() {
       gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.GamerIdData.push(res.resultSet.data[i].id)
+          this.GamerIdData.push({
+            title: res.resultSet.data[i].name,
+            index: res.resultSet.data[i].id
+          })
         }
       }).catch(err => {
         console.log(err)

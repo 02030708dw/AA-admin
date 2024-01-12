@@ -33,3 +33,34 @@ export function MemberUpdateStatus(data) {
     data
   })
 }
+// 获取会员资金流水
+export function MemberFlowingWater({ memberId, pageNo, pageSize, type }) {
+  return request({
+    url: '/user/member/flow',
+    method: 'GET',
+    params: { memberId, pageNo, pageSize, type }
+  })
+}
+// 获取会员好友列表
+export function MemberFriends({ memberId, pageNo, pageSize }) {
+  return request({
+    url: '/user/member/friend',
+    method: 'GET',
+    params: { memberId, pageNo, pageSize }
+  })
+}
+// 获取会员游戏商余额列表
+export function MemberBalanceList({ memberId }) {
+  return request({
+    url: `/user/member/gamerBlance/${memberId}`,
+    method: 'GET'
+  })
+}
+// 获取会员历史投注信息
+export function MemberHistory({ memberId, pageNo, pageSize, gammerId }) {
+  return request({
+    url: '/user/member/friend',
+    method: 'GET',
+    params: { memberId, pageNo, pageSize, gammerId }
+  })
+}

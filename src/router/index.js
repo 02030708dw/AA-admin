@@ -167,17 +167,41 @@ export const constantRoutes = [
     meta: { title: 'reportformsmag', icon: 'el-icon-s-marketing' },
     children: [
       {
-        path: 'Dailyreportmanagement',
-        name: 'Dailyreportmanagement',
-        component: () => import('@/views/reportformsmag/dailyreport/index.vue'),
-        meta: { title: 'Dailyreportmanagement', icon: 'el-icon-document-copy' }
+        path: '/ReportformsmagAgent',
+        name: 'reportformsmagagent',
+        component: () => import('@/views/reportformsmag/Agent/index.vue'),
+        meta: { title: '代理报表', icon: 'el-icon-coordinate' }
       },
       {
-        path: 'Monthlyreportmanagement',
-        name: 'Monthlyreportmanagement',
-        component: () => import('@/views/reportformsmag/monthlyreportingform/index.vue'),
-        meta: { title: 'Monthlyreportmanagement', icon: 'el-icon-takeaway-box' }
+        path: '/ReportformsmagGamer',
+        name: 'reportformsmaggamer',
+        component: () => import('@/views/reportformsmag/Gamer/index.vue'),
+        meta: { title: '游戏商报表', icon: 'el-icon-mouse' }
+      },
+      {
+        path: '/ReportformsmagMember',
+        name: 'reportformsmagmember',
+        component: () => import('@/views/reportformsmag/Member/index.vue'),
+        meta: { title: '会员报表', icon: 'el-icon-user' }
+      },
+      {
+        path: '/ReportformsmagPlatform',
+        name: 'reportformsmagplatform',
+        component: () => import('@/views/reportformsmag/Platform/index.vue'),
+        meta: { title: '平台报表', icon: 'el-icon-pie-chart' }
       }
+      // {
+      //   path: 'Dailyreportmanagement',
+      //   name: 'Dailyreportmanagement',
+      //   component: () => import('@/views/reportformsmag/dailyreport/index.vue'),
+      //   meta: { title: 'Dailyreportmanagement', icon: 'el-icon-document-copy' }
+      // },
+      // {
+      //   path: 'Monthlyreportmanagement',
+      //   name: 'Monthlyreportmanagement',
+      //   component: () => import('@/views/reportformsmag/monthlyreportingform/index.vue'),
+      //   meta: { title: 'Monthlyreportmanagement', icon: 'el-icon-takeaway-box' }
+      // }
     ]
   },
   {

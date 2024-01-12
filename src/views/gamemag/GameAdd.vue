@@ -14,17 +14,17 @@
         <el-input v-model="ruleForm.gamerId" />
       </el-form-item> -->
 
-      <el-form-item :label="$t('GamemerchantsID')" prop="gamerId">
+      <el-form-item label="选择游戏商" prop="gamerId">
         <el-select
           v-model="ruleForm.gamerId"
-          :placeholder="$t('GamemerchantsID')"
+          placeholder="选择游戏商"
           style="width: 200px;margin-left: 10px"
         >
           <el-option
             v-for="(item, index) in gameriddata"
             :key="index"
-            :value="item"
-            :label="item"
+            :value="item.index"
+            :label="item.title"
           />
         </el-select>
       </el-form-item>

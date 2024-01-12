@@ -3,14 +3,14 @@
     <el-input v-model="userName" style="width: 200px;" :placeholder="$t('username')" />
     <el-select
       v-model="agentId"
-      :placeholder="$t('agenId')"
+      placeholder="选择代理"
       style="width: 200px;margin-left: 10px"
     >
       <el-option
         v-for="(item, index) in agentIddata"
         :key="index"
-        :value="item"
-        :label="item"
+        :value="item.index"
+        :label="item.title"
       />
     </el-select>
     <el-select
@@ -59,9 +59,11 @@ export default {
     getAgentPage() {
       this.agentIddata = []
       AgentPage({ pageNo: 1, pageSize: 100000 }).then(res => {
-        console.log(res.resultSet.data)
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.agentIddata.push(res.resultSet.data[i].id)
+          this.agentIddata.push({
+            title: res.resultSet.data[i].userName,
+            index: res.resultSet.data[i].id
+          })
         }
       }).catch(err => {
         console.log(err)

@@ -1,7 +1,9 @@
 <template>
   <el-row style="padding-bottom: 10px">
+    <!-- 选择日期 -->
     <el-date-picker
       v-model="value"
+      style="margin-right: 20px;"
       type="daterange"
       align="right"
       unlink-panels
@@ -11,15 +13,13 @@
       :picker-options="pickerOptions"
       @blur="heandlerTime"
     />
-    <!-- 刷新按钮 -->
-    <el-button v-if="btnIcoType" style="margin-left: 10px;" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
-    <el-button v-else style="margin-left: 10px;" type="success" icon="el-icon-loading" disabled>刷新</el-button>
+    <!-- 刷新 -->
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
   </el-row>
 </template>
-
 <script>
 export default {
-  name: 'Control',
   data() {
     return {
       pickerOptions: {
@@ -54,10 +54,31 @@ export default {
         ]
       },
       value: '',
+      // 按钮状态
       btnIcoType: true
     }
   },
   methods: {
+    // 选择日期
+    heandlerTime() {
+      const timearr = []
+      for (let i = 0; i < this.value.length; i++) {
+        const date = new Date(this.value[i])
+        const year = date.getFullYear()
+        const month =
+              date.getMonth() + 1 < 10
+                ? '0' + (date.getMonth() + 1)
+                : date.getMonth() + 1
+        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+        const formattedDate = year + '-' + month + '-' + day
+        timearr.push(formattedDate)
+      }
+      this.$emit('SelectDate', { startDate: timearr[0], endDate: timearr[1] })
+    },
+    // 日期回显
+    pagesDate(data) {
+      this.value = [data.startDate, data.endDate]
+    },
     // 刷新
     HandelRefresh() {
       this.$emit('Refresh')
@@ -66,32 +87,11 @@ export default {
     // 改变按钮状态
     HandelBtnStatus() {
       this.btnIcoType = true
-    },
-    // 选择时间
-    heandlerTime() {
-      const timearr = []
-      for (let i = 0; i < this.value.length; i++) {
-        const date = new Date(this.value[i])
-        const year = date.getFullYear()
-        const month =
-          date.getMonth() + 1 < 10
-            ? '0' + (date.getMonth() + 1)
-            : date.getMonth() + 1
-        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-        const formattedDate = year + '-' + month + '-' + day
-        timearr.push(formattedDate)
-      }
-      console.log(timearr)
-      this.$emit('SelectDate', { startDate: timearr[0], endDate: timearr[1] })
-    //   this.getdailydata(timearr[0], timearr[1])
-    },
-    // 日期回显
-    pagesDate(data) {
-      this.value = [data.startDate, data.endDate]
     }
   }
 }
 </script>
+    <style lang="scss" scoped>
 
-  <style></style>
+    </style>
 

@@ -7,22 +7,21 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
-      <el-table-column prop="userName" :label="$t('username')" width="280" />
+      <el-table-column prop="userName" :label="$t('username')" width="" />
 
-      <el-table-column prop="password" :label="$t('password')" width="200" />
-      <el-table-column prop="telPhone" :label="$t('phone')" width="200" />
-      <el-table-column prop="nickeName" :label="$t('nickeName')" width="200" />
-      <el-table-column prop="realName" :label="$t('name')" width="200" />
+      <!-- <el-table-column prop="password" :label="$t('password')" width="" /> -->
+      <el-table-column prop="telPhone" :label="$t('phone')" width="" />
+      <el-table-column prop="nickeName" :label="$t('nickeName')" width="" />
+      <el-table-column prop="realName" :label="$t('name')" width="" />
       <el-table-column
         prop="parentMemberId"
         :label="$t('parentMemberId')"
-        width="200"
+        width=""
       />
-      <el-table-column prop="agenId" :label="$t('agenId')" width="200" />
-      <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="200" />
+      <el-table-column prop="agenId" :label="$t('agenId')" width="" />
+      <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" />
 
-      <el-table-column prop="" :label="$t('state')" width="150">
+      <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
             <el-switch
@@ -35,7 +34,11 @@
           </div>
         </template>
       </el-table-column>
-
+      <el-table-column prop="" label="会员信息" width="">
+        <template slot-scope="scope">
+          <el-button type="text" @click="MemberInfo(scope.row)">会员详情</el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
           <el-button type="text" @click="Membershiptransfer(scope.row)">{{
@@ -91,6 +94,10 @@ export default {
     // 状态修改
     getupdateStatus(e, Id) {
       this.$emit('updateStatus', { status: e, id: Id })
+    },
+    // 会员详情
+    MemberInfo(data) {
+      this.$emit('Info', data)
     }
   }
 }

@@ -8,10 +8,13 @@
       @updateStatus="getMemberUdateStatus"
       @Membershiptransfer="getMembershiptransfer"
       @Proxytransfer="getProxytransfer"
+      @Info="HandelShowInfo"
     />
     <Pagination @PageSizeChange="HandelPagesChange" :total="total" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer ref="Proxytransfer" @confirm="getProxytransferok" />
+    <!-- 会员详情 -->
+    <MamberInfo ref="MamberInfoView"></MamberInfo>
   </el-card>
 </template>
 
@@ -23,6 +26,8 @@ import Control from './Control.vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import Membershiptransfer from './Membershiptransfer.vue'
 import Proxytransfer from './Proxytransfer.vue'
+// 会员详情
+import MamberInfo from './MemberInfo.vue'
 import {
   MemberPage,
   MemberTransfer,
@@ -35,7 +40,8 @@ export default {
     Pagination,
     Membershiptransfer,
     Proxytransfer,
-    Control
+    Control,
+    MamberInfo
   },
   data() {
     return {
@@ -44,16 +50,20 @@ export default {
       // 页码
       pageNo: 1,
       tableData: [],
-      agentId: '',
-      userName: '',
+      agentId: null,
+      userName: null,
       status: null,
       PagesSize: 10
     }
   },
   created() {
-    this.getMemberPage()
+    this.getMemberPage(1)
   },
   methods: {
+    // 查看会员详情
+    HandelShowInfo(e) {
+      this.$refs.MamberInfoView.HandelUpda(e)
+    },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)

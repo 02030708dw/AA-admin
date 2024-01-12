@@ -5,14 +5,14 @@
     }}</el-button>
     <el-select
       v-model="gamerId"
-      :placeholder="$t('GamemerchantsID')"
+      placeholder="选择游戏商"
       style="width: 200px;margin-left: 10px"
     >
       <el-option
         v-for="(item, index) in gameriddata"
         :key="index"
-        :value="item"
-        :label="item"
+        :value="item.index"
+        :label="item.title"
       />
     </el-select>
     <!-- <el-input v-model="gamerId" style="width: 200px;margin-left:10px;" :placeholder="$t('GamemerchantsID')" /> -->
