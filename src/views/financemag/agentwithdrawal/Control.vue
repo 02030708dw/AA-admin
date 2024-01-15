@@ -18,27 +18,27 @@
 
     <el-select
       v-model="agentId"
-      :placeholder="$t('agenId')"
+      placeholder="选择代理"
       style="width: 200px;margin-left: 10px"
     >
       <el-option
         v-for="(item, index) in AgentData "
         :key="index"
-        :value="item"
-        :label="item"
+        :value="item.index"
+        :label="item.title"
       />
     </el-select>
 
     <el-select
       v-model="cashChannelId"
-      :placeholder="$t('WithdrawalchannelID')"
+      placeholder="选择提现渠道"
       style="width: 200px;margin-left: 10px"
     >
       <el-option
         v-for="(item, index) in channelData "
         :key="index"
-        :value="item"
-        :label="item"
+        :value="item.index"
+        :label="item.title"
       />
     </el-select>
     <el-button
@@ -87,7 +87,10 @@ export default {
       this.AgentData = []
       AgentPage({ pageNo: 1, pageSize: 10000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.AgentData.push(res.resultSet.data[i].id)
+          this.AgentData.push({
+            title: res.resultSet.data[i].userName,
+            index: res.resultSet.data[i].id
+          })
         }
       }).catch(err => {
         console.log(err)
@@ -98,7 +101,10 @@ export default {
       this.channelData = []
       channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.channelData.push(res.resultSet.data[i].id)
+          this.channelData.push({
+            title: res.resultSet.data[i].name,
+            index: res.resultSet.data[i].id
+          })
         }
       }).catch(err => {
         console.log(err)

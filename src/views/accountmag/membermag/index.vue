@@ -34,7 +34,8 @@ import {
   MemberTransfer,
   agentTransfer,
   MemberUpdateStatus,
-  MemberresettingPwd
+  MemberresettingPwd,
+  MemberRefreshBalance
 } from '@/api/account/member'
 export default {
   components: {

@@ -3,16 +3,16 @@
     <el-input v-model="amount" style="width: 180px;margin-left:10px;" :placeholder="$t('amountofmoney')" />
     <el-input v-model="cardNo" style="width: 180px;margin-left:10px;" placeholder="收款卡号" />
 
-    <el-select v-model="channelId" :placeholder="$t('ChannelID')" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in ChannelIdData" :key="index" :value="item" :label="item" />
+    <el-select v-model="channelId" placeholder="选择渠道" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in ChannelIdData" :key="index" :value="item.index" :label="item.title" />
     </el-select>
     <!-- <el-input v-model="channelId" style="width: 180px;margin-left:10px;" :placeholder="$t('ChannelID')" /> -->
 
     <el-date-picker v-model="date" style="width: 180px;margin-left:10px;" type="date" placeholder="选择日期" />
 
     <!-- <el-input v-model="memberId" style="width: 180px;margin-left:10px;" placeholder="用户id" /> -->
-    <el-select v-model="memberId" :placeholder="$t('UserId')" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in UserId" :key="index" :value="item" :label="item" />
+    <el-select v-model="memberId" placeholder="选择用户" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in UserId" :key="index" :value="item.index" :label="item.title" />
     </el-select>
     <el-select v-model="auditStatus" :placeholder="$t('Reviewstatus')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in auditStatusList" :key="index" :value="item.index" :label="item.title" />
@@ -74,7 +74,10 @@ export default {
       this.UserId = []
       userPage({ pageNo: 1, pageSize: 10000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.UserId.push(res.resultSet.data[i].id)
+          this.UserId.push({
+            index: res.resultSet.data[i].id,
+            title: res.resultSet.data[i].userName
+          })
         }
       }).catch(err => {
         console.log(err)
@@ -84,9 +87,13 @@ export default {
     GetChannelId() {
       this.ChannelIdData = []
       channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
+        console.log(res)
         console.log(res.resultSet.data)
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.ChannelIdData.push(res.resultSet.data[i].id)
+          this.ChannelIdData.push({
+            title: res.resultSet.data[i].name,
+            index: res.resultSet.data[i].id
+          })
         }
       }).catch(err => {
         console.log(err)

@@ -18,7 +18,7 @@
         <el-input v-model="ruleForm.amount" :disabled="true" />
       </el-form-item>
       <el-form-item :label="$t('RechargeChannels')">
-        <el-input v-model="ruleForm.channel" :disabled="true" />
+        <el-input v-model="channel_c" :disabled="true" />
       </el-form-item>
       <el-form-item :label="$t('PaymentCardNumber')">
         <el-input v-model="ruleForm.cardNo" :disabled="true" />
@@ -60,6 +60,9 @@ export default {
     // 审核状态
     Aduit_Status() {
       return this.ruleForm.aduitStatus < 1 ? '待审核' : (this.ruleForm.aduitStatus < 2 ? '审核通过' : (this.ruleForm.aduitStatus < 3 ? '驳回' : '已取消'))
+    },
+    channel_c() {
+      return this.ruleForm.channel < 1 ? '银行卡' : (this.ruleForm.channel < 2 ? '支付宝' : (this.ruleForm.channel < 3 ? '微信' : '虚拟币'))
     }
   },
   methods: {

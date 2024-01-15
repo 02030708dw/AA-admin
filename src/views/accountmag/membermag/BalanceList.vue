@@ -36,7 +36,7 @@
   </el-card>
 </template>
 <script>
-import { MemberBalanceList } from '@/api/account/member'
+import { MemberBalanceList,MemberRefreshBalance } from '@/api/account/member'
 // 分页
 // import Pagination from '@/components/Pagination/Pagination.vue'
 export default {
@@ -84,6 +84,27 @@ export default {
     HandelRefresh() {
       this.btnIcoType = false
       this.loading = true
+      MemberRefreshBalance({ memberId: this.memberId }).then(res => {
+        this.tableData = res.resultSet
+        this.total = res.resultSet.total
+        setTimeout(() => {
+          this.btnIcoType = true
+          this.loading = false
+          this.$message({
+            message: '刷新刷新!',
+            type: 'success'
+          })
+        }, 1000)
+      }).catch(err => {
+        setTimeout(() => {
+          this.btnIcoType = true
+          this.loading = false
+          this.$message.error('刷新失败!')
+        }, 1000)
+
+        console.log(err)
+      })
+      return
       MemberBalanceList({ memberId: this.memberId }).then(res => {
         console.log(res)
         this.tableData = res.resultSet

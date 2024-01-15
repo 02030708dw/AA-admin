@@ -72,3 +72,11 @@ export function MemberresettingPwd({ memberId }) {
     method: 'get'
   })
 }
+
+// 会员游戏商余额列表刷新
+export function MemberRefreshBalance({ memberId }) {
+  return request({
+    url: `/user/member/reloadBlance/${memberId}`,
+    method: 'get'
+  })
+}

@@ -11,7 +11,7 @@
 
       <!-- <el-table-column prop="password" :label="$t('password')" width="" /> -->
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
-      <el-table-column prop="nickeName" :label="$t('nickeName')" width="" />
+      <el-table-column prop="gammerBlanace" label="游戏商余额" width="" />
       <el-table-column prop="realName" :label="$t('name')" width="" />
       <el-table-column
         prop="parentMemberId"

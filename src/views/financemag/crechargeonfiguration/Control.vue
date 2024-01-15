@@ -15,14 +15,14 @@
     </el-select>
     <el-select
       v-model="channelId"
-      :placeholder="$t('ChannelID')"
+      placeholder="选择渠道"
       style="width: 200px;margin-left: 10px"
     >
       <el-option
         v-for="(item, index) in channelidList"
         :key="index"
-        :value="item"
-        :label="item"
+        :value="item.index"
+        :label="item.title"
       />
     </el-select>
     <el-button

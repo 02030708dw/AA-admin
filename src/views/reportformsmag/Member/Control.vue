@@ -94,7 +94,7 @@ export default {
       MemberPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
           this.memberPagesList.push({
-            title: res.resultSet.data[i].name,
+            title: res.resultSet.data[i].userName,
             index: res.resultSet.data[i].id
           })
         }

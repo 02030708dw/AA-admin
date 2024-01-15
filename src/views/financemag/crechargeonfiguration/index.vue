@@ -86,7 +86,10 @@ export default {
       channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
         this.channelIdList = []
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.channelIdList.push(res.resultSet.data[i].id)
+          this.channelIdList.push({
+            title: res.resultSet.data[i].name,
+            index: res.resultSet.data[i].id
+          })
         }
       })
     },

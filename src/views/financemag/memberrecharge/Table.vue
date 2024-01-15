@@ -8,8 +8,13 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column prop="memberId" :label="$t('MemberID')" width="" />
+      <el-table-column prop="memberName" label="会员名称" width="" />
       <el-table-column prop="amount" :label="$t('amountofmoney')" width="" />
-      <el-table-column prop="channel" :label="$t('RechargeChannels')" width="" />
+      <el-table-column prop="" :label="$t('RechargeChannels')" width="" >
+        <template slot-scope="scope">
+          {{ scope.row.channel | channelF}}
+        </template>
+      </el-table-column>
       <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" />
       <el-table-column prop="bankName" :label="$t('BankName')" width="" />
       <el-table-column prop="payee" :label="$t('payee')" width="" />
@@ -24,7 +29,6 @@
       </el-table-column>
       <el-table-column prop="aduitTime" :label="$t('Audittime')" width="">
         <template slot-scope="scope">
-          <!-- <div> {{ scope.row.aduitTime | timeF }} </div> -->
           <div> {{ scope.row.aduitTime }} </div>
         </template>
       </el-table-column>
@@ -44,6 +48,18 @@ import { formatDate } from '../../../utils/formattime'
 export default {
   name: 'Table',
   filters: {
+    channelF(value) {
+      switch (value) {
+        case 0:
+          return '银行卡'
+        case 1:
+          return '支付宝'
+        case 2:
+          return '微信'
+        case 3:
+          return '虚拟币'
+      }
+    },
     typeF(value) {
       switch (value) {
         case 0:

@@ -17,14 +17,14 @@
       <el-form-item :label="$t('ChannelID')" prop="channelId">
         <el-select
           v-model="ruleForm.channelId"
-          :placeholder="$t('typesof')"
+          placeholder="选择渠道"
           style="width: 200px"
         >
           <el-option
             v-for="(item, index) in channelidList"
             :key="index"
-            :value="item"
-            :label="item"
+            :value="item.index"
+            :label="item.title"
           />
         </el-select>
       </el-form-item>

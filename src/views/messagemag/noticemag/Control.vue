@@ -5,14 +5,14 @@
 
     <el-select
       v-model="noteTypeId"
-      :placeholder="$t('ChanneltypeID')"
+      placeholder="选择公告类型"
       style="width: 200px;margin-left: 10px"
     >
       <el-option
         v-for="(item, index) in NoticetypeData"
         :key="index"
-        :value="item"
-        :label="item"
+        :value="item.index"
+        :label="item.title"
       />
     </el-select>
 
@@ -61,7 +61,10 @@ export default {
       this.NoticetypeData = []
       noticetypePage({ pageNo: 1, pageSize: 1000000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.NoticetypeData.push(res.resultSet.data[i].id)
+          this.NoticetypeData.push({
+            index: res.resultSet.data[i].id,
+            title: res.resultSet.data[i].name
+          })
         }
       }).catch(err => {
         console.log(err)

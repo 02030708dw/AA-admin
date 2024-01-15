@@ -7,26 +7,45 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
       <el-table-column
         prop="name"
         :label="$t('GameMerchantName')"
-        width="200"
+        width=""
       />
       <el-table-column
         prop="betUrl"
         :label="$t('Bettinginformationinterfaceaddress')"
-        width="280"
+        width=""
       />
       <el-table-column
         prop="cashUrl"
         :label="$t('Integralinterfaceaddress')"
-        width="250"
+        width=""
       />
       <el-table-column
         prop="incomeUrl"
         :label="$t('Rechargeinterfaceaddress')"
-        width="250"
+        width=""
+      />
+      <el-table-column
+        prop="clientSecret"
+        label="clientSecret"
+        width=""
+      />
+      <el-table-column
+        prop="apiBaseUrl"
+        label="游戏商api基础地址"
+        width=""
+      />
+      <el-table-column
+        prop="playBaseUrl"
+        label="游戏商游戏连接基础地址"
+        width=""
+      />
+      <el-table-column
+        prop="rate"
+        label="游戏商抽成比例"
+        width=""
       />
       <el-table-column prop="type" :label="$t('typesof')" width="160">
         <template slot-scope="scope">
@@ -80,20 +99,29 @@ export default {
       const TypeArrList = []
       for (let i = 0; i < value.length; i++) {
         switch (value[i]) {
+          case 0:
+            TypeArrList.push('未分类')
+            break
           case 1:
-            TypeArrList.push('真人')
+            TypeArrList.push('电子（捕鱼+slot）')
             break
           case 2:
-            TypeArrList.push('体育')
-            break
-          case 3:
-            TypeArrList.push('老虎机')
-            break
-          case 4:
             TypeArrList.push('棋牌')
             break
-          case 5:
+          case 3:
             TypeArrList.push('彩票')
+            break
+          case 4:
+            TypeArrList.push('体育')
+            break
+          case 5:
+            TypeArrList.push('真人')
+            break
+          case 6:
+            TypeArrList.push('小游戏')
+            break
+          case 7:
+            TypeArrList.push('热门')
             break
         }
       }
