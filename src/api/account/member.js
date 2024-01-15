@@ -64,3 +64,11 @@ export function MemberHistory({ memberId, pageNo, pageSize, gammerId }) {
     params: { memberId, pageNo, pageSize, gammerId }
   })
 }
+
+// 重置密码
+export function MemberresettingPwd({ memberId }) {
+  return request({
+    url: `/user/member/resetPwd/${memberId}`,
+    method: 'get'
+  })
+}

@@ -9,12 +9,13 @@
       @Membershiptransfer="getMembershiptransfer"
       @Proxytransfer="getProxytransfer"
       @Info="HandelShowInfo"
+      @MemberresettingPwd="getMemberresettingPwd"
     />
-    <Pagination @PageSizeChange="HandelPagesChange" :total="total" @PageChange="getMemberPage" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer ref="Proxytransfer" @confirm="getProxytransferok" />
     <!-- 会员详情 -->
-    <MamberInfo ref="MamberInfoView"></MamberInfo>
+    <MamberInfo ref="MamberInfoView" />
   </el-card>
 </template>
 
@@ -32,7 +33,8 @@ import {
   MemberPage,
   MemberTransfer,
   agentTransfer,
-  MemberUpdateStatus
+  MemberUpdateStatus,
+  MemberresettingPwd
 } from '@/api/account/member'
 export default {
   components: {
@@ -60,6 +62,13 @@ export default {
     this.getMemberPage(1)
   },
   methods: {
+    getMemberresettingPwd(e) {
+      MemberresettingPwd({ memberId: e }).then(res => {
+        this.$message({ message: '重置成功!', type: 'success' })
+      }).catch(() => {
+        this.$message.error('重置失败!')
+      })
+    },
     // 查看会员详情
     HandelShowInfo(e) {
       this.$refs.MamberInfoView.HandelUpda(e)
