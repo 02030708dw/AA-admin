@@ -2,9 +2,9 @@
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
     <Control ref="ControlView" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
-    <Table ref="TableView" :table-data="tableData" @info="Handelinfo" />
-    <Pagination @PageSizeChange="HandelPagesChange" :total="total" @PageChange="getMemWitdata" />
-    <InfoView ref="infoview"></InfoView>
+    <Table ref="TableView" :table-data="tableData" @info="Handelinfo" @operate="Handeloperate" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemWitdata" />
+    <InfoView ref="infoview" />
   </el-card>
 </template>
 
@@ -32,7 +32,7 @@ export default {
       aduitStatus: null,
       memberId: '',
       cashChannelId: '',
-      PagesSize: 10
+      PagesSize: 20
     }
   },
 
@@ -67,6 +67,9 @@ export default {
     this.getMemWitdata(1)
   },
   methods: {
+    Handeloperate() {
+      this.getMemWitdata(this.pageNo)
+    },
     Handelinfo(e) {
       this.$refs.infoview.getAddstatus(e)
     },

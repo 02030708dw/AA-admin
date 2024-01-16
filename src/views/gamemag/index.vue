@@ -53,7 +53,7 @@ export default {
       status: null,
       // 游戏商id
       GamerIdData: [],
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {

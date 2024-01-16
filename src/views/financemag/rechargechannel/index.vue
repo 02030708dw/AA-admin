@@ -65,7 +65,7 @@ export default {
       name: '',
       status: null,
       type: null,
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {

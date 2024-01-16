@@ -47,7 +47,7 @@
         label="游戏商抽成比例"
         width=""
       />
-      <el-table-column prop="type" :label="$t('typesof')" width="160">
+      <el-table-column prop="type" :label="$t('typesof')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.typeList | GamerType }}</span>
         </template>
@@ -68,7 +68,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="" :label="$t('operate')" width="200">
+      <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")

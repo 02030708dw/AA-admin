@@ -60,6 +60,7 @@
           <span>{{ scope.row.aduitTime | timeF }}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="createdAt" label="创建时间" width="" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">查看详情</el-button>

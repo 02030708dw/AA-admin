@@ -49,7 +49,7 @@ export default {
       pageNo: 1,
       name: '',
       status: null,
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {

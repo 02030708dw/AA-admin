@@ -38,7 +38,7 @@ export default {
       channelId: '',
       date: '',
       memberId: '',
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   computed: {
@@ -117,7 +117,7 @@ export default {
       this.auditStatus = e.auditStatus
       this.cardNo = e.cardNo
       this.channelId = e.channelId
-      this.date = e.date
+      // this.date = e.date
       this.memberId = e.memberId
       this.memberrechargedata(1)
     },

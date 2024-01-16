@@ -71,7 +71,7 @@ export default {
       tableData: [],
       type: null,
       channelId: '',
-      PagesSize: 10,
+      PagesSize: 20,
       // 渠道id
       channelIdList: []
     }

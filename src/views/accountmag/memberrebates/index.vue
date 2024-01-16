@@ -33,7 +33,7 @@ export default {
       // 会员id
       memberId: '',
       // 页数
-      PagesSize: 10,
+      PagesSize: 20,
       // 会员id
       MemberData: [],
       // 游戏商id

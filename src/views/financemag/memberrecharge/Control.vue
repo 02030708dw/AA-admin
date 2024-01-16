@@ -8,7 +8,7 @@
     </el-select>
     <!-- <el-input v-model="channelId" style="width: 180px;margin-left:10px;" :placeholder="$t('ChannelID')" /> -->
 
-    <el-date-picker v-model="date" style="width: 180px;margin-left:10px;" type="date" placeholder="选择日期" />
+    <!-- <el-date-picker v-model="date" style="width: 180px;margin-left:10px;" type="date" placeholder="选择日期" /> -->
 
     <!-- <el-input v-model="memberId" style="width: 180px;margin-left:10px;" placeholder="用户id" /> -->
     <el-select v-model="memberId" placeholder="选择用户" style="width: 200px;margin-left: 10px">
@@ -116,7 +116,8 @@ export default {
     },
     // 查询
     getquery() {
-      this.$emit('Gamequery', { amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, date: new Date(this.date).toISOString().slice(0, 10), memberId: this.memberId })
+      this.$emit('Gamequery', { amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, memberId: this.memberId })
+      // date: new Date(this.date).toISOString().slice(0, 10),
     },
     // 重置
     getresetting() {
@@ -124,7 +125,7 @@ export default {
       this.auditStatus = ''
       this.cardNo = ''
       this.channelId = ''
-      this.date = ''
+      // this.date = ''
       this.memberId = ''
       this.$emit('resetting')
     }

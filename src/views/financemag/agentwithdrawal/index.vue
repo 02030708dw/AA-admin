@@ -39,7 +39,7 @@ export default {
       aduitStatus: null, // 审核状态
       agentId: '', // 代理
       cashChannelId: '',
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   computed: {

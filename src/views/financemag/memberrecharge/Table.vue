@@ -7,17 +7,18 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column prop="memberId" :label="$t('MemberID')" width="" />
+      <el-table-column prop="id" label="ID" width="" />
       <el-table-column prop="memberName" label="会员名称" width="" />
       <el-table-column prop="amount" :label="$t('amountofmoney')" width="" />
-      <el-table-column prop="" :label="$t('RechargeChannels')" width="" >
+      <el-table-column prop="" :label="$t('RechargeChannels')" width="">
         <template slot-scope="scope">
-          {{ scope.row.channel | channelF}}
+          {{ scope.row.channel | channelF }}
         </template>
       </el-table-column>
       <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" />
       <el-table-column prop="bankName" :label="$t('BankName')" width="" />
       <el-table-column prop="payee" :label="$t('payee')" width="" />
+
       <el-table-column prop="" :label="$t('Reviewstatus')" width="150">
         <template slot-scope="scope">
           <div class="status_box">
@@ -29,9 +30,36 @@
       </el-table-column>
       <el-table-column prop="aduitTime" :label="$t('Audittime')" width="">
         <template slot-scope="scope">
-          <div> {{ scope.row.aduitTime }} </div>
+          <div> {{ scope.row.aduitTime | timeF }} </div>
         </template>
       </el-table-column>
+      <el-table-column prop="" label="入款信息" width="">
+        <template slot-scope="scope">
+          <div>
+            <div v-if="scope.row.memberAccount">入款账户名称:{{ scope.row.memberAccount }}</div>
+            <div v-if="scope.row.memberAlipay">入款支付宝账号:{{ scope.row.memberAlipay }}</div>
+            <div v-if="scope.row.memberBankCardNo">入款银行卡号:{{ scope.row.memberBankCardNo }}</div>
+            <div v-if="scope.row.memberBankName">入款银行名称:{{ scope.row. memberBankName }}</div>
+            <div v-if="scope.row.memberCoin">入款虚拟币地址:{{ scope.row.memberCoin }}</div>
+            <div v-if="scope.row.memberWechat">入款微信账号:{{ scope.row.memberWechat }}</div>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="" label="收款信息" width="">
+        <template slot-scope="scope">
+          <div>
+            <div v-if="scope.row.wechat">收款微信账号:{{ scope.row.wechat }}</div>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="" label="首次充值" width="">
+        <template slot-scope="scope">
+          <div>
+            {{ scope.row.isFrist < 1 ? '否':'是' }}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createdAt" label="创建时间" width="" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">查看详情</el-button>

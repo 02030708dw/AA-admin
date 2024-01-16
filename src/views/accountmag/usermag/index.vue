@@ -54,7 +54,7 @@ export default {
       tableData: [],
       userName: '',
       status: '',
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {

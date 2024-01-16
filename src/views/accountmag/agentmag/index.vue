@@ -3,7 +3,7 @@
     <Control ref="ControlView" @Refresh="HandelRefresh" @AgentAdd="getAgentAddShow" @Agequery="getAgequery" @resetting="getresetting" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @transfer="getAgenttransfer" @updateStatus="getAgentUdateStatus" />
-    <Pagination @PageSizeChange="HandelPagesChange"  :total="total" @PageChange="getAgentdata" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getAgentdata" />
     <AgentAdd ref="AgentAdd" @confirm="getAgentAdd" />
   </el-card>
 </template>
@@ -30,7 +30,7 @@ export default {
       tableData: [],
       userName: '',
       status: null,
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {

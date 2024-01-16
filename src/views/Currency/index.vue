@@ -37,7 +37,7 @@ export default {
       currency: '',
       // 状态
       status: null,
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {

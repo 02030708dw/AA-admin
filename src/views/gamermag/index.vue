@@ -51,7 +51,7 @@ export default {
       tableData: [],
       name: '',
       status: null,
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {
@@ -155,7 +155,8 @@ export default {
         name: item.name,
         incomeUrl: item.incomeUrl,
         cashUrl: item.cashUrl,
-        betUrl: item.betUrl
+        betUrl: item.betUrl,
+        rate: item.rate
       })
         .then((res) => {
           // 刷新数据

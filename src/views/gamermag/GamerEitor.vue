@@ -26,6 +26,9 @@
       <el-form-item :label="$t('Rechargeinterfaceaddress')" prop="incomeUrl">
         <el-input v-model="ruleForm.incomeUrl" />
       </el-form-item>
+      <el-form-item label="游戏商抽成比例" prop="rate">
+        <el-input v-model="ruleForm.rate" />
+      </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
         <el-select
           v-model="ruleForm.type"
@@ -68,15 +71,19 @@ export default {
         type: null,
         incomeUrl: '',
         cashUrl: '',
-        betUrl: ''
+        betUrl: '',
+        rate: ''
       },
       // 游戏类型选项
       gamertype: [
-        { label: '真人', value: 1 },
-        { label: '体育', value: 2 },
-        { label: '老虎机', value: 3 },
-        { label: '棋牌', value: 4 },
-        { label: '彩票', value: 5 }
+        { label: '未分类', value: 0 },
+        { label: '电子（捕鱼+slot）', value: 1 },
+        { label: '棋牌', value: 2 },
+        { label: '彩票', value: 3 },
+        { label: '体育', value: 4 },
+        { label: '真人', value: 5 },
+        { label: '小游戏', value: 6 },
+        { label: '热门', value: 7 }
       ],
       rules: {
         name: [
@@ -95,7 +102,12 @@ export default {
             message: '请输入投注信息接口地址',
             trigger: 'blur'
           }
-        ]
+        ],
+        rate: [{
+          required: true,
+          message: '请输入游戏商抽成比例',
+          trigger: 'blur'
+        }]
       }
     }
   },
@@ -111,7 +123,8 @@ export default {
           type: null,
           incomeUrl: '',
           cashUrl: '',
-          betUrl: ''
+          betUrl: '',
+          rate: ''
         }
       } else {
         this.ruleForm = data

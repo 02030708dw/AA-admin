@@ -13,7 +13,7 @@
         :label="$t('WithdrawalchannelID')"
         width="280"
       />
-      <el-table-column prop="" label="提现信息" width="500">
+      <el-table-column prop="" label="提现信息" width="">
         <template slot-scope="scope">
           <div class="info_box">
             <div v-if="scope.row.bankName" class="item_box">
@@ -56,7 +56,7 @@
         :label="$t('Virtualcoinaddress')"
         width="200"
       /> -->
-      <el-table-column prop="amount" :label="$t('amountofmoney')" width="200" />
+      <el-table-column prop="amount" :label="$t('amountofmoney')" width="" />
       <el-table-column
         prop=""
         :label="$t('Reviewstatus')"
@@ -71,7 +71,9 @@
           </div>
           <!-- <span>{{ scope.row.aduitStatus | FaduitStatus }}</span> -->
         </template></el-table-column>
-      <el-table-column prop="" :label="$t('Audittime')" width="200">
+      <el-table-column prop="createdAt" label="创建时间" width="" />
+
+      <el-table-column prop="" :label="$t('Audittime')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.aduitTime | timeF }}</span>
         </template>
@@ -179,7 +181,7 @@ export default {
         // 通过
         case 1:
           Audit({ auditStatus: index, reason: '', recordId: this.Id }).then(res => {
-            console.log(res)
+            this.$emit('operate')
           }).catch(err => {
             console.log(err)
           })
@@ -188,6 +190,7 @@ export default {
         case 2:
           if (this.dialogVisible) {
             Audit({ auditStatus: index, reason: this.reason, recordId: this.Id }).then(res => {
+              this.$emit('operate')
               console.log(res)
             }).catch(err => {
               console.log(err)
@@ -202,6 +205,7 @@ export default {
         // 取消
         case 3:
           Audit({ auditStatus: index, reason: '', recordId: this.Id }).then(res => {
+            this.$emit('operate')
             console.log(res)
           }).catch(err => {
             console.log(err)

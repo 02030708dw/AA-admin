@@ -52,7 +52,7 @@ export default {
       status: null,
       code: '',
       roleName: '',
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {

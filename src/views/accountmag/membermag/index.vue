@@ -56,7 +56,7 @@ export default {
       agentId: null,
       userName: null,
       status: null,
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {

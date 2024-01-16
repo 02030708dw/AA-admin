@@ -46,7 +46,7 @@ export default {
       noteTypeId: '', // 公告类型id
       status: null, // 状态
       noticetypePage: [],
-      PagesSize: 10
+      PagesSize: 20
     }
   },
   created() {
