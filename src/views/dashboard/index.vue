@@ -1,10 +1,21 @@
 <template>
   <el-card class="card_box">
     <div class="container_box">
+      <div class="item_box">
+        <Agent />
+      </div>
+      <div class="item_box">
+        <Gamer/>
+      </div>
+      <div class="item_box">
+        <Member/>
+      </div>
+      <div class="item_box">
+        <Platform/>
+      </div>
+      <!-- <daily />
 
-      <daily />
-
-      <Monthlyreport />
+      <Monthlyreport /> -->
 
     </div>
 
@@ -13,13 +24,16 @@
 
 <script>
 // 平台日报
-import daily from './daily.vue'
-// 平台月报
-import Monthlyreport from './Monthlyreport.vue'
+import Agent from './Agent.vue'
+import Gamer from './Gamer.vue'
+import Member from './Member.vue'
+import Platform from './Platform.vue'
 export default {
   components: {
-    daily,
-    Monthlyreport
+    Agent,
+    Gamer,
+    Member,
+    Platform
   },
   data() {
     return {}
@@ -33,6 +47,12 @@ export default {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  .item_box{
+    width: 49%;
+  }
+  .item_box:nth-child(n+3){
+    margin-top: 20px;
+  }
 }
 
 .dashboard {

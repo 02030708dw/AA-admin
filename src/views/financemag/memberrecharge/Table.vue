@@ -8,32 +8,35 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column prop="id" label="ID" width="" />
-      <el-table-column prop="memberName" label="会员名称" width="" />
+      <el-table-column prop="" label="会员名称" width="">
+        <template slot-scope="scope">
+          <div class="MemberName_box">
+            <div class="title_box">{{ scope.row.memberName }}</div>
+            <!-- 首次充值 -->
+            <div v-if="scope.row.isFrist" class="isFrist_box">首次充值</div>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="amount" :label="$t('amountofmoney')" width="" />
       <el-table-column prop="" :label="$t('RechargeChannels')" width="">
         <template slot-scope="scope">
           {{ scope.row.channel | channelF }}
         </template>
       </el-table-column>
-      <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" />
-      <el-table-column prop="bankName" :label="$t('BankName')" width="" />
-      <el-table-column prop="payee" :label="$t('payee')" width="" />
+      <!-- <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" /> -->
+      <!-- <el-table-column prop="bankName" :label="$t('BankName')" width="" /> -->
 
-      <el-table-column prop="" :label="$t('Reviewstatus')" width="150">
+      <el-table-column prop="payee" :label="$t('payee')" width="" />
+      <el-table-column prop="" label="收款信息" width="280">
         <template slot-scope="scope">
-          <div class="status_box">
-            <div class="title_box">{{ scope.row.aduitStatus | typeF }}</div>
-            <!-- 驳回原因 -->
-            <div v-if="scope.row.aduitStatus === 2" class="text_box">驳回原因:{{ scope.row.rejection }}</div>
+          <div>
+            <div v-if="scope.row.wechat">收款微信账号:{{ scope.row.wechat }}</div>
+            <div v-if="scope.row.cardNo">收款卡号:{{ scope.row.cardNo }}</div>
+            <div v-if="scope.row.bankName">银行名称:{{ scope.row.bankName }}</div>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="">
-        <template slot-scope="scope">
-          <div> {{ scope.row.aduitTime | timeF }} </div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="" label="入款信息" width="">
+      <el-table-column prop="" label="入款信息" width="280">
         <template slot-scope="scope">
           <div>
             <div v-if="scope.row.memberAccount">入款账户名称:{{ scope.row.memberAccount }}</div>
@@ -45,21 +48,36 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" label="收款信息" width="">
-        <template slot-scope="scope">
-          <div>
-            <div v-if="scope.row.wechat">收款微信账号:{{ scope.row.wechat }}</div>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="" label="首次充值" width="">
+
+      <!-- <el-table-column prop="" label="首次充值" width="">
         <template slot-scope="scope">
           <div>
             {{ scope.row.isFrist < 1 ? '否':'是' }}
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column prop="createdAt" label="创建时间" width="" />
+      <el-table-column prop="" :label="$t('Reviewstatus')" width="150">
+        <template slot-scope="scope">
+          <div v-if="scope.row.aduitStatus != 2">{{ scope.row.aduitStatus | typeF }}</div>
+          <div v-else>
+            <el-popover
+              placement="top-start"
+              title="驳回原因"
+              width="200"
+              trigger="hover"
+              :content="scope.row.rejection"
+            >
+              <div slot="reference">{{ scope.row.aduitStatus | typeF }}</div>
+            </el-popover>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="aduitTime" :label="$t('Audittime')" width="">
+        <template slot-scope="scope">
+          <div> {{ scope.row.aduitTime | timeF }} </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">查看详情</el-button>
@@ -137,6 +155,10 @@ export default {
 
     .text_box{
       font-size: 10px;
+      color: #9c9090;
     }
+  }
+  .isFrist_box{
+    color: red;
   }
 </style>

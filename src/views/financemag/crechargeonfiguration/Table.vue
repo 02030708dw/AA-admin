@@ -71,7 +71,7 @@
           </div>
         </template>
       </el-table-column>
-
+      <el-table-column prop="createdAt" label="创建时间" width="" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" @click="geteroleEitor(scope.row)">{{

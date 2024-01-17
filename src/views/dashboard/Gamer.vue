@@ -2,7 +2,7 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <el-row style="display: flex; align-items: center">
-        <el-col :span="12" style="font-size: 24px">平台日报表</el-col>
+        <el-col :span="12" style="font-size: 24px">游戏商报表</el-col>
         <el-col :span="6" :offset="1">
           <!-- 时间选择 -->
           <el-date-picker
@@ -21,13 +21,13 @@
     </div>
     <!-- 折线图 -->
     <el-row>
-      <div id="myChart" class="chart" :style="{ width: '100%', height: '700px' }" />
+      <div id="GamerChart" class="chart" :style="{ width: '100%', height: '300px' }" />
     </el-row>
   </el-card>
 </template>
 
 <script>
-import { getdaily } from '@/api/home/daily'
+import { getGamerPages } from '@/api/reportforms/reportforms'
 
 import * as echarts from 'echarts'
 
@@ -72,6 +72,7 @@ export default {
       yAxisData3: [], // [150, 232, 201, 154, 190, 330, 410], // 数据3
       yAxisData4: [], // [320, 332, 301, 334, 390, 330, 320], // 数据4
       yAxisData5: [] // [820, 932, 901, 934, 1290, 1330, 1320], // 数据5
+
     }
   },
   mounted() {
@@ -82,24 +83,24 @@ export default {
     getDateData() {
       const currentDate = new Date()
       const endDate =
-        currentDate.getFullYear() +
-        '-' +
-        (currentDate.getMonth() + 1) +
-        '-' +
-        currentDate.getDate()
+          currentDate.getFullYear() +
+          '-' +
+          (currentDate.getMonth() + 1) +
+          '-' +
+          currentDate.getDate()
       const date = new Date(currentDate.getTime()) // 使用相同的时间，但改变日期
       date.setDate(date.getDate() - 6) // 将日期设置为前6天
       const startDate =
-        date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+          date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
       // 请求数据
       this.getdailydata(startDate, endDate)
       this.value = [startDate, endDate]
     },
     // 请求数据
     getdailydata(startDate, endDate) {
-      getdaily({ startDate: startDate, endDate: endDate })
+      getGamerPages({ startDay: startDate, endDay: endDate, pageSize: 10000, pageNo: 1 })
         .then((res) => {
-          this.handledata(res.resultSet)
+          this.handledata(res.resultSet.data)
         })
         .catch((err) => {
           console.log(err)
@@ -114,12 +115,12 @@ export default {
       this.yAxisData4 = []
       this.yAxisData5 = []
       for (let i = 0; i < data.length; i++) {
-        this.xAxisData.push(data[i].day)
+        this.xAxisData.push(data[i].gamerName)
         this.yAxisData1.push(data[i].betAmount)
-        this.yAxisData2.push(data[i].awardAmount)
-        this.yAxisData3.push(data[i].cashAmount)
-        this.yAxisData4.push(data[i].incomeAmount)
-        this.yAxisData5.push(data[i].gainAmount)
+        this.yAxisData2.push(data[i].betUserNum)
+        this.yAxisData3.push(data[i].rate)
+        this.yAxisData4.push(data[i].rateAmount)
+        this.yAxisData5.push(data[i].winAmount)
       }
 
       this.loadLine()
@@ -134,7 +135,7 @@ export default {
           trigger: 'axis'
         },
         legend: {
-          data: ['投注金额', '派奖金额', '提现金额', '充值金额', '盈利金额']
+          data: ['投注总额', '不重复投注人数', '抽成比例', '抽成金额', '中奖总额']
         },
         grid: {
           left: '3%',
@@ -152,43 +153,36 @@ export default {
         },
         series: [
           {
-            name: '投注金额',
+            name: '投注总额',
             type: 'line',
             stack: 'x',
             data: this.yAxisData1,
             areaStyle: {}
           },
           {
-            name: '派奖金额',
+            name: '抽成比例',
             type: 'line',
             stack: 'x',
             data: this.yAxisData2,
             areaStyle: {}
           },
           {
-            name: '提现金额',
+            name: '抽成金额',
             type: 'line',
             stack: 'x',
             data: this.yAxisData3,
             areaStyle: {}
           },
           {
-            name: '充值金额',
+            name: '中奖总额',
             type: 'line',
             stack: 'x',
             data: this.yAxisData4,
             areaStyle: {}
-          },
-          {
-            name: '盈利金额',
-            type: 'line',
-            stack: 'x',
-            data: this.yAxisData5,
-            areaStyle: {}
           }
         ]
       }
-      this.myChartOne = echarts.init(document.getElementById('myChart'))
+      this.myChartOne = echarts.init(document.getElementById('GamerChart'))
       this.myChartOne.setOption(option)
     },
     // 时间选择
@@ -198,9 +192,9 @@ export default {
         const date = new Date(this.value[i])
         const year = date.getFullYear()
         const month =
-          date.getMonth() + 1 < 10
-            ? '0' + (date.getMonth() + 1)
-            : date.getMonth() + 1
+            date.getMonth() + 1 < 10
+              ? '0' + (date.getMonth() + 1)
+              : date.getMonth() + 1
         const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
         const formattedDate = year + '-' + month + '-' + day
         timearr.push(formattedDate)
@@ -211,6 +205,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.box-card{width: 48%;}
-</style>
+  <style scoped lang="scss">
+  .box-card{width: 100%;}
+  </style>
+

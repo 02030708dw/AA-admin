@@ -7,9 +7,10 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="200" />
-      <el-table-column prop="name" :label="$t('typesof')" width="350" />
-      <el-table-column prop="" :label="$t('state')" width="300">
+      <el-table-column type="index" :label="$t('SerialNumber')" width="" />
+      <el-table-column prop="name" :label="$t('typesof')" width="" />
+      <el-table-column prop="createdAt" label="创建时间" width="" />
+      <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
             <el-switch
@@ -24,7 +25,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('operate')" width="350">
+      <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button
             type="text"

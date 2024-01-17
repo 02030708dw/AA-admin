@@ -7,7 +7,7 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
+      
       <el-table-column prop="name" :label="$t('Channelname')" width="" />
       <el-table-column prop="" :label="$t('Channeltype')" width="">
         <template slot-scope="scope">
@@ -30,6 +30,7 @@
           </div>
         </template>
       </el-table-column>
+      <el-table-column prop="createdAt" label="创建时间" width="" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" @click="geteroleEitor(scope.row)">{{
