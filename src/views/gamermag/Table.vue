@@ -34,17 +34,17 @@
       />
       <el-table-column
         prop="apiBaseUrl"
-        label="游戏商api基础地址"
+        :label="$t('GameproviderAPIbasicaddress')"
         width=""
       />
       <el-table-column
         prop="playBaseUrl"
-        label="游戏商游戏连接基础地址"
+        :label="$t('GameMerchantGameConnectionBasicAddress')"
         width=""
       />
       <el-table-column
         prop="rate"
-        label="游戏商抽成比例"
+        :label="$t('Gamemerchantsdrawapercentage')"
         width=""
       />
       <el-table-column prop="type" :label="$t('typesof')" width="">
@@ -52,7 +52,7 @@
           <span>{{ scope.row.typeList | GamerType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('state')" width="150">
+      <el-table-column prop="" :label="$t('state')" width="200">
         <template slot-scope="scope">
           <div>
             <el-switch
@@ -60,14 +60,14 @@
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-              active-text="启用"
-              inactive-text="停用"
+              :active-text="$t('Enable')"
+              :inactive-text="$t('Deactivate')"
               @change="getupdateStatus($event, scope.row.id)"
             />
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" label="创建时间" width="" />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" @click="geteroleEitor(scope.row)">{{

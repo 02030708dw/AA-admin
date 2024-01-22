@@ -23,8 +23,8 @@
           <div>
             <el-switch
               v-model="scope.row.isHot"
-              active-text="热门"
-              inactive-text="普通"
+              :active-text="$t('Popular')"
+              :inactive-text="$t('ordinary')"
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"

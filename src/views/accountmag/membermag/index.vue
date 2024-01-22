@@ -10,12 +10,14 @@
       @Proxytransfer="getProxytransfer"
       @Info="HandelShowInfo"
       @MemberresettingPwd="getMemberresettingPwd"
+      @Updatebalance="HandelUpdatebalance"
     />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer ref="Proxytransfer" @confirm="getProxytransferok" />
     <!-- 会员详情 -->
     <MamberInfo ref="MamberInfoView" />
+    <MemberUpdatebalanceview ref="MemberUpdatebalanceview"/>
   </el-card>
 </template>
 
@@ -29,13 +31,13 @@ import Membershiptransfer from './Membershiptransfer.vue'
 import Proxytransfer from './Proxytransfer.vue'
 // 会员详情
 import MamberInfo from './MemberInfo.vue'
+import MemberUpdatebalanceview from './MemberUpdatebalance.vue'
 import {
   MemberPage,
   MemberTransfer,
   agentTransfer,
   MemberUpdateStatus,
-  MemberresettingPwd,
-  MemberRefreshBalance
+  MemberresettingPwd
 } from '@/api/account/member'
 export default {
   components: {
@@ -44,7 +46,8 @@ export default {
     Membershiptransfer,
     Proxytransfer,
     Control,
-    MamberInfo
+    MamberInfo,
+    MemberUpdatebalanceview
   },
   data() {
     return {
@@ -63,6 +66,9 @@ export default {
     this.getMemberPage(1)
   },
   methods: {
+    HandelUpdatebalance(e) {
+      this.$refs.MemberUpdatebalanceview.HandelChangeShow(e)
+    },
     getMemberresettingPwd(e) {
       MemberresettingPwd({ memberId: e }).then(res => {
         this.$message({ message: '重置成功!', type: 'success' })

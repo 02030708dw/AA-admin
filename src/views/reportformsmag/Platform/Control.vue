@@ -7,15 +7,15 @@
       type="daterange"
       align="right"
       unlink-panels
-      range-separator="至"
+      :range-separator="$t('to')"
       start-placeholder="开始日期"
       end-placeholder="结束日期"
       :picker-options="pickerOptions"
       @blur="heandlerTime"
     />
     <!-- 刷新 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
   </el-row>
 </template>
 <script>

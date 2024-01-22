@@ -19,7 +19,7 @@
         <!-- 用户名 -->
         <div class="name">{{ UserInfo.userName }}</div>
         <!-- 修改密码按钮 -->
-        <el-button plain @click="HandelShow">修改密码</el-button>
+        <el-button plain @click="HandelShow">{{ $t('Changepassword') }}</el-button>
       </el-col>
       <el-col :span="12">
         <!-- 用户信息 -->

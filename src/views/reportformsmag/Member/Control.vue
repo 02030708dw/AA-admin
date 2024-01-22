@@ -6,7 +6,7 @@
       type="daterange"
       align="right"
       unlink-panels
-      range-separator="至"
+      :range-separator="$t('to')"
       start-placeholder="开始日期"
       end-placeholder="结束日期"
       :picker-options="pickerOptions"
@@ -15,7 +15,7 @@
     <!-- 选择代理 -->
     <el-select
       v-model="memberId"
-      placeholder="选择会员"
+      :placeholder="$t('SelectMembers')"
       style="width: 200px;margin-left:20px;"
     >
       <el-option
@@ -34,8 +34,8 @@
     <!-- 重置 -->
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
   </el-row>
 </template>
 <script>

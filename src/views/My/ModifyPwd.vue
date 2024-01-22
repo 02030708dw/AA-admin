@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="修改密码"
+    :title="$t('Changepassword')"
     :visible.sync="dialogVisible"
     width="30%"
   >
@@ -8,7 +8,7 @@
       ref="ruleForm"
       :model="ruleForm"
       :rules="rules"
-      label-width="100px"
+      label-width="140px"
       class="demo-ruleForm"
     >
       <el-form-item :label="$t('Password')" prop="newPwd">
@@ -19,8 +19,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="HandelShow">取 消</el-button>
-      <el-button type="primary" @click="HandelPwd">确 定</el-button>
+      <el-button @click="HandelShow">{{ $t('cancellation') }}</el-button>
+      <el-button type="primary" @click="HandelPwd">{{ $t('determine') }}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -35,8 +35,8 @@ export default {
         oldPwd: ''
       },
       rules: {
-        newPwd: [{ required: true, message: '请输入新密码', trigger: 'blur' }],
-        oldPwd: [{ required: true, message: '请输入旧密码', trigger: 'blur' }]
+        newPwd: [{ required: true, message: this.$t('Newpasswordnotentered'), trigger: 'blur' }],
+        oldPwd: [{ required: true, message: this.$t('Theoldpasswordwasnotentered'), trigger: 'blur' }]
       }
     }
   },

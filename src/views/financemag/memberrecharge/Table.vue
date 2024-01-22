@@ -8,12 +8,12 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column prop="id" label="ID" width="" />
-      <el-table-column prop="" label="会员名称" width="">
+      <el-table-column prop="" :label="$t('Membername')" width="">
         <template slot-scope="scope">
           <div class="MemberName_box">
             <div class="title_box">{{ scope.row.memberName }}</div>
             <!-- 首次充值 -->
-            <div v-if="scope.row.isFrist" class="isFrist_box">首次充值</div>
+            <div v-if="scope.row.isFrist" class="isFrist_box">{{ $t('Firstrecharge') }}</div>
           </div>
         </template>
       </el-table-column>
@@ -27,16 +27,16 @@
       <!-- <el-table-column prop="bankName" :label="$t('BankName')" width="" /> -->
 
       <el-table-column prop="payee" :label="$t('payee')" width="" />
-      <el-table-column prop="" label="收款信息" width="280">
+      <el-table-column prop="" :label="$t('Paymentinformation')" width="280">
         <template slot-scope="scope">
           <div>
-            <div v-if="scope.row.wechat">收款微信账号:{{ scope.row.wechat }}</div>
-            <div v-if="scope.row.cardNo">收款卡号:{{ scope.row.cardNo }}</div>
-            <div v-if="scope.row.bankName">银行名称:{{ scope.row.bankName }}</div>
+            <div v-if="scope.row.wechat">{{ $t('ReceivingWeChataccount') }}:{{ scope.row.wechat }}</div>
+            <div v-if="scope.row.cardNo">{{ $t('Paymentcardnumber') }}:{{ scope.row.cardNo }}</div>
+            <div v-if="scope.row.bankName">{{ $t('BankName') }}:{{ scope.row.bankName }}</div>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" label="入款信息" width="280">
+      <el-table-column prop="" :label="$t('Incomeinformation')" width="280">
         <template slot-scope="scope">
           <div>
             <div v-if="scope.row.memberAccount">入款账户名称:{{ scope.row.memberAccount }}</div>
@@ -56,14 +56,14 @@
           </div>
         </template>
       </el-table-column> -->
-      <el-table-column prop="createdAt" label="创建时间" width="" />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" />
       <el-table-column prop="" :label="$t('Reviewstatus')" width="150">
         <template slot-scope="scope">
           <div v-if="scope.row.aduitStatus != 2">{{ scope.row.aduitStatus | typeF }}</div>
           <div v-else>
             <el-popover
               placement="top-start"
-              title="驳回原因"
+              :title="$t('Reasonforrejection')"
               width="200"
               trigger="hover"
               :content="scope.row.rejection"
@@ -80,7 +80,7 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">查看详情</el-button>
+          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{$t('Detail')}}</el-button>
           <el-button v-if="scope.row.aduitStatus === 0" type="text" @click="HandelOption(scope.row.id,1)">{{ $t('passthrough') }}</el-button>
           <el-button v-if="scope.row.aduitStatus === 0" type="text" style="color:red;" @click="HandelOption(scope.row.id,2)">{{ $t('reject') }}</el-button>
           <el-button v-if="scope.row.aduitStatus === 0" type="text" style="color: black;" @click="HandelOption(scope.row.id,3)"> {{ $t('cancellation') }}</el-button>

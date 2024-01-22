@@ -7,13 +7,13 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column prop="day" label="日期" width="" />
-      <el-table-column prop="gamerId" label="游戏商ID" width="" />
-      <el-table-column prop="gamerName" label="游戏商名称" width="" />
-      <el-table-column prop="betAmount" label="投注总金额" width="" />
-      <el-table-column prop="rate" label="抽成比例" width="" />
-      <el-table-column prop="rateAmount" label="抽成金额" width="" />
-      <el-table-column prop="betUserNum" label="不重复投注人数" width="" />
+      <el-table-column prop="day" :label="$t('Date')" width="" />
+      <el-table-column prop="gamerId" :label="$t('GamemerchantsID')" width="" />
+      <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
+      <el-table-column prop="betAmount" :label="$t('Totalbettingamount')" width="" />
+      <el-table-column prop="rate" :label="$t('Drawproportion')" width="" />
+      <el-table-column prop="rateAmount" :label="$t('Commissionamount')" width="" />
+      <el-table-column prop="betUserNum" :label="$t('Numberofnonrepeatedbets')" width="" />
     </el-table>
   </el-card>
 </template>

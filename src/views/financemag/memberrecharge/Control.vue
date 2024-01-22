@@ -1,9 +1,9 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-input v-model="amount" style="width: 180px;margin-left:10px;" :placeholder="$t('amountofmoney')" />
-    <el-input v-model="cardNo" style="width: 180px;margin-left:10px;" placeholder="收款卡号" />
+    <el-input v-model="cardNo" style="width: 180px;margin-left:10px;" :placeholder="$t('Paymentcardnumber')" />
 
-    <el-select v-model="channelId" placeholder="选择渠道" style="width: 200px;margin-left: 10px">
+    <el-select v-model="channelId" :placeholder="$t('Choosechannels')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in ChannelIdData" :key="index" :value="item.index" :label="item.title" />
     </el-select>
     <!-- <el-input v-model="channelId" style="width: 180px;margin-left:10px;" :placeholder="$t('ChannelID')" /> -->
@@ -11,7 +11,7 @@
     <!-- <el-date-picker v-model="date" style="width: 180px;margin-left:10px;" type="date" placeholder="选择日期" /> -->
 
     <!-- <el-input v-model="memberId" style="width: 180px;margin-left:10px;" placeholder="用户id" /> -->
-    <el-select v-model="memberId" placeholder="选择用户" style="width: 200px;margin-left: 10px">
+    <el-select v-model="memberId" :placeholder="$t('selectuser')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in UserId" :key="index" :value="item.index" :label="item.title" />
     </el-select>
     <el-select v-model="auditStatus" :placeholder="$t('Reviewstatus')" style="width: 200px;margin-left: 10px">
@@ -20,11 +20,11 @@
     <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
     <!-- 开启自动刷新 -->
-    <el-button v-if="!this.$store.state.autorefresh.M_Recharge" type="info" icon="el-icon-refresh" @click="GetUpdataRefresh">开启自动刷新</el-button>
-    <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">关闭自动刷新</el-button>
+    <el-button v-if="!this.$store.state.autorefresh.M_Recharge" type="info" icon="el-icon-refresh" @click="GetUpdataRefresh"> {{ $t('Enableautomaticrefresh') }} </el-button>
+    <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">{{ $t('Turnoffautomaticrefresh') }}</el-button>
   </el-row>
 </template>
 

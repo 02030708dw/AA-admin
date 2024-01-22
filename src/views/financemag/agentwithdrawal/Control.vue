@@ -48,11 +48,11 @@
     > {{ $t('query') }} </el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
     <!-- 开启自动刷新 -->
-    <el-button v-if="!this.$store.state.autorefresh.A_Recharge" type="info" icon="el-icon-refresh" @click="GetUpdataRefresh">开启自动刷新</el-button>
-    <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">关闭自动刷新</el-button>
+    <el-button v-if="!this.$store.state.autorefresh.A_Recharge" type="info" icon="el-icon-refresh" @click="GetUpdataRefresh">{{ $t('Enableautomaticrefresh') }}</el-button>
+    <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">{{$t('Turnoffautomaticrefresh')}}</el-button>
   </el-row>
 </template>
 

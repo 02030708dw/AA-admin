@@ -7,19 +7,19 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column prop="day" label="日期" width="" />
-      <el-table-column prop="registerNum" label="注册人数" width="" />
-      <el-table-column prop="cashNum" label="提现人数" width="" />
-      <el-table-column prop="cashAmount" label="提现金额" width="" />
-      <el-table-column prop="firstIncomeNum" label="首次充值人数" width="" />
-      <el-table-column prop="firstIncomeAmount" label="充值人数" width="" />
-      <el-table-column prop="incomeAmount" label="活动总额" width="" />
-      <el-table-column prop="activityAmount" label="活动金额" width="" />
-      <el-table-column prop="memberRateAmount" label="会员返点金额" width="" />
-      <el-table-column prop="betAmount" label="投注总金额" width="" />
-      <el-table-column prop="awardAmount" label="派奖金额" width="" />
-      <el-table-column prop="phaseAmount" label="盈亏总额" width="" />
-      <el-table-column prop="betUserNum" label="不重复投注人数" width="" />
+      <el-table-column prop="day" :label="$t('Date')" width="" />
+      <el-table-column prop="registerNum" :label="$t('Enrollment')" width="" />
+      <el-table-column prop="cashNum" :label="$t('Numberofwithdrawals')" width="" />
+      <el-table-column prop="cashAmount" :label="$t('Withdrawalamount')" width="" />
+      <el-table-column prop="firstIncomeNum" :label="$t('Numberoffirstrechargeusers')" width="" />
+      <el-table-column prop="firstIncomeAmount" :label="$t('NumberofRechargers')" width="" />
+      <el-table-column prop="incomeAmount" :label="$t('Totalamountofactivities')" width="" />
+      <el-table-column prop="activityAmount" :label="$t('Activityamount')" width="" />
+      <el-table-column prop="memberRateAmount" :label="$t('Memberrebateamount')" width="" />
+      <el-table-column prop="betAmount" :label="$t('Totalbettingamount')" width="" />
+      <el-table-column prop="awardAmount" :label="$t('Awardamount')" width="" />
+      <el-table-column prop="phaseAmount" :label="$t('Totalprofitandloss')" width="" />
+      <el-table-column prop="betUserNum" :label="$t('Numberofnonrepeatedbets')" width="" />
     </el-table>
   </el-card>
 </template>

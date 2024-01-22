@@ -45,6 +45,7 @@
             $t("Membershiptransfer")
           }}</el-button>
           <el-button type="text" @click="MemberresettingPwd(scope.row)">重置密码</el-button>
+          <el-button type="text" @click="MemberUpdatebalance(scope.row)">余额加减</el-button>
           <el-button type="text" @click="Proxytransfer(scope.row)">{{
             $t("Proxytransfer")
           }}</el-button>
@@ -103,6 +104,10 @@ export default {
     // 重置密码
     MemberresettingPwd(data) {
       this.$emit('MemberresettingPwd', data.id)
+    },
+    // 操作余额
+    MemberUpdatebalance(data) {
+      this.$emit('Updatebalance', data.id)
     }
   }
 }

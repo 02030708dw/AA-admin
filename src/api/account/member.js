@@ -80,3 +80,12 @@ export function MemberRefreshBalance({ memberId }) {
     method: 'get'
   })
 }
+
+// 会员余额加减
+export function MemberUpdatebalance(data) {
+  return request({
+    url: '/user/member/changeBalance',
+    method: 'post',
+    data
+  })
+}
