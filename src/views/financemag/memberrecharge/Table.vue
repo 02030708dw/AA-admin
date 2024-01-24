@@ -75,7 +75,8 @@
       </el-table-column>
       <el-table-column prop="aduitTime" :label="$t('Audittime')" width="">
         <template slot-scope="scope">
-          <div> {{ scope.row.aduitTime | timeF }} </div>
+          <!-- <div> {{ scope.row.aduitTime | timeF }} </div> -->
+          <div> {{ scope.row.aduitTime }} </div>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
