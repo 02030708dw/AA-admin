@@ -9,12 +9,7 @@
     >
       <el-table-column prop="channelId" :label="$t('ChannelID')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
-      <!-- <el-table-column prop="alipay" :label="$t('Alipayaccount')" width="" /> -->
-      <!-- <el-table-column
-        prop="bankCardNo"
-        :label="$t('Bankaccount')"
-        width=""
-      /> -->
+      
       <el-table-column  label="充值信息" width="500">
         <template slot-scope="scope">
           <div class="info_box">
@@ -42,13 +37,13 @@
           </div>
         </template>
       </el-table-column>
-      <!-- <el-table-column prop="bankName" :label="$t('BankName')" width="" /> -->
-      <!-- <el-table-column
-        prop="coin"
-        :label="$t('Virtualcoinaddress')"
-        width=""
-      /> -->
-      <!-- <el-table-column prop="wechat" :label="$t('WeChataccount')" width="" /> -->
+      <el-table-column prop="" label="图标" width="120">
+        <template slot-scope="scope">
+          <div class="image_box" v-if="scope.row.icon">
+            <img :src="scope.row.icon" alt="">
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('Channeltype')" width="">
         <template slot-scope="scope">
           <div>
@@ -155,6 +150,17 @@ export default {
 </script>
 
     <style lang="scss" scoped>
+    .image_box{
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
     .info_box{
       margin: 0 auto;
       width: 400px;

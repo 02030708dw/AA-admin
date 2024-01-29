@@ -144,8 +144,8 @@ export default {
     getMemberPage(index) {
       // 记录当前页码
       this.pageNo = index
-
-      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, username: this.userName, status: this.status })
+     
+      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, userName: this.userName, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -155,9 +155,11 @@ export default {
         })
     },
     getMemquery(e) {
+    
       this.agentId = e.agentId
       this.userName = e.userName
       this.status = e.status
+   
       this.getMemberPage(1)
     },
     getresetting() {

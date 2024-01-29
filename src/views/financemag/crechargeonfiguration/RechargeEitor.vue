@@ -10,6 +10,7 @@
       :rules="rules"
       label-width="150px"
       class="demo-ruleForm"
+      :inline="true"
     >
       <el-form-item :label="$t('AccountName')" prop="account">
         <el-input v-model="ruleForm.account" />
@@ -54,6 +55,15 @@
           :inactive-value="0"
         />
       </el-form-item>
+      <el-form-item label="图标" prop="icon">
+        <el-upload 
+        class="avatar-uploader" 
+        :show-file-list="false" 
+        :on-success="handleAvatarSuccess" :on-error="uploadonerror">
+            <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+    </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -87,7 +97,8 @@ export default {
         coin: '',
         status: 0,
         type: null,
-        wechat: ''
+        wechat: '',
+        icon: '', //图标
       },
       rules: {
         account: [{ required: true, message: '请输入户名', trigger: 'blur' }],
@@ -109,7 +120,8 @@ export default {
         wechat: [
           { required: true, message: '请输入微信账号', trigger: 'blur' }
         ],
-        type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }]
+        type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }],
+        icon: [{ required: true, message: '请上传图标', trigger: 'blur' }]
       }
     }
   },
@@ -149,9 +161,73 @@ export default {
           return false
         }
       })
-    }
+    },
+    uploadonerror(err, file, fileList) {
+            this.getBase64(file.raw).then(res => {
+                this.ruleForm.icon = res
+            })
+        },
+        // 上传图片
+        handleAvatarSuccess(response, file, fileList) {
+            console.log(file)
+            this.getBase64(file.raw).then(res => {
+                this.ruleForm.icon = res
+            })
+        },
+        // 图片转base64
+        getBase64(file) {
+            return new Promise(function (resolve, reject) {
+                const reader = new FileReader()
+                let imgResult = ''
+                reader.readAsDataURL(file)
+                reader.onload = function () {
+                    imgResult = reader.result
+                }
+                reader.onerror = function (error) {
+                    reject(error)
+                }
+                reader.onloadend = function () {
+                    resolve(imgResult)
+                }
+            })
+        },
   }
 }
 </script>
-      <style>
+<style lang="scss" scoped>
+.avatar-uploader {
+    width: 178px;
+    height: 178px;
+    border: 1px dashed #494b4b3d;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+}
+
+.avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+}
 </style>

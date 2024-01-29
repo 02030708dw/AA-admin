@@ -1,50 +1,17 @@
 <template>
-  <el-dialog
-    :title="$t('Addrechargeconfiguration')"
-    :visible.sync="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="$t('Addrechargeconfiguration')" :visible.sync="dialogVisible" width="40%">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm" :inline="true">
       <el-form-item :label="$t('AccountName')" prop="account">
-        <el-input v-model="ruleForm.account" />
+        <el-input v-model="ruleForm.account" style="width: 200px" />
       </el-form-item>
       <el-form-item :label="$t('ChannelID')" prop="channelId">
-        <el-select
-          v-model="ruleForm.channelId"
-          placeholder="选择渠道"
-          style="width: 200px"
-        >
-          <el-option
-            v-for="(item, index) in channelidList"
-            :key="index"
-            :value="item.index"
-            :label="item.title"
-          />
+        <el-select v-model="ruleForm.channelId" placeholder="选择渠道" style="width: 200px">
+          <el-option v-for="(item, index) in channelidList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <!-- <el-form-item :label="$t('ChannelID')" prop="channelId">
-        <el-input v-model="ruleForm.channelId" />
-      </el-form-item> -->
-      <!-- 渠道类型 -->
       <el-form-item :label="$t('Channeltype')" prop="type">
-        <el-select
-          v-model="ruleForm.type"
-          :placeholder="$t('typesof')"
-          style="width: 200px"
-          @change="HandelChange"
-        >
-          <el-option
-            v-for="(item, index) in TypeList"
-            :key="index"
-            :value="item.index"
-            :label="item.title"
-          />
+        <el-select v-model="ruleForm.type" :placeholder="$t('typesof')" style="width: 200px" @change="HandelChange">
+          <el-option v-for="(item, index) in TypeList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
@@ -63,12 +30,17 @@
         <el-input v-model="ruleForm.coin" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          v-model="ruleForm.status"
-          :active-value="1"
-          :inactive-value="0"
-        />
+        <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
+      <el-form-item label="图标" prop="icon">
+        <el-upload 
+        class="avatar-uploader" 
+        :show-file-list="false" 
+        :on-success="handleAvatarSuccess" :on-error="uploadonerror">
+            <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+    </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -110,7 +82,8 @@ export default {
         coin: '',
         status: 0,
         type: null,
-        wechat: ''
+        wechat: '',
+        icon: '', //图标
       },
       rules: {
         account: [{ required: true, message: '请输入户名', trigger: 'blur' }],
@@ -132,7 +105,8 @@ export default {
         wechat: [
           { required: true, message: '请输入微信账号', trigger: 'blur' }
         ],
-        type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }]
+        type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }],
+        icon: [{ required: true, message: '请上传图标', trigger: 'blur' }]
       }
     }
   },
@@ -150,7 +124,8 @@ export default {
           coin: '',
           status: 0,
           type: null,
-          wechat: ''
+          wechat: '',
+          icon: ''
         }
       }
       this.dialogVisible = !this.dialogVisible
@@ -173,9 +148,74 @@ export default {
     },
     HandelChange() {
       console.log(this.ruleForm.type)
-    }
+    },
+    uploadonerror(err, file, fileList) {
+      this.getBase64(file.raw).then(res => {
+        this.ruleForm.icon = res
+      })
+    },
+    // 上传图片
+    handleAvatarSuccess(response, file, fileList) {
+      console.log(file)
+      this.getBase64(file.raw).then(res => {
+        this.ruleForm.icon = res
+      })
+    },
+    // 图片转base64
+    getBase64(file) {
+      return new Promise(function (resolve, reject) {
+        const reader = new FileReader()
+        let imgResult = ''
+        reader.readAsDataURL(file)
+        reader.onload = function () {
+          imgResult = reader.result
+        }
+        reader.onerror = function (error) {
+          reject(error)
+        }
+        reader.onloadend = function () {
+          resolve(imgResult)
+        }
+      })
+    },
   }
 }
 </script>
-    <style>
+<style lang="scss" scoped>
+.avatar-uploader {
+  width: 178px;
+  height: 178px;
+  border: 1px dashed #494b4b3d;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+
 </style>

@@ -146,6 +146,12 @@ export const constantRoutes = [
         name: 'withdrawalchannel',
         component: () => import('@/views/financemag/withdrawalchannel/index'),
         meta: { title: 'withdrawalchannel', icon: 'el-icon-position' }
+      },
+      {
+        path: 'WithdrawalBank',
+        name: 'WithdrawalBank',
+        component: () => import('@/views/financemag/WithdrawalBank/index'),
+        meta: { title: '提现银行管理', icon: 'el-icon-s-operation' }
       }
     ]
   },
