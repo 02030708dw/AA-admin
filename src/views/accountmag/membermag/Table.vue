@@ -21,7 +21,6 @@
       />
       <el-table-column prop="agenId" :label="$t('agenId')" width="" />
       <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" />
-
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>

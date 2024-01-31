@@ -9,7 +9,7 @@
     >
       <el-table-column prop="channelId" :label="$t('ChannelID')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
-      
+      <el-table-column prop="currency" label="币种" width="" />
       <el-table-column  label="充值信息" width="500">
         <template slot-scope="scope">
           <div class="info_box">

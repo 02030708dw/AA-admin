@@ -142,6 +142,7 @@ export default {
         },
         // 确定事件
         getconfirm() {
+            console.log("编辑",this.ruleForm)
             this.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     this.$emit('upta', this.ruleForm)

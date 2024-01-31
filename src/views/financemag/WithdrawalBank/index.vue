@@ -2,7 +2,7 @@
     <el-card>
         <Control @Add="GetAdd" @Refresh="GetRefresh" ref="ControlView" @query="Getquery" @resetting="Getresetting"></Control>
         <Table ref="TableView" :tableData="tableData" @Eitor="GetEitor" @delete="getdelete" @updateStatus="getupdateStatus"></Table>
-        <Pagination></Pagination>
+        <Pagination :total="total"></Pagination>
         <UpdataWithdrawalBank @upta="HandelUpta" :TypeIndex="TypeIndex" ref="updatabank" :CurrencytPageData="CurrencytPageData"></UpdataWithdrawalBank>
     </el-card>
 </template>
@@ -46,7 +46,7 @@ export default {
         for(let i = 0; i < res.resultSet.data.length ;i++){
           this.CurrencytPageData.push({
             item:res.resultSet.data[i].currency,
-            index:res.resultSet.data[i].id
+            index:res.resultSet.data[i].currency
           })
         }
       }).catch(err => {
@@ -108,9 +108,10 @@ export default {
         },
         // 添加编辑事件
         HandelUpta(e) {
+            console.log(e)
             if(this.TypeIndex === 0) {
                 // 添加
-                Add({bankCode:e.bankCode,bankName:e.bankName,icon:e.icon,status:e.status}).then(res => {
+                Add({bankCode:e.bankCode,bankName:e.bankName,icon:e.icon,status:e.status,currency:e.currency}).then(res => {
                     console.log(res)
                     this.$message({ message: '添加成功!', type: 'success' })
                     // 刷新数据
@@ -121,7 +122,7 @@ export default {
                 })
             } else if(this.TypeIndex === 1) {
                 // 编辑
-                Edit({bankCode:e.bankCode,bankName:e.bankName,icon:e.icon,status:e.status,id:e.id}).then(res => {
+                Edit({bankCode:e.bankCode,bankName:e.bankName,icon:e.icon,status:e.status,id:e.id,currency:e.currency}).then(res => {
                     this.$message({ message: '编辑成功!', type: 'success' })
                     // 刷新
                     this.GetPagesData(this.pageNo)
