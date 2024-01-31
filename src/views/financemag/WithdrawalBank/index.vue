@@ -3,7 +3,7 @@
         <Control @Add="GetAdd" @Refresh="GetRefresh" ref="ControlView" @query="Getquery" @resetting="Getresetting"></Control>
         <Table ref="TableView" :tableData="tableData" @Eitor="GetEitor" @delete="getdelete" @updateStatus="getupdateStatus"></Table>
         <Pagination></Pagination>
-        <UpdataWithdrawalBank @upta="HandelUpta" :TypeIndex="TypeIndex" ref="updatabank"></UpdataWithdrawalBank>
+        <UpdataWithdrawalBank @upta="HandelUpta" :TypeIndex="TypeIndex" ref="updatabank" :CurrencytPageData="CurrencytPageData"></UpdataWithdrawalBank>
     </el-card>
 </template>
 <script>
@@ -12,6 +12,8 @@ import Control from './Control.vue';
 import Table from './Table.vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import UpdataWithdrawalBank from './UpdataWithdrawalBank.vue'
+// 获取币种分页数据
+import { CurrencytPage } from '../../../api/Currency/Currency'
 export default {
     components: {
         Control,
@@ -28,13 +30,29 @@ export default {
             pageNo: 1,
             pageSize: 10,
             total: 0,
-            tableData: []
+            tableData: [],
+            CurrencytPageData:[]
         }
     },
     created() {
         this.GetPagesData(1)
+        this.getCurrencytPage()
     },
     methods: {
+        // 获取币种
+    getCurrencytPage() {
+      this.CurrencytPageData = []
+      CurrencytPage({pageNo:1,pageSize:200000}).then(res => {
+        for(let i = 0; i < res.resultSet.data.length ;i++){
+          this.CurrencytPageData.push({
+            item:res.resultSet.data[i].currency,
+            index:res.resultSet.data[i].id
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
         // 编辑
         GetEitor(e) {
             this.TypeIndex = 1

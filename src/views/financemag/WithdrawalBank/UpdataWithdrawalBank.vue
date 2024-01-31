@@ -1,6 +1,7 @@
 <template>
     <!-- 新增 修改 -->
-    <el-dialog :title="TypeIndex === 1 ? '编辑提现银行' : '添加提现银行'" :visible.sync="dialogVisible" width="40%" @close="HandelClose">
+    <el-dialog :title="TypeIndex === 1 ? '编辑提现银行' : '添加提现银行'" :visible.sync="dialogVisible" width="40%"
+        @close="HandelClose">
 
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
             <el-form-item label="银行编码" prop="bankCode">
@@ -9,11 +10,17 @@
             <el-form-item label="银行名称" prop="bankName">
                 <el-input v-model="ruleForm.bankName" placeholder="请输入银行名称" />
             </el-form-item>
+            <el-form-item label="选择币种" prop="currency">
+                <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
+                  <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
+                </el-select>
+              </el-form-item>
+
+
+
             <el-form-item label="图标" prop="icon">
-                <el-upload 
-                class="avatar-uploader" 
-                :show-file-list="false" 
-                :on-success="handleAvatarSuccess" :on-error="uploadonerror">
+                <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
+                    :on-error="uploadonerror">
                     <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
@@ -38,6 +45,13 @@ export default {
         TypeIndex: {
             type: Number,
             default: 0
+        },
+        // 币种
+        CurrencytPageData: {
+            type: Array,
+            default: () => {
+                return []
+            }
         }
     },
     data() {
@@ -49,11 +63,13 @@ export default {
                 icon: '', //图标
                 status: 0,// 状态
                 id: '', //ID
+                currency:''
             },
             rules: {
                 bankCode: [{ required: true, message: '请输入银行编码', trigger: 'blur' }],
                 bankName: [{ required: true, message: '请输入银行名称', trigger: 'blur' }],
-                icon: [{ required: true, message: '请上传银行图标', trigger: 'blur' }]
+                icon: [{ required: true, message: '请上传银行图标', trigger: 'blur' }],
+                currency:[{ required: true, message: '请选择币种', trigger: 'blur' }]
             }
         }
     },
@@ -61,12 +77,13 @@ export default {
         HandelClose() {
             this.dialogVisible = false
             this.ruleForm = {
-                    bankCode: '', // 银行编码
-                    bankName: '', // 银行名称
-                    icon: '', //图标
-                    status: 0,// 状态
-                    id: '', //ID
-                }
+                bankCode: '', // 银行编码
+                bankName: '', // 银行名称
+                icon: '', //图标
+                status: 0,// 状态
+                id: '', //ID
+                currency:''
+            }
         },
         // 改变弹窗状态
         HandelChange(data = null) {
@@ -78,7 +95,8 @@ export default {
                     bankName: data.bankName,
                     icon: data.icon,
                     status: data.status,
-                    id: data.id
+                    id: data.id,
+                    currency:data.currency
                 }
             }
             // 关闭时清空数据
@@ -89,6 +107,7 @@ export default {
                     icon: '', //图标
                     status: 0,// 状态
                     id: '', //ID
+                    currency:''
                 }
             }
         },

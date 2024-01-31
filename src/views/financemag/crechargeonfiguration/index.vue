@@ -23,11 +23,13 @@
       @PageChange="getRechargedata"
     />
     <rechargeAdd
+    :CurrencytPageData="CurrencytPageData"
       ref="rechargeAdd"
       :channelid-list="channelIdList"
       @confirm="getRechargeAdd"
     />
     <rechargeEitor
+    :CurrencytPageData="CurrencytPageData"
       ref="rechargeEitor"
       @confirm="getRechargeEitor"
     />
@@ -45,6 +47,10 @@ import Pagination from '@/components/Pagination/Pagination.vue'
 import rechargeAdd from './RechargeAdd.vue'
 import rechargeEitor from './RechargeEitor.vue'
 import { channelPage } from '../../../api/finance/rechargechannel'
+
+// 获取币种分页数据
+import { CurrencytPage } from '../../../api/Currency/Currency'
+
 // 接口
 import {
   RechargePage,
@@ -73,14 +79,34 @@ export default {
       channelId: '',
       PagesSize: 20,
       // 渠道id
-      channelIdList: []
+      channelIdList: [],
+      CurrencytPageData:[]
     }
   },
   created() {
     this.getRechargedata(1)
     this.getchannelId()
+    this.getCurrencytPage()
   },
   methods: {
+    // 获取币种
+    getCurrencytPage() {
+      this.CurrencytPageData = []
+      CurrencytPage({pageNo:1,pageSize:200000}).then(res => {
+        for(let i = 0; i < res.resultSet.data.length ;i++){
+          this.CurrencytPageData.push({
+            item:res.resultSet.data[i].currency,
+            index:res.resultSet.data[i].id
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+
+
+
     // 获取渠道id
     getchannelId() {
       channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
@@ -205,7 +231,9 @@ export default {
         id: data.id,
         status: data.status,
         type: data.type,
-        wechat: data.wechat
+        wechat: data.wechat,
+        icon:data.icon,
+        currency:data.currency
       })
         .then((res) => {
           this.getRechargedata(this.pageNo)

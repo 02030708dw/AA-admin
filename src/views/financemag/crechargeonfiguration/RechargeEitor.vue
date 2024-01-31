@@ -36,6 +36,13 @@
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
         <el-input v-model="ruleForm.alipay" />
       </el-form-item>
+      
+      
+      <el-form-item v-if="ruleForm.type === 0" label="选择币种" prop="bankCardNo">
+        <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
+          <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
+        </el-select>
+      </el-form-item>
       <el-form-item v-if="ruleForm.type === 0" :label="$t('Bankaccount')" prop="bankCardNo">
         <el-input v-model="ruleForm.bankCardNo" />
       </el-form-item>
@@ -57,6 +64,7 @@
       </el-form-item>
       <el-form-item label="图标" prop="icon">
         <el-upload 
+        action="#"
         class="avatar-uploader" 
         :show-file-list="false" 
         :on-success="handleAvatarSuccess" :on-error="uploadonerror">
@@ -76,6 +84,14 @@
 
 <script>
 export default {
+  props:{
+    CurrencytPageData:{
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       // 弹窗状态
@@ -99,6 +115,7 @@ export default {
         type: null,
         wechat: '',
         icon: '', //图标
+        currency:''
       },
       rules: {
         account: [{ required: true, message: '请输入户名', trigger: 'blur' }],
@@ -121,7 +138,8 @@ export default {
           { required: true, message: '请输入微信账号', trigger: 'blur' }
         ],
         type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }],
-        icon: [{ required: true, message: '请上传图标', trigger: 'blur' }]
+        icon: [{ required: true, message: '请上传图标', trigger: 'blur' }],
+        currency:[{ required: true, message: '请选择币种', trigger: 'blur' }]
       }
     }
   },
@@ -140,7 +158,8 @@ export default {
           coin: '',
           status: 0,
           type: null,
-          wechat: ''
+          wechat: '',
+          icon:''
         }
       } else {
         this.ruleForm = data
@@ -150,6 +169,7 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          console.log("编辑",this.ruleForm)
           this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
           this.dialogVisible = false

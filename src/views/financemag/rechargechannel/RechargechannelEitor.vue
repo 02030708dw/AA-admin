@@ -15,7 +15,18 @@
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item :label="$t('Channeltype')" prop="type">
-        <el-input v-model="ruleForm.type"></el-input>
+        <el-select
+      v-model="ruleForm.type"
+      :placeholder="$t('Channeltype')"
+      style="width: 200px"
+    >
+      <el-option
+        v-for="(item, index) in typeArrList"
+        :key="index"
+        :value="item.index"
+        :label="item.title"
+      />
+    </el-select>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch
@@ -34,7 +45,7 @@
   </el-dialog>
 </template>
       
-      <script>
+<script>
 export default {
   data() {
     return {
@@ -47,7 +58,12 @@ export default {
         type: null,
       },
       //游戏类型选项
-
+      typeArrList: [
+        { title: '银行卡', index: 0 },
+        { title: '支付宝', index: 1 },
+        { title: '微信', index: 2 },
+        { title: '虚拟币', index: 3 }
+      ],
       rules: {
         name: [{ required: true, message: "请输入渠道名称", trigger: "blur" }],
         type: [{ required: true, message: "请输入渠道类型", trigger: "blur" }],
