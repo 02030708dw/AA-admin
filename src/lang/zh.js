@@ -312,7 +312,7 @@ export default {
   Turnoffautomaticrefresh: '关闭自动刷新',
   Paymentcardnumber: '收款卡号',
   Choosechannels: '选择渠道',
-  selectuser: '选择用户',
+  selectuser: '选择用户id',
   Firstrecharge: '首次充值',
   Paymentinformation: '收款信息',
   ReceivingWeChataccount: '收款微信号',

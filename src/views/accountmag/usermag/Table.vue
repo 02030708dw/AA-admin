@@ -7,8 +7,9 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="100" />
+      <el-table-column prop="id" :label="$t('id')" width="" />
       <el-table-column prop="userName" :label="$t('name')" width="" />
+     
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">

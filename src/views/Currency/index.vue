@@ -41,7 +41,6 @@ export default {
     }
   },
   created() {
-    this.getCurrencydata(1)
     this.getCurrencydata(this.pageNo)
   },
   methods: {

@@ -2,12 +2,13 @@ import { login, logout } from '@/api/user'
 import { UserInfo } from '@/api/account/user'
 import { setToken, removeToken } from '@/utils/auth'
 import { resetRouter, newRouter, asyncRoutes } from '@/router'
-
+import { gamerPage } from '@/api/gamer/gamer'
 const getDefaultState = () => {
   return {
     token: '',
     name: '',
-    avatar: ''
+    avatar: '',
+    gamer: JSON.parse(sessionStorage.getItem('gamer'))//游戏商
   }
 }
 
@@ -25,6 +26,11 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  //游戏商
+  SET_GAMER: (state, avatar) => {
+    state.gamer = avatar
+    sessionStorage.setItem('gamer', JSON.stringify(avatar))
   }
 }
 
@@ -85,6 +91,18 @@ const actions = {
     })
   },
 
+  //游戏商
+  gamerSet({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      gamerPage({ pageNo: 1, pageSize: 1000000 }).then((res) => {
+        console.log(res);
+        commit('SET_GAMER',res.resultSet.data)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   // 删除token
   resetToken({ commit }) {
     return new Promise(resolve => {

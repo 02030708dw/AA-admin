@@ -29,7 +29,7 @@
       />
       <el-table-column
         prop="clientSecret"
-        label="clientSecret"
+        :label="$t('clientSecret')"
         width=""
       />
       <el-table-column

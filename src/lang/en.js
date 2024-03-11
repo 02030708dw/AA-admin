@@ -42,7 +42,7 @@ export default {
     Turnoffautomaticrefresh: 'Turn off automatic refresh',
     Paymentcardnumber: 'Payment card number',
     Choosechannels: 'Choose channels',
-    selectuser: 'select user',
+    selectuser: 'select user id',
     Firstrecharge: 'First recharge',
     Paymentinformation: 'Paymentinformation',
     ReceivingWeChataccount: 'Receiving WeChat account',

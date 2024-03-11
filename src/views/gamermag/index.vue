@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @Refresh="HandelRefresh" @gamerAdd="getGamerAddshow" @query="getquery" @resetting="getresetting" />
+    <Control ref="ControlView" :gameriddata="GamerIdData" @Refresh="HandelRefresh" @gamerAdd="getGamerAddshow" @query="getquery" @resetting="getresetting" />
     <Table
       ref="TableView"
       :table-data="tableData"
@@ -51,11 +51,14 @@ export default {
       tableData: [],
       name: '',
       status: null,
-      PagesSize: 20
+      PagesSize: 20,
+       // 游戏商id
+      //  GamerIdData: [],
     }
   },
   created() {
     this.getroledata(1)
+    
   },
   methods: {
     HandelPagesChange(e) {
@@ -122,6 +125,7 @@ export default {
             message: '添加成功!',
             type: 'success'
           })
+          this.$store.dispatch('user/gamerSet')
         })
         .catch((err) => {
           console.log(err)
@@ -138,6 +142,7 @@ export default {
             message: '删除成功!',
             type: 'success'
           })
+          this.$store.dispatch('user/gamerSet')
         })
         .catch((err) => {
           console.log(err)
@@ -165,6 +170,7 @@ export default {
             message: '编辑成功!',
             type: 'success'
           })
+          this.$store.dispatch('user/gamerSet')
         })
         .catch((err) => {
           console.log(err)
@@ -202,7 +208,19 @@ export default {
         this.$message.error('绑定失败!')
       })
     }
-  }
+  },
+  computed:{
+    GamerIdData() {
+        let data=[],res = this.$store.state.user.gamer
+        for (let i = 0; i < res.length; i++) {
+          data.push({
+            title: res[i].name,
+            index: res[i].id
+          })
+        }
+        return data
+      }
+  },
 }
 </script>
 <style>

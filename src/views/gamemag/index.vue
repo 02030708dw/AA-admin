@@ -67,16 +67,17 @@ export default {
     },
     // 获取游戏商id
     GetGamerPages() {
-      gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
-        for (let i = 0; i < res.resultSet.data.length; i++) {
+      // gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
+        let res = this.$store.state.user.gamer
+        for (let i = 0; i < res.length; i++) {
           this.GamerIdData.push({
-            title: res.resultSet.data[i].name,
-            index: res.resultSet.data[i].id
+            title: res[i].name,
+            index: res[i].id
           })
         }
-      }).catch(err => {
-        console.log(err)
-      })
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     },
     // 刷新事件
     HandelRefresh() {

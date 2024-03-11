@@ -94,16 +94,17 @@ export default {
     // 获取游戏商信息
     HandelAgentPages() {
       this.gamerPagesList = []
-      gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
-        for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.gamerPagesList.push({
-            title: res.resultSet.data[i].name,
-            index: res.resultSet.data[i].id
+      // gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
+        let res = this.$store.state.user.gamer
+        for (let i = 0; i < res.length; i++) {
+          this.GamerIdData.push({
+            title: res[i].name,
+            index: res[i].id
           })
         }
-      }).catch((err) => {
-        console.log(err)
-      })
+      // }).catch((err) => {
+      //   console.log(err)
+      // })
     },
     // 获取分页数据
     getMemberFlowingWater(index) {

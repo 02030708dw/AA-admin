@@ -10,10 +10,10 @@
 
     <!-- <el-date-picker v-model="date" style="width: 180px;margin-left:10px;" type="date" placeholder="选择日期" /> -->
 
-    <!-- <el-input v-model="memberId" style="width: 180px;margin-left:10px;" placeholder="用户id" /> -->
-    <el-select v-model="memberId" :placeholder="$t('selectuser')" style="width: 200px;margin-left: 10px">
+    <el-input v-model="memberId" style="width: 180px;margin-left:10px;" placeholder="用户id" />
+    <!-- <el-select v-model="memberId" :placeholder="$t('selectuser')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in UserId" :key="index" :value="item.index" :label="item.title" />
-    </el-select>
+    </el-select> -->
     <el-select v-model="auditStatus" :placeholder="$t('Reviewstatus')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in auditStatusList" :key="index" :value="item.index" :label="item.title" />
     </el-select>

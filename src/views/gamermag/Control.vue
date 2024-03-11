@@ -3,11 +3,18 @@
     <el-button type="primary" @click="getgamerAdd()">{{
       $t("increase")
     }}</el-button>
-    <el-input
-      v-model="name"
-      style="width: 200px; margin-left: 10px"
-      :placeholder="$t('GameMerchantName')"
-    />
+        <el-select
+      v-model="gamerId"
+      :placeholder="$t('SelectGameMerchant')"
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in gameriddata"
+        :key="index"
+        :value="item.index"
+        :label="item.title"
+      />
+    </el-select>
     <el-select
       v-model="status"
       :placeholder="$t('state')"
@@ -36,6 +43,14 @@
 <script>
 export default {
   name: 'Control',
+  props: {
+    gameriddata: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       name: '',
@@ -44,7 +59,8 @@ export default {
         { title: '停用', index: 0 },
         { title: '启用', index: 1 }
       ],
-      btnIcoType: true
+      btnIcoType: true,
+      gamerId:'',
     }
   },
   methods: {

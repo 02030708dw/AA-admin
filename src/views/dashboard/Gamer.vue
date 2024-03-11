@@ -77,6 +77,7 @@ export default {
   },
   mounted() {
     this.getDateData()
+    this.$store.dispatch('user/gamerSet')
   },
   methods: {
     // 获取初始化数据区间时间以及数据(一周内)
