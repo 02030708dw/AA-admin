@@ -1,14 +1,20 @@
 <template>
-  <Table ref="TableView" :table-data="tableData" @getCreate="getCreateData" />
+  <el-card>
+    <Table ref="TableView" :table-data="tableData" @getCreate="getCreateData" />
+    <Pagination :total="total" @PageChange="getThirdData" />
+  </el-card>
 </template>
 
 <script>
 import { walletPage, createGameUser } from "@/api/account/wallet";
 
 import Table from "./Table";
+import Pagination from "@/components/Pagination/Pagination";
+
 export default {
   components: {
     Table,
+    Pagination
   },
   data() {
     return {
