@@ -14,7 +14,7 @@
       <el-table-column prop="userName" label="userName" />
 
       <!-- 折叠面板 -->
-      <el-table-column width="500">
+      <el-table-column width="450">
         <template v-slot="{ row }">
           <el-collapse>
             <el-collapse-item title="钱包信息">

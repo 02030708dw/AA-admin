@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <Table ref="TableView" :table-data="tableData" @getCreate="getCreateData" />
-    <Pagination :total="total" @PageChange="getThirdData" />
+    <Pagination :total="total" @PageChange="getWalletData" />
   </el-card>
 </template>
 
