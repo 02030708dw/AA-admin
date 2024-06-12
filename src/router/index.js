@@ -102,7 +102,13 @@ export const constantRoutes = [
         name: 'agent',
         component: () => import('@/views/accountmag/agentmag/index'),
         meta: { title: 'agentmanagement', icon: 'el-icon-news' }
-      }
+      },
+      {
+        path: 'wallet',
+        name: 'wallet',
+        component: () => import('@/views/accountmag/walletmag/index'),
+        meta: { title: 'abnormalwallet', icon: 'el-icon-news' }
+      },
     ]
   },
   {

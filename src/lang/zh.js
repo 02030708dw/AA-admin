@@ -13,6 +13,7 @@ export default {
     authoritymanage: '用户管理',
     membermanagement: '会员管理',
     agentmanagement: '代理管理',
+    abnormalwallet:'异常钱包管理',
     accountmanage: '账户管理',
     financemanage: '财务管理',
     memberrecharge: '会员充值管理',
