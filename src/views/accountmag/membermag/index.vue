@@ -145,7 +145,7 @@ export default {
       // 记录当前页码
       this.pageNo = index
      
-      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, userName: this.userName, status: this.status })
+      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, userName: this.userName, status: this.status, userPhone: this.userPhone})
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -159,7 +159,7 @@ export default {
       this.agentId = e.agentId
       this.userName = e.userName
       this.status = e.status
-   
+      this.userPhone = e.userPhone
       this.getMemberPage(1)
     },
     getresetting() {

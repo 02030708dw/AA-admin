@@ -2,11 +2,11 @@ import request from '@/utils/request'
 // 会员管理
 
 // 分页数据
-export function MemberPage({ pageNo, pageSize, agentId, status, userName }) {
+export function MemberPage({ pageNo, pageSize, agentId, status, userName, userPhone}) {
   return request({
     url: '/user/member/page',
     method: 'get',
-    params: { pageNo, pageSize, agentId, status, userName }
+    params: { pageNo, pageSize, agentId, status, userName, userPhone}
   })
 }
 

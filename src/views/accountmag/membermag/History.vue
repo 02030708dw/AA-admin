@@ -38,6 +38,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="remark" label="描述" width="" />
+        <el-table-column prop="createdAt" label="注册时间" width="" />
       </el-table>
     </el-card>
 

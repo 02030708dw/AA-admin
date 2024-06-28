@@ -15,12 +15,13 @@
       <el-table-column prop="blanace" label="会员余额" width="" />
       <el-table-column prop="realName" :label="$t('name')" width="" />
       <el-table-column
-        prop="parentMemberId"
+        prop="parentName"
         :label="$t('parentMemberId')"
         width=""
       />
       <el-table-column prop="agenId" :label="$t('agenId')" width="" />
       <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" />
+      <el-table-column prop="createdAt" label="注册时间" width="" />
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>

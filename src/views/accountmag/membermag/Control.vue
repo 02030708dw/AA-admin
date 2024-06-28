@@ -1,5 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
+    <el-input v-model="userPhone" style="width: 200px;margin-right: 10px;" :placeholder="$t('phone')" />
     <el-input v-model="userName" style="width: 200px;" :placeholder="$t('username')" />
     <el-select
       v-model="agentId"
@@ -41,6 +42,7 @@ export default {
   data() {
     return {
       agentId: '',
+      userPhone:'',
       userName: '',
       status: null,
       statusType: [
@@ -73,6 +75,7 @@ export default {
       this.$emit('Memquery', {
         agentId: this.agentId,
         userName: this.userName,
+        userPhone:this.userPhone,
         status: this.status
       })
     },

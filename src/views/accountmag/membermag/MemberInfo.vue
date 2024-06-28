@@ -14,6 +14,9 @@
       <el-tab-pane label="会员历史投注信息">
         <History ref="HistoryView" />
       </el-tab-pane>
+      <el-tab-pane label="个人信息">
+        <PersonalDetails ref="PersonalDetails" />
+      </el-tab-pane>
     </el-tabs>
   </el-dialog>
 </template>
@@ -31,12 +34,15 @@ import Friends from './Friends.vue'
 import BalanceList from './BalanceList.vue'
 //  会员历史投注信息
 import History from './History.vue'
+//  个人资料
+import PersonalDetails from './PersonalDetails.vue'
 export default {
   components: {
     FlowingWater,
     Friends,
     BalanceList,
-    History
+    History,
+    PersonalDetails
   },
   data() {
     return {
@@ -69,6 +75,14 @@ export default {
           // 会员历史投注信息
           this.$refs.HistoryView.memberId = this.MemberInfo.id
           this.$refs.HistoryView.getMemberFlowingWater(1)
+          break
+        case '4':
+          // 个人资料
+          this.$refs.PersonalDetails.UserInfo = {
+            telPhone: this.MemberInfo.telPhone, 
+            userName: this.MemberInfo.userName,
+            bank: '',
+          }
           break
       }
     },
