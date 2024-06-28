@@ -139,7 +139,7 @@ export default {
     // 查询
     getquery() {
       if (!this.memberId) {
-        return this.$message.error('请选择代理!')
+        return this.$message.error('请选择会员!')
       }
       this.$emit('query', { memberId: this.memberId })
     }
