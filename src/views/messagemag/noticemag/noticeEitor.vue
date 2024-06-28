@@ -126,7 +126,7 @@ export default {
           content: ''
         }
       } else {
-        this.ruleForm = data
+        this.ruleForm = {...data}
       }
     },
     // 确定添加事件

@@ -105,7 +105,7 @@ export default {
           type: null,
         };
       } else {
-        this.ruleForm = data;
+        this.ruleForm = { ...data };
       }
     },
     // 确定添加事件

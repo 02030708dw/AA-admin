@@ -67,7 +67,7 @@ export default {
           remark: '' // 备注
         }
       } else {
-        this.ruleForm = data
+        this.ruleForm = { ...data }
       }
     },
     // 确定事件

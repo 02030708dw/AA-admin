@@ -180,7 +180,8 @@ export default {
         id: data.id,
         name: data.name,
         status: data.status,
-        type: data.type
+        type: data.type,
+        currency: data.currency
       })
         .then((res) => {
           this.getchanneldata(this.pageNo)

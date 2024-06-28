@@ -65,7 +65,7 @@ export default {
           userName: "",
         };
       } else {
-        this.ruleForm = data;
+        this.ruleForm = { ...data };
       }
     },
     // 确定添加事件

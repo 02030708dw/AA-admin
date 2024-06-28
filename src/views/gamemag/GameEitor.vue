@@ -62,7 +62,7 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
+      <el-button @click="getEitorstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">{{
         $t("determine")
       }}</el-button>
@@ -130,8 +130,7 @@ export default {
           type: null
         }
       } else {
-        this.ruleForm = data
-        console.log(this.ruleForm)
+        this.ruleForm = {...data}
       }
     },
     // 确定添加事件

@@ -28,7 +28,7 @@
           <el-option
             v-for="(item, index) in TypeList"
             :key="index"
-            :value="item.index"
+            :value="item.value"
             :label="item.title"
           />
         </el-select>
@@ -54,6 +54,9 @@
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 3" :label="$t('Virtualcoinaddress')" prop="coin">
         <el-input v-model="ruleForm.coin" />
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type === 4" :label="$t('Channelname')" prop="name">
+        <el-input v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch
@@ -98,10 +101,11 @@ export default {
       dialogVisible: false,
       // 渠道类型
       TypeList: [
-        { title: '银行卡', index: 0 },
-        { title: '支付宝', index: 1 },
-        { title: '微信', index: 2 },
-        { title: '虚拟币', index: 3 }
+        { title: '银行卡', value: 0 },
+        { title: '支付宝', value: 1 },
+        { title: '微信', value: 2 },
+        { title: '虚拟币', value: 3 },
+        { title: '三方支付', value: 4 }
       ],
       // 表单数据
       ruleForm: {
@@ -134,6 +138,9 @@ export default {
         coin: [
           { required: true, message: '请输入虚拟币地址', trigger: 'blur' }
         ],
+        name: [
+          { required: true, message: '请输入渠道名称', trigger: 'blur' }
+        ],
         wechat: [
           { required: true, message: '请输入微信账号', trigger: 'blur' }
         ],
@@ -162,7 +169,8 @@ export default {
           icon:''
         }
       } else {
-        this.ruleForm = data
+        this.ruleForm = {...data}
+        console.log(this.ruleForm);
       }
     },
     // 确定添加事件

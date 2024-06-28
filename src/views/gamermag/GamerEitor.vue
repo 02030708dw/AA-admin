@@ -127,13 +127,14 @@ export default {
           rate: ''
         }
       } else {
-        this.ruleForm = data
+        this.ruleForm = { ...data }
       }
     },
     // 确定添加事件
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          console.log(this.ruleForm);
           this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
           this.dialogVisible = false

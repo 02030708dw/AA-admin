@@ -27,7 +27,7 @@
     </el-form>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="getAddstatus()">取 消</el-button>
+      <el-button @click="getEditorstatus()">取 消</el-button>
       <el-button type="primary" @click="getconfirm()">确 定</el-button>
     </span>
   </el-dialog>
@@ -70,7 +70,7 @@ export default {
           status: 0,
         };
       } else {
-        this.ruleForm = data;
+        this.ruleForm = { ...data };
       }
     },
     // 确定事件

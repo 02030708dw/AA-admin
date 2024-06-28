@@ -161,7 +161,10 @@ export default {
         incomeUrl: item.incomeUrl,
         cashUrl: item.cashUrl,
         betUrl: item.betUrl,
-        rate: item.rate
+        rate: item.rate,
+        code: item.code,
+        currency: item.currency,
+        memberRate: item.memberRate,
       })
         .then((res) => {
           // 刷新数据
