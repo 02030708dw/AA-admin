@@ -49,7 +49,7 @@ export default {
           '-' +
           currentDate.getDate()
       const date = new Date(currentDate.getTime()) // 使用相同的时间，但改变日期
-      date.setDate(date.getDate() - 6) // 将日期设置为前6天
+      date.setDate(date.getDate() - 30) // 将日期设置为前6天
       const startDate =
           date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
       this.startDate = startDate
@@ -61,6 +61,7 @@ export default {
     // 请求数据
     getData(index = 1) {
       this.pageNo = index
+      console.log(this.memberId);
       getMemberPages({ pageNo: index, pageSize: this.PagesSize, memberId: this.memberId, endDay: this.endDate, startDay: this.startDate }).then(res => {
         this.tableData = res.resultSet.data
         this.total = res.resultSet.total

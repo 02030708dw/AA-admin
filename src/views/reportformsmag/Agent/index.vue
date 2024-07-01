@@ -49,7 +49,7 @@ export default {
         '-' +
         currentDate.getDate()
       const date = new Date(currentDate.getTime()) // 使用相同的时间，但改变日期
-      date.setDate(date.getDate() - 6) // 将日期设置为前6天
+      date.setDate(date.getDate() - 30) // 将日期设置为前30天
       const startDate =
         date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
       this.startDate = startDate

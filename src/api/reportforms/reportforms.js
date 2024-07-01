@@ -18,11 +18,11 @@ export function getGamerPages({ pageNo, pageSize, gamerId, endDay, startDay }) {
   })
 }
 // 会员报表
-export function getMemberPages({ pageNo, pageSize, gamerId, endDay, startDay }) {
+export function getMemberPages({ pageNo, pageSize, memberId, endDay, startDay }) {
   return request({
     url: '/report/member',
     method: 'get',
-    params: { pageNo, pageSize, gamerId, endDay, startDay }
+    params: { pageNo, pageSize, memberId, endDay, startDay }
   })
 }
 // 平台报表

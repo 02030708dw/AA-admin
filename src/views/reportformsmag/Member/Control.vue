@@ -13,7 +13,7 @@
       @blur="heandlerTime"
     />
     <!-- 选择代理 -->
-    <el-select
+    <!-- <el-select
       v-model="memberId"
       :placeholder="$t('SelectMembers')"
       style="width: 200px;margin-left:20px;"
@@ -24,7 +24,17 @@
         :value="item.index"
         :label="item.title"
       />
-    </el-select>
+    </el-select> -->
+    <el-autocomplete
+      class="inline-input"
+      v-model="state"
+      :fetch-suggestions="querySearch"
+      placeholder="请输入内容"
+      :trigger-on-focus="false"
+      @select="handleSelect"
+      @blur="heandlerBlur"
+      style="width: 200px;margin-left:20px;"
+    ></el-autocomplete>
     <!-- 查询 -->
     <el-button
       style="margin-left: 10px"
@@ -81,20 +91,47 @@ export default {
       //  代理信息
       memberPagesList: [],
       // 会员id
-      memberId: ''
+      memberId: '',
+      state: ''
     }
   },
   created() {
     this.HandelAgentPages()
   },
   methods: {
+    //模糊查询
+    querySearch(queryString, cb) {
+      let restaurants = this.memberPagesList;
+      let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+ 
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+    handleSelect(item) {
+        this.memberId = item.index
+        console.log(this.memberId,'handleSelect this.memberId');
+    },
+    heandlerBlur(){
+      this.memberId = this.state
+      this.memberPagesList.forEach(v => {
+        if(v.value == this.state){
+          this.memberId = v.index
+        }
+      });
+
+    },
     // 获取游戏商信息
     HandelAgentPages() {
       this.memberPagesList = []
       MemberPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
         for (let i = 0; i < res.resultSet.data.length; i++) {
           this.memberPagesList.push({
-            title: res.resultSet.data[i].userName,
+            value: res.resultSet.data[i].userName,
             index: res.resultSet.data[i].id
           })
         }
@@ -141,6 +178,7 @@ export default {
       if (!this.memberId) {
         return this.$message.error('请选择会员!')
       }
+      console.log(this.memberId,'this.memberId---');
       this.$emit('query', { memberId: this.memberId })
     }
   }
