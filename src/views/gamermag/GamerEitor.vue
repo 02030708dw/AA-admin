@@ -14,41 +14,28 @@
       <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <!-- <el-form-item
-        :label="$t('Bettinginformationinterfaceaddress')"
-        prop="betUrl"
-      >
-        <el-input v-model="ruleForm.betUrl" />
-      </el-form-item>
-      <el-form-item :label="$t('Integralinterfaceaddress')" prop="cashUrl">
-        <el-input v-model="ruleForm.cashUrl" />
-      </el-form-item>
-      <el-form-item :label="$t('Rechargeinterfaceaddress')" prop="incomeUrl">
-        <el-input v-model="ruleForm.incomeUrl" />
-      </el-form-item> -->
+      
       <el-form-item label="游戏商抽成比例" prop="rate">
         <el-input v-model="ruleForm.rate" />
       </el-form-item>
-      <!-- <el-form-item :label="$t('typesof')" prop="type">
-        <el-select
-          v-model="ruleForm.type"
-          :placeholder="$t('Pleaseselectagametype')"
-        >
-          <el-option
-            v-for="(item, index) in gamertype"
-            :key="index"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item> -->
-      <!-- <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          v-model="ruleForm.status"
-          :active-value="1"
-          :inactive-value="0"
-        />
-      </el-form-item> -->
+      <el-form-item label="编码" prop="code">
+        <el-input v-model="ruleForm.code" />
+      </el-form-item>
+      <el-form-item label="支持币种" prop="currency">
+        <el-checkbox-group v-model="ruleForm.currency">
+          <el-checkbox label="THB"></el-checkbox>
+          <el-checkbox label="IDR"></el-checkbox>
+          <el-checkbox label="VND"></el-checkbox>
+          <el-checkbox label="PHP"></el-checkbox>
+        </el-checkbox-group>
+        <!-- <el-input v-model="ruleForm.currency" /> -->
+      </el-form-item>
+      <el-form-item label="会员返点比例" prop="memberRate">
+        <el-input v-model="ruleForm.memberRate" />
+      </el-form-item>
+      <el-form-item label="游戏商抽成比例" prop="rate">
+        <el-input v-model="ruleForm.rate" />
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -68,11 +55,12 @@ export default {
       ruleForm: {
         name: '',
         status: 0,
-        type: null,
+        typeList: [],
         incomeUrl: '',
         cashUrl: '',
         betUrl: '',
-        rate: ''
+        rate: '',
+        currency:[]
       },
       // 游戏类型选项
       gamertype: [
@@ -89,7 +77,6 @@ export default {
         name: [
           { required: true, message: '请输入游戏商名称', trigger: 'blur' }
         ],
-        type: [{ required: true, message: '请选择游戏类型', trigger: 'blur' }],
         incomeUrl: [
           { required: true, message: '请输入充值接口地址', trigger: 'blur' }
         ],
@@ -120,21 +107,24 @@ export default {
         this.ruleForm = {
           name: '',
           status: 0,
-          type: null,
+          typeList: [],
           incomeUrl: '',
           cashUrl: '',
           betUrl: '',
-          rate: ''
+          rate: '',
+          currency:[]
         }
       } else {
         this.ruleForm = { ...data }
+        //回显
+        this.ruleForm.currency = data.currency.split(',')
       }
     },
     // 确定添加事件
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          console.log(this.ruleForm);
+          this.ruleForm.currency = this.ruleForm.currency.join(',')
           this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
           this.dialogVisible = false

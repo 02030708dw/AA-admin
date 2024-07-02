@@ -18,7 +18,13 @@
         <el-input v-model="ruleForm.code" />
       </el-form-item>
       <el-form-item label="支持币种" prop="currency">
-        <el-input v-model="ruleForm.currency" />
+        <el-checkbox-group v-model="ruleForm.currency">
+          <el-checkbox label="THB"></el-checkbox>
+          <el-checkbox label="IDR"></el-checkbox>
+          <el-checkbox label="VND"></el-checkbox>
+          <el-checkbox label="PHP"></el-checkbox>
+        </el-checkbox-group>
+        <!-- <el-input v-model="ruleForm.currency" /> -->
       </el-form-item>
       <el-form-item label="会员返点比例" prop="memberRate">
         <el-input v-model="ruleForm.memberRate" />
@@ -26,8 +32,13 @@
       <el-form-item label="游戏商抽成比例" prop="rate">
         <el-input v-model="ruleForm.rate" />
       </el-form-item>
-      <el-form-item :label="$t('typesof')" prop="type">
-        <el-select
+      <el-form-item :label="$t('typesof')" prop="types">
+        <el-checkbox-group v-model="ruleForm.types">
+          <el-checkbox v-for="(item, index) in gamertype" :key="index" :label="item.value">
+            {{item.label}}
+          </el-checkbox>
+        </el-checkbox-group>
+        <!-- <el-select
           v-model="ruleForm.type"
           :placeholder="$t('Pleaseselectagametype')"
         >
@@ -37,7 +48,7 @@
             :label="item.label"
             :value="item.value"
           />
-        </el-select>
+        </el-select> -->
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch
@@ -66,9 +77,9 @@ export default {
       ruleForm: {
         name: "",
         status: 0,
-        type: null,
+        types: [],
         memberRate: "",
-        currency: "",
+        currency: [],
         code: "",
         rate: "",
       },
@@ -87,12 +98,12 @@ export default {
         name: [
           { required: true, message: "请输入游戏商名称", trigger: "blur" },
         ],
-        type: [{ required: true, message: "请选择游戏类型", trigger: "blur" }],
+        types: [{ required: true, message: "请选择游戏类型", trigger: "blur" }],
         memberRate: [
           { required: true, message: "请输入会员返点比例", trigger: "blur" },
         ],
         currency: [
-          { required: true, message: "请输入支持币种", trigger: "blur" },
+          { required: true, message: "请选择支持币种", trigger: "blur" },
         ],
         code: [
           {
@@ -119,9 +130,9 @@ export default {
         this.ruleForm = {
           name: "",
           status: 0,
-          type: null,
+          types: [],
           memberRate: "",
-          currency: "",
+          currency: [],
           code: "",
         };
       }
@@ -131,6 +142,7 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          this.ruleForm.currency = this.ruleForm.currency.join(',')
           this.$emit("confirm", this.ruleForm);
           // 关闭弹窗
           this.dialogVisible = false;
