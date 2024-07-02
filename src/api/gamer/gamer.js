@@ -50,4 +50,13 @@ export function gamerbind(data) {
     data
   })
 }
-
+// 创建游戏商用户
+export function gamerCreateUser(params) {
+  return request({
+    url: '/game/gamer/createGamerUser',
+    method: 'post',
+    params:{
+      ...params
+    }
+  })
+}

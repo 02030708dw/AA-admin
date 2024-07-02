@@ -70,6 +70,9 @@
       <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
+          <el-button type="text" style="color: #85ce61" @click="geteroleAdd(scope.row.name,scope.row.id)">{{
+            $t("increase")
+          }}</el-button>
           <el-button type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
@@ -88,10 +91,21 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span>为{{ name }}添加游戏商用户</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="gamerCreateUser">确 定</el-button>
+      </span>
+    </el-dialog>
   </el-card>
 </template>
 
 <script>
+import { gamerCreateUser } from '@/api/gamer/gamer'
 export default {
   name: 'Table',
   filters: {
@@ -138,7 +152,10 @@ export default {
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      dialogVisible: false,
+      name:'',
+      gamerId:'',
     }
   },
   methods: {
@@ -175,6 +192,18 @@ export default {
     // 改变loading
     HandelLoading(status) {
       this.loading = status
+    },
+    //添加游戏商
+    geteroleAdd(name,id){
+      this.dialogVisible = true
+      this.name = name
+      this.gamerId = id
+    },
+    gamerCreateUser(){
+      gamerCreateUser({ gamerId: this.gamerId }).then(res => {
+          this.$message.success('添加成功')
+          this.dialogVisible = false
+      })
     }
   }
 }
