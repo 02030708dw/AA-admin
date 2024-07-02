@@ -14,7 +14,7 @@
       <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <el-form-item
+      <!-- <el-form-item
         :label="$t('Bettinginformationinterfaceaddress')"
         prop="betUrl"
       >
@@ -25,11 +25,11 @@
       </el-form-item>
       <el-form-item :label="$t('Rechargeinterfaceaddress')" prop="incomeUrl">
         <el-input v-model="ruleForm.incomeUrl" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="游戏商抽成比例" prop="rate">
         <el-input v-model="ruleForm.rate" />
       </el-form-item>
-      <el-form-item :label="$t('typesof')" prop="type">
+      <!-- <el-form-item :label="$t('typesof')" prop="type">
         <el-select
           v-model="ruleForm.type"
           :placeholder="$t('Pleaseselectagametype')"
@@ -41,14 +41,14 @@
             :value="item.value"
           />
         </el-select>
-      </el-form-item>
-      <el-form-item :label="$t('state')" prop="status">
+      </el-form-item> -->
+      <!-- <el-form-item :label="$t('state')" prop="status">
         <el-switch
           v-model="ruleForm.status"
           :active-value="1"
           :inactive-value="0"
         />
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>

@@ -14,17 +14,14 @@
       <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <el-form-item
-        :label="$t('Bettinginformationinterfaceaddress')"
-        prop="betUrl"
-      >
-        <el-input v-model="ruleForm.betUrl" />
+      <el-form-item label="编码" prop="code">
+        <el-input v-model="ruleForm.code" />
       </el-form-item>
-      <el-form-item :label="$t('Integralinterfaceaddress')" prop="cashUrl">
-        <el-input v-model="ruleForm.cashUrl" />
+      <el-form-item label="支持币种" prop="currency">
+        <el-input v-model="ruleForm.currency" />
       </el-form-item>
-      <el-form-item :label="$t('Rechargeinterfaceaddress')" prop="incomeUrl">
-        <el-input v-model="ruleForm.incomeUrl" />
+      <el-form-item label="会员返点比例" prop="memberRate">
+        <el-input v-model="ruleForm.memberRate" />
       </el-form-item>
       <el-form-item label="游戏商抽成比例" prop="rate">
         <el-input v-model="ruleForm.rate" />
@@ -53,7 +50,8 @@
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">
-        {{ $t("determine") }}</el-button>
+        {{ $t("determine") }}</el-button
+      >
     </span>
   </el-dialog>
 </template>
@@ -66,50 +64,52 @@ export default {
       dialogVisible: false,
       // 表单数据
       ruleForm: {
-        name: '',
+        name: "",
         status: 0,
         type: null,
-        incomeUrl: '',
-        cashUrl: '',
-        betUrl: '',
-        rate: ''
+        memberRate: "",
+        currency: "",
+        code: "",
+        rate: "",
       },
       // 游戏类型选项
       gamertype: [
-        { label: '未分类', value: 0 },
-        { label: '电子（捕鱼+slot）', value: 1 },
-        { label: '棋牌', value: 2 },
-        { label: '彩票', value: 3 },
-        { label: '体育', value: 4 },
-        { label: '真人', value: 5 },
-        { label: '小游戏', value: 6 },
-        { label: '热门', value: 7 }
+        { label: "未分类", value: 0 },
+        { label: "电子（捕鱼+slot）", value: 1 },
+        { label: "棋牌", value: 2 },
+        { label: "彩票", value: 3 },
+        { label: "体育", value: 4 },
+        { label: "真人", value: 5 },
+        { label: "小游戏", value: 6 },
+        { label: "热门", value: 7 },
       ],
       rules: {
         name: [
-          { required: true, message: '请输入游戏商名称', trigger: 'blur' }
+          { required: true, message: "请输入游戏商名称", trigger: "blur" },
         ],
-        type: [{ required: true, message: '请选择游戏类型', trigger: 'blur' }],
-        incomeUrl: [
-          { required: true, message: '请输入充值接口地址', trigger: 'blur' }
+        type: [{ required: true, message: "请选择游戏类型", trigger: "blur" }],
+        memberRate: [
+          { required: true, message: "请输入会员返点比例", trigger: "blur" },
         ],
-        cashUrl: [
-          { required: true, message: '请输入积分接口地址', trigger: 'blur' }
+        currency: [
+          { required: true, message: "请输入支持币种", trigger: "blur" },
         ],
-        betUrl: [
+        code: [
           {
             required: true,
-            message: '请输入投注信息接口地址',
-            trigger: 'blur'
-          }
+            message: "请输入编码",
+            trigger: "blur",
+          },
         ],
-        rate: [{
-          required: true,
-          message: '请输入游戏商抽成比例',
-          trigger: 'blur'
-        }]
-      }
-    }
+        rate: [
+          {
+            required: true,
+            message: "请输入游戏商抽成比例",
+            trigger: "blur",
+          },
+        ],
+      },
+    };
   },
   methods: {
     // 改变弹窗状态
@@ -117,34 +117,33 @@ export default {
       // 关闭时清空
       if (!this.dialogVisible) {
         this.ruleForm = {
-          name: '',
+          name: "",
           status: 0,
           type: null,
-          incomeUrl: '',
-          cashUrl: '',
-          betUrl: ''
-        }
+          memberRate: "",
+          currency: "",
+          code: "",
+        };
       }
-      this.dialogVisible = !this.dialogVisible
+      this.dialogVisible = !this.dialogVisible;
     },
     // 确定添加事件
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.$emit('confirm', this.ruleForm)
+          this.$emit("confirm", this.ruleForm);
           // 关闭弹窗
-          this.dialogVisible = false
+          this.dialogVisible = false;
         } else {
           this.$message({
-            message: '请填写完整信息!',
-            type: 'warning'
-          })
-          return false
+            message: "请填写完整信息!",
+            type: "warning",
+          });
+          return false;
         }
-      })
-    }
-  }
-}
+      });
+    },
+  },
+};
 </script>
-<style>
-</style>
+<style></style>

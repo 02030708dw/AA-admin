@@ -12,7 +12,7 @@
         :label="$t('GameMerchantName')"
         width=""
       />
-      <el-table-column
+      <!-- <el-table-column
         prop="betUrl"
         :label="$t('Bettinginformationinterfaceaddress')"
         width=""
@@ -26,7 +26,7 @@
         prop="incomeUrl"
         :label="$t('Rechargeinterfaceaddress')"
         width=""
-      />
+      /> -->
       <el-table-column
         prop="clientSecret"
         :label="$t('clientSecret')"
