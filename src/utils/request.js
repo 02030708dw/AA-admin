@@ -2,7 +2,7 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken, getTokenPrefix, getTokenHeader, getLange, removeToken } from '@/utils/auth'
-import { useRouter } from 'vue-router'
+import router from '@/router/index'
 
 // create an axios instance
 const service = axios.create({
@@ -55,7 +55,8 @@ service.interceptors.response.use(
       if (res.resCode === '000104') {
         // token验证失效，后端回传未登录
         removeToken()
-        useRouter().push('/login')
+        router.push('/login')
+        // useRouter().push('/login')
       }
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
