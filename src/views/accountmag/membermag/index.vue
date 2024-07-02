@@ -16,7 +16,7 @@
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer ref="Proxytransfer" @confirm="getProxytransferok" />
     <!-- 会员详情 -->
-    <MamberInfo ref="MamberInfoView" />
+    <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh"/>
     <MemberUpdatebalanceview ref="MemberUpdatebalanceview"/>
   </el-card>
 </template>

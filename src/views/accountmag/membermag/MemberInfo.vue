@@ -15,7 +15,7 @@
         <History ref="HistoryView" />
       </el-tab-pane>
       <el-tab-pane label="个人信息">
-        <PersonalDetails ref="PersonalDetails" />
+        <PersonalDetails @Refresh="HandelRefresh" ref="PersonalDetails" />
       </el-tab-pane>
     </el-tabs>
   </el-dialog>
@@ -79,9 +79,10 @@ export default {
         case '4':
           // 个人资料
           this.$refs.PersonalDetails.UserInfo = {
+            memberId: this.MemberInfo.id,
             telPhone: this.MemberInfo.telPhone, 
             userName: this.MemberInfo.userName,
-            bank: '',
+            bankCardNoList: this.MemberInfo.bankCardNoList,
           }
           break
       }
@@ -101,7 +102,13 @@ export default {
     },
     Handelclose() {
       this.tabsValue = '0'
-    }
+    },
+    // 刷新
+    HandelRefresh() {
+      this.dialogVisible = !this.dialogVisible
+      this.tabsValue = '0'
+      this.$emit('Refresh')
+    },
   }
 }
 </script>

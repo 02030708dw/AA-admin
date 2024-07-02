@@ -89,3 +89,12 @@ export function MemberUpdatebalance(data) {
     data
   })
 }
+
+// 会员修改
+export function MemberEdit(data) {
+  return request({
+    url: '/user/member/edit',
+    method: 'post',
+    data
+  })
+}
