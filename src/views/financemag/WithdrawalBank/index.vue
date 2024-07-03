@@ -2,7 +2,7 @@
     <el-card>
         <Control @Add="GetAdd" @Refresh="GetRefresh" ref="ControlView" @query="Getquery" @resetting="Getresetting"></Control>
         <Table ref="TableView" :tableData="tableData" @Eitor="GetEitor" @delete="getdelete" @updateStatus="getupdateStatus"></Table>
-        <Pagination :total="total"></Pagination>
+        <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="GetPagesData"></Pagination>
         <UpdataWithdrawalBank @upta="HandelUpta" :TypeIndex="TypeIndex" ref="updatabank" :CurrencytPageData="CurrencytPageData"></UpdataWithdrawalBank>
     </el-card>
 </template>
@@ -40,19 +40,19 @@ export default {
     },
     methods: {
         // 获取币种
-    getCurrencytPage() {
-      this.CurrencytPageData = []
-      CurrencytPage({pageNo:1,pageSize:200000}).then(res => {
-        for(let i = 0; i < res.resultSet.data.length ;i++){
-          this.CurrencytPageData.push({
-            item:res.resultSet.data[i].currency,
-            index:res.resultSet.data[i].currency
-          })
-        }
-      }).catch(err => {
-        console.log(err)
-      })
-    },
+        getCurrencytPage() {
+        this.CurrencytPageData = []
+        CurrencytPage({pageNo:1,pageSize:200000}).then(res => {
+            for(let i = 0; i < res.resultSet.data.length ;i++){
+            this.CurrencytPageData.push({
+                item:res.resultSet.data[i].currency,
+                index:res.resultSet.data[i].currency
+            })
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+        },
         // 编辑
         GetEitor(e) {
             this.TypeIndex = 1
@@ -152,7 +152,11 @@ export default {
                 this.GetPagesData(this.pageNo)
                 this.$message.error('修改失败!')
             })
-        }
+        },
+        HandelPagesChange(e) {
+            this.PagesSize = e
+            this.GetPagesData(this.pageNo)
+        },
     },
 }
 </script>
