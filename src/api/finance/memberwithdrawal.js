@@ -18,3 +18,20 @@ export function Audit(data) {
     data
   })
 }
+
+// 获取三方支付列表
+export function ThreePayList() {
+  return request({
+    url: '/finance/memberCashRecord/threePayList',
+    method: 'GET', 
+  })
+}
+
+// 发起代付
+export function PayFor(data) {
+  return request({
+    url: '/finance/memberCashRecord/fo',
+    method: 'POST', 
+    data
+  })
+}

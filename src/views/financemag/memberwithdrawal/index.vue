@@ -2,9 +2,10 @@
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
     <Control ref="ControlView" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
-    <Table ref="TableView" :table-data="tableData" @info="Handelinfo" @operate="Handeloperate" />
+    <Table ref="TableView" :table-data="tableData" @info="Handelinfo"  @pay="Handelpay" @operate="Handeloperate" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemWitdata" />
     <InfoView ref="infoview" />
+    <PayForAnother ref="PayForAnother" @pay="HandelpayConfirmPay"/>
   </el-card>
 </template>
 
@@ -12,15 +13,17 @@
 import Table from './Table.vue'
 import Control from './Control.vue'
 import InfoView from './InfoView.vue'
+import PayForAnother from './PayForAnother.vue'
 // 分页
 import Pagination from '@/components/Pagination/Pagination.vue'
-import { MemberwithdrawalPage } from '@/api/finance/memberwithdrawal'
+import { MemberwithdrawalPage, PayFor } from '@/api/finance/memberwithdrawal'
 export default {
   components: {
     Table,
     Pagination,
     Control,
-    InfoView
+    InfoView,
+    PayForAnother
   },
   data() {
     return {
@@ -72,6 +75,16 @@ export default {
     },
     Handelinfo(e) {
       this.$refs.infoview.getAddstatus(e)
+    },
+    Handelpay(e) {
+      this.$refs.PayForAnother.getAddstatus(e)
+    },
+    HandelpayConfirmPay(e){
+      console.log(e,'--------e');
+      PayFor(e).then(res=>{
+        
+        this.HandelRefresh()
+      })
     },
     // 刷新事件
     HandelRefresh() {

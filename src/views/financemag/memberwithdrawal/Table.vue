@@ -90,6 +90,7 @@
           <el-button v-if="scope.row.aduitStatus === 0" type="text" @click="getaudit(1,scope.row.id)"> {{ $t("passthrough") }} </el-button>
           <el-button v-if="scope.row.aduitStatus === 0" type="text" style="color: red;" @click="getaudit(2,scope.row.id)"> {{ $t("reject") }} </el-button>
           <el-button v-if="scope.row.aduitStatus === 0" type="text" style="color: #a4a4a4;" @click="getaudit(3,scope.row.id)"> {{ $t("cancellation") }} </el-button>
+          <el-button v-if="scope.row.aduitStatus === 0"  type="text" @click="Handelpay(scope.row)">代付</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -172,6 +173,9 @@ export default {
     },
     HandelInfo(item) {
       this.$emit('info', item)
+    },
+    Handelpay(item) {
+      this.$emit('pay', item)
     },
     getaudit(index, id = null) {
       if (id) {
