@@ -180,7 +180,8 @@ export default {
         id: data.id,
         status: data.status,
         telPhone: data.telPhone,
-        userName: data.userName
+        userName: data.userName,
+        roleIdS: data.roleIdS
       })
         .then((res) => {
           this.$message({

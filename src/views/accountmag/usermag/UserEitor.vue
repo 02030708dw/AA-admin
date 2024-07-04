@@ -21,6 +21,13 @@
           v-model="ruleForm.status"
         ></el-switch>
       </el-form-item>
+      <el-form-item :label="$t('route.rolemanage')" prop="status">
+        <el-checkbox-group v-model="ruleForm.roleIdS">
+              <el-checkbox v-for="item in roleIdSList" :key="item.id" :label="item.id">
+                {{ item.roleName }}
+              </el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -31,7 +38,8 @@
   </el-dialog>
 </template>
         
-        <script>
+<script>
+import { getroleUserId } from '@/api/account/user'
 export default {
   data() {
     return {
@@ -42,7 +50,9 @@ export default {
         status: 0,
         telPhone: "",
         userName: "",
+        roleIdS:[],
       },
+      roleIdSList:[],
       rules: {
         telPhone: [
           { required: true, message: "请输入用户手机号", trigger: "blur" },
@@ -63,9 +73,20 @@ export default {
           status: 0,
           telPhone: "",
           userName: "",
+          roleIdS:[],
         };
       } else {
-        this.ruleForm = { ...data };
+        getroleUserId(data.id).then(res=>{
+          this.roleIdSList = res.resultSet
+          this.ruleForm = { ...data, roleIdS:[] };
+          let roleIdS = [];
+          res.resultSet.forEach(v=>{
+            if(v.isCheck){
+              roleIdS.push(v.id)
+            }
+          })
+          this.$set(this.ruleForm, 'roleIdS', roleIdS)
+        })
       }
     },
     // 确定添加事件

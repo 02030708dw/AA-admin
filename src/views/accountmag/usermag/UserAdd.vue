@@ -21,6 +21,13 @@
           v-model="ruleForm.status"
         ></el-switch>
       </el-form-item>
+      <el-form-item :label="$t('RoleName')" prop="status">
+        <el-checkbox-group v-model="ruleForm.roleIdS">
+              <el-checkbox v-for="(item, index) in roleIdSList" :key="index" :label="item.id">
+                {{ item.roleName }}
+              </el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -31,7 +38,8 @@
   </el-dialog>
 </template>
       
-      <script>
+<script>
+import { getrolePage } from '@/api/account/user'
 export default {
   data() {
     return {
@@ -42,7 +50,9 @@ export default {
         status: 0,
         telPhone: "",
         userName: "",
+        roleIdS:[]
       },
+      roleIdSList:[],
       rules: {
         telPhone: [
           { required: true, message: "请输入用户手机号", trigger: "blur" },
@@ -56,13 +66,20 @@ export default {
   methods: {
     // 改变弹窗状态
     getAddstatus() {
+    
       // 关闭时清空
       if (!this.dialogVisible) {
+        getrolePage().then(res=>{
+          this.roleIdSList = res.resultSet.data
+        })
         this.ruleForm = {
           status: 0,
           telPhone: "",
           userName: "",
+          roleIdS:[]
         };
+      }else{
+    
       }
       this.dialogVisible = !this.dialogVisible;
     },

@@ -7,6 +7,7 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
+     <el-table-column prop="sort" label="排序" width="80" />
       <el-table-column
         prop="name"
         :label="$t('GameMerchantName')"
