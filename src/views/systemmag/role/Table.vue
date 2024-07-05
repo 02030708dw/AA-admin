@@ -107,9 +107,16 @@ export default {
     geterolePermission(item) {
       this.dialogFormVisible = true
       this.roleId = item.id
-      this.authorityIds = []
+
       getAuthorityTtree(item.id).then(res => {
         this.authorityList = res.resultSet
+        let authorityIds = []
+        res.resultSet.forEach(v=>{
+            if(v.isCheck){
+              authorityIds.push(v.id)
+            }
+          })
+        this.authorityIds = authorityIds
       })
     },
     getconfirm() {

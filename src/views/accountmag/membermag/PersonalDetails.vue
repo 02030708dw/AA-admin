@@ -1,11 +1,11 @@
 <template>
     <el-card shadow="never" style="border: 0px;display: flex;justify-content: center;">
         <el-form label-width="100px" ref="ruleForm" :model="UserInfo" :rules="rules" style="margin-right: 100px;" class="demo-ruleForm">
-            <el-form-item :label="$t('phone')" prop="telPhone">
-                <el-input v-model="UserInfo.telPhone" style="width: 300px" :placeholder="$t('phone')" />
-            </el-form-item>
             <el-form-item :label="$t('name')" prop="userName">
                 <el-input v-model="UserInfo.userName" style="width: 300px" :placeholder="$t('name')"  />
+            </el-form-item>
+            <el-form-item :label="$t('phone')" prop="telPhone">
+                <el-input v-model="UserInfo.telPhone" style="width: 300px" :placeholder="$t('phone')" />
             </el-form-item>
             <el-form-item v-for="(v,i) in UserInfo.bankCardNoList" :key="i" :label="$t('Bankaccount')+(i+1)">
                 <el-input v-model="v.bankCardNo" style="width: 300px" :placeholder="$t('Bankaccount')" />
@@ -50,6 +50,8 @@ export default {
                         })
                         this.loading = false
                         this.$emit('Refresh')
+                    }).catch(()=>{
+                        this.loading = false
                     })
                 } else {
                     this.$message({
