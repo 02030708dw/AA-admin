@@ -68,7 +68,11 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" style="color: #85ce61" @click="geteroleAdd(scope.row.name,scope.row.id)">{{

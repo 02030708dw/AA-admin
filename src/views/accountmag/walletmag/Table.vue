@@ -8,7 +8,11 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column prop="id" :label="$t('id')" />
-      <el-table-column prop="createdAt" label="创建时间" />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="updatedAt" label="更新时间" />
       <el-table-column prop="gamerCode" label="gamerCode" />
       <el-table-column prop="userName" label="userName" />

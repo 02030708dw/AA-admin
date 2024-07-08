@@ -18,11 +18,11 @@
         :label="$t('Notes')"
         width="280"
       />
-      <el-table-column
-        prop="createdAt"
-        :label="$t('Creationtime')"
-        width="280"
-      />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
       <el-table-column
         prop="updatedAt"
         :label="$t('Updatetime')"

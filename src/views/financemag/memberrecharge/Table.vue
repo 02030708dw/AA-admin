@@ -56,7 +56,11 @@
           </div>
         </template>
       </el-table-column> -->
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('Reviewstatus')" width="150">
         <template slot-scope="scope">
           <div v-if="scope.row.aduitStatus != 2">{{ scope.row.aduitStatus | typeF }}</div>
