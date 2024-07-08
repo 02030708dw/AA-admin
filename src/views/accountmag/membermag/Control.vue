@@ -1,7 +1,7 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-input v-model="userPhone" style="width: 200px;margin-right: 10px;" :placeholder="$t('phone')" />
-    <el-input v-model="userName" style="width: 200px;" :placeholder="$t('username')" />
+    <el-input v-model="userName" style="width: 200px;margin-right: 10px;" :placeholder="$t('username')" />
+    <el-input v-model="userPhone" style="width: 200px;" :placeholder="$t('phone')" />
     <el-select
       v-model="agentId"
       placeholder="选择代理"

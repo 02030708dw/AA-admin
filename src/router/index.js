@@ -251,6 +251,18 @@ export const constantRoutes = [
         name: 'membermsg',
         component: () => import('@/views/messagemag/membermsg/index'),
         meta: { title: 'Membermessages', icon: 'el-icon-message-solid' }
+      },
+      {
+        path: 'advertising',
+        name: 'advertising',
+        component: () => import('@/views/messagemag/advertising/index'),
+        meta: { title: 'Advertising', icon: 'el-icon-video-camera-solid' }
+      },
+      {
+        path: 'activity',
+        name: 'activity',
+        component: () => import('@/views/messagemag/activity/index'),
+        meta: { title: 'Activity', icon: 'el-icon-s-flag' }
       }
     ]
   },

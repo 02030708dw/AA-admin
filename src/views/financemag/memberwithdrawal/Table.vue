@@ -71,7 +71,11 @@
           </div>
           <!-- <span>{{ scope.row.aduitStatus | FaduitStatus }}</span> -->
         </template></el-table-column>
-      <el-table-column prop="createdAt" label="创建时间" width="" />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
 
       <el-table-column prop="" :label="$t('Audittime')" width="">
         <template slot-scope="scope">

@@ -2,7 +2,7 @@
   <el-card>
     <Control ref="ControlView" @resetting="getresetting" @roleAdd="getAdddialog" @rolequery="getrolequery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @updateStatus="getupdateStatus" @roledel="getroledel" @roleEditor="getEditordialog" />
+    <Table ref="TableView" :table-data="tableData" @updateStatus="getupdateStatus" @roledel="getroledel" @roleEditor="getEditordialog" @roleAuthority="getroleAuthority" />
     <!-- 分页组件 -->
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
     <!-- 添加组件 -->
@@ -29,7 +29,8 @@ import {
   getroleupdateStatus,
   getroleAdd,
   getroleDel,
-  getroleEdit
+  getroleEdit,
+  addAssignment
 } from '@/api/systemmag/role'
 export default {
   components: {
@@ -182,7 +183,17 @@ export default {
     },
     getEditordialog(e) {
       this.$refs.roleeditor.getEditorstatus(e)
-    }
+    },
+    getroleAuthority(e){
+      addAssignment(e).then(res=>{
+        this.$message({
+            message: '添加成功!',
+            type: 'success'
+        })
+        // 刷新数据
+        this.getroledata(this.pageNo)
+      })
+    },
   }
 }
 </script>

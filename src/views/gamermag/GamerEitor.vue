@@ -36,6 +36,9 @@
       <el-form-item label="游戏商抽成比例" prop="rate">
         <el-input v-model="ruleForm.rate" />
       </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input type='number' v-model="ruleForm.sort" />
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -60,7 +63,8 @@ export default {
         cashUrl: '',
         betUrl: '',
         rate: '',
-        currency:[]
+        currency:[],
+        sort:''
       },
       // 游戏类型选项
       gamertype: [
@@ -94,6 +98,11 @@ export default {
           required: true,
           message: '请输入游戏商抽成比例',
           trigger: 'blur'
+        }],
+        sort: [{
+          required: true,
+          message: '请输入排序',
+          trigger: 'blur'
         }]
       }
     }
@@ -112,7 +121,8 @@ export default {
           cashUrl: '',
           betUrl: '',
           rate: '',
-          currency:[]
+          currency:[],
+          sort:''
         }
       } else {
         this.ruleForm = { ...data }

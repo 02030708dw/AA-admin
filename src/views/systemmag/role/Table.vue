@@ -1,58 +1,61 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column type="index" :label="$t('SerialNumber')" width="120" />
       <el-table-column prop="roleName" :label="$t('RoleName')" width="" />
       <el-table-column prop="code" :label="$t('RoleCode')" width="" />
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch
-              v-model="scope.row.status"
-              active-color="#13ce66"
-              :active-value="1"
-              :inactive-value="0"
-              active-text="启用"
-              inactive-text="停用"
-              @change="getupdateStatus($event, scope.row.id)"
-            />
+            <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
+              active-text="启用" inactive-text="停用" @change="getupdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="createdAt"
-        :label="$t('Creationtime')"
-        width="180"
-      />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="180" />
       <el-table-column prop="updater" :label="$t('Updatedby')" width="180" />
       <el-table-column prop="remark" :label="$t('notes')" width="180" />
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <el-button type="text" @click="geteroleEitor(scope.row)">{{
-            $t("edit")
-          }}</el-button>
+          <el-button type="text" @click="geterolePermission(scope.row)">
+            绑定权限
+          </el-button>
+          <el-button type="text" @click="geteroleEitor(scope.row)">
+            {{ $t("edit") }}
+          </el-button>
           <!-- <el-button type="text" style="color: #e6a23c">权限</el-button> -->
-
-          <el-button
-            slot="reference"
-            type="text"
-            style="color: red"
-            @click="getroledel(scope.row.id)"
-          >{{ $t("delete") }}</el-button>
+          <el-button slot="reference" type="text" style="color: red" @click="getroledel(scope.row.id)">{{ $t("delete")
+            }}</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog width="50%" :title="$t('addpermission')" :visible.sync="dialogFormVisible">
+      <el-form>
+        <el-form-item :label="$t('route.RightsManagement')">
+          <el-checkbox-group v-model="authorityIds">
+            <el-checkbox v-for="(item, index) in authorityList" :key="index" :label="item.id">
+              {{ item.authorityName }}
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" :loading="loading" @click="getconfirm">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </el-card>
 </template>
 
 <script>
+import { getAuthorityTtree, addAssignment } from '@/api/systemmag/role'
 export default {
   name: 'Table',
   props: {
@@ -66,7 +69,12 @@ export default {
   data() {
     return {
       visible: false,
-      loading: false
+      loading: false,
+      //角色绑定权限
+      roleId: 0,
+      authorityList: [],
+      authorityIds: [],
+      dialogFormVisible: false,
     }
   },
   methods: {
@@ -98,10 +106,30 @@ export default {
     // 编辑角色
     geteroleEitor(item) {
       this.$emit('roleEditor', item)
-    }
+    },
+    //绑定权限
+    geterolePermission(item) {
+      this.dialogFormVisible = true
+      this.roleId = item.id
+
+      getAuthorityTtree(item.id).then(res => {
+        this.authorityList = res.resultSet
+        let authorityIds = []
+        res.resultSet.forEach(v=>{
+            if(v.isCheck){
+              authorityIds.push(v.id)
+            }
+          })
+        this.authorityIds = authorityIds
+      })
+    },
+    getconfirm() {
+      // 关闭弹窗
+      this.dialogFormVisible = false;
+      this.$emit("roleAuthority", { authorityIds:this.authorityIds,roleId:this.roleId })
+    },
   }
 }
 </script>
 
-<style>
-</style>
+<style></style>

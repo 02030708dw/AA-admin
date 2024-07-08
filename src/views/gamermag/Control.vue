@@ -57,7 +57,8 @@ export default {
       status: null,
       statusType: [
         { title: '停用', index: 0 },
-        { title: '启用', index: 1 }
+        { title: '启用', index: 1 },
+        { title: '游戏商维护中', index: 2 }
       ],
       btnIcoType: true,
       gamerId:'',

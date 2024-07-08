@@ -21,7 +21,11 @@
       />
       <el-table-column prop="agenId" :label="$t('agenId')" width="" />
       <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" />
-      <el-table-column prop="createdAt" label="注册时间" width="" />
+      <el-table-column prop="createdAt" label="注册时间" width="" >
+          <template slot-scope="scope">
+              {{ $creationTime(scope.row.createdAt) }}
+          </template>
+        </el-table-column>
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>

@@ -39,3 +39,20 @@ export function getroleupdateStatus(data) {
     data
   })
 }
+
+// 获取树形结构权限信息
+export function getAuthorityTtree(roleId) {
+  return request({
+    url: `/sys/authority/tree/${roleId}`,
+    method: 'get',
+  })
+}
+
+// 角色分配权限
+export function addAssignment(data) {
+  return request({
+    url: '/roleAuthority/assignment',
+    method: 'post',
+    data
+  })
+}

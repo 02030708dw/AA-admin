@@ -63,3 +63,19 @@ export function ChangPWD(data) {
     data
   })
 }
+
+// 角色分页列表
+export function getrolePage() {
+  return request({
+    url: `/sys/role/page`,
+    method: 'get',
+  })
+}
+
+// 获取角色列表并根据用户ID标注角色是否选中
+export function getroleUserId(userId) {
+  return request({
+    url: `/sys/role/list/${userId}`,
+    method: 'get',
+  })
+}

@@ -30,6 +30,8 @@ export default {
     AnnouncementType: 'Announcement type management',
     Noticemanage: 'Announcement Management',
     Membermessages: 'Member New Management',
+    Advertising: 'Advertising Management',
+    Activity: 'Activity Management',
     My: 'My',
     Currencymanagement: 'Currency management',
     Monthlyreportmanagement: 'Monthlyreport Management',

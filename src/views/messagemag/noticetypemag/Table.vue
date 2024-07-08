@@ -9,7 +9,11 @@
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="" />
       <el-table-column prop="name" :label="$t('typesof')" width="" />
-      <el-table-column prop="createdAt" label="创建时间" width="" />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>

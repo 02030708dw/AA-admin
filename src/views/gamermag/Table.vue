@@ -7,6 +7,7 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
+     <el-table-column prop="sort" label="排序" width="80" />
       <el-table-column
         prop="name"
         :label="$t('GameMerchantName')"
@@ -52,22 +53,30 @@
           <span>{{ scope.row.typeList | GamerType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('state')" width="200">
+      <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch
+            <el-select
               v-model="scope.row.status"
-              active-color="#13ce66"
-              :active-value="1"
-              :inactive-value="0"
-              :active-text="$t('Enable')"
-              :inactive-text="$t('Deactivate')"
+              :placeholder="$t('state')"
+              style="width: 150px;margin-left: 10px"
               @change="getupdateStatus($event, scope.row.id)"
-            />
+            >
+              <el-option
+                v-for="(item, index) in statusType"
+                :key="index"
+                :value="item.index"
+                :label="item.title"
+              />
+            </el-select>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" />
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" style="color: #85ce61" @click="geteroleAdd(scope.row.name,scope.row.id)">{{
@@ -152,6 +161,11 @@ export default {
   },
   data() {
     return {
+      statusType: [
+        { title: '停用', index: 0 },
+        { title: '启用', index: 1 },
+        { title: '游戏商维护中', index: 2 }
+      ],
       loading: false,
       dialogVisible: false,
       name:'',
