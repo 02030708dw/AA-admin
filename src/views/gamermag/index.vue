@@ -165,7 +165,8 @@ export default {
         code: item.code,
         currency: item.currency,
         memberRate: item.memberRate,
-        typeList:item.typeList
+        typeList:item.typeList,
+        sort: item.sort
       })
         .then((res) => {
           // 刷新数据

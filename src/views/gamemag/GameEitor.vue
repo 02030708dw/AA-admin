@@ -32,6 +32,9 @@
       <el-form-item :label="$t('ThirdpartyID')" prop="threeId">
         <el-input v-model="ruleForm.threeId" />
       </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input type='number' v-model="ruleForm.sort" />
+      </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
         <el-select
           v-model="ruleForm.type"
@@ -90,7 +93,8 @@ export default {
         name: '',
         status: 0,
         threeId: '',
-        type: null
+        type: null,
+        sort:0,
       },
       // 状态
       statusType: [
@@ -112,7 +116,8 @@ export default {
           { required: true, message: '请输入第三方id', trigger: 'blur' }
         ],
         gamerId: [{ required: true, message: '请输游戏商id', trigger: 'blur' }],
-        type: [{ required: true, message: '请输游戏类型', trigger: 'blur' }]
+        type: [{ required: true, message: '请输游戏类型', trigger: 'blur' }],
+        sort: [{ required: true, message: '请输入排序', trigger: 'blur' }]
       }
     }
   },
@@ -127,7 +132,8 @@ export default {
           name: '',
           status: 0,
           threeId: '',
-          type: null
+          type: null,
+          sort:0,
         }
       } else {
         this.ruleForm = {...data}
