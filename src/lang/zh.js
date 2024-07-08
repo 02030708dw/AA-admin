@@ -30,6 +30,8 @@ export default {
     AnnouncementType: '公告类型管理',
     Noticemanage: '公告管理',
     Membermessages: '会员消息管理',
+    Advertising: '广告管理',
+    Activity: '活动管理',
     My: '我的',
     Currencymanagement: '币种管理',
     Monthlyreportmanagement: '月报表管理',
