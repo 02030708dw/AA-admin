@@ -28,17 +28,22 @@
         :header-cell-style="{ 'text-align': 'center' }"
         :cell-style="{ 'text-align': 'center' }"
       >
-        <el-table-column prop="memberWalletId" label="会员钱包ID" width="" />
-        <el-table-column prop="changeAmout" label="变动金额" width="" />
-        <el-table-column prop="beforeBalance" label="变动前余额" width="" />
-        <el-table-column prop="afterBalance" label="变动后余额" width="" />
-        <el-table-column prop="" label="变动类型" width="">
+        <el-table-column prop="id" label="会员钱包ID" width="" />
+        <el-table-column prop="memberName" label="会员名称" width="" />
+        <el-table-column prop="betAmout" label="投注金额" width="" />
+        <el-table-column prop="awardAmount" label="派奖金额" width="" />
+        <!-- <el-table-column prop="" label="变动类型" width="">
           <template slot-scope="scope">
             {{ scope.row.type | typeF }}
           </template>
+        </el-table-column> -->
+         <el-table-column prop="" label="状态" width="">
+          <template slot-scope="scope">
+            {{ scope.row.status | typeS }}
+          </template>
         </el-table-column>
-        <el-table-column prop="remark" label="描述" width="" />
-        <el-table-column prop="createdAt" label="注册时间" width="" >
+        <el-table-column prop="gamerName" label="游戏商名称" width="" />
+        <el-table-column prop="createdAt" label="创建时间" width="" >
           <template slot-scope="scope">
               {{ $creationTime(scope.row.createdAt) }}
           </template>
@@ -72,6 +77,28 @@ export default {
           return '从游戏商转入'
         case 5:
           return '下级会员投注返点'
+      }
+    },
+    typeS(value) {
+      switch (value) {
+        case 0:
+          return '待开奖'
+        case 1:
+          return '中奖'
+        case 2:
+          return '未中奖'
+        case 3:
+          return '撤单'
+        case 4:
+          return '作废'
+        case 5:
+          return '退款'
+        case 6:
+          return '和局'
+        case 7:
+          return '半赢'
+        case 8:
+          return '半输'
       }
     }
   },
