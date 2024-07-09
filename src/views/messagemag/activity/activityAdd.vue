@@ -1,18 +1,18 @@
 <template>
   <el-dialog :title="$t('AddAnnouncementtype')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item :label="$t('typesof')" prop="note">
-        <el-input v-model="ruleForm.note"></el-input>
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="ruleForm.title" />
       </el-form-item>
-      <el-form-item label="排序" prop="sort">
-        <el-input type='number' v-model.number="ruleForm.sort" />
+      <el-form-item label="内容" prop="content">
+        <el-input v-model="ruleForm.content"></el-input>
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
-        <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
-          :on-error="uploadonerror">
-          <img v-if="ruleForm.pictureUrl" :src="ruleForm.pictureUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+      <el-form-item label="类型" prop="type">
+        <el-radio v-model="ruleForm.type" :label="1" >体育</el-radio>
+        <el-radio v-model="ruleForm.type" :label="2" >彩票</el-radio>
+      </el-form-item>
+      <el-form-item label="图片" prop="icon">
+        <UploadImage v-if="dialogVisible" fn="activity" @Upload="getImageURL" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
@@ -23,26 +23,32 @@
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">{{
     $t("determine")
-  }}</el-button>
+        }}</el-button>
     </span>
   </el-dialog>
 </template>
 
 <script>
+import UploadImage from '@/components/Upload/image.vue'
 export default {
+  components: {
+    UploadImage
+  },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        note:'',
-        pictureUrl:'',
-        sort:null,
+        content: "",
+        pictureUrl: "",
         status: 0,
+        title: "",
+        type: 0
       },
       rules: {
         note: [{ required: true, message: "请输入注释", trigger: "blur" }],
-        sort: [{ required: true, message: "请输入排序", trigger: "blur" }],
+        title: [{ required: true, message: "请输入标题", trigger: "blur" }],
+        type: [{ required: true, message: "请选择类型", trigger: "blur" }],
       },
     };
   },
@@ -51,10 +57,11 @@ export default {
     getAddstatus() {
       if (!this.dialogVisible) {
         this.ruleForm = {
-          note: "",
-          pictureUrl:'',
-          sort:null,
+          content: "",
+          pictureUrl: "",
           status: 0,
+          title: "",
+          type: 0
         };
       }
       this.dialogVisible = !this.dialogVisible;
@@ -63,7 +70,6 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          console.log(this.ruleForm,'this.ruleForm');
           this.$emit("confirm", this.ruleForm);
           // 关闭弹窗
           this.dialogVisible = false;
@@ -76,63 +82,9 @@ export default {
         }
       });
     },
-    uploadonerror(err, file, fileList) {
-      this.getBase64(file.raw).then(res => {
-        this.ruleForm.pictureUrl = res
-      })
-    },
-    // 上传图片
-    handleAvatarSuccess(response, file, fileList) {
-      console.log(file)
-      this.getBase64(file.raw).then(res => {
-        this.ruleForm.pictureUrl = res
-      })
-    },
-    // 图片转base64
-    getBase64(file) {
-      return new Promise(function (resolve, reject) {
-        const reader = new FileReader()
-        let imgResult = ''
-        reader.readAsDataURL(file)
-        reader.onload = function () {
-          imgResult = reader.result
-        }
-        reader.onerror = function (error) {
-          reject(error)
-        }
-        reader.onloadend = function () {
-          resolve(imgResult)
-        }
-      })
+    getImageURL(url) {
+      this.ruleForm.pictureUrl = url
     },
   },
 };
 </script>
-<style>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.avatar-uploader .el-upload:hover {
-  border-color: #409EFF;
-}
-
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-</style>
