@@ -63,6 +63,9 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="游戏商图片" prop="pictureUrl">
+        <UploadImage v-if="dialogVisible" fn="gamer" :code="ruleForm.code" :img="ruleForm.pictureUrl" @Upload="getImageURL" />
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getEitorstatus()">{{ $t("cancellation") }}</el-button>
@@ -74,7 +77,11 @@
 </template>
 
 <script>
+import UploadImage from '@/components/Upload/image.vue'
 export default {
+  components: {
+    UploadImage
+  },
   props: {
     gameriddata: {
       type: Array,
@@ -95,6 +102,7 @@ export default {
         threeId: '',
         type: null,
         sort:0,
+        pictureUrl:''
       },
       // 状态
       statusType: [
@@ -154,7 +162,10 @@ export default {
           return false
         }
       })
-    }
+    },
+    getImageURL(url) {
+      this.ruleForm.pictureUrl = url
+    },
   }
 }
 </script>

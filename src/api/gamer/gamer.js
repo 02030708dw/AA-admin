@@ -60,3 +60,11 @@ export function gamerCreateUser(params) {
     }
   })
 }
+
+// 同步游戏商下游戏图片
+export function synchronizePhotos(gamerCode) {
+  return request({
+    url: `/game/game/synchronizePhotos/${gamerCode}`,
+    method: 'get',
+  })
+}
