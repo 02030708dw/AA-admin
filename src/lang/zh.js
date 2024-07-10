@@ -32,6 +32,7 @@ export default {
     Membermessages: '会员消息管理',
     Advertising: '广告管理',
     Activity: '活动管理',
+    Customerservice: '客服信息管理',
     My: '我的',
     Currencymanagement: '币种管理',
     Monthlyreportmanagement: '月报表管理',

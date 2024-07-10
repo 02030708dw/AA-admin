@@ -32,6 +32,7 @@ export default {
     Membermessages: 'Member New Management',
     Advertising: 'Advertising Management',
     Activity: 'Activity Management',
+    Customerservice: 'Customerservice',
     My: 'My',
     Currencymanagement: 'Currency management',
     Monthlyreportmanagement: 'Monthlyreport Management',

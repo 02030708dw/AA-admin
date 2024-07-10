@@ -1,6 +1,7 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-input v-model="note" style="width: 200px;margin-left:10px;" placeholder="注释" />
     <el-select
       v-model="status"
       :placeholder="$t('state')"
@@ -26,7 +27,7 @@ export default {
   name: 'Control',
   data() {
     return {
-      noteTypeId: '', // 公告类型id
+      note:'',
       status: null, // 状态
       statusType: [
         { title: '停用', index: 0 },
@@ -43,11 +44,11 @@ export default {
     // 条件查询
     getquery() {
       // this.$emit('query', { noteTypeId: this.noteTypeId, status: this.status })
-        this.$emit('query', { status: this.status })
+      this.$emit('query', { status: this.status, note: this.note })
     },
     // 重置查询
     getresetting() {
-      // this.noteTypeId = ''
+      this.note = ''
       this.status = null
       this.$emit('resetting')
     },

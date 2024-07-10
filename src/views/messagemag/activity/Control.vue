@@ -1,6 +1,19 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-input v-model="title" style="width: 200px;margin-left:10px;" placeholder="标题" />
+    <el-select
+      v-model="type"
+      :placeholder="$t('typesof')"
+      style="width: 200px;margin-left: 10px"
+    >
+      <el-option
+        v-for="(item, index) in typeType"
+        :key="index"
+        :value="item.index"
+        :label="item.title"
+      />
+    </el-select>
     <el-select
       v-model="status"
       :placeholder="$t('state')"
@@ -26,11 +39,16 @@ export default {
   name: 'Control',
   data() {
     return {
-      noteTypeId: '', // 公告类型id
       status: null, // 状态
+      type:null,
+      title:'',
       statusType: [
         { title: '停用', index: 0 },
         { title: '启用', index: 1 }
+      ],
+      typeType: [
+        { title: '体育', index: 1 },
+        { title: '彩票', index: 2 }
       ],
       btnIcoType: true,
     }
@@ -41,13 +59,13 @@ export default {
     },
     // 条件查询
     getquery() {
-      // this.$emit('query', { noteTypeId: this.noteTypeId, status: this.status })
-        this.$emit('query', { status: this.status })
+        this.$emit('query', { status: this.status, title: this.title, type: this.type })
     },
     // 重置查询
     getresetting() {
-      // this.noteTypeId = ''
       this.status = null
+      this.title = ''
+      this.type = null
       this.$emit('resetting')
     },
     // 刷新
