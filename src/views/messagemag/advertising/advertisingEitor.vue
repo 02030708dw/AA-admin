@@ -1,18 +1,14 @@
 <template>
   <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="60%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item :label="$t('typesof')" prop="note">
+      <el-form-item label="注释" prop="note">
         <el-input v-model="ruleForm.note"></el-input>
       </el-form-item>
       <el-form-item label="排序" prop="sort">
         <el-input type='number' v-model.number="ruleForm.sort" />
       </el-form-item>
       <el-form-item label="图标" prop="icon">
-        <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
-          :on-error="uploadonerror">
-          <img v-if="ruleForm.pictureUrl" :src="ruleForm.pictureUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        <UploadImage v-if="dialogVisible" :img="ruleForm.pictureUrl" fn="banner" @Upload="getImageURL"/>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
@@ -22,13 +18,17 @@
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">{{
     $t("determine")
-  }}</el-button>
+        }}</el-button>
     </span>
   </el-dialog>
 </template>
 
 <script>
+import UploadImage from '@/components/Upload/image.vue'
 export default {
+  components:{
+    UploadImage
+  },
   data() {
     return {
       // 弹窗状态
@@ -76,36 +76,9 @@ export default {
         }
       })
     },
-    uploadonerror(err, file, fileList) {
-      this.getBase64(file.raw).then(res => {
-        this.ruleForm.pictureUrl = res
-      })
-    },
-    // 上传图片
-    handleAvatarSuccess(response, file, fileList) {
-      console.log(file)
-      this.getBase64(file.raw).then(res => {
-        this.ruleForm.pictureUrl = res
-      })
-    },
-    // 图片转base64
-    getBase64(file) {
-      return new Promise(function (resolve, reject) {
-        const reader = new FileReader()
-        let imgResult = ''
-        reader.readAsDataURL(file)
-        reader.onload = function () {
-          imgResult = reader.result
-        }
-        reader.onerror = function (error) {
-          reject(error)
-        }
-        reader.onloadend = function () {
-          resolve(imgResult)
-        }
-      })
+    getImageURL(url){
+      this.ruleForm.pictureUrl = url
     },
   }
 }
 </script>
-

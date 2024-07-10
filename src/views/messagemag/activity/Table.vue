@@ -2,11 +2,24 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column type="index" :label="$t('SerialNumber')" width="" />
-      <el-table-column prop="name" :label="$t('typesof')" width="" />
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
+      <el-table-column prop="title" label="标题" />
+      <el-table-column prop="content" label="内容" />
+      <el-table-column label="类型">
         <template slot-scope="scope">
-            {{ $creationTime(scope.row.createdAt) }}
+          {{ scope.row.type == 1 ? '体育' : '彩票' }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="" label="图标">
+        <template slot-scope="scope">
+          <div class="image_box">
+            <img :src="scope.row.pictureUrl" alt="">
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('state')" width="">
@@ -54,7 +67,7 @@ export default {
     },
     // 删除
     getEdl(Id) {
-      this.$confirm('确定删除此公告类型吗?', '提示', {
+      this.$confirm('确定删除此活动类型吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -77,4 +90,18 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.image_box {
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>
