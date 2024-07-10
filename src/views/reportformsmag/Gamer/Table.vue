@@ -8,12 +8,14 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column prop="day" :label="$t('Date')" width="" />
-      <el-table-column prop="gamerId" :label="$t('GamemerchantsID')" width="" />
       <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
       <el-table-column prop="betAmount" :label="$t('Totalbettingamount')" width="" />
+      <el-table-column prop="betUserNum" :label="$t('Numberofnonrepeatedbets')" width="" />
+      <el-table-column prop="phaseAmount" :label="$t('Totalprofitandloss')" width="" />
       <el-table-column prop="rate" :label="$t('Drawproportion')" width="" />
       <el-table-column prop="rateAmount" :label="$t('Commissionamount')" width="" />
-      <el-table-column prop="betUserNum" :label="$t('Numberofnonrepeatedbets')" width="" />
+      <el-table-column prop="realBetAmount" label="有效投注金额" width="" />
+      <el-table-column prop="winAmount" label="中奖总额" width="" />
     </el-table>
   </el-card>
 </template>

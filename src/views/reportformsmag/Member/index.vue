@@ -42,16 +42,14 @@ export default {
     // 初始化时间
     HandelInitializationTime() {
       const currentDate = new Date()
-      const endDate =
-          currentDate.getFullYear() +
-          '-' +
-          (currentDate.getMonth() + 1) +
-          '-' +
-          currentDate.getDate()
+      let getMonth = currentDate.getMonth() >= 9 ? currentDate.getMonth() + 1 : '0' + (currentDate.getMonth() + 1)
+      let getDate = currentDate.getDate() > 9 ? currentDate.getDate() : '0' + currentDate.getDate()
+      const endDate = currentDate.getFullYear() + '-' + getMonth + '-' + getDate
       const date = new Date(currentDate.getTime()) // 使用相同的时间，但改变日期
-      date.setDate(date.getDate() - 30) // 将日期设置为前6天
-      const startDate =
-          date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+      date.setDate(date.getDate() - 30) // 将日期设置为前30天
+      getMonth = date.getMonth() >= 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
+      getDate = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
+      const startDate = date.getFullYear() + '-' + getMonth + '-' + getDate; 
       this.startDate = startDate
       this.endDate = endDate
       // 请求数据

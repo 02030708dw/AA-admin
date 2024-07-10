@@ -48,6 +48,11 @@
         :label="$t('Gamemerchantsdrawapercentage')"
         width=""
       />
+      <el-table-column
+        prop="memberRate"
+        label="会员返点比例"
+        width=""
+      />
       <el-table-column prop="type" :label="$t('typesof')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.typeList | GamerType }}</span>
