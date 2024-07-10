@@ -139,9 +139,6 @@ export default {
     },
     // 查询
     getquery() {
-      if (!this.gamerId) {
-        return this.$message.error('请选择游戏商!')
-      }
       this.$emit('query', { gamerId: this.gamerId })
     }
   }

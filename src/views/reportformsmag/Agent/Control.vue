@@ -138,9 +138,6 @@ export default {
     },
     // 查询
     getquery() {
-      if (!this.agentId) {
-        return this.$message.error('请选择代理!')
-      }
       this.$emit('query', { agentId: this.agentId })
     }
   }

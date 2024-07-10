@@ -175,10 +175,6 @@ export default {
     },
     // 查询
     getquery() {
-      if (!this.memberId) {
-        return this.$message.error('请选择会员!')
-      }
-      console.log(this.memberId,'this.memberId---');
       this.$emit('query', { memberId: this.memberId })
     }
   }

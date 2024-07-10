@@ -49,6 +49,7 @@ export default {
         note: [{ required: true, message: "请输入注释", trigger: "blur" }],
         title: [{ required: true, message: "请输入标题", trigger: "blur" }],
         type: [{ required: true, message: "请选择类型", trigger: "blur" }],
+        content: [{ required: true, message: "请输入内容", trigger: "blur" }],
       },
     };
   },

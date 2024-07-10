@@ -14,10 +14,6 @@
       <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      
-      <el-form-item label="游戏商抽成比例" prop="rate">
-        <el-input v-model="ruleForm.rate" />
-      </el-form-item>
       <el-form-item label="编码" prop="code">
         <el-input v-model="ruleForm.code" />
       </el-form-item>

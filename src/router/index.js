@@ -263,6 +263,12 @@ export const constantRoutes = [
         name: 'activity',
         component: () => import('@/views/messagemag/activity/index'),
         meta: { title: 'Activity', icon: 'el-icon-s-flag' }
+      },
+      {
+        path: 'customerservice',
+        name: 'customerservice',
+        component: () => import('@/views/messagemag/customerservice/index'),
+        meta: { title: 'Customerservice', icon: 'el-icon-s-flag' }
       }
     ]
   },
