@@ -52,7 +52,7 @@ export default {
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      bannerPage({ pageNo: this.pageNo, pageSize: this.PagesSize, status: this.status })
+      bannerPage({ pageNo: this.pageNo, pageSize: this.PagesSize, status: this.status, note: this.note })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -73,7 +73,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      bannerPage({ pageNo: index, pageSize: this.PagesSize, status: this.status })
+      bannerPage({ pageNo: index, pageSize: this.PagesSize, status: this.status, note: this.note })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -84,10 +84,12 @@ export default {
     },
     getquery(e) {
       this.status = e.status
+      this.note = e.note
       this.getdata(1)
     },
     getresetting() {
       this.status = null
+      this.note = null
       this.getdata(1)
     },
     // 显示添加弹窗
