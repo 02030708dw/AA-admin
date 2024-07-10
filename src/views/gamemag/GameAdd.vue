@@ -46,6 +46,9 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input type='number' v-model="ruleForm.sort" />
+      </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-select
           v-model="ruleForm.status"
@@ -60,6 +63,9 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="游戏商图片" prop="pictureUrl">
+        <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -71,7 +77,11 @@
 </template>
 
 <script>
+import UploadImage from '@/components/Upload/image.vue'
 export default {
+  components: {
+    UploadImage
+  },
   props: {
     gameriddata: {
       type: Array,
@@ -90,7 +100,9 @@ export default {
         name: '',
         status: 0,
         threeId: '',
-        type: null
+        type: null,
+        sort:0,
+        pictureUrl:''
       },
       // 状态
       statusType: [
@@ -112,7 +124,9 @@ export default {
           { required: true, message: '请输入第三方id', trigger: 'blur' }
         ],
         gamerId: [{ required: true, message: '请输游戏商id', trigger: 'blur' }],
-        type: [{ required: true, message: '请输游戏类型', trigger: 'blur' }]
+        type: [{ required: true, message: '请输游戏类型', trigger: 'blur' }],
+        sort: [{ required: true, message: '请输入排序', trigger: 'blur' }],
+        pictureUrl: [{ required: true, message: '请上传游戏商图片', trigger: 'blur' }]
       }
     }
   },
@@ -126,7 +140,8 @@ export default {
           name: '',
           status: 0,
           threeId: '',
-          type: null
+          type: null,
+          pictureUrl:''
         }
       }
       this.dialogVisible = !this.dialogVisible
@@ -146,7 +161,10 @@ export default {
           return false
         }
       })
-    }
+    },
+    getImageURL(url) {
+      this.ruleForm.pictureUrl = url
+    },
   }
 }
 </script>
