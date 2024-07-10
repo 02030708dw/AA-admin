@@ -14,7 +14,8 @@ export default {
     props: {
         //是否回显图片
         img: '',
-        fn:''
+        fn:'',
+        code:''
     },
     data() {
         return {
@@ -28,6 +29,7 @@ export default {
     created() {
         this.imageURL = this.img;
         this.Function = this.fn;
+        this.GamerCode = this.code;
     },
     methods: {
         httpRequest(item) {
@@ -71,8 +73,7 @@ export default {
     },
 };
 </script>
-
-<style scoped>
+<style>
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

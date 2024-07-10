@@ -2,7 +2,7 @@
 
     <el-card>
         <el-row style="padding-bottom: 10px">
-            <el-input v-model="userName" style="width: 200px;margin-left:10px;" placeholder="会员登录用户名" />
+            <el-input v-model="userName" style="width: 200px;margin-right:10px;" placeholder="会员登录用户名" />
             <el-button type="primary" @click="getdata">{{ $t('query') }}</el-button>
             <el-button type="info" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
         </el-row>

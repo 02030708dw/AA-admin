@@ -90,6 +90,9 @@
           <el-button type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
+          <el-button type="text" @click="getsynchronizePhotos(scope.row.code)">
+            同步游戏图片
+          </el-button>
           <el-button
             slot="reference"
             type="text"
@@ -119,7 +122,7 @@
 </template>
 
 <script>
-import { gamerCreateUser } from '@/api/gamer/gamer'
+import { gamerCreateUser, synchronizePhotos } from '@/api/gamer/gamer'
 export default {
   name: 'Table',
   filters: {
@@ -178,6 +181,10 @@ export default {
     }
   },
   methods: {
+    //同步游戏图片
+    getsynchronizePhotos(code){
+      synchronizePhotos(code)
+    },
     // 删除事件
     getroledel(Id) {
       this.$confirm('确定删除此游戏商?', '提示', {
