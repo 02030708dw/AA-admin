@@ -285,6 +285,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/IP',
+    component: Layout,
+    children: [
+      {
+        path: 'IP',
+        name: 'IP',
+        component: () => import('@/views/IP/index'),
+        meta: { title: 'IP管理', icon: 'el-icon-place' }
+      }
+    ]
+  },
+  {
     path: '/My',
     component: Layout,
     children: [

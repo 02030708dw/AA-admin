@@ -10,7 +10,7 @@
           {{ scope.row.type == 1 ? '体育' : '彩票' }}
         </template>
       </el-table-column>
-      <el-table-column prop="" label="图标">
+      <el-table-column prop="" width="250" label="图标">
         <template slot-scope="scope">
           <div class="image_box">
             <img :src="scope.row.pictureUrl" alt="">
@@ -93,7 +93,7 @@ export default {
 <style lang="scss" scoped>
 .image_box {
   margin: auto;
-  width: 100px;
+  width: 200px;
   height: 100px;
   display: flex;
   align-items: center;
