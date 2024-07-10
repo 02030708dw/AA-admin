@@ -5,8 +5,8 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getactivitydata" />
-    <ActivityAdd ref="activityAdd" @confirm="getactivityAdd" />
-    <ActivityEitor ref="activityEitor" @confirm="getactivityEitor" />
+    <ActivityAdd ref="ActivityAdd" @confirm="getactivityAdd" />
+    <ActivityEitor ref="ActivityEitor" @confirm="getactivityEitor" />
   </el-card>
 </template>
 
@@ -92,7 +92,7 @@ export default {
     },
     // 显示添加弹窗
     getactivityAddShow() {
-      this.$refs.activityAdd.getAddstatus()
+      this.$refs.ActivityAdd.getAddstatus()
     },
     // 添加公告
     getactivityAdd(e) {
@@ -126,14 +126,15 @@ export default {
     },
     // 显示编辑弹窗
     getEitorShow(e) {
-      this.$refs.activityEitor.getAddstatus(e)
+      this.$refs.ActivityEitor.getAddstatus(e)
     },
     getactivityEitor(data) {
       activityEdit({
         content: data.content,
         id: data.id,
-        status: data.status,
-        title: data.title
+        pictureUrl:data.pictureUrl,
+        title: data.title,
+        type:data.type,
       })
         .then((res) => {
           this.getactivitydata(this.pageNo)

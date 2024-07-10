@@ -37,8 +37,7 @@ export default {
   },
   methods: {
     getAdd() {
-      console.log(1);
-      this.$emit('advertisingAdd')
+      this.$emit('activityAdd')
     },
     // 条件查询
     getquery() {

@@ -1,12 +1,12 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @advertisingAdd="getAdvertisingAddShow"
+    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @advertisingAdd="getAddShow"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getadvertisingdata" />
-    <advertisingAdd ref="advertisingAdd" @confirm="getAdvertisingAdd" />
-    <advertisingEitor ref="advertisingEitor" @confirm="getAdvertisingEitor" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <advertisingAdd ref="advertisingAdd" @confirm="getAdd" />
+    <advertisingEitor ref="advertisingEitor" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -41,12 +41,12 @@ export default {
     }
   },
   created() {
-    this.getadvertisingdata(1)
+    this.getdata(1)
   },
   methods: {
     HandelPagesChange(e) {
       this.PagesSize = e
-      this.getadvertisingdata(this.pageNo)
+      this.getdata(this.pageNo)
     },
     // 刷新事件
     HandelRefresh() {
@@ -71,7 +71,7 @@ export default {
         })
     },
     // 请求分页数据
-    getadvertisingdata(index = 1) {
+    getdata(index = 1) {
       this.pageNo = index
       bannerPage({ pageNo: index, pageSize: this.PagesSize, status: this.status })
         .then((res) => {
@@ -84,21 +84,21 @@ export default {
     },
     getquery(e) {
       this.status = e.status
-      this.getadvertisingdata(1)
+      this.getdata(1)
     },
     getresetting() {
       this.status = null
-      this.getadvertisingdata(1)
+      this.getdata(1)
     },
     // 显示添加弹窗
-    getAdvertisingAddShow() {
+    getAddShow() {
       this.$refs.advertisingAdd.getAddstatus()
     },
     // 添加公告
-    getAdvertisingAdd(e) {
+    getAdd(e) {
       bannerAdd(e)
         .then((res) => {
-          this.getadvertisingdata(this.pageNo)
+          this.getdata(this.pageNo)
           this.$message({
             message: '添加成功!',
             type: 'success'
@@ -113,7 +113,7 @@ export default {
     getDel(id) {
       bannerDel(id)
         .then((res) => {
-          this.getadvertisingdata(this.pageNo)
+          this.getdata(this.pageNo)
           this.$message({
             message: '删除成功!',
             type: 'success'
@@ -128,15 +128,15 @@ export default {
     getEitorShow(e) {
       this.$refs.advertisingEitor.getAddstatus(e)
     },
-    getAdvertisingEitor(data) {
+    getEitor(data) {
       bannerEdit({
-        content: data.content,
         id: data.id,
-        status: data.status,
-        title: data.title
+        note: data.note,
+        pictureUrl: data.pictureUrl,
+        sort: data.sort,
       })
         .then((res) => {
-          this.getadvertisingdata(this.pageNo)
+          this.getdata(this.pageNo)
           this.$message({
             message: '编辑成功!',
             type: 'success'
@@ -158,7 +158,7 @@ export default {
         publisher: data.publisher
       })
         .then((res) => {
-          // this.getadvertisingdata(this.pageNo);
+          // this.getdata(this.pageNo);
           this.$message({
             message: '修改成功!',
             type: 'success'
