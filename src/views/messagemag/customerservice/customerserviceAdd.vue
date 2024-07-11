@@ -14,11 +14,11 @@
         <el-radio v-model="ruleForm.type" :label="1" >skype</el-radio>
         <el-radio v-model="ruleForm.type" :label="2" >telegram</el-radio>
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
-        <UploadImage v-if="dialogVisible" fn="banner" @Upload="getImageURL" />
-      </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
+      </el-form-item>
+      <el-form-item label="图标" prop="icon">
+        <UploadImage v-if="dialogVisible" fn="banner" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
 
@@ -45,9 +45,9 @@ export default {
         account: "",
         linkUrl: "",
         note: "",
-        pictureUrl: "",
+        pictureInfos: "",
         status: 0,
-        type: 0
+        type: 0,
       },
       rules: {
         account: [{ required: true, message: "请输入注释", trigger: "blur" }],
@@ -63,9 +63,9 @@ export default {
           account: "",
           linkUrl: "",
           note: "",
-          pictureUrl: "",
+          pictureInfos: "",
           status: 0,
-          type: 0
+          type: 0,
         };
       }
       this.dialogVisible = !this.dialogVisible;
@@ -88,7 +88,7 @@ export default {
       });
     },
     getImageURL(url) {
-      this.ruleForm.pictureUrl = url
+      this.ruleForm.pictureInfos = url
     },
   },
 };

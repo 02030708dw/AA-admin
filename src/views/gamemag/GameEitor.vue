@@ -63,7 +63,7 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="游戏商图片" prop="pictureUrl">
+      <el-form-item label="游戏商图片" prop="pictureInfos">
         <UploadImage v-if="dialogVisible" fn="gamer" :code="ruleForm.code" :img="ruleForm.pictureUrl" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
@@ -102,7 +102,7 @@ export default {
         threeId: '',
         type: null,
         sort:0,
-        pictureUrl:''
+        pictureInfos:''
       },
       // 状态
       statusType: [
@@ -164,7 +164,7 @@ export default {
       })
     },
     getImageURL(url) {
-      this.ruleForm.pictureUrl = url
+      this.ruleForm.pictureInfos = url
     },
   }
 }

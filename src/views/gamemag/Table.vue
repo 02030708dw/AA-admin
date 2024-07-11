@@ -85,15 +85,17 @@ export default {
         case 0:
           return '未分类'
         case 1:
-          return '真人'
+          return '电子'
         case 2:
-          return '体育'
-        case 3:
-          return '老虎机'
-        case 4:
           return '棋牌'
-        case 5:
+        case 3:
           return '彩票'
+        case 4:
+          return '体育'
+        case 5:
+          return '真人'
+        case 6:
+          return '小游戏'
       }
     }
   },
