@@ -134,7 +134,7 @@ export default {
       bannerEdit({
         id: data.id,
         note: data.note,
-        pictureUrl: data.pictureUrl,
+        pictureInfos: data.pictureInfos,
         sort: data.sort,
       })
         .then((res) => {
@@ -156,8 +156,6 @@ export default {
       bannerStatus({
         status: data.status,
         id: data.id,
-        canceler: data.canceler,
-        publisher: data.publisher
       })
         .then((res) => {
           // this.getdata(this.pageNo);

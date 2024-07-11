@@ -136,9 +136,10 @@ export default {
       activityEdit({
         content: data.content,
         id: data.id,
-        pictureUrl:data.pictureUrl,
+        pictureInfos:data.pictureInfos,
         title: data.title,
         type:data.type,
+        isShow:data.isShow,
       })
         .then((res) => {
           this.getactivitydata(this.pageNo)
@@ -159,8 +160,6 @@ export default {
       activityStatus({
         status: data.status,
         id: data.id,
-        canceler: data.canceler,
-        publisher: data.publisher
       })
         .then((res) => {
           // this.getactivitydata(this.pageNo);

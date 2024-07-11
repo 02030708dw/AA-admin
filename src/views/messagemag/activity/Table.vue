@@ -13,7 +13,7 @@
       <el-table-column prop="" width="250" label="图标">
         <template slot-scope="scope">
           <div class="image_box">
-            <img :src="scope.row.pictureUrl" alt="">
+            <img :src="toUrl(scope.row.pictureUrl)" alt="">
           </div>
         </template>
       </el-table-column>
@@ -85,7 +85,12 @@ export default {
     // 修改状态
     getUdateStatus(e, id) {
       this.$emit('UdateStatus', { status: e, id: id })
-    }
+    },
+    toUrl(list){
+      let url =list ? JSON.parse(list) :''
+      //保留语言判断
+      return url[0].pictureUrl
+    },
   }
 }
 </script>
