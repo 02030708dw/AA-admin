@@ -178,15 +178,11 @@ export default {
     getRechargeAdd(data) {
       RechargeAdd(data)
         .then((res) => {
+          this.$refs.rechargeAdd.dialogVisible = false
           this.getRechargedata(this.pageNo)
-          this.$message({
-            message: '添加成功!',
-            type: 'success'
-          })
         })
         .catch((err) => {
           console.log(err)
-          this.$message.error('添加失败!')
         })
     },
     // 查询
