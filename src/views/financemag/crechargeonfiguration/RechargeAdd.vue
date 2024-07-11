@@ -1,6 +1,6 @@
 <template>
   <el-dialog :title="$t('Addrechargeconfiguration')" :visible.sync="dialogVisible" width="40%">
-    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm" :inline="true">
+    <el-form ref="ruleForm" :model="ruleForm"  label-width="150px" class="demo-ruleForm" :inline="true">
       <el-form-item :label="$t('AccountName')" prop="account">
         <el-input v-model="ruleForm.account" style="width: 200px" />
       </el-form-item>
@@ -8,6 +8,12 @@
         <el-select v-model="ruleForm.channelId" placeholder="选择渠道" style="width: 200px">
           <el-option v-for="(item, index) in channelidList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
+      </el-form-item>
+      <el-form-item label="银行编号" placeholder="请输入银行编号" prop="account">
+        <el-input v-model="ruleForm.bankCode" style="width: 200px" />
+      </el-form-item>
+      <el-form-item  style="width: 350px;" :label="$t('state')" prop="status">
+        <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
       <el-form-item :label="$t('Channeltype')" prop="type">
         <el-select v-model="ruleForm.type" :placeholder="$t('typesof')" style="width: 200px" @change="HandelChange">
@@ -35,9 +41,7 @@
       <el-form-item v-if="ruleForm.type === 3" :label="$t('Virtualcoinaddress')" prop="coin">
         <el-input v-model="ruleForm.coin" />
       </el-form-item>
-      <el-form-item :label="$t('state')" prop="status">
-        <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
-      </el-form-item>
+    
       <el-form-item label="图标" prop="icon">
         <el-upload 
         action="#"
@@ -97,7 +101,8 @@ export default {
         type: null,
         wechat: '',
         icon: '', //图标
-        currency:''
+        currency:'',
+        bankCode:'',
       },
       rules: {
         account: [{ required: true, message: '请输入户名', trigger: 'blur' }],
@@ -140,7 +145,8 @@ export default {
           status: 0,
           type: null,
           wechat: '',
-          icon: ''
+          icon: '',
+          bankCode:'',
         }
       }
       this.dialogVisible = !this.dialogVisible
@@ -150,8 +156,6 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.$emit('confirm', this.ruleForm)
-          // 关闭弹窗
-          this.dialogVisible = false
         } else {
           this.$message({
             message: '请填写完整信息!',
