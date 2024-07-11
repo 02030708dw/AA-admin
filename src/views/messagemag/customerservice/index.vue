@@ -140,9 +140,9 @@ export default {
         account: data.account,
         linkUrl:data.linkUrl,
         note: data.note,
-        pictureUrl: data.pictureUrl,
+        pictureInfos: data.pictureInfos,
         type: data.type,
-        status:data.status
+        status: data.status,
       })
         .then((res) => {
           this.getdata(this.pageNo)
@@ -163,8 +163,6 @@ export default {
       customerServiceStatus({
         status: data.status,
         id: data.id,
-        canceler: data.canceler,
-        publisher: data.publisher
       })
         .then((res) => {
           // this.getdata(this.pageNo);
