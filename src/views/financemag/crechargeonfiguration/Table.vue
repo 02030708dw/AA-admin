@@ -7,7 +7,7 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column prop="channelId" :label="$t('ChannelID')" width="" />
+      <el-table-column prop="channelName" :label="$t('Channelname')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
       <el-table-column prop="currency" label="币种" width="" />
       <el-table-column  label="充值信息" width="500">
