@@ -55,9 +55,9 @@ export default {
         if (typeof this.img === 'string') {
             try {
                 let obj = JSON.parse(this.img);
-                if (typeof obj === 'object' && obj) {
+                if (typeof obj === 'object' && obj.length > 0) {
                     this.imageURL = obj
-                } 
+                }
             } catch (error) {
                 console.log('pictureUrl不是JSON');
             }
@@ -65,7 +65,6 @@ export default {
     },
     methods: {
         httpRequest(item, lang, index) {
-            console.log(item, lang, index);
             let Fn, Code
             let that = this;
             let formData = new FormData()
@@ -73,7 +72,6 @@ export default {
             // that.imageFlag[index] = true;
             that.$set(that.UploadPercent, index, 0)
             that.$set(that.imageFlag, index, true)
-            console.log(that.UploadPercent, that.imageFlag);
             if (that.fn == 'gamer') {
                 Fn = that.fn
                 Code = that.code + '' + lang
