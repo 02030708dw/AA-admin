@@ -45,7 +45,7 @@ export default {
         id: 0,
         linkUrl: "",
         note: "",
-        pictureUrl: "",
+        pictureInfos: "",
         type: null,
         status:null
       },
@@ -65,7 +65,7 @@ export default {
           id: 0,
           linkUrl: "",
           note: "",
-          pictureUrl: "",
+          pictureInfos: "",
           type: 0,
           status:null
         }
@@ -90,7 +90,7 @@ export default {
       })
     },
     getImageURL(url) {
-      this.ruleForm.pictureUrl = url
+      this.ruleForm.pictureInfos = url
     },
   }
 }

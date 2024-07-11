@@ -1,12 +1,6 @@
 <template>
   <el-dialog :title="$t('Addgame')" :visible.sync="dialogVisible" width="50%">
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('gamename')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -15,17 +9,8 @@
       </el-form-item> -->
 
       <el-form-item label="选择游戏商" prop="gamerId">
-        <el-select
-          v-model="ruleForm.gamerId"
-          placeholder="选择游戏商"
-          style="width: 200px;margin-left: 10px"
-        >
-          <el-option
-            v-for="(item, index) in gameriddata"
-            :key="index"
-            :value="item.index"
-            :label="item.title"
-          />
+        <el-select v-model="ruleForm.gamerId" placeholder="选择游戏商" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in gameriddata" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
 
@@ -33,45 +18,27 @@
         <el-input v-model="ruleForm.threeId" />
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
-        <el-select
-          v-model="ruleForm.type"
-          :placeholder="$t('typesof')"
-          style="width: 200px;margin-left: 10px"
-        >
-          <el-option
-            v-for="(item, index) in typeArrList"
-            :key="index"
-            :value="item.index"
-            :label="item.title"
-          />
+        <el-select v-model="ruleForm.type" :placeholder="$t('typesof')" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in typeArrList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
       <el-form-item label="排序" prop="sort">
         <el-input type='number' v-model="ruleForm.sort" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
-        <el-select
-          v-model="ruleForm.status"
-          :placeholder="$t('state')"
-          style="width: 200px;margin-left: 10px"
-        >
-          <el-option
-            v-for="(item, index) in statusType"
-            :key="index"
-            :value="item.index"
-            :label="item.title"
-          />
+        <el-select v-model="ruleForm.status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item label="游戏商图片" prop="pictureUrl">
-        <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
+      <el-form-item label="游戏商图片" prop="pictureInfos">
+          <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">{{
-        $t("determine")
-      }}</el-button>
+    $t("determine")
+  }}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -101,8 +68,8 @@ export default {
         status: 0,
         threeId: '',
         type: null,
-        sort:0,
-        pictureUrl:''
+        sort: 0,
+        pictureInfos: []
       },
       // 状态
       statusType: [
@@ -126,7 +93,6 @@ export default {
         gamerId: [{ required: true, message: '请输游戏商id', trigger: 'blur' }],
         type: [{ required: true, message: '请输游戏类型', trigger: 'blur' }],
         sort: [{ required: true, message: '请输入排序', trigger: 'blur' }],
-        pictureUrl: [{ required: true, message: '请上传游戏商图片', trigger: 'blur' }]
       }
     }
   },
@@ -141,7 +107,7 @@ export default {
           status: 0,
           threeId: '',
           type: null,
-          pictureUrl:''
+          pictureInfos: []
         }
       }
       this.dialogVisible = !this.dialogVisible
@@ -162,11 +128,10 @@ export default {
         }
       })
     },
-    getImageURL(url) {
-      this.ruleForm.pictureUrl = url
+    getImageURL(urlList) {
+      this.ruleForm.pictureInfos = urlList
     },
   }
 }
 </script>
-  <style>
-</style>
+<style></style>

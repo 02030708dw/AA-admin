@@ -35,7 +35,7 @@ export default {
       dialogVisible: false,
       ruleForm: {
         note: '',
-        pictureUrl: '',
+        pictureInfos: '',
         sort: null,
         status: 0,
       },
@@ -52,7 +52,7 @@ export default {
       if (!this.dialogVisible) {
         this.ruleForm = {
           note: '',
-          pictureUrl: '',
+          pictureInfos: '',
           sort: null,
           status: 0,
         }
@@ -77,7 +77,7 @@ export default {
       })
     },
     getImageURL(url){
-      this.ruleForm.pictureUrl = url
+      this.ruleForm.pictureInfos = url
     },
   }
 }

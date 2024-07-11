@@ -11,6 +11,9 @@
         <el-radio v-model="ruleForm.type" :label="1" >体育</el-radio>
         <el-radio v-model="ruleForm.type" :label="2" >彩票</el-radio>
       </el-form-item>
+      <el-form-item label="是否轮播展示" >
+        <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.isShow"></el-switch>
+      </el-form-item>
       <el-form-item label="图片" prop="icon">
         <UploadImage v-if="dialogVisible" :img="ruleForm.pictureUrl" fn="activity" @Upload="getImageURL" />
       </el-form-item>
@@ -37,9 +40,10 @@ export default {
       dialogVisible: false,
       ruleForm: {
         content: "",
-        pictureUrl: "",
+        pictureInfos: "",
         title: "",
-        type: 0
+        type: 0,
+        isShow:0,
       },
       rules: {
         note: [{ required: true, message: "请输入注释", trigger: "blur" }],
@@ -55,9 +59,10 @@ export default {
       if (!this.dialogVisible) {
         this.ruleForm = {
           content: "",
-          pictureUrl: "",
+          pictureInfos: "",
           title: "",
-          type: 0
+          type: 0,
+          isShow:0,
         }
       } else {
         this.ruleForm = { ...data }
@@ -80,7 +85,7 @@ export default {
       })
     },
     getImageURL(url) {
-      this.ruleForm.pictureUrl = url
+      this.ruleForm.pictureInfos = url
     },
   }
 }

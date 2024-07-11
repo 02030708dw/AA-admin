@@ -177,7 +177,7 @@ export default {
         threeId: data.threeId,
         type: data.type,
         sort: data.sort,
-        pictureUrl:data.pictureUrl
+        pictureInfos:data.pictureInfos
       })
         .then((res) => {
           this.getgamedata(this.pageNo)
