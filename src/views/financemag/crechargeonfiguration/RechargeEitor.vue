@@ -15,8 +15,8 @@
       <el-form-item :label="$t('AccountName')" prop="account">
         <el-input v-model="ruleForm.account" />
       </el-form-item>
-      <el-form-item :label="$t('ChannelID')" prop="">
-        <el-input v-model="ruleForm.channelId" disabled />
+      <el-form-item :label="$t('Channelname')" prop="">
+        <el-input v-model="ruleForm.channelName" disabled />
       </el-form-item>
       <!-- 渠道类型 -->
       <el-form-item :label="$t('Channeltype')" prop="type">
@@ -28,7 +28,7 @@
           <el-option
             v-for="(item, index) in TypeList"
             :key="index"
-            :value="item.value"
+            :value="item.index"
             :label="item.title"
           />
         </el-select>
@@ -54,9 +54,6 @@
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 3" :label="$t('Virtualcoinaddress')" prop="coin">
         <el-input v-model="ruleForm.coin" />
-      </el-form-item>
-      <el-form-item v-if="ruleForm.type === 4" :label="$t('Channelname')" prop="name">
-        <el-input v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch
@@ -101,11 +98,17 @@ export default {
       dialogVisible: false,
       // 渠道类型
       TypeList: [
-        { title: '银行卡', value: 0 },
-        { title: '支付宝', value: 1 },
-        { title: '微信', value: 2 },
-        { title: '虚拟币', value: 3 },
-        { title: '三方支付', value: 4 }
+        { title: '银行卡', index: 0 },
+        { title: '支付宝', index: 1 },
+        { title: '微信', index: 2 },
+        { title: '虚拟币', index: 3 },
+        { title: 'QR支付', index: 4 },
+        { title: 'gcash充值', index: 5 },
+        { title: 'PMP充值', index: 6 },
+        { title: 'UBP充值', index: 7 },
+        { title: 'usdt充值', index: 8 },
+        { title: 'MAYA充值', index: 9 },
+        { title: '网银', index: 10 },
       ],
       // 表单数据
       ruleForm: {
