@@ -23,15 +23,17 @@
 
 <script>
 import { ipPage } from '@/api/IP'
+import Pagination from '@/components/Pagination/Pagination.vue'
 export default {
     name: 'IPTable',
+    components: { Pagination },
     data() {
         return {
             tableData: [],
             loading: false,
             total: 0,
             pageNo: 1,
-            PagesSize: 20,
+            PageSize: 20,
             userName: null,
         }
     },
@@ -40,13 +42,13 @@ export default {
     },
     methods: {
         HandelPagesChange(e) {
-            this.PagesSize = e
-            this.getdata(this.pageNo)
+            this.PageSize = e
+            this.getdata()
         },
         getdata() {
-            ipPage({ pageNo: this.pageNo, PagesSize: this.PagesSize, userName: this.userName }).then(res => {
+            ipPage({ pageNo: this.pageNo, PageSize: this.PageSize, userName: this.userName }).then(res => {
                 this.tableData = res.resultSet.data
-                console.log(res, '-----------------');
+                this.total = res.resultSet.total
             })
         },
         getresetting() {
