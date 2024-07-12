@@ -16,6 +16,7 @@
       </el-form-item> -->
       <el-form-item label="选择游戏商" prop="gamerId">
         <el-select
+          filterable
           v-model="ruleForm.gamerId"
           placeholder="选择游戏商"
           style="width: 200px;margin-left: 10px"

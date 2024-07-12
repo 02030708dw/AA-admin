@@ -5,6 +5,7 @@
     }}</el-button>
     <el-select
       v-model="gamerId"
+      filterable 
       :placeholder="$t('SelectGameMerchant')"
       style="width: 200px;margin-left: 10px"
     >
