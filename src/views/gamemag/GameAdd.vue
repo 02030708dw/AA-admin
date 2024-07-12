@@ -9,7 +9,7 @@
       </el-form-item> -->
 
       <el-form-item label="选择游戏商" prop="gamerId">
-        <el-select v-model="ruleForm.gamerId" placeholder="选择游戏商" style="width: 200px;margin-left: 10px">
+        <el-select v-model="ruleForm.gamerId" filterable placeholder="选择游戏商" style="width: 200px;margin-left: 10px">
           <el-option v-for="(item, index) in gameriddata" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>

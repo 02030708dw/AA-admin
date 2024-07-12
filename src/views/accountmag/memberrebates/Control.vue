@@ -6,6 +6,7 @@
     <!-- 游戏商id -->
     <el-select
       v-model="GamerId"
+      filterable
       placeholder="选择游戏商"
       style="width: 200px; margin-left: 10px"
     >

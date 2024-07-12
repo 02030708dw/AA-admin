@@ -183,7 +183,9 @@ export default {
   methods: {
     //同步游戏图片
     getsynchronizePhotos(code){
-      synchronizePhotos(code)
+      synchronizePhotos(code).then(() => {
+        this.$message.success('同步成功')
+      })
     },
     // 删除事件
     getroledel(Id) {

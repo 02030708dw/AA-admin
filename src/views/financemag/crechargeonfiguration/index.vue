@@ -230,7 +230,8 @@ export default {
         wechat: data.wechat,
         icon:data.icon,
         currency:data.currency,
-        name: data.name
+        name: data.name,
+        bankCode:data.bankCode
       })
         .then((res) => {
           this.getRechargedata(this.pageNo)
