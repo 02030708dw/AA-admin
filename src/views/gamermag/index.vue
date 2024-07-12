@@ -216,7 +216,7 @@ export default {
   },
   computed:{
     GamerIdData() {
-        let data=[],res = this.$store.state.user.gamer
+        let data=[],res = this.$store.state.user.gamer || []
         for (let i = 0; i < res.length; i++) {
           data.push({
             title: res[i].name,
