@@ -10,8 +10,8 @@
       @bind="getbindShow"
     />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
-    <GamerAdd ref="GamerAdd" @confirm="getGamerAdd" />
-    <GamerEitor ref="GamerEitor" @confirm="getGamerEitor" />
+    <GamerAdd ref="GamerAdd" @confirm="getGamerAdd"  :CurrencytPageData="CurrencytPageData"/>
+    <GamerEitor ref="GamerEitor" @confirm="getGamerEitor"  :CurrencytPageData="CurrencytPageData"/>
     <BindGamer ref="BindGamer" @confirm="getBind" />
   </el-card>
 </template>
@@ -54,13 +54,26 @@ export default {
       PagesSize: 20,
        // 游戏商id
       //  GamerIdData: [],
+      //获取币种
+      CurrencytPageData:[],
     }
   },
   created() {
     this.getroledata(1)
-    
+    this.getCurrencytPage()
   },
   methods: {
+    // 获取币种
+    getCurrencytPage() {
+     let res = this.$store.state.user.currency
+     this.CurrencytPageData = []
+       for(let i = 0; i < res.length ;i++){
+         this.CurrencytPageData.push({
+           item:res[i].currency,
+           index:res[i].id
+         })
+       }
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getroledata(this.pageNo)

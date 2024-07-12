@@ -15,10 +15,12 @@
       @PageChange="getchanneldata"
     />
     <RechargechannelAdd
+      :CurrencytPageData="CurrencytPageData"
       ref="RechargechannelAdd"
       @confirm="getChannelAdd"
     />
     <RechargechannelEitor
+      :CurrencytPageData="CurrencytPageData"
       ref="RechargechannelEitor"
       @confirm="getChannelEitor"
     />
@@ -61,6 +63,8 @@ export default {
       tableData: [],
       // 渠道名称
       ChannelnameData: [],
+      //获取币种
+      CurrencytPageData:[],
       // 条件查询
       name: '',
       status: null,
@@ -70,8 +74,20 @@ export default {
   },
   created() {
     this.getchanneldata(1)
+    this.getCurrencytPage()
   },
   methods: {
+    // 获取币种
+    getCurrencytPage() {
+     let res = this.$store.state.user.currency
+     this.CurrencytPageData = []
+       for(let i = 0; i < res.length ;i++){
+         this.CurrencytPageData.push({
+           item:res[i].currency,
+           index:res[i].id
+         })
+       }
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getchanneldata(this.pageNo)
