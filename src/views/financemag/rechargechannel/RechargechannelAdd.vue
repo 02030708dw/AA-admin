@@ -29,12 +29,15 @@
       />
     </el-select>
       </el-form-item>
-
-      
-
-
-
-
+      <el-form-item label="支持币种" prop="currency">
+        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox-group v-model="ruleForm.currency">
+          <el-checkbox label="THB"></el-checkbox>
+          <el-checkbox label="IDR"></el-checkbox>
+          <el-checkbox label="VND"></el-checkbox>
+          <el-checkbox label="PHP"></el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch
           v-model="ruleForm.status"
@@ -62,8 +65,10 @@ export default {
       ruleForm: {
         name: '',
         status: 0,
-        type: null
+        type: null,
+        currency:[],
       },
+      isIndeterminate:true,
       // 游戏类型选项
       typeArrList: [
         { title: '银行卡', index: 0 },
@@ -73,7 +78,8 @@ export default {
       ],
       rules: {
         name: [{ required: true, message: '请输入渠道名称', trigger: 'blur' }],
-        type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }]
+        type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }],
+        currency: [{ required: true, message: '请选择币种类型', trigger: 'blur' }]
       }
     }
   },
@@ -85,7 +91,8 @@ export default {
         this.ruleForm = {
           name: '',
           status: 0,
-          type: null
+          type: null,
+          currency:[]
         }
       }
       this.dialogVisible = !this.dialogVisible
@@ -94,6 +101,7 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          this.ruleForm.currency = this.ruleForm.currency.join(',')
           this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
           this.dialogVisible = false

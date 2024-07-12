@@ -28,6 +28,15 @@
       />
     </el-select>
       </el-form-item>
+      <el-form-item label="支持币种" prop="currency">
+        <el-checkbox-group v-model="ruleForm.currency">
+          <el-checkbox label="All"></el-checkbox>
+          <el-checkbox label="THB"></el-checkbox>
+          <el-checkbox label="IDR"></el-checkbox>
+          <el-checkbox label="VND"></el-checkbox>
+          <el-checkbox label="PHP"></el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch
           :active-value="1"
@@ -67,6 +76,7 @@ export default {
       rules: {
         name: [{ required: true, message: "请输入渠道名称", trigger: "blur" }],
         type: [{ required: true, message: "请输入渠道类型", trigger: "blur" }],
+        currency: [{ required: true, message: '请选择币种类型', trigger: 'blur' }]
       },
     };
   },
