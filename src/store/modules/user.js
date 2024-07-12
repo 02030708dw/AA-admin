@@ -8,7 +8,8 @@ const getDefaultState = () => {
     token: '',
     name: '',
     avatar: '',
-    gamer: JSON.parse(sessionStorage.getItem('gamer'))//游戏商
+    gamer: JSON.parse(sessionStorage.getItem('gamer')),//游戏商
+    currency: JSON.parse(sessionStorage.getItem('currency')),//币种
   }
 }
 
@@ -31,6 +32,11 @@ const mutations = {
   SET_GAMER: (state, avatar) => {
     state.gamer = avatar
     sessionStorage.setItem('gamer', JSON.stringify(avatar))
+  },
+  //币种
+  SET_CURRENCY: (state, avatar) => {
+    state.currency = avatar
+    sessionStorage.setItem('currency', JSON.stringify(avatar))
   }
 }
 
@@ -97,6 +103,17 @@ const actions = {
       gamerPage({ pageNo: 1, pageSize: 1000000 }).then((res) => {
         console.log(res);
         commit('SET_GAMER',res.resultSet.data)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  currencySet({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      CurrencytPage({ pageNo: 1, pageSize: 1000000 }).then((res) => {
+        console.log(res);
+        commit('SET_CURRENCY',res.resultSet.data)
         resolve()
       }).catch(error => {
         reject(error)
