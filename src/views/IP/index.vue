@@ -3,6 +3,7 @@
     <el-card>
         <el-row style="padding-bottom: 10px">
             <el-input v-model="userName" style="width: 200px;margin-right:10px;" placeholder="会员登录用户名" />
+            <el-input v-model="ip" style="width: 200px;margin-right:10px;" placeholder="IP地址" />
             <el-button type="primary" @click="getdata">{{ $t('query') }}</el-button>
             <el-button type="info" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
         </el-row>
@@ -35,6 +36,7 @@ export default {
             pageNo: 1,
             PageSize: 20,
             userName: null,
+            ip:'',
         }
     },
     created() {
@@ -46,7 +48,7 @@ export default {
             this.getdata()
         },
         getdata() {
-            ipPage({ pageNo: this.pageNo, PageSize: this.PageSize, userName: this.userName }).then(res => {
+            ipPage({ pageNo: this.pageNo, PageSize: this.PageSize, userName: this.userNamem, ip:this.ip}).then(res => {
                 this.tableData = res.resultSet.data
                 this.total = res.resultSet.total
             })
