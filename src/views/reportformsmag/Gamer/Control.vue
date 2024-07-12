@@ -15,6 +15,7 @@
     <!-- 选择代理 -->
     <el-select
       v-model="gamerId"
+      filterable
       placeholder="选择游戏商"
       style="width: 200px;margin-left:20px;"
     >

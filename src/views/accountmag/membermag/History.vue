@@ -4,6 +4,7 @@
     <el-row style="margin-bottom: 10px;">
       <el-select
         v-model="gammerId"
+        filterable
         placeholder="选择游戏商"
         style="width: 200px;margin-left: 10px"
       >

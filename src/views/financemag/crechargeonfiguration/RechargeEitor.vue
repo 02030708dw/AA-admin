@@ -33,6 +33,9 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="银行编号" placeholder="请输入银行编号" >
+        <el-input v-model="ruleForm.bankCode" style="width: 200px" />
+      </el-form-item>
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
         <el-input v-model="ruleForm.alipay" />
       </el-form-item>
@@ -122,7 +125,8 @@ export default {
         type: null,
         wechat: '',
         icon: '', //图标
-        currency:''
+        currency:'',
+        bankCode:'',
       },
       rules: {
         account: [{ required: true, message: '请输入户名', trigger: 'blur' }],
@@ -169,7 +173,8 @@ export default {
           status: 0,
           type: null,
           wechat: '',
-          icon:''
+          icon:'',
+          bankCode:'',
         }
       } else {
         this.ruleForm = {...data}
