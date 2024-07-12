@@ -101,7 +101,13 @@ export default {
             }).then((res) => {
                 that.$set(that.imageFlag, index, false)
                 that.imageURL[index].pictureUrl = res.resultSet;
-                that.$emit("Upload", that.imageURL);
+                let setURL = []
+                for(let i= 0; i<that.imageURL.length;i++){
+                    if(that.imageURL[i].pictureUrl){
+                        setURL.push(that.imageURL[i])
+                    }
+                }
+                that.$emit("Upload", setURL);
                 this.$message.success("上传成功！")
             }).catch((err) => {
                 that.$set(that.imageFlag, index, false)
