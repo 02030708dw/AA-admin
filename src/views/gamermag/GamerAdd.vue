@@ -17,20 +17,19 @@
       <el-form-item label="编码" prop="code">
         <el-input v-model="ruleForm.code" />
       </el-form-item>
-      <el-form-item label="支持币种" prop="currency">
+      <el-form-item label="选择币种" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
-          <el-checkbox label="THB"></el-checkbox>
-          <el-checkbox label="IDR"></el-checkbox>
-          <el-checkbox label="VND"></el-checkbox>
-          <el-checkbox label="PHP"></el-checkbox>
+          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
         </el-checkbox-group>
-        <!-- <el-input v-model="ruleForm.currency" /> -->
       </el-form-item>
       <el-form-item label="会员返点比例" prop="memberRate">
         <el-input v-model="ruleForm.memberRate" />
       </el-form-item>
       <el-form-item label="游戏商抽成比例" prop="rate">
         <el-input v-model="ruleForm.rate" />
+      </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input type='number' v-model="ruleForm.sort" />
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="types">
         <el-checkbox-group v-model="ruleForm.types">
@@ -69,6 +68,14 @@
 
 <script>
 export default {
+  props: {
+    CurrencytPageData:{
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       // 弹窗状态
@@ -82,6 +89,7 @@ export default {
         currency: [],
         code: "",
         rate: "",
+        sort:'',
       },
       // 游戏类型选项
       gamertype: [
@@ -119,6 +127,11 @@ export default {
             trigger: "blur",
           },
         ],
+        sort: [{
+          required: true,
+          message: '请输入排序',
+          trigger: 'blur'
+        }]
       },
     };
   },
@@ -134,6 +147,7 @@ export default {
           memberRate: "",
           currency: [],
           code: "",
+          sort:'',
         };
       }
       this.dialogVisible = !this.dialogVisible;

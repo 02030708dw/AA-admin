@@ -37,6 +37,9 @@ export default {
   },
   data() {
     return {}
+  },
+  created(){
+    this.$store.dispatch('user/currencySet')
   }
 }
 </script>
