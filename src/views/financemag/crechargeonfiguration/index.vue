@@ -91,22 +91,15 @@ export default {
   methods: {
     // 获取币种
     getCurrencytPage() {
+      let res = this.$store.state.user.currency
       this.CurrencytPageData = []
-      CurrencytPage({pageNo:1,pageSize:200000}).then(res => {
-        for(let i = 0; i < res.resultSet.data.length ;i++){
+        for(let i = 0; i < res.length ;i++){
           this.CurrencytPageData.push({
-            item:res.resultSet.data[i].currency,
-            index:res.resultSet.data[i].id
+            item:res[i].currency,
+            index:res[i].id
           })
         }
-      }).catch(err => {
-        console.log(err)
-      })
     },
-
-
-
-
     // 获取渠道id
     getchannelId() {
       channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {

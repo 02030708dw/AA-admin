@@ -29,13 +29,9 @@
       />
     </el-select>
       </el-form-item>
-      <el-form-item label="支持币种" prop="currency">
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+      <el-form-item label="选择币种" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
-          <el-checkbox label="THB"></el-checkbox>
-          <el-checkbox label="IDR"></el-checkbox>
-          <el-checkbox label="VND"></el-checkbox>
-          <el-checkbox label="PHP"></el-checkbox>
+          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
@@ -57,6 +53,14 @@
 
 <script>
 export default {
+  props: {
+    CurrencytPageData:{
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       // 弹窗状态
@@ -66,7 +70,7 @@ export default {
         name: '',
         status: 0,
         type: null,
-        currency:[],
+        currency: [],
       },
       isIndeterminate:true,
       // 游戏类型选项
@@ -92,7 +96,7 @@ export default {
           name: '',
           status: 0,
           type: null,
-          currency:[]
+          currency: []
         }
       }
       this.dialogVisible = !this.dialogVisible
