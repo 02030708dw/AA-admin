@@ -3,6 +3,7 @@ import { UserInfo } from '@/api/account/user'
 import { setToken, removeToken } from '@/utils/auth'
 import { resetRouter, newRouter, asyncRoutes } from '@/router'
 import { gamerPage } from '@/api/gamer/gamer'
+import { CurrencytPage } from  '@/api/Currency/Currency'
 const getDefaultState = () => {
   return {
     token: '',
