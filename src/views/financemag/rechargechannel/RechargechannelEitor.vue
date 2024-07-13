@@ -28,13 +28,9 @@
       />
     </el-select>
       </el-form-item>
-      <el-form-item label="支持币种" prop="currency">
+      <el-form-item label="选择币种" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
-          <el-checkbox label="All"></el-checkbox>
-          <el-checkbox label="THB"></el-checkbox>
-          <el-checkbox label="IDR"></el-checkbox>
-          <el-checkbox label="VND"></el-checkbox>
-          <el-checkbox label="PHP"></el-checkbox>
+          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
@@ -56,6 +52,14 @@
       
 <script>
 export default {
+  props: {
+    CurrencytPageData:{
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       // 弹窗状态
@@ -65,6 +69,7 @@ export default {
         name: "",
         status: 0,
         type: null,
+        currency: [],
       },
       //游戏类型选项
       typeArrList: [
@@ -90,15 +95,19 @@ export default {
           name: "",
           status: 0,
           type: null,
+          currency: [],
         };
       } else {
         this.ruleForm = {...data};
+        //回显
+        this.ruleForm.currency = data.currency.split(',')
       }
     },
     // 确定添加事件
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          this.ruleForm.currency = this.ruleForm.currency.join(',')
           this.$emit("confirm", this.ruleForm);
           // 关闭弹窗
           this.dialogVisible = false;

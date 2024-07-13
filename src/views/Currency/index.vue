@@ -95,6 +95,7 @@ export default {
     getDel(id) {
       CurrencyDel(id).then(res => {
         this.getCurrencydata(this.pageNo)
+        this.$store.dispatch('user/gamerSet')
         this.$message({
           message: '删除成功!',
           type: 'success'
@@ -112,6 +113,7 @@ export default {
       CurrencyAdd(e).then(res => {
         // 刷新数据
         this.getCurrencydata(this.pageNo)
+        this.$store.dispatch('user/gamerSet')
         this.$message({
           message: '添加成功!',
           type: 'success'
@@ -129,6 +131,7 @@ export default {
     getCurrencyEdit(e) {
       CurrencyEdit({ id: e.id, status: e.status, remark: e.remark, currency: e.currency }).then(res => {
         this.getCurrencydata(this.pageNo)
+        this.$store.dispatch('user/gamerSet')
         this.$message({
           message: '编辑成功!',
           type: 'success'
