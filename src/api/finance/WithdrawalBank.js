@@ -44,3 +44,11 @@ export function UpdateStatus (data) {
         data
     })
 }
+
+// 根据三方充值id获取支持银行列表
+export function cashBankList(threePayId) {
+    return request({
+        url:`/finance/cashBank/list/${threePayId}`,
+        method:'get',
+    })
+}

@@ -20,6 +20,7 @@
                     </div>
                 </template>
             </el-table-column>
+            <el-table-column prop="threePayNames" label="银行支持三方配置" width="" />
             <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
                 <template slot-scope="scope">
                     {{ $creationTime(scope.row.createdAt) }}

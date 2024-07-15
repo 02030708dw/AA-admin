@@ -33,8 +33,15 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="银行编号" placeholder="请输入银行编号" >
-        <el-input v-model="ruleForm.bankCode" style="width: 200px" />
+      <el-form-item v-if="ruleForm.type > 3" label="三方充值" placeholder="请选择三方充值">
+        <el-select v-model="ruleForm.threePayId" :placeholder="$t('typesof')" style="width: 200px" @change="threePayIdChange">
+          <el-option v-for="(item, index) in thirdDropDownList" :key="index" :value="item.id" :label="item.threeName" />
+        </el-select>
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type > 3" label="银行编号" placeholder="请选择银行编号">
+        <el-select v-model="ruleForm.bankCode" :placeholder="$t('typesof')" style="width: 200px">
+          <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
+        </el-select>
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
         <el-input v-model="ruleForm.alipay" />
@@ -86,9 +93,16 @@
 </template>
 
 <script>
+import { cashBankList } from '@/api/finance/WithdrawalBank'
 export default {
   props:{
     CurrencytPageData:{
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+    thirdDropDownList:{
       type: Array,
       default: () => {
         return []
@@ -127,6 +141,7 @@ export default {
         icon: '', //图标
         currency:'',
         bankCode:'',
+        threePayId:'',
       },
       rules: {
         account: [{ required: true, message: '请输入户名', trigger: 'blur' }],
@@ -154,7 +169,8 @@ export default {
         type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }],
         icon: [{ required: true, message: '请上传图标', trigger: 'blur' }],
         currency:[{ required: true, message: '请选择币种', trigger: 'blur' }]
-      }
+      },
+      bankCodeList:[],
     }
   },
   methods: {
@@ -175,10 +191,13 @@ export default {
           wechat: '',
           icon:'',
           bankCode:'',
+          threePayId:'',
         }
       } else {
         this.ruleForm = {...data}
-        console.log(this.ruleForm);
+        cashBankList(this.ruleForm.threePayId).then(res => {
+          this.bankCodeList = res.resultSet
+        })
       }
     },
     // 确定添加事件
@@ -196,6 +215,12 @@ export default {
           })
           return false
         }
+      })
+    },
+    threePayIdChange() {
+      this.ruleForm.bankCode = ''
+      cashBankList(this.ruleForm.threePayId).then(res => {
+        this.bankCodeList = res.resultSet
       })
     },
     uploadonerror(err, file, fileList) {

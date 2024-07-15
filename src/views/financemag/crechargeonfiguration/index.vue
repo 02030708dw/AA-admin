@@ -23,13 +23,15 @@
       @PageChange="getRechargedata"
     />
     <rechargeAdd
-    :CurrencytPageData="CurrencytPageData"
+      :CurrencytPageData="CurrencytPageData"
+      :thirdDropDownList="thirdDropDownList"
       ref="rechargeAdd"
       :channelid-list="channelIdList"
       @confirm="getRechargeAdd"
     />
     <rechargeEitor
-    :CurrencytPageData="CurrencytPageData"
+      :CurrencytPageData="CurrencytPageData"
+      :thirdDropDownList="thirdDropDownList"
       ref="rechargeEitor"
       @confirm="getRechargeEitor"
     />
@@ -50,7 +52,8 @@ import { channelPage } from '../../../api/finance/rechargechannel'
 
 // 获取币种分页数据
 import { CurrencytPage } from '../../../api/Currency/Currency'
-
+//三方充值配置下拉框列表
+import { thirdDropDown } from '@/api/thirdpartypayment/thirdpartypayment'
 // 接口
 import {
   RechargePage,
@@ -80,15 +83,24 @@ export default {
       PagesSize: 20,
       // 渠道id
       channelIdList: [],
-      CurrencytPageData:[]
+      CurrencytPageData:[],
+      //三方充值配置下拉框列表
+      thirdDropDownList:[],
     }
   },
   created() {
     this.getRechargedata(1)
     this.getchannelId()
     this.getCurrencytPage()
+    this.getThirdDropDown()
   },
   methods: {
+    //三方充值配置下拉框列表
+    getThirdDropDown(){
+      thirdDropDown().then(res=>{
+        this.thirdDropDownList = res.resultSet
+      })
+    },
     // 获取币种
     getCurrencytPage() {
       let res = this.$store.state.user.currency
@@ -171,6 +183,7 @@ export default {
     getRechargeAdd(data) {
       RechargeAdd(data)
         .then((res) => {
+          this.$message({ message: '添加成功!', type: 'success' })
           this.$refs.rechargeAdd.dialogVisible = false
           this.getRechargedata(this.pageNo)
         })
@@ -224,7 +237,8 @@ export default {
         icon:data.icon,
         currency:data.currency,
         name: data.name,
-        bankCode:data.bankCode
+        bankCode:data.bankCode,
+        threePayId:data.threePayId,
       })
         .then((res) => {
           this.getRechargedata(this.pageNo)
