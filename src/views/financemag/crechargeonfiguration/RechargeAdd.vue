@@ -1,6 +1,6 @@
 <template>
   <el-dialog :title="$t('Addrechargeconfiguration')" :visible.sync="dialogVisible" width="40%">
-    <el-form ref="ruleForm" :model="ruleForm"  label-width="150px" class="demo-ruleForm" :inline="true">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules"  label-width="150px" class="demo-ruleForm" :inline="true">
       <el-form-item :label="$t('AccountName')" prop="account">
         <el-input v-model="ruleForm.account" style="width: 200px" />
       </el-form-item>
@@ -9,15 +9,23 @@
           <el-option v-for="(item, index) in channelidList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item label="银行编号" placeholder="请输入银行编号" prop="account">
-        <el-input v-model="ruleForm.bankCode" style="width: 200px" />
-      </el-form-item>
+    
       <el-form-item  style="width: 350px;" :label="$t('state')" prop="status">
         <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
       <el-form-item :label="$t('Channeltype')" prop="type">
-        <el-select v-model="ruleForm.type" :placeholder="$t('typesof')" style="width: 200px" @change="HandelChange">
+        <el-select v-model="ruleForm.type" :placeholder="$t('typesof')" style="width: 200px">
           <el-option v-for="(item, index) in TypeList" :key="index" :value="item.index" :label="item.title" />
+        </el-select>
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type > 3" label="三方充值" placeholder="请选择三方充值" prop="threePayId">
+        <el-select v-model="ruleForm.threePayId" :placeholder="$t('typesof')" style="width: 200px" @change="threePayIdChange">
+          <el-option v-for="(item, index) in thirdDropDownList" :key="index" :value="item.id" :label="item.threeName" />
+        </el-select>
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type > 3" label="银行编号" placeholder="请选择银行编号" prop="bankCode">
+        <el-select v-model="ruleForm.bankCode" :placeholder="$t('typesof')" style="width: 200px">
+          <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
         </el-select>
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
@@ -63,6 +71,7 @@
 </template>
 
 <script>
+import { cashBankList } from '@/api/finance/WithdrawalBank'
 export default {
   props: {
     channelidList: {
@@ -72,6 +81,12 @@ export default {
       }
     },
     CurrencytPageData:{
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+    thirdDropDownList:{
       type: Array,
       default: () => {
         return []
@@ -110,6 +125,7 @@ export default {
         icon: '', //图标
         currency:'',
         bankCode:'',
+        threePayId:'',
       },
       rules: {
         account: [{ required: true, message: '请输入户名', trigger: 'blur' }],
@@ -133,8 +149,11 @@ export default {
         ],
         type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }],
         icon: [{ required: true, message: '请上传图标', trigger: 'blur' }],
-        currency:[{ required: true, message: '请选择币种', trigger: 'blur' }]
-      }
+        currency:[{ required: true, message: '请选择币种', trigger: 'blur' }],
+        threePayId:[{ required: true, message: '请选择充值类型', trigger: 'blur' }],
+        bankCode:[{ required: true, message: '请选择银行编号', trigger: 'blur' }],
+      },
+      bankCodeList:[],
     }
   },
   methods: {
@@ -154,6 +173,7 @@ export default {
           wechat: '',
           icon: '',
           bankCode:'',
+          threePayId:'',
         }
       }
       this.dialogVisible = !this.dialogVisible
@@ -172,8 +192,10 @@ export default {
         }
       })
     },
-    HandelChange() {
-      console.log(this.ruleForm.type)
+    threePayIdChange() {
+      cashBankList(this.ruleForm.threePayId).then(res => {
+        this.bankCodeList = res.resultSet
+      })
     },
     uploadonerror(err, file, fileList) {
       this.getBase64(file.raw).then(res => {
