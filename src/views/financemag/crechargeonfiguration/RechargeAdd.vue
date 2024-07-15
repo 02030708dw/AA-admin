@@ -13,35 +13,37 @@
       <el-form-item  style="width: 350px;" :label="$t('state')" prop="status">
         <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
-      <el-form-item :label="$t('Channeltype')" prop="type">
+      <!-- <el-form-item :label="$t('Channeltype')" prop="type">
         <el-select v-model="ruleForm.type" :placeholder="$t('typesof')" style="width: 200px">
           <el-option v-for="(item, index) in TypeList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
-      </el-form-item>
-      <el-form-item v-if="ruleForm.type > 3" label="三方充值" placeholder="请选择三方充值" prop="threePayId">
-        <el-select v-model="ruleForm.threePayId" :placeholder="$t('typesof')" style="width: 200px" @change="threePayIdChange">
-          <el-option v-for="(item, index) in thirdDropDownList" :key="index" :value="item.id" :label="item.threeName" />
-        </el-select>
-      </el-form-item>
-      <el-form-item v-if="ruleForm.type > 3" label="银行编号" placeholder="请选择银行编号" prop="bankCode">
-        <el-select v-model="ruleForm.bankCode" :placeholder="$t('typesof')" style="width: 200px">
-          <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
-        </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
         <el-input v-model="ruleForm.alipay" />
-      </el-form-item>
-      
-      <el-form-item v-if="ruleForm.type === 0" label="选择币种" prop="bankCardNo">
-        <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
-          <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
-        </el-select>
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 0" :label="$t('Bankaccount')" prop="bankCardNo">
         <el-input v-model="ruleForm.bankCardNo" />
       </el-form-item>
+      <el-form-item v-if="Channeltype > 3" label="三方充值" placeholder="请选择三方充值" prop="threePayId">
+        <el-select v-model="ruleForm.threePayId" :placeholder="$t('typesof')" style="width: 200px" @change="threePayIdChange">
+          <el-option v-for="(item, index) in thirdDropDownList" :key="index" :value="item.id" :label="item.threeName" />
+        </el-select>
+      </el-form-item>
+      <el-form-item v-if="Channeltype > 3" label="银行编号" placeholder="请选择银行编号" prop="bankCode">
+        <el-select v-model="ruleForm.bankCode" :placeholder="$t('typesof')" style="width: 200px" >
+          <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
+        </el-select>
+      </el-form-item>
       <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
-        <el-input v-model="ruleForm.bankName" />
+        <el-select v-model="ruleForm.bankName" :placeholder="$t('typesof')" style="width: 200px" @change="bankNameChange">
+          <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
+        </el-select>
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type === 0" label="选择币种" >
+        <el-input v-model="ruleForm.currency" disabled/>
+        <!-- <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
+          <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
+        </el-select> -->
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 2" :label="$t('WeChataccount')" prop="wechat">
         <el-input v-model="ruleForm.wechat" />
@@ -91,6 +93,23 @@ export default {
       default: () => {
         return []
       }
+    }
+  },
+  computed:{
+    Channeltype(){
+      let type = null
+      this.channelidList.forEach(v=>{
+        if(this.ruleForm.channelId == v.index){
+          type = v.type
+          this.ruleForm.type = v.type
+        }
+      })
+      if(type === 0){
+        cashBankList(0).then(res => {
+          this.bankCodeList = res.resultSet
+        })
+      }
+      return type
     }
   },
   data() {
@@ -196,6 +215,9 @@ export default {
       cashBankList(this.ruleForm.threePayId).then(res => {
         this.bankCodeList = res.resultSet
       })
+    },
+    bankNameChange() {
+      this.ruleForm.currency = this.bankCodeList.find(item => item.bankName === this.ruleForm.bankName).currency
     },
     uploadonerror(err, file, fileList) {
       this.getBase64(file.raw).then(res => {
