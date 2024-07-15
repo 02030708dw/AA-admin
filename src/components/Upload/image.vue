@@ -56,7 +56,13 @@ export default {
             try {
                 let obj = JSON.parse(this.img);
                 if (typeof obj === 'object' && obj.length > 0) {
-                    this.imageURL = obj
+                    for (let i = 0; i < obj.length; i++) {
+                        for (let j = 0; j < this.imageURL.length; j++) {
+                            if (this.imageURL[j].language == obj[i].language) {
+                                this.imageURL[j].pictureUrl = obj[i].pictureUrl
+                            }
+                        }
+                    }
                 }
             } catch (error) {
                 console.log('pictureUrl不是JSON');
@@ -102,8 +108,8 @@ export default {
                 that.$set(that.imageFlag, index, false)
                 that.imageURL[index].pictureUrl = res.resultSet;
                 let setURL = []
-                for(let i= 0; i<that.imageURL.length;i++){
-                    if(that.imageURL[i].pictureUrl){
+                for (let i = 0; i < that.imageURL.length; i++) {
+                    if (that.imageURL[i].pictureUrl) {
                         setURL.push(that.imageURL[i])
                     }
                 }
