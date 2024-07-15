@@ -33,6 +33,7 @@
       :CurrencytPageData="CurrencytPageData"
       :thirdDropDownList="thirdDropDownList"
       ref="rechargeEitor"
+      :channelid-list="channelIdList"
       @confirm="getRechargeEitor"
     />
   </el-card>
@@ -119,7 +120,8 @@ export default {
         for (let i = 0; i < res.resultSet.data.length; i++) {
           this.channelIdList.push({
             title: res.resultSet.data[i].name,
-            index: res.resultSet.data[i].id
+            index: res.resultSet.data[i].id,
+            type: res.resultSet.data[i].type
           })
         }
       })
