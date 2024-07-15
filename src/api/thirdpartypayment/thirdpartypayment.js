@@ -36,3 +36,11 @@ export function thirdEdit(data) {
       data,
     });
 }
+
+//三方充值配置下拉框列表
+export function thirdDropDown() {
+  return request({
+    url: "/threePaySet/dropDown/list",
+    method: "get",
+  });
+}
