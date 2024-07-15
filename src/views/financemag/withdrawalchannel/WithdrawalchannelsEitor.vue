@@ -19,7 +19,7 @@
           <el-option
             v-for="(item, index) in gamertype"
             :key="index"
-            :label="item.label"
+            :label="item.title"
             :value="item.value"
           ></el-option>
         </el-select>
@@ -53,10 +53,17 @@ export default {
       },
       //游戏类型选项
       gamertype: [
-        { label: "银行卡", value: 0 },
-        { label: "支付宝", value: 1 },
-        { label: "微信", value: 2 },
-        { label: "虚拟币", value: 3 },
+        { title: '银行卡', index: 0 },
+        { title: '支付宝', index: 1 },
+        { title: '微信', index: 2 },
+        { title: '虚拟币', index: 3 },
+        { title: 'QR支付', index: 4 },
+        { title: 'gcash充值', index: 5 },
+        { title: 'PMP充值', index: 6 },
+        { title: 'UBP充值', index: 7 },
+        { title: 'usdt充值', index: 8 },
+        { title: 'MAYA充值', index: 9 },
+        { title: '网银', index: 10 },
       ],
       rules: {
         name: [{ required: true, message: "请输入渠道名称", trigger: "blur" }],
