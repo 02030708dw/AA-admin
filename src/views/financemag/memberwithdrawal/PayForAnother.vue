@@ -3,27 +3,46 @@
     <!-- 查看详情 -->
     <el-dialog title="代理提现详情" :visible.sync="dialogVisible" :rules="rules" width="40%">
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm">
-            <el-form-item :label="'提现金额'" prop="amt">
-                <el-input v-model="ruleForm.amount" />
+            <el-form-item :label="'提现金额'">
+                <el-input v-model="ruleForm.amount" disabled />
             </el-form-item>
-            <el-form-item :label="'提现银行户名'" prop="bankAccount">
-                <el-input v-model="ruleForm.bankAccount" />
+            <el-form-item v-if="ruleForm.channelType == 1" :label="$t('Alipayaccount')">
+                <el-input v-model="ruleForm.alipay" disabled />
             </el-form-item>
-            <el-form-item :label="'提现银行卡号'" prop="bankCardNo">
-                <el-input v-model="ruleForm.bankCardNo" />
+            <el-form-item v-if="ruleForm.channelType == 4" label="收款人姓名">
+                <el-input v-model="ruleForm.bankAccount" disabled />
             </el-form-item>
-            <el-form-item :label="'提现银行名称'" prop="bankName">
-                <el-input v-model="ruleForm.bankName" />
+            <el-form-item v-if="ruleForm.channelType == 0" label="提现银行卡号">
+                <el-input v-model="ruleForm.bankCardNo" disabled />
             </el-form-item>
-            <el-form-item :label="'ifsc'" prop="ifsc">
-                <el-input v-model="ruleForm.ifsc" />
+            <el-form-item v-if="ruleForm.channelType == 4" label="Gcash收款手机号">
+                <el-input v-model="ruleForm.bankCardNo" disabled />
             </el-form-item>
-            <el-form-item :label="'提现订单号'" prop="orderNo">
-                <el-input v-model="ruleForm.orderNo" />
+            <el-form-item v-if="ruleForm.channelType == 0" label="提现银行名称">
+                <el-input v-model="ruleForm.bankName" disabled />
+            </el-form-item>
+            <el-form-item v-if="ruleForm.channelType == 4" label="'银行code'">
+                <el-input v-model="ruleForm.bankName" disabled />
+            </el-form-item>
+            <el-form-item v-if="ruleForm.channelType == 3" label="虚拟币地址">
+                <el-input v-model="ruleForm.bankName" disabled />
+            </el-form-item>
+            <el-form-item label="图标">
+                <el-input v-model="ruleForm.bankName" disabled />
+            </el-form-item>
+            <el-form-item v-if="ruleForm.channelType == 4" label="收款人IFSC">
+                <el-input v-model="ruleForm.bankName" disabled />
+            </el-form-item>
+            <el-form-item v-if="ruleForm.channelType == 2" label="微信账号">
+                <el-input v-model="ruleForm.wechat" disabled />
+            </el-form-item>
+            <el-form-item :label="'提现订单号'">
+                <el-input v-model="ruleForm.orderNo" disabled />
             </el-form-item>
             <el-form-item :label="'三方支付'" prop="threePayId">
-                <el-select v-model="ruleForm.threePayId" placeholder="选择币种" style="width: 200px">
-                  <el-option v-for="(item, index) in threePayList" :key="index" :value="item.id" :label="item.threeName" />
+                <el-select v-model="ruleForm.threePayId" placeholder="充值类型" style="width: 200px">
+                    <el-option v-for="(item, index) in threePayList" :key="index" :value="item.id"
+                        :label="item.threeName" />
                 </el-select>
             </el-form-item>
         </el-form>
@@ -44,11 +63,6 @@ export default {
             ruleForm: {},
             threePayList: [],
             rules: {
-                amount: [{ required: true, message: '请输入提现金额', trigger: 'blur' }],
-                bankAccount: [{ required: true, message: '请输入提现银行户名', trigger: 'blur' }],
-                bankCardNo: [{ required: true, message: '请输入提现银行卡号', trigger: 'blur' }],
-                bankName: [{ required: true, message: '请输入提现银行名称', trigger: 'blur' }],
-                orderNo: [{ required: true, message: '请输入提现订单号', trigger: 'blur' }],
                 threePayId: [{ required: true, message: '请选择三方支付', trigger: 'blur' }],
             }
         }
@@ -67,6 +81,7 @@ export default {
                 this.ruleForm = {}
             } else {
                 this.ruleForm = { ...data }
+                console.log(this.ruleForm);
             }
         },
         // 确定添加事件
@@ -78,7 +93,7 @@ export default {
                         bankAccount: this.ruleForm.bankAccount,
                         bankCardNo: this.ruleForm.bankCardNo,
                         bankName: this.ruleForm.bankName,
-                        ifsc: this.ruleForm.ifsc ? this.ruleForm.ifsc: 'no',
+                        ifsc: this.ruleForm.ifsc ? this.ruleForm.ifsc : 'no',
                         orderNo: this.ruleForm.orderNo,
                         threePayId: this.ruleForm.threePayId,
                     }
