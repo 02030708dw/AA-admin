@@ -22,7 +22,7 @@
           <el-option v-for="(item, index) in typeArrList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item label="排序" prop="sort">
+      <el-form-item :label="$t('sort')" prop="sort">
         <el-input type='number' v-model="ruleForm.sort" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">

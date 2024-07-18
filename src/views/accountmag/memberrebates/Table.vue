@@ -8,9 +8,9 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
-      <el-table-column prop="userName" label="会员账号" width="" />
-      <el-table-column prop="gamerName" label="游戏商名称" width="" />
-      <el-table-column prop="rate" label="返点率" width="" />
+      <el-table-column prop="userName" label="MemberAccount" width="" />
+      <el-table-column prop="gamerName" label="GameMerchantName" width="" />
+      <el-table-column prop="rate" label="RebateRate" width="" />
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
           <el-button

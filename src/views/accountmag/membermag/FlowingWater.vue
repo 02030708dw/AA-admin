@@ -17,8 +17,8 @@
       </el-select>
       <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
       <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
-      <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
-      <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
+      <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh') }}</el-button>
+      <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
     </el-row>
     <!-- 表格 -->
     <el-card shadow="never">

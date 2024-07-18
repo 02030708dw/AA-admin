@@ -36,7 +36,7 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="返点率" prop="rate">
+      <el-form-item label="RebateRate" prop="rate">
         <el-input v-model="ruleForm.rate" style="width: 200px;" />
       </el-form-item>
     </el-form>

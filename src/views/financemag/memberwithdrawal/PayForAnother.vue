@@ -27,7 +27,7 @@
             <el-form-item v-if="ruleForm.channelType == 3" label="虚拟币地址">
                 <el-input v-model="ruleForm.bankName" disabled />
             </el-form-item>
-            <el-form-item label="图标">
+            <el-form-item :label="$t('icon')">
                 <el-input v-model="ruleForm.bankName" disabled />
             </el-form-item>
             <el-form-item v-if="ruleForm.channelType == 4" label="收款人IFSC">
