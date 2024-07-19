@@ -82,7 +82,7 @@ export default {
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      gamerPage({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, status: this.status })
+      gamerPage({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, status: this.status  })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -117,12 +117,14 @@ export default {
     getquery(e) {
       this.name = e.name
       this.status = e.status
+      this.gamerId = e.gamerId
       this.getroledata(1)
     },
     // 重置
     getresetting() {
       this.name = ''
       this.status = null
+      this.gamerId = ''
       this.getroledata(1)
     },
     getGamerAddshow() {

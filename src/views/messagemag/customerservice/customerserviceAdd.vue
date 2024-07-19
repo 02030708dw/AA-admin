@@ -1,23 +1,23 @@
 <template>
   <el-dialog :title="$t('AddAnnouncementtype')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="账号" prop="account">
+      <el-form-item :label="$t('account')" prop="account">
         <el-input  v-model="ruleForm.account" />
       </el-form-item>
       <el-form-item label="链接地址" prop="linkUrl">
         <el-input  v-model="ruleForm.linkUrl" />
       </el-form-item>
-       <el-form-item label="注释" prop="note">
+       <el-form-item :label="$t('ExplanatoryNote')" prop="note">
         <el-input v-model="ruleForm.note"></el-input>
       </el-form-item>
-      <el-form-item label="类型" prop="type">
+      <el-form-item :label="$t('typesof')" prop="type">
         <el-radio v-model="ruleForm.type" :label="1" >skype</el-radio>
         <el-radio v-model="ruleForm.type" :label="2" >telegram</el-radio>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
+      <el-form-item :label="$t('icon')" prop="icon">
         <UploadImage v-if="dialogVisible" fn="banner" @Upload="getImageURL" />
       </el-form-item>
     </el-form>

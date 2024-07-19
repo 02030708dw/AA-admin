@@ -4,7 +4,7 @@
     <!-- 条件筛选框 -->
     <el-select
       v-model="currency"
-      placeholder="币种"
+      :placeholder="$t('Currency')"
       style="width: 200px; margin-left: 10px"
     >
       <el-option
@@ -17,7 +17,7 @@
     <el-input
       v-model="threeName"
       style="width: 200px; margin-left: 10px"
-      placeholder="三方名称"
+      :placeholder="$t('ThreePartyNames')"
     />
     <el-button style="margin-left: 10px" type="primary" @click="getquery()">{{
       $t("query")
@@ -35,10 +35,10 @@
       type="success"
       icon="el-icon-refresh-left"
       @click="HandelRefresh"
-      >刷新</el-button
+      >{{ $t('Refresh') }}</el-button
     >
     <el-button v-else type="success" icon="el-icon-loading" disabled
-      >刷新</el-button
+      >{{ $t('Refresh') }}</el-button
     >
   </el-row>
 </template>

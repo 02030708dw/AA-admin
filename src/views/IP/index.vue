@@ -2,16 +2,16 @@
 
     <el-card>
         <el-row style="padding-bottom: 10px">
-            <el-input v-model="userName" style="width: 200px;margin-right:10px;" placeholder="会员登录用户名" />
-            <el-input v-model="ip" style="width: 200px;margin-right:10px;" placeholder="IP地址" />
+            <el-input v-model="userName" style="width: 200px;margin-right:10px;" :placeholder="$t('username')" />
+            <el-input v-model="ip" style="width: 200px;margin-right:10px;" :placeholder="$t('IPAddress')" />
             <el-button type="primary" @click="getdata">{{ $t('query') }}</el-button>
             <el-button type="info" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
         </el-row>
         <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
             :cell-style="{ 'text-align': 'center' }">
-            <el-table-column prop="userName" label="会员用户名" />
-            <el-table-column prop="area" label="地区" />
-            <el-table-column prop="ip" label="ip地址" />
+            <el-table-column prop="userName" label="username" />
+            <el-table-column prop="area" label="area" />
+            <el-table-column prop="ip" label="IPAddress" />
             <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="">
                 <template slot-scope="scope">
                     {{ $creationTime(scope.row.updatedAt) }}

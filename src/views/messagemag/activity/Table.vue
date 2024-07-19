@@ -3,14 +3,14 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
-      <el-table-column prop="title" label="标题" />
-      <el-table-column prop="content" label="内容" />
-      <el-table-column label="类型">
+      <el-table-column prop="title" :label="$t('title')" />
+      <el-table-column prop="content" :label="$t('content')" />
+      <el-table-column :label="$t('typesof')">
         <template slot-scope="scope">
           {{ scope.row.type == 1 ? '体育' : '彩票' }}
         </template>
       </el-table-column>
-      <el-table-column prop="" width="250" label="图标">
+      <el-table-column prop="" width="250" :label="$t('icon')">
         <template slot-scope="scope">
           <div class="image_box">
             <img :src="toUrl(scope.row.pictureUrl)" alt="">
