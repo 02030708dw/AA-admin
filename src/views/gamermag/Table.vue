@@ -7,7 +7,7 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-     <el-table-column prop="sort" label="排序" width="80" />
+     <el-table-column prop="sort" :label="$t('sort')" width="80" />
       <el-table-column
         prop="name"
         :label="$t('GameMerchantName')"
@@ -50,7 +50,7 @@
       />
       <el-table-column
         prop="memberRate"
-        label="会员返点比例"
+        :label="$t('MemberRebateRatio')"
         width=""
       />
       <el-table-column prop="type" :label="$t('typesof')" width="">
@@ -183,8 +183,17 @@ export default {
   methods: {
     //同步游戏图片
     getsynchronizePhotos(code){
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(255, 255, 255, 0.7)'
+      });
       synchronizePhotos(code).then(() => {
         this.$message.success('同步成功')
+        loading.close();
+      }).catch(()=>{
+        loading.close();
       })
     },
     // 删除事件

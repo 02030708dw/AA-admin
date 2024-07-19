@@ -4,7 +4,7 @@
       $t("increase")
     }}</el-button>
         <el-select
-      v-model="gamerId"
+      v-model="name"
       filterable 
       :placeholder="$t('SelectGameMerchant')"
       style="width: 200px;margin-left: 10px"
@@ -12,7 +12,7 @@
       <el-option
         v-for="(item, index) in gameriddata"
         :key="index"
-        :value="item.index"
+        :value="item.title"
         :label="item.title"
       />
     </el-select>

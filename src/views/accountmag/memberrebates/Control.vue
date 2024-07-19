@@ -45,13 +45,13 @@
       type="success"
       icon="el-icon-refresh-left"
       @click="HandelRefresh"
-    >刷新</el-button>
+    >{{ $t('Refresh') }}</el-button>
     <el-button
       v-else
       type="success"
       icon="el-icon-loading"
       disabled
-    >刷新</el-button>
+    >{{ $t('Refresh') }}</el-button>
   </el-row>
 </template>
 <script>

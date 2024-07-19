@@ -1,13 +1,13 @@
 <template>
   <el-dialog :title="$t('AddAnnouncementtype')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="注释" prop="note">
+      <el-form-item :label="$t('ExplanatoryNote')" prop="note">
         <el-input v-model="ruleForm.note"></el-input>
       </el-form-item>
-      <el-form-item label="排序" prop="sort">
+      <el-form-item :label="$t('sort')" prop="sort">
         <el-input type='number' v-model.number="ruleForm.sort" />
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
+      <el-form-item :label="$t('icon')" prop="icon">
         <UploadImage v-if="dialogVisible" fn="banner" @Upload="getImageURL"/>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">

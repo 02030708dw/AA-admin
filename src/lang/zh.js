@@ -41,8 +41,9 @@ export default {
     Proxyreport: '代理报表',
     MemberReport: '会员报表',
     GameMerchantReport: '游戏商报表',
-    Platformreport: '平台报表'
-
+    Platformreport: '平台报表',
+    WithdrawalBankManagement:'提现银行管理',
+    IPManagement:'IP管理',
   },
   role: {
     permission: '权限'
@@ -321,7 +322,7 @@ export default {
   Paymentinformation: '收款信息',
   ReceivingWeChataccount: '收款微信号',
   Incomeinformation: '入款信息',
-  Detail: '查看详情'
+  Detail: '查看详情',
   // failedtoobtainavailablebalance: '无法获取可用余额',
   // gamemerchantdoesnotexist: '游戏商家不存在',
   // insufficientavailablebalance: '可用余额不足',
@@ -330,5 +331,18 @@ export default {
   // Theusernameorpasswordisincorrect: '用户名或密码不正确',
   // Theusersaccountisfrozen: '用户账户被冻结',
   // thischannelandcashAccountisexisted: '该渠道和现金账户已存在'
-
+  MemberAccount:'会员账号',
+  RebateRate: '返点率',
+  Withdrawalinformation:'提现信息',
+  area:'地区',
+  IPAddress:'IP地址',
+  icon:'图标',
+  account:'账号',
+  link:'链接',
+  ExplanatoryNote:'注释',
+  content:'内容',
+  title:'标题',
+  sort:'排序',
+  MemberRebateRatio:'会员返点比例',
+  ThreePartyNames:'三方名称',
 }

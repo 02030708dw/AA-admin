@@ -52,7 +52,7 @@
         <el-input v-model="ruleForm.coin" />
       </el-form-item>
     
-      <el-form-item label="图标" prop="icon">
+      <el-form-item :label="$t('icon')" prop="icon">
         <el-upload 
         action="#"
         class="avatar-uploader" 

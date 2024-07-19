@@ -4,8 +4,8 @@
             :cell-style="{ 'text-align': 'center' }">
             <el-table-column prop="bankCode" label="银行编码" width="" />
             <el-table-column prop="bankName" label="银行名称" width="" />
-            <el-table-column prop="currency" label="币种" width="" />
-            <el-table-column prop="" label="图标" width="120">
+            <el-table-column prop="currency" :label="$t('Currency')" width="" />
+            <el-table-column prop="" :label="$t('icon')" width="120">
                 <template slot-scope="scope">
                     <div class="image_box">
                         <img :src="scope.row.icon" alt="">

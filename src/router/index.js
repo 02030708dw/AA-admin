@@ -157,7 +157,7 @@ export const constantRoutes = [
         path: 'WithdrawalBank',
         name: 'WithdrawalBank',
         component: () => import('@/views/financemag/WithdrawalBank/index'),
-        meta: { title: '提现银行管理', icon: 'el-icon-s-operation' }
+        meta: { title: 'WithdrawalBankManagement', icon: 'el-icon-s-operation' }
       }
     ]
   },
@@ -292,7 +292,7 @@ export const constantRoutes = [
         path: 'IP',
         name: 'IP',
         component: () => import('@/views/IP/index'),
-        meta: { title: 'IP管理', icon: 'el-icon-place' }
+        meta: { title: 'IPManagement', icon: 'el-icon-place' }
       }
     ]
   },

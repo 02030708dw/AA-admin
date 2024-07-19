@@ -50,7 +50,9 @@ export default {
     Firstrecharge: 'First recharge',
     Paymentinformation: 'Paymentinformation',
     ReceivingWeChataccount: 'Receiving WeChat account',
-    Incomeinformation: 'Incomeinformation'
+    Incomeinformation: 'Incomeinformation',
+    WithdrawalBankManagement:'Withdrawal Bank Management',
+    IPManagement:'IP management',
   },
   role: {
     permission: 'Permission'
@@ -322,7 +324,7 @@ export default {
   NumberofRechargers: 'Number of Rechargers',
   Totalamountofactivities: 'Total amount of activities',
   Memberrebateamount: 'Member rebate amount',
-  Detail: 'Detail'
+  Detail: 'Detail',
   // failedtoobtainavailablebalance:'failed to obtain available balance',
   // gamemerchantdoesnotexist:'game merchant does not exist',
   // insufficientavailablebalance:'insufficient available balance',
@@ -331,5 +333,18 @@ export default {
   // Theusernameorpasswordisincorrect:'The username or password is incorrect',
   // Theusersaccountisfrozen:'The user's account is frozen',
   // thischannelandcashAccountisexisted:'this channel and cash Account is existed',
-
+  MemberAccount: 'Member Account',
+  RebateRate: 'Rebate rate',
+  Withdrawalinformation: 'Withdrawal information',
+  area:'area',
+  IPAddress:'IP Address',
+  icon:'icon',
+  account:'account',
+  link:'Link',
+  ExplanatoryNote:' Explanatory Note',
+  content:'Content',
+  title:'Title',
+  sort:'Sort',
+  MemberRebateRatio:'Member Rebate Ratio',
+  ThreePartyNames: 'Three Party Names',
 }

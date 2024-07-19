@@ -7,13 +7,13 @@
       label-width="150px"
       class="demo-ruleForm"
     >
-      <el-form-item label="账号" prop="account">
+      <el-form-item :label="$t('account')" prop="account">
         <el-input v-model="ruleForm.account"></el-input>
       </el-form-item>
       <el-form-item label="调用地址" prop="apiUrl">
         <el-input v-model="ruleForm.apiUrl"></el-input>
       </el-form-item>
-      <el-form-item label="币种" prop="currency">
+      <el-form-item :label="$t('Currency')" prop="currency">
         <el-input v-model="ruleForm.currency"></el-input>
       </el-form-item>
       <el-form-item label="javaBean" prop="javaBean">
@@ -22,7 +22,7 @@
       <el-form-item label="秘钥" prop="secret">
         <el-input v-model="ruleForm.secret"></el-input>
       </el-form-item>
-      <el-form-item label="三方名称" prop="threeName">
+      <el-form-item :label="$t('ThreePartyNames')" prop="threeName">
         <el-input v-model="ruleForm.threeName"></el-input>
       </el-form-item>
     </el-form>
