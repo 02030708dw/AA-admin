@@ -55,16 +55,18 @@ export default {
         if (typeof this.img === 'string') {
             try {
                 let obj = JSON.parse(this.img);
+                let pictureInfos = []
                 if (typeof obj === 'object' && obj.length > 0) {
                     for (let i = 0; i < obj.length; i++) {
                         for (let j = 0; j < this.imageURL.length; j++) {
                             if (this.imageURL[j].language == obj[i].language) {
                                 this.imageURL[j].pictureUrl = obj[i].pictureUrl
+                                pictureInfos.push(obj[i])
                             }
                         }
                     }
-                    this.$emit("Upload", this.imageURL);
                 }
+                this.$emit("Upload", pictureInfos);
             } catch (error) {
                 console.log('pictureUrl不是JSON');
             }
