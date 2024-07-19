@@ -9,9 +9,9 @@
         </el-row>
         <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
             :cell-style="{ 'text-align': 'center' }">
-            <el-table-column prop="userName" label="username" />
-            <el-table-column prop="area" label="area" />
-            <el-table-column prop="ip" label="IPAddress" />
+            <el-table-column prop="userName" :label="$t('username')" />
+            <el-table-column prop="area" :label="$t('area')" />
+            <el-table-column prop="ip" :label="$t('IPAddress')" />
             <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="">
                 <template slot-scope="scope">
                     {{ $creationTime(scope.row.updatedAt) }}
@@ -47,7 +47,8 @@ export default {
             this.PageSize = e
             this.getdata()
         },
-        getdata() {
+        getdata(index) {
+            this.pageNo = index
             ipPage({ pageNo: this.pageNo, PageSize: this.PageSize, userName: this.userNamem, ip:this.ip}).then(res => {
                 this.tableData = res.resultSet.data
                 this.total = res.resultSet.total
