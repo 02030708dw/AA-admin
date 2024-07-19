@@ -63,6 +63,7 @@ export default {
                             }
                         }
                     }
+                    this.$emit("Upload", this.imageURL);
                 }
             } catch (error) {
                 console.log('pictureUrl不是JSON');
