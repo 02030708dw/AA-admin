@@ -47,7 +47,8 @@ export default {
             this.PageSize = e
             this.getdata()
         },
-        getdata() {
+        getdata(index) {
+            this.pageNo = index
             ipPage({ pageNo: this.pageNo, PageSize: this.PageSize, userName: this.userNamem, ip:this.ip}).then(res => {
                 this.tableData = res.resultSet.data
                 this.total = res.resultSet.total
