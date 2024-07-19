@@ -3,8 +3,8 @@
   <el-card shadow="never" style="border: 0px;">
     <!-- 顶部查询栏 -->
     <el-row style="margin-bottom: 10px;">
-      <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">刷新</el-button>
-      <el-button v-else type="success" icon="el-icon-loading" disabled>刷新</el-button>
+      <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh') }}</el-button>
+      <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
     </el-row>
     <!-- 表格 -->
     <el-card shadow="never">
@@ -15,7 +15,7 @@
         :header-cell-style="{ 'text-align': 'center' }"
         :cell-style="{ 'text-align': 'center' }"
       >
-        <el-table-column prop="gamerName" label="游戏商名称" width="" />
+        <el-table-column prop="gamerName" label="GameMerchantName" width="" />
         <el-table-column prop="balance" label="余额" width="" />
         <!-- <el-table-column prop="plugUrl" label="推广链接" width="" />
         <el-table-column prop="realName" label="真实姓名" width="" />

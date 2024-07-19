@@ -9,7 +9,7 @@
     >
       <el-table-column prop="channelName" :label="$t('Channelname')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
-      <el-table-column prop="currency" label="币种" width="" />
+      <el-table-column prop="currency" :label="$t('Currency')" width="" />
       <el-table-column  label="充值信息" width="500">
         <template slot-scope="scope">
           <div class="info_box">
@@ -37,7 +37,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" label="图标" width="120">
+      <el-table-column prop="" :label="$t('icon')" width="120">
         <template slot-scope="scope">
           <div class="image_box" v-if="scope.row.icon">
             <img :src="scope.row.icon" alt="">

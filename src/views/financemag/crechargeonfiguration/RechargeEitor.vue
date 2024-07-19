@@ -78,7 +78,7 @@
           :inactive-value="0"
         />
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
+      <el-form-item :label="$t('icon')" prop="icon">
         <el-upload 
         action="#"
         class="avatar-uploader" 

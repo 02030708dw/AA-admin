@@ -13,7 +13,7 @@
         :label="$t('WithdrawalchannelID')"
         width="280"
       />
-      <el-table-column prop="" label="提现信息" width="">
+      <el-table-column prop="" label="Withdrawalinformation" width="">
         <template slot-scope="scope">
           <div class="info_box">
             <div v-if="scope.row.bankName" class="item_box">
