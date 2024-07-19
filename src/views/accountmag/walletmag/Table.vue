@@ -13,7 +13,7 @@
             {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updatedAt" label="更新时间" />
+      <el-table-column prop="updatedAt" label="Updatetime" />
       <el-table-column prop="gamerCode" label="gamerCode" />
       <el-table-column prop="userName" label="userName" />
 

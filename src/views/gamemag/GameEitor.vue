@@ -33,7 +33,7 @@
       <el-form-item :label="$t('ThirdpartyID')" prop="threeId">
         <el-input v-model="ruleForm.threeId" />
       </el-form-item>
-      <el-form-item label="排序" prop="sort">
+      <el-form-item :label="$t('sort')" prop="sort">
         <el-input type='number' v-model="ruleForm.sort" />
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">

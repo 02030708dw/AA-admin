@@ -45,7 +45,7 @@
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"
-    >查询</el-button>
+    >{{ $t('query') }}</el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>

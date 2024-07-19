@@ -22,13 +22,13 @@
           <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="会员返点比例" prop="memberRate">
+      <el-form-item :label="$t('MemberRebateRatio')" prop="memberRate">
         <el-input v-model="ruleForm.memberRate" />
       </el-form-item>
       <el-form-item label="游戏商抽成比例" prop="rate">
         <el-input v-model="ruleForm.rate" />
       </el-form-item>
-      <el-form-item label="排序" prop="sort">
+      <el-form-item :label="$t('sort')" prop="sort">
         <el-input type='number' v-model="ruleForm.sort" />
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="types">

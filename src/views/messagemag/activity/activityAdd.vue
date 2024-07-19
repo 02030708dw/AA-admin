@@ -1,13 +1,13 @@
 <template>
   <el-dialog :title="$t('AddAnnouncementtype')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="标题" prop="title">
+      <el-form-item :label="$t('title')" prop="title">
         <el-input v-model="ruleForm.title" />
       </el-form-item>
-      <el-form-item label="内容" prop="content">
+      <el-form-item :label="$t('content')" prop="content">
         <el-input v-model="ruleForm.content"></el-input>
       </el-form-item>
-      <el-form-item label="类型" prop="type">
+      <el-form-item :label="$t('typesof')" prop="type">
         <el-radio v-model="ruleForm.type" :label="1" >体育</el-radio>
         <el-radio v-model="ruleForm.type" :label="2" >彩票</el-radio>
       </el-form-item>
