@@ -183,8 +183,17 @@ export default {
   methods: {
     //同步游戏图片
     getsynchronizePhotos(code){
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(255, 255, 255, 0.7)'
+      });
       synchronizePhotos(code).then(() => {
         this.$message.success('同步成功')
+        loading.close();
+      }).catch(()=>{
+        loading.close();
       })
     },
     // 删除事件
