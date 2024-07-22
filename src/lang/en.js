@@ -347,4 +347,5 @@ export default {
   sort:'Sort',
   MemberRebateRatio:'Member Rebate Ratio',
   ThreePartyNames: 'Three Party Names',
+  gamerCode:'gamerCode',
 }

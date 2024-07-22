@@ -10,7 +10,7 @@
       <el-table-column prop="id" :label="$t('id')" width="" />
       <el-table-column prop="threeName" :label="$t('ThreePartyNames')" width="" />
       <el-table-column prop="currency" :label="$t('Currency')" width="" />
-      <el-table-column prop="account" label="account" width="" />
+      <el-table-column prop="account" :label="$t('account')" width="" />
       <el-table-column prop="secret" label="秘钥" width="" />
       <el-table-column prop="apiUrl" label="调用地址" width="" />
       <el-table-column prop="javaBean" label="javaBean" width="" />
