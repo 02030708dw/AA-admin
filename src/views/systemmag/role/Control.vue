@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button type="primary" @click="getroleAdd()">新增</el-button>
+    <el-button v-has="'env:account'" type="primary" @click="getroleAdd()">新增</el-button>
     <!-- 条件筛选框 -->
     <el-input v-model="code" style="width: 200px;margin-left:10px;" :placeholder="$t('RoleCode')" />
     <el-input v-model="roleName" style="width: 200px;margin-left:10px;" :placeholder="$t('RoleName')" />
