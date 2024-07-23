@@ -45,7 +45,7 @@
           </el-checkbox-group>
         </el-form-item>
       </el-form> -->
-      <el-tree :data="authorityList" :default-checked-keys="authorityIds" node-key="id" show-checkbox
+      <el-tree ref="treeRef" :data="authorityList" :default-checked-keys="authorityIds" node-key="id" show-checkbox
         @check="checkChange" :props="{ children: 'children', label: 'authorityName' }
       "></el-tree>
       <div slot="footer" class="dialog-footer">
@@ -134,13 +134,14 @@ export default {
     },
     checkChange(data, node) {
       this.authorityIds = node.checkedKeys
-      console.log(this.authorityIds);
+      console.log(this.authorityIds,'this.authorityIds');
       console.log(node)
     },
     getconfirm() {
+      let authorityIds = [...this.authorityIds, ...this.$refs.treeRef.getHalfCheckedKeys()] //选中,半选中
       // 关闭弹窗
       this.dialogFormVisible = false;
-      this.$emit("roleAuthority", { authorityIds: this.authorityIds, roleId: this.roleId })
+      this.$emit("roleAuthority", { authorityIds, roleId: this.roleId })
     },
   }
 }
