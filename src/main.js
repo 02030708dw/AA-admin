@@ -15,6 +15,10 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+//v-has 按钮权限控制
+import hasPermissionbtn from '@/utils/hasPermissionbtn'
+Vue.use(hasPermissionbtn)
+
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 

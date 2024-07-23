@@ -56,3 +56,11 @@ export function addAssignment(data) {
     data
   })
 }
+
+// 获取当前登录用户权限信息
+export function allByUser() {
+  return request({
+    url: '/sys/authority/allByUser',
+    method: 'get',
+  })
+}

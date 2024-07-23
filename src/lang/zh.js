@@ -345,4 +345,5 @@ export default {
   sort:'排序',
   MemberRebateRatio:'会员返点比例',
   ThreePartyNames:'三方名称',
+  gamerCode:'游戏商编码'
 }
