@@ -13,9 +13,9 @@
             {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updatedAt" label="Updatetime" />
-      <el-table-column prop="gamerCode" label="gamerCode" />
-      <el-table-column prop="userName" label="userName" />
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" />
+      <el-table-column prop="gamerCode" :label="$t('gamerCode')" />
+      <el-table-column prop="userName" :label="$t('username')" />
 
       <!-- 折叠面板 -->
       <el-table-column width="450">

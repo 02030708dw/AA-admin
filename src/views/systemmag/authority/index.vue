@@ -49,7 +49,7 @@ export default {
       // 页码
       pageNo: 1,
       tableData: [],
-      PagesSize: 20
+      PagesSize: 200
     }
   },
   created() {

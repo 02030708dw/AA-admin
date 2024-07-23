@@ -13,9 +13,9 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
         <template slot-scope="scope">
-            {{ $creationTime(scope.row.createdAt) }}
+          {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
       <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="180" />
@@ -36,7 +36,7 @@
       </el-table-column>
     </el-table>
     <el-dialog width="50%" :title="$t('addpermission')" :visible.sync="dialogFormVisible">
-      <el-form>
+      <!-- <el-form>
         <el-form-item :label="$t('route.RightsManagement')">
           <el-checkbox-group v-model="authorityIds">
             <el-checkbox v-for="(item, index) in authorityList" :key="index" :label="item.id">
@@ -44,7 +44,10 @@
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-      </el-form>
+      </el-form> -->
+      <el-tree :data="authorityList" :default-checked-keys="authorityIds" node-key="id" show-checkbox
+        @check="checkChange" :props="{ children: 'children', label: 'authorityName' }
+      "></el-tree>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" :loading="loading" @click="getconfirm">确 定</el-button>
@@ -115,18 +118,29 @@ export default {
       getAuthorityTtree(item.id).then(res => {
         this.authorityList = res.resultSet
         let authorityIds = []
-        res.resultSet.forEach(v=>{
-            if(v.isCheck){
-              authorityIds.push(v.id)
-            }
-          })
+        res.resultSet.forEach(v => {
+          if (v.children.length > 0) {
+            v.children.forEach(v => {
+              if (v.isCheck) {
+                authorityIds.push(v.id)
+              }
+            })
+          } else if (v.isCheck) {
+            authorityIds.push(v.id)
+          }
+        })
         this.authorityIds = authorityIds
       })
+    },
+    checkChange(data, node) {
+      this.authorityIds = node.checkedKeys
+      console.log(this.authorityIds);
+      console.log(node)
     },
     getconfirm() {
       // 关闭弹窗
       this.dialogFormVisible = false;
-      this.$emit("roleAuthority", { authorityIds:this.authorityIds,roleId:this.roleId })
+      this.$emit("roleAuthority", { authorityIds: this.authorityIds, roleId: this.roleId })
     },
   }
 }
