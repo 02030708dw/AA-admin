@@ -34,6 +34,9 @@
       <el-form-item :label="$t('ParentnodeID')" prop="parentId">
         <el-input v-model="ruleForm.parentId"></el-input>
       </el-form-item>
+      <el-form-item label="地址" prop="menuUrl">
+        <el-input v-model="ruleForm.menuUrl"></el-input>
+      </el-form-item>
       <el-form-item :label="$t('Notes')" prop="remark">
         <el-input v-model="ruleForm.remark"></el-input>
       </el-form-item>
@@ -68,6 +71,7 @@ export default {
         remark: "",
         status: 0,
         type: null,
+        menuUrl:''
       },
       //权限类型
       Authoritytype: [
@@ -87,6 +91,9 @@ export default {
         status: [
           { required: true, message: "请选择权限类型", trigger: "blur" },
         ],
+        menuUrl: [
+          { required: true, message: "请输入地址", trigger: "blur" },
+        ],
       },
     };
   },
@@ -103,6 +110,7 @@ export default {
           remark: "",
           status: 0,
           type: null,
+          menuUrl:'',
         };
       } else {
         this.ruleForm = { ...data };

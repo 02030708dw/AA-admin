@@ -1,4 +1,4 @@
-import router from './router'
+import router, { newRouter,constantRoutes } from './router'
 // import { newRouter, asyncRoutes } from './router'
 import store from './store'
 import { Message } from 'element-ui'
@@ -24,34 +24,46 @@ router.beforeEach(async (to, from, next) => {
   if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
+      store.commit('permission/RESET_STATE')
       next({ path: '/' })
       NProgress.done()
     } else {
-      const hasGetUserInfo = store.getters.userObj
-      console.log('name', Object.values(hasGetUserInfo).length)
-      if (Object.values(hasGetUserInfo).length > 0 || true) {
-        console.log('you');
+      // const hasGetUserInfo = store.getters.userObj
+      const hasRoles = store.getters.routes && store.getters.routes.length > 0
+      // const hasRoles = store.state.permission.roles && store.state.permission.roles.lenght > 0
+      if (hasRoles) {
         next()
       } else {
         try {
-          // get user info
-          await store.dispatch('user/getInfo')
-            .then(res => {
-              console.log(res)
-              // 权限处理
-              // if (res.userObj.roles === 'admin') {
-              // newRouter(asyncRoutes)
-              // }
-
-              next({ ...to, replace: true })
-            })
+          const roles = await store.dispatch("permission/getRouter");
+          const accessRoutes = await store.dispatch("permission/generateRoutes", roles);
+          newRouter(accessRoutes);
+          next({ ...to, replace: true });
         } catch (error) {
-          // remove token and go to login page to re-login
-          await store.dispatch('user/resetToken')
+          await store.dispatch('user/logout')
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)
-          NProgress.done()
+          NProgress.done();
         }
+        // try {
+        //   // get user info
+        //   await store.dispatch('user/getInfo')
+        //     .then(res => {
+        //       console.log(res)
+        //       // 权限处理
+        //       // if (res.userObj.roles === 'admin') {
+        //       // newRouter(asyncRoutes)
+        //       // }
+
+        //       next({ ...to, replace: true })
+        //     })
+        // } catch (error) {
+        //   // remove token and go to login page to re-login
+        //   await store.dispatch('user/resetToken')
+        //   Message.error(error || 'Has Error')
+        //   next(`/login?redirect=${to.path}`)
+        //   NProgress.done()
+        // }
       }
     }
   } else {

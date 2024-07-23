@@ -8,9 +8,9 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
-      <el-table-column prop="userName" label="MemberAccount" width="" />
-      <el-table-column prop="gamerName" label="GameMerchantName" width="" />
-      <el-table-column prop="rate" label="RebateRate" width="" />
+      <el-table-column prop="userName" :label="$t('MemberAccount')" width="" />
+      <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
+      <el-table-column prop="rate" :label="$t('RebateRate')" width="" />
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
           <el-button

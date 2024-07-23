@@ -2,7 +2,7 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken, getTokenPrefix, getTokenHeader, getLange, removeToken } from '@/utils/auth'
-import router from '@/router/index'
+import router, { resetRouter } from '@/router/index'
 
 // create an axios instance
 const service = axios.create({
@@ -55,6 +55,7 @@ service.interceptors.response.use(
       if (res.resCode === '000104') {
         // token验证失效，后端回传未登录
         removeToken()
+        resetRouter()
         router.push('/login')
         // useRouter().push('/login')
       }
