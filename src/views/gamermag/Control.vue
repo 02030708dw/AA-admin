@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button type="primary" @click="getgamerAdd()">{{
+    <el-button v-has="'gamer:add'" type="primary" @click="getgamerAdd()">{{
       $t("increase")
     }}</el-button>
         <el-select
@@ -29,6 +29,7 @@
       />
     </el-select>
     <el-button
+      v-has="'gamer:page'"
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"

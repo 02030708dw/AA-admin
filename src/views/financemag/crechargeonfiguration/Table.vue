@@ -55,6 +55,7 @@
         <template slot-scope="scope">
           <div>
             <el-switch
+              v-has="'crechargeonfiguration:status'"
               v-model="scope.row.status"
               active-color="#13ce66"
               :active-value="1"
@@ -73,11 +74,12 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button type="text" @click="geteroleEitor(scope.row)">{{
+          <el-button v-has="'crechargeonfiguration:edit'" type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
 
           <el-button
+            v-has="'crechargeonfiguration:del'"
             slot="reference"
             type="text"
             style="color: red"

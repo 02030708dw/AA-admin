@@ -37,11 +37,12 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button type="text" @click="geteroleEitor(scope.row)">{{
+          <el-button v-has="'Currency:edit'" type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
 
           <el-button
+            v-has="'Currency:del'" 
             slot="reference"
             type="text"
             style="color: red"

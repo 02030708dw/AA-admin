@@ -33,7 +33,7 @@
 
       <el-table-column :label="$t('operate')" width="200">
         <template v-slot="{ row }">
-          <el-button type="text" style="color: #ff0000" @click="getCreate(row)">
+          <el-button v-has="'wallet:create'" type="text" style="color: #ff0000" @click="getCreate(row)">
             重新创建
           </el-button>
         </template>

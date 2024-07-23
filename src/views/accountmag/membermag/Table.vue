@@ -26,7 +26,7 @@
               {{ $creationTime(scope.row.createdAt) }}
           </template>
         </el-table-column>
-      <el-table-column prop="" :label="$t('state')" width="">
+      <el-table-column v-has="'membermag:status'" prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
             <el-switch
@@ -41,17 +41,17 @@
       </el-table-column>
       <el-table-column prop="" label="会员信息" width="">
         <template slot-scope="scope">
-          <el-button type="text" @click="MemberInfo(scope.row)">会员详情</el-button>
+          <el-button  v-has="'membermag:resetPwd'" type="text" @click="MemberInfo(scope.row)">会员详情</el-button>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <el-button type="text" @click="Membershiptransfer(scope.row)">{{
+          <el-button v-has="'membermag:memberTransfer'" type="text" @click="Membershiptransfer(scope.row)">{{
             $t("Membershiptransfer")
           }}</el-button>
-          <el-button type="text" @click="MemberresettingPwd(scope.row)">重置密码</el-button>
-          <el-button type="text" @click="MemberUpdatebalance(scope.row)">余额加减</el-button>
-          <el-button type="text" @click="Proxytransfer(scope.row)">{{
+          <el-button v-has="'membermag:resetPwd'" type="text" @click="MemberresettingPwd(scope.row)">重置密码</el-button>
+          <el-button v-has="'membermag:changeBalance'" type="text" @click="MemberUpdatebalance(scope.row)">余额加减</el-button>
+          <el-button v-has="'membermag:agentTransfer'" type="text" @click="Proxytransfer(scope.row)">{{
             $t("Proxytransfer")
           }}</el-button>
         </template>

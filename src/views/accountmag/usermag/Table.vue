@@ -11,10 +11,11 @@
       <el-table-column prop="userName" :label="$t('name')" width="" />
      
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
-      <el-table-column prop="" :label="$t('state')" width="">
+      <el-table-column  prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
             <el-switch
+              v-has="'user:status'"
               v-model="scope.row.status"
               active-color="#13ce66"
               :active-value="1"
@@ -30,11 +31,13 @@
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
           <el-button
+            v-has="'user:edit'"
             type="text"
             style="color: #e6a23c"
             @click="getEitor(scope.row)"
           >{{ $t("edit") }}</el-button>
           <el-button
+            v-has="'user:del'"
             type="text"
             style="color: red"
             @click="getdel(scope.row.id)"

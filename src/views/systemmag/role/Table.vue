@@ -5,8 +5,8 @@
       <el-table-column type="index" :label="$t('SerialNumber')" width="120" />
       <el-table-column prop="roleName" :label="$t('RoleName')" width="" />
       <el-table-column prop="code" :label="$t('RoleCode')" width="" />
-      <el-table-column prop="" :label="$t('state')" width="">
-        <template slot-scope="scope">
+      <el-table-column prop="" :label="$t('state')" width="" v-has="'role:status'">
+        <template slot-scope="scope" >
           <div>
             <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
               active-text="启用" inactive-text="停用" @change="getupdateStatus($event, scope.row.id)" />
@@ -26,11 +26,11 @@
           <el-button type="text" @click="geterolePermission(scope.row)">
             绑定权限
           </el-button>
-          <el-button type="text" @click="geteroleEitor(scope.row)">
+          <el-button v-has="'role:edit'" type="text" @click="geteroleEitor(scope.row)">
             {{ $t("edit") }}
           </el-button>
           <!-- <el-button type="text" style="color: #e6a23c">权限</el-button> -->
-          <el-button slot="reference" type="text" style="color: red" @click="getroledel(scope.row.id)">{{ $t("delete")
+          <el-button v-has="'role:del'" slot="reference" type="text" style="color: red" @click="getroledel(scope.row.id)">{{ $t("delete")
             }}</el-button>
         </template>
       </el-table-column>

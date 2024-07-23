@@ -25,12 +25,14 @@
           <el-button
             type="text"
             style="color: #e6a23c"
+            v-has="'thirdpartypayment:edit'"
             @click="getEitor(scope.row)"
             >{{ $t("edit") }}</el-button
           >
           <el-button
             type="text"
             style="color: red"
+            v-has="'thirdpartypayment:del'"
             @click="getdel(scope.row.id)"
             >{{ $t("delete") }}</el-button
           >

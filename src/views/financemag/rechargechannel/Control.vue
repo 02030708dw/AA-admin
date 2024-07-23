@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button v-has="'rechargechannel:add'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
     <!-- 条件查询 -->
     <!-- <el-input
       v-model="name"
@@ -45,6 +45,7 @@
     </el-select>
     <!-- 条件查询按钮 -->
     <el-button
+      v-has="'rechargechannel:page'"
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"

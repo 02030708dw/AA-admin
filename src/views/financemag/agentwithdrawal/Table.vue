@@ -68,9 +68,9 @@
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">查看详情</el-button>
-          <el-button v-if="scope.row.aduitStatus === 0" type="text" @click="HandelOption(scope.row.id,1)">{{ $t('passthrough') }}</el-button>
-          <el-button v-if="scope.row.aduitStatus === 0" type="text" style="color:red;" @click="HandelOption(scope.row.id,2)">{{ $t('reject') }}</el-button>
-          <el-button v-if="scope.row.aduitStatus === 0" type="text" style="color: black;" @click="HandelOption(scope.row.id,3)"> {{ $t('cancellation') }}</el-button>
+          <el-button v-has="'agentwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" @click="HandelOption(scope.row.id,1)">{{ $t('passthrough') }}</el-button>
+          <el-button v-has="'agentwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color:red;" @click="HandelOption(scope.row.id,2)">{{ $t('reject') }}</el-button>
+          <el-button v-has="'agentwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: black;" @click="HandelOption(scope.row.id,3)"> {{ $t('cancellation') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
