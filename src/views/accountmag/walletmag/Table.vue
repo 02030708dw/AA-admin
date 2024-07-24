@@ -12,7 +12,11 @@
             {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updatedAt" :label="$t('Updatetime')" />
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.updatedAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="gamerCode" :label="$t('gamerCode')" />
       <el-table-column prop="userName" :label="$t('username')" />
 
