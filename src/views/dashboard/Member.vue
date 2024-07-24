@@ -3,7 +3,7 @@
     <div slot="header" class="clearfix">
       <el-row style="display: flex; align-items: center">
         <el-col :span="12" style="font-size: 24px">会员报表</el-col>
-        <el-col :span="6" :offset="1">
+        <el-col :offset="1">
           <!-- 时间选择 -->
           <el-date-picker
             v-model="value"
@@ -79,15 +79,20 @@ export default {
     getDateData() {
       const currentDate = new Date()
       const endDate =
-          currentDate.getFullYear() +
-          '-' +
-          (currentDate.getMonth() + 1) +
-          '-' +
-          currentDate.getDate()
+            currentDate.getFullYear() +
+            '-' +
+            (currentDate.getMonth() + 1 < 10
+          ? '0' + (currentDate.getMonth() + 1)
+          : currentDate.getMonth() + 1) +
+            '-' +
+            currentDate.getDate()
       const date = new Date(currentDate.getTime()) // 使用相同的时间，但改变日期
       date.setDate(date.getDate() - 6) // 将日期设置为前6天
-      const startDate =
-          date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+      const startDate =date.getFullYear() +
+        '-' +
+        (date.getMonth() + 1 < 10
+          ? '0' + (date.getMonth() + 1)
+          : date.getMonth() + 1) + '-' + date.getDate()
       // 请求数据
       this.getdailydata(startDate, endDate)
       this.value = [startDate, endDate]
