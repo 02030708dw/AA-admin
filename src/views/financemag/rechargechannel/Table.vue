@@ -9,7 +9,6 @@
     >
       <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
       <el-table-column prop="name" :label="$t('Channelname')" width="" />
-      <el-table-column prop="id" :label="$t('ChannelID')" width="" />
       <el-table-column prop="" :label="$t('Channeltype')" width="">
         <template slot-scope="scope">
           <div>

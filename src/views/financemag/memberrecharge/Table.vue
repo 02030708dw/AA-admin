@@ -7,7 +7,6 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column prop="id" label="ID" width="" />
       <el-table-column prop="" :label="$t('Membername')" width="">
         <template slot-scope="scope">
           <div class="MemberName_box">

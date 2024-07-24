@@ -7,13 +7,17 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
+      <el-table-column type="index" :label="$t('SerialNumber')" width="100" />
       <el-table-column
         prop="title"
         :label="$t('AnnouncementTitle')"
-        width="350"
+        width="250"
       />
-      <el-table-column prop="createdAt" :label="$t('Updatetime')" width="350" />
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.updatedAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="status" :label="$t('PublishRevoke')" width="300">
         <template slot-scope="scope">
           <div>

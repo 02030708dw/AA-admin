@@ -7,7 +7,6 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column prop="id" :label="$t('id')" />
       <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
         <template slot-scope="scope">
             {{ $creationTime(scope.row.createdAt) }}

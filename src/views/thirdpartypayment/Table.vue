@@ -7,7 +7,6 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column prop="id" :label="$t('id')" width="" />
       <el-table-column prop="threeName" :label="$t('ThreePartyNames')" width="" />
       <el-table-column prop="currency" :label="$t('Currency')" width="" />
       <el-table-column prop="account" :label="$t('account')" width="" />

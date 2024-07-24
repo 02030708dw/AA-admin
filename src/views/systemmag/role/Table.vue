@@ -6,7 +6,7 @@
       <el-table-column prop="roleName" :label="$t('RoleName')" width="" />
       <el-table-column prop="code" :label="$t('RoleCode')" width="" />
       <el-table-column prop="" :label="$t('state')" width="" v-has="'role:status'">
-        <template slot-scope="scope" >
+        <template slot-scope="scope">
           <div>
             <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
               active-text="启用" inactive-text="停用" @change="getupdateStatus($event, scope.row.id)" />
@@ -18,7 +18,11 @@
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="180" />
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="180">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row.updatedAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="updater" :label="$t('Updatedby')" width="180" />
       <el-table-column prop="remark" :label="$t('notes')" width="180" />
       <el-table-column prop="" :label="$t('operate')" width="200">
@@ -30,7 +34,8 @@
             {{ $t("edit") }}
           </el-button>
           <!-- <el-button type="text" style="color: #e6a23c">权限</el-button> -->
-          <el-button v-has="'role:del'" slot="reference" type="text" style="color: red" @click="getroledel(scope.row.id)">{{ $t("delete")
+          <el-button v-has="'role:del'" slot="reference" type="text" style="color: red"
+            @click="getroledel(scope.row.id)">{{ $t("delete")
             }}</el-button>
         </template>
       </el-table-column>
@@ -117,24 +122,22 @@ export default {
 
       getAuthorityTtree(item.id).then(res => {
         this.authorityList = res.resultSet
-        let authorityIds = []
-        res.resultSet.forEach(v => {
-          if (v.children.length > 0) {
-            v.children.forEach(v => {
-              if (v.isCheck) {
-                authorityIds.push(v.id)
-              }
-            })
-          } else if (v.isCheck) {
-            authorityIds.push(v.id)
-          }
-        })
-        this.authorityIds = authorityIds
+        this.getAuthorityIds(this.authorityList)
+      })
+    },
+    // 获取权限
+    getAuthorityIds(item) {
+      item.forEach(v => {
+        if (v.children && v.children.length > 0) {
+          this.getAuthorityIds(v.children)
+        } else if (v.isCheck) {
+          this.authorityIds.push(v.id)
+        }
       })
     },
     checkChange(data, node) {
       this.authorityIds = node.checkedKeys
-      console.log(this.authorityIds,'this.authorityIds');
+      console.log(this.authorityIds, 'this.authorityIds');
       console.log(node)
     },
     getconfirm() {

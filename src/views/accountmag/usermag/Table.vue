@@ -1,47 +1,35 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
-      <el-table-column prop="id" :label="$t('id')" width="" />
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="userName" :label="$t('name')" width="" />
-     
+
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
-      <el-table-column  prop="" :label="$t('state')" width="">
+      <el-table-column prop="telPhone" :label="$t('Creationtime')" width="">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="telPhone" :label="$t('Updatetime')" width="">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row.updatedAt) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch
-              v-has="'user:status'"
-              v-model="scope.row.status"
-              active-color="#13ce66"
-              :active-value="1"
-              :inactive-value="0"
-              active-text="启用"
-              inactive-text="停用"
-              @change="getupdateStatus($event, scope.row.id)"
-            />
+            <el-switch v-has="'user:status'" v-model="scope.row.status" active-color="#13ce66" :active-value="1"
+              :inactive-value="0" active-text="启用" inactive-text="停用" @change="getupdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
 
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <el-button
-            v-has="'user:edit'"
-            type="text"
-            style="color: #e6a23c"
-            @click="getEitor(scope.row)"
-          >{{ $t("edit") }}</el-button>
-          <el-button
-            v-has="'user:del'"
-            type="text"
-            style="color: red"
-            @click="getdel(scope.row.id)"
-          >{{ $t("delete") }}</el-button>
+          <el-button v-has="'user:edit'" type="text" style="color: #e6a23c" @click="getEitor(scope.row)">{{ $t("edit")
+            }}</el-button>
+          <el-button v-has="'user:del'" type="text" style="color: red" @click="getdel(scope.row.id)">{{ $t("delete")
+            }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -95,5 +83,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>
