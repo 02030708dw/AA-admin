@@ -7,17 +7,22 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
+      <el-table-column type="index" :label="$t('SerialNumber')" width="100" />
       <el-table-column
         prop="title"
         :label="$t('AnnouncementTitle')"
-        width="350"
+        width="250"
       />
-      <el-table-column prop="createdAt" :label="$t('Updatetime')" width="350" />
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.updatedAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="status" :label="$t('PublishRevoke')" width="300">
         <template slot-scope="scope">
           <div>
             <el-switch
+              v-has="'noticemag:status'"
               v-model="scope.row.status"
               active-color="#13ce66"
               :active-value="1"
@@ -37,12 +42,14 @@
       <el-table-column prop="" :label="$t('operate')" width="280">
         <template slot-scope="scope">
           <el-button
+            v-has="'noticemag:edit'"
             type="text"
             style="color: #e6a23c"
             @click="getEitor(scope.row)"
           >{{ $t("edit") }}</el-button>
 
           <el-button
+            v-has="'noticemag:del'"
             slot="reference"
             type="text"
             style="color: red"

@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button v-has="'withdrawalchannel:add'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
     <!-- <el-input
       v-model="name"
       style="width: 200px; margin-left: 10px"
@@ -43,6 +43,7 @@
       />
     </el-select>
     <el-button
+      v-has="'withdrawalchannel:page'"
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"

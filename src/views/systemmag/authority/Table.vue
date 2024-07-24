@@ -28,7 +28,7 @@
       </el-table-column>
       <el-table-column prop="remark" :label="$t('Notes')" width="200" />
 
-      <el-table-column prop="" :label="$t('state')" width="150">
+      <el-table-column prop="" v-has="'authority:status'" :label="$t('state')" width="150">
         <template slot-scope="scope">
           <div>
             <el-switch
@@ -45,10 +45,11 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <el-button type="text" @click="geteroleEitor(scope.row)">{{
+          <el-button v-has="'authority:edit'" type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
           <el-button
+          v-has="'authority:del'"
             slot="reference"
             type="text"
             style="color: red"

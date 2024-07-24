@@ -28,8 +28,8 @@
             </el-table-column>
             <el-table-column prop="" :label="$t('operate')" width="">
                 <template slot-scope="scope">
-                    <el-button type="text" @click="geteroleEitor(scope.row)">{{ $t("edit") }}</el-button>
-                    <el-button slot="reference" type="text" style="color: red" @click="getroledel(scope.row.id)">{{
+                    <el-button v-has="'WithdrawalBank:edit'" type="text" @click="geteroleEitor(scope.row)">{{ $t("edit") }}</el-button>
+                    <el-button v-has="'WithdrawalBank:del'" slot="reference" type="text" style="color: red" @click="getroledel(scope.row.id)">{{
                         $t("delete") }}</el-button>
                 </template>
             </el-table-column>

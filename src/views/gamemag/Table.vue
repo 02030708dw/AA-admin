@@ -23,6 +23,7 @@
         <template slot-scope="scope">
           <div>
             <el-switch
+              v-has="'game:setHot'"
               v-model="scope.row.isHot"
               :active-text="$t('Popular')"
               :inactive-text="$t('ordinary')"
@@ -38,6 +39,7 @@
         <template slot-scope="scope">
           <div>
             <el-select
+              v-has="'game:status'"
               v-model="scope.row.status"
               :placeholder="$t('state')"
               style="width: 150px;margin-left: 10px"
@@ -60,11 +62,12 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <el-button type="text" @click="getEitor(scope.row)">{{
+          <el-button v-has="'game:edit'" type="text" @click="getEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
 
           <el-button
+            v-has="'game:del'"
             slot="reference"
             type="text"
             style="color: red"

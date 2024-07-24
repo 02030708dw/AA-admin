@@ -5,7 +5,7 @@
       <el-table-column type="index" :label="$t('SerialNumber')" width="120" />
       <el-table-column prop="roleName" :label="$t('RoleName')" width="" />
       <el-table-column prop="code" :label="$t('RoleCode')" width="" />
-      <el-table-column prop="" :label="$t('state')" width="">
+      <el-table-column prop="" :label="$t('state')" width="" v-has="'role:status'">
         <template slot-scope="scope">
           <div>
             <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
@@ -18,7 +18,11 @@
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="180" />
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="180">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row.updatedAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="updater" :label="$t('Updatedby')" width="180" />
       <el-table-column prop="remark" :label="$t('notes')" width="180" />
       <el-table-column prop="" :label="$t('operate')" width="200">
@@ -26,11 +30,12 @@
           <el-button type="text" @click="geterolePermission(scope.row)">
             绑定权限
           </el-button>
-          <el-button type="text" @click="geteroleEitor(scope.row)">
+          <el-button v-has="'role:edit'" type="text" @click="geteroleEitor(scope.row)">
             {{ $t("edit") }}
           </el-button>
           <!-- <el-button type="text" style="color: #e6a23c">权限</el-button> -->
-          <el-button slot="reference" type="text" style="color: red" @click="getroledel(scope.row.id)">{{ $t("delete")
+          <el-button v-has="'role:del'" slot="reference" type="text" style="color: red"
+            @click="getroledel(scope.row.id)">{{ $t("delete")
             }}</el-button>
         </template>
       </el-table-column>
@@ -45,7 +50,7 @@
           </el-checkbox-group>
         </el-form-item>
       </el-form> -->
-      <el-tree :data="authorityList" :default-checked-keys="authorityIds" node-key="id" show-checkbox
+      <el-tree ref="treeRef" :data="authorityList" :default-checked-keys="authorityIds" node-key="id" show-checkbox
         @check="checkChange" :props="{ children: 'children', label: 'authorityName' }
       "></el-tree>
       <div slot="footer" class="dialog-footer">
@@ -117,30 +122,29 @@ export default {
 
       getAuthorityTtree(item.id).then(res => {
         this.authorityList = res.resultSet
-        let authorityIds = []
-        res.resultSet.forEach(v => {
-          if (v.children.length > 0) {
-            v.children.forEach(v => {
-              if (v.isCheck) {
-                authorityIds.push(v.id)
-              }
-            })
-          } else if (v.isCheck) {
-            authorityIds.push(v.id)
-          }
-        })
-        this.authorityIds = authorityIds
+        this.getAuthorityIds(this.authorityList)
+      })
+    },
+    // 获取权限
+    getAuthorityIds(item) {
+      item.forEach(v => {
+        if (v.children && v.children.length > 0) {
+          this.getAuthorityIds(v.children)
+        } else if (v.isCheck) {
+          this.authorityIds.push(v.id)
+        }
       })
     },
     checkChange(data, node) {
       this.authorityIds = node.checkedKeys
-      console.log(this.authorityIds);
+      console.log(this.authorityIds, 'this.authorityIds');
       console.log(node)
     },
     getconfirm() {
+      let authorityIds = [...this.authorityIds, ...this.$refs.treeRef.getHalfCheckedKeys()] //选中,半选中
       // 关闭弹窗
       this.dialogFormVisible = false;
-      this.$emit("roleAuthority", { authorityIds: this.authorityIds, roleId: this.roleId })
+      this.$emit("roleAuthority", { authorityIds, roleId: this.roleId })
     },
   }
 }

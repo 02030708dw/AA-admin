@@ -1,7 +1,7 @@
 <template>
     <el-row style="padding-bottom: 10px">
         <!-- 新增按钮 -->
-        <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+        <el-button v-has="'WithdrawalBank:add'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
         <!-- 银行编码 -->
         <el-input v-model="bankCode" style="width: 180px; margin-left: 10px" placeholder="请输入银行编码" />
         <!-- 银行名称 -->
@@ -12,7 +12,7 @@
             <el-option :value="1" label="启用" />
         </el-select>
         <!-- 查询 -->
-        <el-button style="margin-left: 10px" type="primary" @click="getquery()">
+        <el-button v-has="'WithdrawalBank:page'" style="margin-left: 10px" type="primary" @click="getquery()">
             {{ $t("query") }}
         </el-button>
         <!-- 重置 -->
