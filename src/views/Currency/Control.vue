@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button v-has="'Currency:add'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
     <el-input
       v-model="Currency"
       style="width: 200px; margin-left: 10px"
@@ -19,6 +19,7 @@
       />
     </el-select>
     <el-button
+      v-has="'Currency:page'"
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"

@@ -42,6 +42,7 @@
     </el-select>
 
     <el-button
+      v-has="'memberwithdrawal:page'"
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"

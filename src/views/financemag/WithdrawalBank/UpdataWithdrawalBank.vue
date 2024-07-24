@@ -25,9 +25,6 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
-            <el-form-item label="状态" prop="">
-                <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
-            </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button @click="HandelChange()">{{ $t("cancellation") }}</el-button>

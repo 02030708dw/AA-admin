@@ -7,7 +7,6 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column prop="id" :label="$t('id')" width="" />
       <el-table-column prop="threeName" :label="$t('ThreePartyNames')" width="" />
       <el-table-column prop="currency" :label="$t('Currency')" width="" />
       <el-table-column prop="account" :label="$t('account')" width="" />
@@ -25,12 +24,14 @@
           <el-button
             type="text"
             style="color: #e6a23c"
+            v-has="'thirdpartypayment:edit'"
             @click="getEitor(scope.row)"
             >{{ $t("edit") }}</el-button
           >
           <el-button
             type="text"
             style="color: red"
+            v-has="'thirdpartypayment:del'"
             @click="getdel(scope.row.id)"
             >{{ $t("delete") }}</el-button
           >

@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <Control ref="ControlView" @CurrencyAdd="getCurrencyAddShow" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
-    <Table ref="TableView" :table-data="tableData" @delete="getDel" @eitor="getCurrencyEditShow" />
+    <Table ref="TableView" :table-data="tableData" @delete="getDel" @eitor="getCurrencyEditShow" @UdateStatus="getCurrencyEdit"/>
     <Pagination
       :total="total"
       @PageSizeChange="HandelPagesChange"
@@ -139,8 +139,7 @@ export default {
       }).catch(() => {
         this.$message.error('编辑失败!')
       })
-    }
-
+    },
   }
 }
 </script>

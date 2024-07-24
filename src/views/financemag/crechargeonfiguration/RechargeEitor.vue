@@ -71,13 +71,13 @@
       <el-form-item v-if="ruleForm.type === 3" :label="$t('Virtualcoinaddress')" prop="coin">
         <el-input v-model="ruleForm.coin" />
       </el-form-item>
-      <el-form-item :label="$t('state')" prop="status">
+      <!-- <el-form-item :label="$t('state')" prop="status">
         <el-switch
           v-model="ruleForm.status"
           :active-value="1"
           :inactive-value="0"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item :label="$t('icon')" prop="icon">
         <el-upload 
         action="#"

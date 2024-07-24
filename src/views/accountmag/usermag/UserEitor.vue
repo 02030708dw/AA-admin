@@ -14,13 +14,6 @@
       <el-form-item :label="$t('phone')" prop="telPhone">
         <el-input v-model="ruleForm.telPhone"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          :active-value="1"
-          :inactive-value="0"
-          v-model="ruleForm.status"
-        ></el-switch>
-      </el-form-item>
       <el-form-item :label="$t('route.rolemanage')" prop="status">
         <el-checkbox-group v-model="ruleForm.roleIdS">
               <el-checkbox v-for="item in roleIdSList" :key="item.id" :label="item.id">

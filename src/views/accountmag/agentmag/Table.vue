@@ -30,9 +30,9 @@
         width=""
       />
 
-      <el-table-column prop="" :label="$t('state')" width="200">
+      <el-table-column v-has="'agent:status'" prop="" :label="$t('state')" width="200">
         <template slot-scope="scope">
-          <div>
+          <div >
             <el-switch
               v-model="scope.row.status"
               active-color="#13ce66"
@@ -48,7 +48,7 @@
 
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button type="text" @click="geteroleEitor(scope.row)">{{
+          <el-button v-has="'agent:transfer'" type="text" @click="geteroleEitor(scope.row)">{{
             $t("Transfersubordinateagents")
           }}</el-button>
         </template>

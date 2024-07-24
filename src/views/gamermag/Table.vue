@@ -62,6 +62,7 @@
         <template slot-scope="scope">
           <div>
             <el-select
+              v-has="'gamer:status'"
               v-model="scope.row.status"
               :placeholder="$t('state')"
               style="width: 150px;margin-left: 10px"
@@ -84,22 +85,24 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button type="text" style="color: #85ce61" @click="geteroleAdd(scope.row.name,scope.row.id)">{{
+          <el-button v-has="'gamer:createGamerUser'" type="text" style="color: #85ce61" @click="geteroleAdd(scope.row.name,scope.row.id)">{{
             $t("increase")
           }}</el-button>
-          <el-button type="text" @click="geteroleEitor(scope.row)">{{
+          <el-button v-has="'gamer:edit'" type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
-          <el-button type="text" @click="getsynchronizePhotos(scope.row.code)">
+          <el-button v-has="'gamer:synchronizePhotos'" type="text" @click="getsynchronizePhotos(scope.row.code)">
             同步游戏图片
           </el-button>
           <el-button
+            v-has="'gamer:bingType'"
             slot="reference"
             type="text"
             style="color: #4c8e75"
             @click="getbind(scope.row.id,scope.row.typeList)"
           >{{ $t("Bindgametypes") }}</el-button>
           <el-button
+            v-has="'gamer:del'"
             slot="reference"
             type="text"
             style="color: red"

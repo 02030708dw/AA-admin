@@ -23,25 +23,28 @@
             {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column
-        prop="updatedAt"
-        :label="$t('Updatetime')"
-        width="280"
-      />
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="" >
+        <template slot-scope="scope">
+            {{ $creationTime(scope.row.updatedAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
-          <div :style="{color:scope.row.status === 0 ? 'red':'green'}">
+          <el-switch v-has="'activity:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0" active-color="#13ce66"
+          active-text="启用" inactive-text="停用" @change="getUdateStatus($event, scope.row)" />
+          <!-- <div :style="{color:scope.row.status === 0 ? 'red':'green'}">
             {{ scope.row.status === 0 ? '停用':'启用' }}
-          </div>
+          </div> -->
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button type="text" @click="geteroleEitor(scope.row)">{{
+          <el-button v-has="'Currency:edit'" type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")
           }}</el-button>
 
           <el-button
+            v-has="'Currency:del'" 
             slot="reference"
             type="text"
             style="color: red"
@@ -75,6 +78,11 @@ export default {
     // 编辑
     geteroleEitor(item) {
       this.$emit('eitor', item)
+    },
+    // 修改状态
+    getUdateStatus(e, item) {
+      item.status = e
+      this.$emit('UdateStatus', item)
     },
     // 删除
     getroledel(id) {
