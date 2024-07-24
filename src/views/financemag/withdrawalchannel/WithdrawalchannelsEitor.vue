@@ -20,16 +20,9 @@
             v-for="(item, index) in gamertype"
             :key="index"
             :label="item.title"
-            :value="item.value"
+            :value="item.index"
           ></el-option>
         </el-select>
-      </el-form-item>
-      <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          :active-value="1"
-          :inactive-value="0"
-          v-model="ruleForm.status"
-        ></el-switch>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">

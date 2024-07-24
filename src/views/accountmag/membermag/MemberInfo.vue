@@ -2,19 +2,19 @@
   <!-- 显示会员详情 -->
   <el-dialog title="会员详情" :visible.sync="dialogVisible" width="60%" @close="Handelclose">
     <el-tabs v-model="tabsValue" type="border-card" @tab-click="HandelTab">
-      <el-tab-pane label="会员资金流水">
+      <el-tab-pane name="0" v-has="'membermag:flow'"  label="会员资金流水">
         <FlowingWater ref="flowingwaterView" />
       </el-tab-pane>
-      <el-tab-pane label="会员好友列表">
+      <el-tab-pane name="1" v-has="'membermag:friend'" label="会员好友列表">
         <Friends ref="FriendsView" />
       </el-tab-pane>
-      <el-tab-pane label="会员游戏商余额列表">
+      <el-tab-pane name="2" v-has="'membermag:gamerBlance'" label="会员游戏商余额列表">
         <BalanceList ref="BalanceListView" />
       </el-tab-pane>
-      <el-tab-pane label="会员历史投注信息">
+      <el-tab-pane name="3" v-has="'membermag:history'" label="会员历史投注信息">
         <History ref="HistoryView" />
       </el-tab-pane>
-      <el-tab-pane label="个人信息">
+      <el-tab-pane name="4" label="个人信息">
         <PersonalDetails @Refresh="HandelRefresh" ref="PersonalDetails" />
       </el-tab-pane>
     </el-tabs>
@@ -53,9 +53,8 @@ export default {
     }
   },
   methods: {
-    HandelTab(e) {
-      console.log('会员好友列表', e)
-      switch (e.paneName) {
+    HandelTab() {
+      switch (this.tabsValue) {
         case '0':
           // 会员资金流水
           this.$refs.flowingwaterView.memberId = this.MemberInfo.id

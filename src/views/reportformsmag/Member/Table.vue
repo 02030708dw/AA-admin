@@ -8,7 +8,6 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column prop="day" :label="$t('Date')" width="" />
-      <el-table-column prop="memberId" :label="$t('MemberID')" width="" />
       <el-table-column prop="memberName" :label="$t('Membername')" width="" />
       <el-table-column prop="rateAmount" :label="$t('Totalrebateamount')" width="" />
       <el-table-column prop="friendNum" :label="$t('Numberoffriends')" width="" />

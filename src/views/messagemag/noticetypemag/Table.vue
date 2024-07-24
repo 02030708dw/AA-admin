@@ -18,6 +18,7 @@
         <template slot-scope="scope">
           <div>
             <el-switch
+              v-has="'noticetypemag:status'"
               v-model="scope.row.status"
               :active-value="1"
               :inactive-value="0"
@@ -32,11 +33,13 @@
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button
+            v-has="'noticetypemag:edit'"
             type="text"
             style="color: #e6a23c"
             @click="getEditor(scope.row)"
           >{{ $t("edit") }}</el-button>
           <el-button
+            v-has="'noticetypemag:del'"
             type="text"
             style="color: red"
             @click="getEdl(scope.row.id)"

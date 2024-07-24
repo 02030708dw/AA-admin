@@ -45,6 +45,7 @@
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"
+      v-has="'agentwithdrawal:page'"
     > {{ $t('query') }} </el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->

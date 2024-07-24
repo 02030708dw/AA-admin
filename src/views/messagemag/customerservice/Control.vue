@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button v-has="'customerservice:add'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
     <el-input v-model="account" style="width: 200px;margin-left:10px;" placeholder="客服账号" />
     <el-select
       v-model="type"
@@ -26,7 +26,7 @@
         :label="item.title"
       />
     </el-select>
-    <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
+    <el-button v-has="'customerservice:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh') }}</el-button>

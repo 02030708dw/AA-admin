@@ -4,7 +4,7 @@
         <el-row style="padding-bottom: 10px">
             <el-input v-model="userName" style="width: 200px;margin-right:10px;" :placeholder="$t('username')" />
             <el-input v-model="ip" style="width: 200px;margin-right:10px;" :placeholder="$t('IPAddress')" />
-            <el-button type="primary" @click="getdata">{{ $t('query') }}</el-button>
+            <el-button v-has="'IP:record'" type="primary" @click="getdata">{{ $t('query') }}</el-button>
             <el-button type="info" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
         </el-row>
         <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
