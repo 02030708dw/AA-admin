@@ -393,11 +393,11 @@ export function flatten(nameList = [], data, btnP = []) {
     // }
     if (v.children && v.children.length > 0) {
       flatten(nameList, v.children, btnP)
-      nameList.push({ name: v.code, path: v.menuUrl })
-    } else if (v.code.match(/:(.*)$/)) {     // 是否是按钮权限页
-      btnP.push(v.code)
+      nameList.push({ name: v.menuCode, path: v.menuUrl })
+    } else if (v.menuCode.match(/:(.*)$/)) {     // 是否是按钮权限页
+      btnP.push(v.menuCode)
     } else {
-      nameList.push({ name: v.code, path: v.menuUrl })
+      nameList.push({ name: v.menuCode, path: v.menuUrl })
     }
   })
   return nameList
