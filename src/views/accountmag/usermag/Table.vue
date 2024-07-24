@@ -5,12 +5,12 @@
       <el-table-column prop="userName" :label="$t('name')" width="" />
 
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
-      <el-table-column prop="telPhone" :label="$t('Creationtime')" width="">
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="telPhone" :label="$t('Updatetime')" width="">
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.updatedAt) }}
         </template>
