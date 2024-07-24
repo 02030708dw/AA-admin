@@ -19,15 +19,15 @@
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch v-model="scope.row.status" :active-value="1" :inactive-value="0" active-color="#13ce66"
+            <el-switch v-has="'advertising:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0" active-color="#13ce66"
               active-text="启用" inactive-text="停用" @change="getUdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{ $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete") }}</el-button>
+          <el-button v-has="'advertising:edit'" type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{ $t("edit") }}</el-button>
+          <el-button v-has="'advertising:del'" type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -14,14 +14,6 @@
       <el-form-item :label="$t('typesof')" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
-
-      <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          :active-value="1"
-          :inactive-value="0"
-          v-model="ruleForm.status"
-        ></el-switch>
-      </el-form-item>
     </el-form>
 
     <span slot="footer" class="dialog-footer">

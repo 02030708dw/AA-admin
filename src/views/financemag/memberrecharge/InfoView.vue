@@ -11,8 +11,8 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <el-form-item :label="$t('MemberID')">
-        <el-input v-model="ruleForm.memberId" :disabled="true" />
+      <el-form-item :label="$t('Membername')">
+        <el-input v-model="ruleForm.memberName" :disabled="true" />
       </el-form-item>
       <el-form-item :label="$t('amountofmoney')">
         <el-input v-model="ruleForm.amount" :disabled="true" />
