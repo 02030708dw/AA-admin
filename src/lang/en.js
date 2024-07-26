@@ -53,6 +53,9 @@ export default {
     Incomeinformation: 'Incomeinformation',
     WithdrawalBankManagement:'Withdrawal Bank Management',
     IPManagement:'IP management',
+    Rule:'Rule',
+    RuleBussines:'Rule Bussines',
+    RuleCondition:'Rule Condition',
   },
   role: {
     permission: 'Permission'

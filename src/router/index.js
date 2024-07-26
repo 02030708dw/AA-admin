@@ -53,6 +53,26 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
+  {
+    path: '/rule',
+    component: Layout,
+    name: "rule",
+    meta: { title: 'Rule', icon: 'el-icon-s-tools' },
+    children: [
+      {
+        path: 'ruleBusiness ',
+        name: 'ruleBusiness',
+        component: () => import('@/views/rule/business/index'),
+        meta: { title: 'RuleBussines', icon: 'form' }
+      },
+      {
+        path: 'ruleCondition',
+        name: 'ruleCondition',
+        component: () => import('@/views/rule/condition/index'),
+        meta: { title: 'RuleCondition', icon: 'form' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }
 ]
