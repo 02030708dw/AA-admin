@@ -129,7 +129,7 @@ export default {
   oldMemberId: '原始会员ID',
   targetMemberId: '目标会员ID',
   oldAgentId: '原始代理id',
-  targetAgentId: '目标代理id',
+  targetAgentId: '目标代理',
   Deletesuccessful: '删除成功!',
   AddGameMerchant: '添加游戏商',
   Pleaseselectagametype: '请选择游戏类型',

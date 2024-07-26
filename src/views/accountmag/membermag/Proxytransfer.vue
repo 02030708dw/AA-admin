@@ -21,7 +21,19 @@
         <span>{{ ruleForm.agenId }}</span>
       </el-form-item>
       <el-form-item :label="$t('targetAgentId')" prop="">
-        <el-input v-model="targetAgentId"></el-input>
+        <el-select
+          v-model="targetAgentId"
+          placeholder="选择代理"
+          style="width: 200px;margin-left: 10px"
+        >
+          <el-option
+            v-for="(item, index) in agentIddata"
+            :key="index"
+            :value="item.index"
+            :label="item.title"
+          />
+        </el-select>
+        <!-- <el-input v-model="targetAgentId"></el-input> -->
       </el-form-item>
     </el-form>
 
@@ -32,8 +44,16 @@
   </el-dialog>
 </template>
         
-        <script>
+<script>
 export default {
+  props: {
+    agentIddata: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       // 弹窗状态
