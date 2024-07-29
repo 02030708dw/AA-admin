@@ -25,57 +25,6 @@ import Layout from '@/layout'
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
   }
  */
-
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
-export const constantRoutes = [
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
-  },
-  {
-    path: '/rule',
-    component: Layout,
-    name: "rule",
-    meta: { title: 'Rule', icon: 'el-icon-s-tools' },
-    children: [
-      {
-        path: 'ruleBusiness ',
-        name: 'ruleBusiness',
-        component: () => import('@/views/rule/business/index'),
-        meta: { title: 'RuleBussines', icon: 'form' }
-      },
-      {
-        path: 'ruleCondition',
-        name: 'ruleCondition',
-        component: () => import('@/views/rule/condition/index'),
-        meta: { title: 'RuleCondition', icon: 'form' }
-      }
-    ]
-  },
-  // 404 page must be placed at the end !!!
-  // { path: '*', redirect: '/404', hidden: true }
-]
 export const asyncRoutes = [
   {
     path: '/system',
@@ -352,6 +301,57 @@ export const asyncRoutes = [
     ]
   }
 ]
+/**
+ * constantRoutes
+ * a base page that does not have permission requirements
+ * all roles can be accessed
+ */
+export const constantRoutes = [
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: 'Dashboard', icon: 'dashboard' }
+    }]
+  },
+  {
+    path: '/rule',
+    component: Layout,
+    name: "rule",
+    meta: { title: 'Rule', icon: 'el-icon-s-tools' },
+    children: [
+      {
+        path: 'ruleBusiness ',
+        name: 'ruleBusiness',
+        component: () => import('@/views/rule/business/index'),
+        meta: { title: 'RuleBussines', icon: 'form' }
+      },
+      {
+        path: 'ruleCondition',
+        name: 'ruleCondition',
+        component: () => import('@/views/rule/condition/index'),
+        meta: { title: 'RuleCondition', icon: 'form' }
+      }
+    ]
+  },
+  // 404 page must be placed at the end !!!
+  // { path: '*', redirect: '/404', hidden: true }
+]
+
 
 const createRouter = () => new Router({
   scrollBehavior: () => ({ y: 0 }),
