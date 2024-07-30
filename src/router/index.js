@@ -26,6 +26,17 @@ import Layout from '@/layout'
   }
  */
 export const asyncRoutes = [
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     name: 'Dashboard',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: 'Dashboard', icon: 'dashboard' }
+  //   }]
+  // },
   {
     path: '/system',
     component: Layout,
@@ -299,7 +310,27 @@ export const asyncRoutes = [
         meta: { title: 'test2', icon: 'form' }
       }
     ]
-  }
+  },
+  {
+    path: '/rule',
+    component: Layout,
+    name: "rule",
+    meta: { title: 'Rule', icon: 'el-icon-s-tools' },
+    children: [
+      {
+        path: 'ruleBusiness ',
+        name: 'ruleBusiness',
+        component: () => import('@/views/rule/business/index'),
+        meta: { title: 'RuleBussines', icon: 'form' }
+      },
+      {
+        path: 'ruleCondition',
+        name: 'ruleCondition',
+        component: () => import('@/views/rule/condition/index'),
+        meta: { title: 'RuleCondition', icon: 'form' }
+      }
+    ]
+  },
 ]
 /**
  * constantRoutes
@@ -397,20 +428,6 @@ function hasPermission(nameList, route) {
 //扁平化获取name方法
 export function flatten(nameList = [], data, btnP = []) {
   data.forEach(v => {
-    // if (v.children && v.children.length > 0) {
-    //   // 是否是按钮权限页
-    //   let isbtnP = v.children[0].code.match(/:(.*)$/)
-    //   nameList.push({ name: v.code, path: v.menuUrl })
-    //   if (isbtnP == null) {
-    //     flatten(nameList, v.children,btnP)
-    //   } else {
-    //     v.children.forEach(item => {
-    //       btnP.push(item.code)
-    //     })
-    //   }
-    // } else {
-    //   nameList.push({ name: v.code, path: v.menuUrl })
-    // }
     if (v.children && v.children.length > 0) {
       flatten(nameList, v.children, btnP)
       nameList.push({ name: v.menuCode, path: v.menuUrl })
