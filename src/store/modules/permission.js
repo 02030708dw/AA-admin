@@ -6,7 +6,7 @@ const getDefaultState = () => {
     return {
         roles: [],//返回权限
         routes: [],//过滤路由权限
-        btnP:[]//按钮权限
+        btnP: []//按钮权限
     }
 }
 const state = getDefaultState()
@@ -32,6 +32,11 @@ const actions = {
     async getRouter({ commit }) {
         return await new Promise((resolve, reject) => {
             allByUser().then(response => {
+                if (response.resultSet.authorityDtos.length === 0) {
+                    commit('SET_ROLES', [{ menuCode: "test", menuUrl: "/test" }])
+                    resolve([{ menuCode: "test", menuUrl: "/test" }])
+                    return
+                }
                 commit('SET_ROLES', response.resultSet.authorityDtos)
                 resolve(response.resultSet.authorityDtos)
             }).catch(error => {

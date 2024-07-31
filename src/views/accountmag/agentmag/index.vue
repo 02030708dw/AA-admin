@@ -1,10 +1,12 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @Refresh="HandelRefresh" @AgentAdd="getAgentAddShow" @Agequery="getAgequery" @resetting="getresetting" />
+    <Control ref="ControlView" @Refresh="HandelRefresh" @AgentAdd="getAgentAddShow" @Agequery="getAgequery"
+      @resetting="getresetting" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @transfer="getAgenttransfer" @updateStatus="getAgentUdateStatus" />
+    <Table ref="TableView" :table-data="tableData" @transfer="getTransferShow" @updateStatus="getAgentUdateStatus" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getAgentdata" />
     <AgentAdd ref="AgentAdd" @confirm="getAgentAdd" />
+    <AgentTransfer ref="AgentTransfer" @confirm="getTransferConfirm" />
   </el-card>
 </template>
 <script>
@@ -14,13 +16,15 @@ import Control from './Control.vue'
 // 分页
 import Pagination from '@/components/Pagination/Pagination.vue'
 import AgentAdd from './AgentAdd.vue'
+import AgentTransfer from './AgentTransfer.vue'
 import {
   AgentPage,
   AgentUpdateStatus,
-  AddAgent
+  AddAgent,
+  TransferAgent
 } from '@/api/account/agent'
 export default {
-  components: { Table, Pagination, Control, AgentAdd },
+  components: { Table, Pagination, Control, AgentAdd, AgentTransfer },
   data() {
     return {
       // 总条数
@@ -121,10 +125,28 @@ export default {
           console.log(err)
         })
     },
-    // 转移
-    getAgenttransfer(data) {
-      console.log(data)
-    }
+    // 转移弹窗
+    getTransferShow(data) {
+      this.$refs.AgentTransfer.getStatus(data,this.tableData)
+    },
+    //转移
+    getTransferConfirm(data){
+      TransferAgent({
+        agentS:data.agentS,
+        oldAgentId:data.oldAgentId,
+        targetAgentId:data.targetAgentId
+      })
+        .then((res) => {
+          this.getAgentdata(this.pageNo)
+          this.$message({
+            message: '转移成功!',
+            type: 'success'
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
   }
 }
 </script>

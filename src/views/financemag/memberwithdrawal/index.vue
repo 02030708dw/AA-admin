@@ -33,7 +33,7 @@ export default {
       pageNo: 1,
       tableData: [],
       aduitStatus: null,
-      memberId: '',
+      orderNo: '',
       cashChannelId: '',
       PagesSize: 20
     }
@@ -50,7 +50,7 @@ export default {
         const _that = this
         const time = setInterval(() => {
           if (this.$store.state.autorefresh.A_T_Recharge) {
-            MemberwithdrawalPage({ pageNo: _that.pageNo, pageSize: this.PagesSize, aduitStatus: _that.aduitStatus, memberId: _that.memberId, cashChannelId: _that.cashChannelId })
+            MemberwithdrawalPage({ pageNo: _that.pageNo, pageSize: this.PagesSize, aduitStatus: _that.aduitStatus, orderNo: _that.orderNo, cashChannelId: _that.cashChannelId })
               .then((res) => {
                 _that.total = res.resultSet.total
                 _that.tableData = res.resultSet.data
@@ -89,7 +89,7 @@ export default {
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      MemberwithdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, memberId: this.memberId, cashChannelId: this.cashChannelId })
+      MemberwithdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -114,7 +114,7 @@ export default {
     getMemWitdata(index) {
       // 记录当前页码
       this.pageNo = index
-      MemberwithdrawalPage({ pageNo: index, pageSize: this.PagesSize, aduitStatus: this.aduitStatus, memberId: this.memberId, cashChannelId: this.cashChannelId })
+      MemberwithdrawalPage({ pageNo: index, pageSize: this.PagesSize, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -126,14 +126,14 @@ export default {
     // 条件查询
     getquery(e) {
       this.aduitStatus = e.aduitStatus
-      this.memberId = e.memberId
+      this.orderNo = e.orderNo
       this.cashChannelId = e.cashChannelId
       this.getMemWitdata(1)
     },
     // 恢复默认查询
     getresetting() {
       this.aduitStatus = null
-      this.memberId = ''
+      this.orderNo = ''
       this.cashChannelId = ''
       this.getMemWitdata(1)
     }

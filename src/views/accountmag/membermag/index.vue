@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @Memquery="getMemquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Control ref="ControlView":agentIddata='agentIddata' @Memquery="getMemquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table
       ref="TableView"
@@ -14,7 +14,7 @@
     />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
-    <Proxytransfer ref="Proxytransfer" @confirm="getProxytransferok" />
+    <Proxytransfer :agentIddata="agentIddata" ref="Proxytransfer" @confirm="getProxytransferok" />
     <!-- 会员详情 -->
     <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh"/>
     <MemberUpdatebalanceview ref="MemberUpdatebalanceview"/>
@@ -39,6 +39,7 @@ import {
   MemberUpdateStatus,
   MemberresettingPwd
 } from '@/api/account/member'
+import { AgentPage } from '@/api/account/agent'
 export default {
   components: {
     Table,
@@ -56,6 +57,7 @@ export default {
       // 页码
       pageNo: 1,
       tableData: [],
+      agentIddata:[],
       agentId: null,
       userName: null,
       status: null,
@@ -64,6 +66,7 @@ export default {
   },
   created() {
     this.getMemberPage(1)
+    this.getAgentPage()
   },
   methods: {
     HandelUpdatebalance(e) {
@@ -181,7 +184,21 @@ export default {
           this.$message.error('修改失败!')
           console.log(err)
         })
-    }
+    },
+    // 获取代理id
+    getAgentPage() {
+      this.agentIddata = []
+      AgentPage({ pageNo: 1, pageSize: 100000 }).then(res => {
+        for (let i = 0; i < res.resultSet.data.length; i++) {
+          this.agentIddata.push({
+            title: res.resultSet.data[i].userName,
+            index: res.resultSet.data[i].id
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
   }
 }
 </script>
