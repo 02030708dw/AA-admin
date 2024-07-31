@@ -34,6 +34,9 @@
       <el-form-item :label="$t('ParentnodeID')" prop="parentId">
         <el-input v-model="ruleForm.parentId"></el-input>
       </el-form-item>
+      <el-form-item label="地址" prop="menuUrl">
+        <el-input v-model="ruleForm.menuUrl"></el-input>
+      </el-form-item>
       <el-form-item :label="$t('Notes')" prop="remark">
         <el-input v-model="ruleForm.remark"></el-input>
       </el-form-item>
@@ -66,6 +69,7 @@ export default {
         code: "",
         parentId: null,
         remark: "",
+        menuUrl:'',
         status: 0,
         type: null,
       },
@@ -100,6 +104,7 @@ export default {
           code: "",
           parentId: null,
           remark: "",
+          menuUrl:'',
           status: 0,
           type: null,
         };
