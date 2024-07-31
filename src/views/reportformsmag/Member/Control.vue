@@ -28,7 +28,7 @@
     </el-select>
     <!-- 查询 -->
     <el-button
-      v-has="'reportformsmagagent:member'"
+      v-has="'reportformsmagmember:member'"
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"
