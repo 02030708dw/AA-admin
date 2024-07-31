@@ -15,9 +15,9 @@
         :label="item.title"
       />
     </el-select>
-
-    <el-select
-      v-model="memberId"
+    <el-input v-model="orderNo" style="width: 180px; margin-left: 10px" placeholder="请输入订单号" />
+    <!-- <el-select
+      v-model="orderNo"
       placeholder="选择会员"
       style="width: 200px;margin-left: 10px"
     >
@@ -27,7 +27,7 @@
         :value="item.index"
         :label="item.title"
       />
-    </el-select>
+    </el-select> -->
     <el-select
       v-model="cashChannelId"
       placeholder="选择提现渠道"
@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       aduitStatus: null, // 审核状态
-      memberId: '', // 会员id
+      orderNo: '', // 订单号
       cashChannelId: '', // 提现渠道id
       noticetype: [
         { title: '待审核', index: 0 },
@@ -127,14 +127,14 @@ export default {
     getquery() {
       this.$emit('query', {
         aduitStatus: this.aduitStatus,
-        memberId: this.memberId,
+        orderNo: this.orderNo,
         cashChannelId: this.cashChannelId
       })
     },
     // 恢复默认查找
     getresetting() {
       this.aduitStatus = null
-      this.memberId = ''
+      this.orderNo = ''
       this.cashChannelId = ''
       this.$emit('resetting')
     }

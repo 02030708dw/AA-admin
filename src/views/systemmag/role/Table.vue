@@ -50,8 +50,8 @@
           </el-checkbox-group>
         </el-form-item>
       </el-form> -->
-      <el-tree ref="treeRef" :data="authorityList" :default-checked-keys="authorityIds" node-key="id" show-checkbox
-        @check="checkChange" :props="{ children: 'children', label: 'authorityName' }
+      <el-tree ref="treeRef" :data="authorityList" :default-checked-keys="authorityIds"
+        node-key="id" show-checkbox @check="checkChange" :props="{ children: 'children', label: 'authorityName' }
       "></el-tree>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -117,12 +117,14 @@ export default {
     },
     //绑定权限
     geterolePermission(item) {
+      this.authorityList = []
+      this.authorityIds = []
       this.dialogFormVisible = true
       this.roleId = item.id
-
       getAuthorityTtree(item.id).then(res => {
         this.authorityList = res.resultSet
         this.getAuthorityIds(this.authorityList)
+        console.log(this.authorityIds);
       })
     },
     // 获取权限

@@ -11,9 +11,6 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <el-form-item :label="$t('WithdrawalchannelID')">
-        <el-input v-model="ruleForm.cashChannelId" :disabled="true" />
-      </el-form-item>
       <el-form-item :label="$t('Nameofwithdrawalbank')">
         <el-input v-model="ruleForm.bankName" :disabled="true" />
       </el-form-item>
