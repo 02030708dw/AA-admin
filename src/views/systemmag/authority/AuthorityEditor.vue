@@ -15,7 +15,7 @@
         <el-input v-model="ruleForm.authorityName"></el-input>
       </el-form-item>
       <el-form-item :label="$t('Permissioncode')" prop="code">
-        <el-input v-model="ruleForm.code"></el-input>
+        <el-input v-model="ruleForm.menuCode"></el-input>
       </el-form-item>
       <el-form-item :label="$t('Permissiontype')" prop="type">
         <el-select
@@ -66,7 +66,7 @@ export default {
       //表单数据
       ruleForm: {
         authorityName: "",
-        code: "",
+        menuCode: "",
         parentId: null,
         remark: "",
         status: 0,
@@ -105,7 +105,7 @@ export default {
       if (!this.dialogVisible) {
         this.ruleForm = {
           authorityName: "",
-          code: "",
+          menuCode: "",
           parentId: null,
           remark: "",
           status: 0,

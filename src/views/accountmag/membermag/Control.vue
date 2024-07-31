@@ -36,9 +36,17 @@
 
 <script>
 // 获取代理id
-import { AgentPage } from '@/api/account/agent'
+// import { AgentPage } from '@/api/account/agent'
 export default {
   name: 'Control',
+  props: {
+    agentIddata: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       agentId: '',
@@ -50,27 +58,27 @@ export default {
         { title: '启用', index: 1 }
       ],
       btnIcoType: true,
-      agentIddata: []
+      // agentIddata: []
     }
   },
   created() {
-    this.getAgentPage()
+    
   },
   methods: {
-    // 获取代理id
-    getAgentPage() {
-      this.agentIddata = []
-      AgentPage({ pageNo: 1, pageSize: 100000 }).then(res => {
-        for (let i = 0; i < res.resultSet.data.length; i++) {
-          this.agentIddata.push({
-            title: res.resultSet.data[i].userName,
-            index: res.resultSet.data[i].id
-          })
-        }
-      }).catch(err => {
-        console.log(err)
-      })
-    },
+    // // 获取代理id
+    // getAgentPage() {
+    //   this.agentIddata = []
+    //   AgentPage({ pageNo: 1, pageSize: 100000 }).then(res => {
+    //     for (let i = 0; i < res.resultSet.data.length; i++) {
+    //       this.agentIddata.push({
+    //         title: res.resultSet.data[i].userName,
+    //         index: res.resultSet.data[i].id
+    //       })
+    //     }
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // },
     getquery() {
       this.$emit('Memquery', {
         agentId: this.agentId,

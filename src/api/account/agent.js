@@ -11,7 +11,7 @@ export function AgentPage({ pageNo, pageSize, status, userName }) {
 }
 
 // 转移
-export function AgentTransfer(data) {
+export function TransferAgent(data) {
   return request({
     url: '/user/agent/transferAgent',
     method: 'post',
@@ -33,5 +33,13 @@ export function AddAgent(data) {
     url: '/user/agent/addByAdmin',
     method: 'post',
     data
+  })
+}
+
+// 查询下级代理列表
+export function AagentGetList(agentId) {
+  return request({
+    url: `/user/agent/getList/${agentId}`,
+    method: 'get',
   })
 }

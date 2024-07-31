@@ -7,11 +7,6 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-      <el-table-column
-        prop="cashChannelId"
-        :label="$t('WithdrawalchannelID')"
-        width="280"
-      />
       <el-table-column prop="" :label="$t('Withdrawalinformation')" width="500">
         <template slot-scope="scope">
           <div class="info_box">

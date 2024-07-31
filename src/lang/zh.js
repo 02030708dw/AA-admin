@@ -44,6 +44,9 @@ export default {
     Platformreport: '平台报表',
     WithdrawalBankManagement:'提现银行管理',
     IPManagement:'IP管理',
+    Rule:'规则管理',
+    RuleBussines:'业务规则',
+    RuleCondition:'引擎规则',
   },
   role: {
     permission: '权限'
@@ -129,7 +132,7 @@ export default {
   oldMemberId: '原始会员ID',
   targetMemberId: '目标会员ID',
   oldAgentId: '原始代理id',
-  targetAgentId: '目标代理id',
+  targetAgentId: '目标代理',
   Deletesuccessful: '删除成功!',
   AddGameMerchant: '添加游戏商',
   Pleaseselectagametype: '请选择游戏类型',
