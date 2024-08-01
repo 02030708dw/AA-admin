@@ -20,7 +20,7 @@
             v-for="(item, index) in gamertype"
             :key="index"
             :label="item.title"
-            :value="item.value"
+            :value="item.index"
           ></el-option>
         </el-select>
       </el-form-item>
