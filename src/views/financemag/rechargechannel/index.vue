@@ -74,6 +74,7 @@ export default {
   },
   created() {
     this.getchanneldata(1)
+    this.GetChannelname()
     this.getCurrencytPage()
   },
   methods: {
@@ -100,7 +101,6 @@ export default {
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
-          this.GetChannelname()
           setTimeout(() => {
             this.$refs.ControlView.HandelBtnStatus()
             this.$refs.TableView.HandelLoading(false)
@@ -123,7 +123,6 @@ export default {
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
-          this.GetChannelname()
         })
         .catch((err) => {
           console.log(err)
