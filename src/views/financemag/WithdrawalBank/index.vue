@@ -1,9 +1,12 @@
 <template>
     <el-card>
-        <Control @Add="GetAdd" @Refresh="GetRefresh" ref="ControlView" @query="Getquery" @resetting="Getresetting"></Control>
-        <Table ref="TableView" :tableData="tableData" @Eitor="GetEitor" @delete="getdelete" @updateStatus="getupdateStatus"></Table>
+        <Control @Add="GetAdd" @Refresh="GetRefresh" ref="ControlView" @query="Getquery" @resetting="Getresetting">
+        </Control>
+        <Table ref="TableView" :tableData="tableData" @Eitor="GetEitor" @delete="getdelete"
+            @updateStatus="getupdateStatus"></Table>
         <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="GetPagesData"></Pagination>
-        <UpdataWithdrawalBank @upta="HandelUpta" :TypeIndex="TypeIndex" ref="updatabank" :CurrencytPageData="CurrencytPageData"></UpdataWithdrawalBank>
+        <UpdataWithdrawalBank @upta="HandelUpta" :TypeIndex="TypeIndex" ref="updatabank"
+            :CurrencytPageData="CurrencytPageData"></UpdataWithdrawalBank>
     </el-card>
 </template>
 <script>
@@ -31,7 +34,7 @@ export default {
             pageSize: 20,
             total: 0,
             tableData: [],
-            CurrencytPageData:[]
+            CurrencytPageData: []
         }
     },
     created() {
@@ -41,17 +44,17 @@ export default {
     methods: {
         // 获取币种
         getCurrencytPage() {
-        this.CurrencytPageData = []
-        CurrencytPage({pageNo:1,pageSize:200000}).then(res => {
-            for(let i = 0; i < res.resultSet.data.length ;i++){
-            this.CurrencytPageData.push({
-                item:res.resultSet.data[i].currency,
-                index:res.resultSet.data[i].currency
+            this.CurrencytPageData = []
+            CurrencytPage({ pageNo: 1, pageSize: 200000 }).then(res => {
+                for (let i = 0; i < res.resultSet.data.length; i++) {
+                    this.CurrencytPageData.push({
+                        item: res.resultSet.data[i].currency,
+                        index: res.resultSet.data[i].currency
+                    })
+                }
+            }).catch(err => {
+                console.log(err)
             })
-            }
-        }).catch(err => {
-            console.log(err)
-        })
         },
         // 编辑
         GetEitor(e) {
@@ -88,7 +91,7 @@ export default {
                 setTimeout(() => {
                     this.$refs.TableView.HandelLoading(false)
                     this.$refs.ControlView.HandelBtnStatus()
-                },1000)
+                }, 1000)
                 this.$message.error('刷新失败!')
             })
         },
@@ -109,9 +112,9 @@ export default {
         // 添加编辑事件
         HandelUpta(e) {
             console.log(e)
-            if(this.TypeIndex === 0) {
+            if (this.TypeIndex === 0) {
                 // 添加
-                Add({bankCode:e.bankCode,bankName:e.bankName,icon:e.icon,status:e.status,currency:e.currency}).then(res => {
+                Add({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, currency: e.currency }).then(res => {
                     console.log(res)
                     this.$message({ message: '添加成功!', type: 'success' })
                     // 刷新数据
@@ -120,9 +123,9 @@ export default {
                     console.log(err)
                     this.$message.error('添加失败!')
                 })
-            } else if(this.TypeIndex === 1) {
+            } else if (this.TypeIndex === 1) {
                 // 编辑
-                Edit({bankCode:e.bankCode,bankName:e.bankName,icon:e.icon,status:e.status,id:e.id,currency:e.currency}).then(res => {
+                Edit({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, id: e.id, currency: e.currency }).then(res => {
                     this.$message({ message: '编辑成功!', type: 'success' })
                     // 刷新
                     this.GetPagesData(this.pageNo)
@@ -134,8 +137,8 @@ export default {
             console.log(e)
         },
         // 删除
-        getdelete(e){
-            Del({id:e}).then(res=>{
+        getdelete(e) {
+            Del({ id: e }).then(res => {
                 this.$message({ message: '删除成功!', type: 'success' })
                 this.GetPagesData(this.pageNo)
             }).catch(err => {
@@ -145,13 +148,21 @@ export default {
         },
         // 修改状态
         getupdateStatus(e) {
-            UpdateStatus({id:e.id,status:e.status}).then(res => {
+            Edit({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, id: e.id, currency: e.currency }).then(res => {
                 this.$message({ message: '修改成功!', type: 'success' })
+                // 刷新
                 this.GetPagesData(this.pageNo)
             }).catch(err => {
-                this.GetPagesData(this.pageNo)
+                console.log(err)
                 this.$message.error('修改失败!')
             })
+            // UpdateStatus({id:e.id,status:e.status}).then(res => {
+            //     this.$message({ message: '修改成功!', type: 'success' })
+            //     this.GetPagesData(this.pageNo)
+            // }).catch(err => {
+            //     this.GetPagesData(this.pageNo)
+            //     this.$message.error('修改失败!')
+            // })
         },
         HandelPagesChange(e) {
             this.PagesSize = e
