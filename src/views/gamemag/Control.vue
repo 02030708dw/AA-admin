@@ -73,11 +73,14 @@ export default {
         { title: '游戏商维护中', index: 2 }
       ],
       typeArrList: [
-        { title: '真人', index: 1 },
-        { title: '体育', index: 2 },
-        { title: '老虎机', index: 3 },
-        { title: '棋牌', index: 4 },
-        { title: '彩票', index: 5 }
+        { title: '未分类', index: 0 },
+        { title: '电子', index: 1 },
+        { title: '棋牌', index: 2 },
+        { title: '彩票', index: 3 },
+        { title: '体育', index: 4 },
+        { title: '真人', index: 5 },
+        { title: '小游戏', index: 6 },
+        { title: '热门', index: 7 },
       ],
       btnIcoType: true
     }
