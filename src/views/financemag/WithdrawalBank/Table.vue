@@ -16,7 +16,7 @@
                 <template slot-scope="scope">
                     <div>
                         <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
-                            active-text="启用" inactive-text="停用" @change="getupdateStatus($event, scope.row.id)" />
+                            active-text="启用" inactive-text="停用" @change="getupdateStatus($event, scope.row)" />
                     </div>
                 </template>
             </el-table-column>
@@ -80,8 +80,9 @@ export default {
             this.$emit('Eitor', item)
         },
         // 状态修改
-        getupdateStatus(status, id) { 
-            this.$emit('updateStatus', {status:status,id:id})
+        getupdateStatus(status, item) { 
+            console.log(item);
+            this.$emit('updateStatus', {...item,status:status})
         }
     },
 }
