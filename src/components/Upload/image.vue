@@ -83,10 +83,10 @@ export default {
             that.$set(that.imageFlag, index, true)
             if (that.fn == 'gamer') {
                 Fn = that.fn
-                Code = that.code + '' + lang
+                Code = lang + '/' + that.code
             } else {
                 Fn = that.fn + lang
-                Code = that.code
+                Code = lang + '/' + that.code
             }
             formData.append('file', item.file)
             request({
