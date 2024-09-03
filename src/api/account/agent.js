@@ -43,3 +43,19 @@ export function AagentGetList(agentId) {
     method: 'get',
   })
 }
+
+// 获取下级代理下拉列表
+export function OldAgentList(agentId) {
+  return request({
+    url: `/user/agent/oldAgentList/${agentId}`,
+    method: 'get',
+  })
+}
+
+// 获取目标代理下拉列表
+export function TargetAgentList(agentId) {
+  return request({
+    url: `/user/agent/targetAgentList/${agentId}`,
+    method: 'get',
+  })
+}
