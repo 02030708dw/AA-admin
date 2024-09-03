@@ -89,7 +89,7 @@ export default {
     toUrl(list){
       let url =list ? JSON.parse(list) :''
       //保留语言判断
-      return url[0].pictureUrl
+      return "https://gwstatic.mvkbnb.com/" + url[0].pictureUrl
     },
   }
 }
