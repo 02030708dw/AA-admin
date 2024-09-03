@@ -2,10 +2,12 @@
     <el-dialog :title="$t('Transfersubordinateagents')" :visible.sync="dialogVisible" width="50%">
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
 
-            <el-form-item :label="$t('oldAgentId')" prop="">
+            <!-- <el-form-item :label="$t('oldAgentId')" prop="">
                 <span>{{ ruleForm.oldAgentId }}</span>
+            </el-form-item> -->
+            <el-form-item :label="$t('oldAgentId')" prop="">
+                <span>{{ ruleForm.userName }}</span>
             </el-form-item>
-
             <el-form-item :label="$t('targetAgentId')" prop="targetAgentId">
                 <el-select v-model="ruleForm.targetAgentId" placeholder="选择转移的下级代理"
                     style="width: 200px;margin-left: 10px">
@@ -33,7 +35,9 @@
 
 <script>
 import {
-    AagentGetList
+    AagentGetList,
+    OldAgentList,
+    TargetAgentList
 } from '@/api/account/agent'
 export default {
     data() {
@@ -56,8 +60,8 @@ export default {
     },
     methods: {
         // 改变弹窗状态
-        getStatus(data, tableData) {
-            console.log(data, tableData, 'tableData');
+        getStatus(data) {
+            console.log(data);
             this.dialogVisible = !this.dialogVisible
             // 关闭时清空
             if (!this.dialogVisible) {
@@ -66,13 +70,20 @@ export default {
                     oldAgentId: 0,
                     targetAgentId: null
                 }
+                this.agentList = []
                 this.tableData = []
             } else {
-                this.tableData = tableData
                 this.ruleForm.oldAgentId = data.id
-                AagentGetList(data.parentId).then(res => {
+                this.ruleForm.userName = data.userName
+                OldAgentList(data.id).then(res => {
                     this.agentList = res.resultSet
                 })
+                TargetAgentList(data.id).then(res => {
+                    this.tableData = res.resultSet
+                })
+                // AagentGetList(data.parentId).then(res => {
+                //     this.agentList = res.resultSet
+                // })
             }
 
         },

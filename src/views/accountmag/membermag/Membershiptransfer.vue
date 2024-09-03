@@ -1,27 +1,21 @@
 <template>
-  <el-dialog
-    :title="$t('Membershiptransfer')"
-    :visible.sync="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="$t('Membershiptransfer')" :visible.sync="dialogVisible" width="50%">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('MemberID')" prop="">
         <span>{{ ruleForm.id }}</span>
       </el-form-item>
-      <el-form-item :label="$t('parentMemberId')" prop="">
-        <span>{{ ruleForm.parentMemberId }}</span>
+      <el-form-item label="目标会员列表" prop="">
+        <el-select v-model="targetAgentId" placeholder="选择代理" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in TargetMemberList" :key="index" :value="item.index" :label="item.title" />
+        </el-select>
       </el-form-item>
-      <el-form-item :label="$t('oldMemberId')" prop="">
-        <span>{{ ruleForm.id }}</span>
-      </el-form-item>
-      <el-form-item :label="$t('targetMemberId')" prop="">
-        <el-input v-model="targetMemberId"></el-input>
+
+      <el-form-item label="转移会员列表" prop="">
+        <el-checkbox-group v-model="agentData">
+          <el-checkbox v-for="(item, i) in MemberList" :key="item.id" :label="i">
+            {{ item.realName }}
+          </el-checkbox>
+        </el-checkbox-group>
       </el-form-item>
     </el-form>
 
@@ -31,8 +25,9 @@
     </span>
   </el-dialog>
 </template>
-      
-      <script>
+
+<script>
+import { OldMemberList, TargetMemberList } from "@/api/account/member";
 export default {
   data() {
     return {
@@ -58,6 +53,9 @@ export default {
         this.targetMemberId = "";
       } else {
         this.targetMemberId = "";
+        console.log(data);
+        OldMemberList(data.parentMemberId)
+        TargetMemberList(data.parentMemberId)
         this.ruleForm = data;
       }
     },
@@ -86,5 +84,4 @@ export default {
   },
 };
 </script>
-    <style>
-</style>
+<style></style>
