@@ -65,7 +65,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="游戏商图片" prop="pictureInfos">
-        <UploadImage v-if="dialogVisible" fn="gamer" :code="ruleForm.code" :img="ruleForm.pictureUrl" @Upload="getImageURL" />
+        <UploadImage v-if="dialogVisible" fn="gamer" :code="ruleForm.gamerName" :img="ruleForm.pictureUrl" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
