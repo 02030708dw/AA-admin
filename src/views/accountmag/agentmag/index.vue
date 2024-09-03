@@ -127,7 +127,7 @@ export default {
     },
     // 转移弹窗
     getTransferShow(data) {
-      this.$refs.AgentTransfer.getStatus(data,this.tableData)
+      this.$refs.AgentTransfer.getStatus(data)
     },
     //转移
     getTransferConfirm(data){

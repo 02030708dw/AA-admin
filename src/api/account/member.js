@@ -98,3 +98,35 @@ export function MemberEdit(data) {
     data
   })
 }
+
+// 获取原代理的会员下拉列表
+export function OldAgentList(agentId) {
+  return request({
+    url: `/user/member/OldMemberList/${agentId}`,
+    method: 'get',
+  })
+}
+
+// 获取目标代理下拉列表
+export function TargetAgentList(agentId) {
+  return request({
+    url: `/user/member/targetAgentList/${agentId}`,
+    method: 'get',
+  })
+}
+
+// 获取下级会员下拉列表
+export function OldMemberList(memberId) {
+  return request({
+    url: `/user/member/OldMemberList/${memberId}`,
+    method: 'get',
+  })
+}
+
+// 获取目标上级会员下拉列表
+export function TargetMemberList(memberId) {
+  return request({
+    url: `/user/member/targetMemberList/${memberId}`,
+    method: 'get',
+  })
+}
