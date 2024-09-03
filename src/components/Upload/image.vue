@@ -54,8 +54,10 @@ export default {
         };
     },
     created() {
-        this.base_img = process.env.NODE_ENV == 'development' ? 'https://gwstatic.mvkbnb.com/' : 'https://static.44dog.cc/'
-
+        // 开发环境
+        this.base_img = process.env.NODE_ENV == 'development' ? 'https://gwstatic.mvkbnb.com/' : 'https://gwstatic.mvkbnb.com/'
+        // 开发环境
+        // this.base_img = process.env.NODE_ENV == 'development' ? 'https://gwstatic.mvkbnb.com/' : 'https://static.44dog.cc/'
         if (typeof this.img === 'string') {
             try {
                 let obj = JSON.parse(this.img);
