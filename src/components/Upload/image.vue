@@ -3,7 +3,8 @@
         <div class="upload-img" v-for="(item, i) in lang" :key="item">
             <el-upload action="" class="avatar-uploader" :show-file-list="false"
                 :http-request="(e) => httpRequest(e, item, i)">
-                <img v-if="imageURL[i].pictureUrl && !imageFlag[i]" :src="imageURL[i].pictureUrl" class="avatar">
+                <img v-if="imageURL[i].pictureUrl && !imageFlag[i]" :src="base_img + imageURL[i].pictureUrl"
+                    class="avatar">
                 <i v-else-if="!imageFlag[i]" class="el-icon-plus avatar-uploader-icon"></i>
                 <el-progress v-if="imageFlag[i]" type="circle" :percentage="UploadPercent[i]"></el-progress>
             </el-upload>
@@ -49,9 +50,12 @@ export default {
             imageFlag: [false, false, false, false],
             UploadPercent: [0, 0, 0, 0],
             lang: ['CN', 'EN', 'TH', 'VN'],
+            base_img: ''
         };
     },
     created() {
+        this.base_img = process.env.NODE_ENV == 'development' ? 'https://gwstatic.mvkbnb.com/' : 'https://static.44dog.cc/'
+
         if (typeof this.img === 'string') {
             try {
                 let obj = JSON.parse(this.img);
@@ -83,10 +87,10 @@ export default {
             that.$set(that.imageFlag, index, true)
             if (that.fn == 'gamer') {
                 Fn = that.fn
-                Code = that.code + '' + lang
+                Code = that.code + '/' + lang
             } else {
                 Fn = that.fn + lang
-                Code = that.code
+                Code = that.code + '/' + lang
             }
             formData.append('file', item.file)
             request({
