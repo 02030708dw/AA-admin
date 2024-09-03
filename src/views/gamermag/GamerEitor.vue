@@ -31,6 +31,9 @@
       <el-form-item :label="$t('sort')" prop="sort">
         <el-input type='number' v-model="ruleForm.sort" />
       </el-form-item>
+      <el-form-item label="游戏商图片" prop="pictureInfos">
+          <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -146,7 +149,10 @@ export default {
           return false
         }
       })
-    }
+    },
+    getImageURL(urlList) {
+      this.ruleForm.pictureInfos = urlList
+    },
   }
 }
 </script>

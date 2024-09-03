@@ -56,6 +56,9 @@
           :inactive-value="0"
         />
       </el-form-item>
+      <el-form-item label="游戏商图片" prop="pictureInfos">
+          <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -67,7 +70,11 @@
 </template>
 
 <script>
+import UploadImage from '@/components/Upload/imageGamer.vue'
 export default {
+  components: {
+    UploadImage
+  },
   props: {
     CurrencytPageData:{
       type: Array,
@@ -168,6 +175,9 @@ export default {
           return false;
         }
       });
+    },
+    getImageURL(urlList) {
+      this.ruleForm.pictureInfos = urlList
     },
   },
 };
