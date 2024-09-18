@@ -1,25 +1,15 @@
 <template>
-  <el-dialog
-    :title="$t('EditGameMerchant')"
-    :visible.sync="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="$t('EditGameMerchant')" :visible.sync="dialogVisible" width="50%">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item label="编码" prop="code">
         <el-input v-model="ruleForm.code" />
       </el-form-item>
-         <el-form-item label="选择币种" prop="currency">
+      <el-form-item label="选择币种" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
-          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
+          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item :label="$t('MemberRebateRatio')" prop="memberRate">
@@ -31,9 +21,21 @@
       <el-form-item :label="$t('sort')" prop="sort">
         <el-input type='number' v-model="ruleForm.sort" />
       </el-form-item>
-      <el-form-item label="游戏商图片" prop="pictureInfos">
-          <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
+      <el-form-item label="印尼游戏商乘千">
+        <el-radio-group v-model="ruleForm.idr">
+          <el-radio :label="0" size="large">是</el-radio>
+          <el-radio :label="1" size="large">否</el-radio>
+        </el-radio-group>
       </el-form-item>
+      <el-form-item label="越南盾游戏商乘千">
+        <el-radio-group v-model="ruleForm.vnd">
+          <el-radio :label="0" size="large">是</el-radio>
+          <el-radio :label="1" size="large">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <!-- <el-form-item label="游戏商图片" prop="pictureInfos">
+          <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
+      </el-form-item> -->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -46,7 +48,7 @@
 <script>
 export default {
   props: {
-    CurrencytPageData:{
+    CurrencytPageData: {
       type: Array,
       default: () => {
         return []
@@ -66,8 +68,10 @@ export default {
         cashUrl: '',
         betUrl: '',
         rate: '',
-        currency:[],
-        sort:''
+        currency: [],
+        sort: '',
+        vnd: 1,
+        idr: 1
       },
       // 游戏类型选项
       gamertype: [
@@ -124,8 +128,10 @@ export default {
           cashUrl: '',
           betUrl: '',
           rate: '',
-          currency:[],
-          sort:''
+          currency: [],
+          sort: '',
+          vnd: 1,
+          idr: 1
         }
       } else {
         this.ruleForm = { ...data }
@@ -156,5 +162,4 @@ export default {
   }
 }
 </script>
-  <style>
-</style>
+<style></style>

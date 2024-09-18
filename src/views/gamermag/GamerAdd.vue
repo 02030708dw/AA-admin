@@ -1,16 +1,6 @@
 <template>
-  <el-dialog
-    :title="$t('AddGameMerchant')"
-    :visible.sync="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="$t('AddGameMerchant')" :visible.sync="dialogVisible" width="50%">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -19,7 +9,7 @@
       </el-form-item>
       <el-form-item label="选择币种" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
-          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
+          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item :label="$t('MemberRebateRatio')" prop="memberRate">
@@ -34,7 +24,7 @@
       <el-form-item :label="$t('typesof')" prop="types">
         <el-checkbox-group v-model="ruleForm.types">
           <el-checkbox v-for="(item, index) in gamertype" :key="index" :label="item.value">
-            {{item.label}}
+            {{ item.label }}
           </el-checkbox>
         </el-checkbox-group>
         <!-- <el-select
@@ -50,21 +40,28 @@
         </el-select> -->
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          v-model="ruleForm.status"
-          :active-value="1"
-          :inactive-value="0"
-        />
+        <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
-      <el-form-item label="游戏商图片" prop="pictureInfos">
+      <el-form-item label="印尼游戏商乘千">
+        <el-radio-group v-model="ruleForm.idr">
+          <el-radio :label="0" size="large">是</el-radio>
+          <el-radio :label="1" size="large">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="越南盾游戏商乘千">
+        <el-radio-group v-model="ruleForm.vnd">
+          <el-radio :label="0" size="large">是</el-radio>
+          <el-radio :label="1" size="large">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <!-- <el-form-item label="游戏商图片" prop="pictureInfos">
           <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">
-        {{ $t("determine") }}</el-button
-      >
+        {{ $t("determine") }}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -76,7 +73,7 @@ export default {
     UploadImage
   },
   props: {
-    CurrencytPageData:{
+    CurrencytPageData: {
       type: Array,
       default: () => {
         return []
@@ -96,7 +93,9 @@ export default {
         currency: [],
         code: "",
         rate: "",
-        sort:'',
+        sort: '',
+        vnd: 1,
+        idr: 1
       },
       // 游戏类型选项
       gamertype: [
@@ -154,7 +153,9 @@ export default {
           memberRate: "",
           currency: [],
           code: "",
-          sort:'',
+          sort: '',
+          vnd: 1,
+          idr: 1
         };
       }
       this.dialogVisible = !this.dialogVisible;
