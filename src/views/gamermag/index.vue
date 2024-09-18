@@ -181,7 +181,9 @@ export default {
         currency: item.currency,
         memberRate: item.memberRate,
         typeList:item.typeList,
-        sort: item.sort
+        sort: item.sort,
+        vnd: item.vnd,
+        idr: item.idr
       })
         .then((res) => {
           // 刷新数据
