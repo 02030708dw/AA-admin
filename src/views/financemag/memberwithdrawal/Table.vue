@@ -8,6 +8,7 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
+      <el-table-column prop="memberName" :label="$t('Membername')" width=""></el-table-column>
       <el-table-column prop="" :label="$t('Withdrawalinformation')" width="">
         <template slot-scope="scope">
           <div class="info_box">
@@ -223,16 +224,17 @@ export default {
     <style lang="scss" scoped>
     .info_box{
       margin: 0 auto;
-      width: 400px;
+
       .item_box{
         display: flex;
         align-items: center;
+        justify-content: center;
         flex-wrap: wrap;
         .item_title{
           font-size: 16px;
           font-weight: 510;
           width: 150px;
-          text-align: right;
+
         }
         .item_conent{
           margin-left: 5px;
