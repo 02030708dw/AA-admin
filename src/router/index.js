@@ -201,14 +201,21 @@ export const asyncRoutes = [
     ]
   },
   {
-    path: '/game',
+    path: '/games',
+    meta: { title: 'games', icon: 'el-icon-chat-dot-square' },
     component: Layout,
     children: [
       {
         path: 'game',
         name: 'game',
-        component: () => import('@/views/gamemag/index'),
+        component: () => import('@/views/games/game/index'),
         meta: { title: 'game', icon: 'el-icon-mouse' }
+      }, 
+      {
+        path: 'demogame',
+        name: 'demogame',
+        component: () => import('@/views/games/demogame/index'),
+        meta: { title: 'demogame', icon: 'el-icon-mouse' }
       }
     ]
   },
@@ -431,7 +438,7 @@ export function flatten(nameList = [], data, btnP = []) {
     if (v.children && v.children.length > 0) {
       flatten(nameList, v.children, btnP)
       nameList.push({ name: v.menuCode, path: v.menuUrl })
-    } else if (v.menuCode.match(/:(.*)$/)) {     // 是否是按钮权限页
+    } else if (v.menuCode &&v.menuCode.match(/:(.*)$/)) {     // 是否是按钮权限页
       btnP.push(v.menuCode)
     } else {
       nameList.push({ name: v.menuCode, path: v.menuUrl })
