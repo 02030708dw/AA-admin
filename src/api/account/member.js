@@ -130,3 +130,12 @@ export function TargetMemberList(memberId) {
     method: 'get',
   })
 }
+
+// 获取目标上级会员下拉列表
+export function MemberflowPage(params) {
+  return request({
+    url: `/memberflow/page`,
+    method: 'get',
+    params
+  })
+}
