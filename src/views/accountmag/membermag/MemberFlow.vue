@@ -33,16 +33,6 @@ export default {
     components: {
         Pagination
     },
-    filters: {
-        typeF(value) {
-            switch (value) {
-                case 0:
-                    return '冻结'
-                case 1:
-                    return '正常'
-            }
-        }
-    },
     data() {
         return {
             loading: false,
