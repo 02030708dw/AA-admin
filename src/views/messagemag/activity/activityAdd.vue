@@ -13,18 +13,18 @@
       <el-form-item :label="$t('content')" prop="content">
         <el-input v-model="ruleForm.content"></el-input>
       </el-form-item>
-      <el-form-item label="赠送金额">
-        <el-input v-model="ruleForm.giftAmount" />
-      </el-form-item>
-      <el-form-item label="需要充值金额">
-        <el-input v-model="ruleForm.rechargeAmount" />
-      </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
         <el-radio v-model="ruleForm.type" :label="1">体育</el-radio>
         <el-radio v-model="ruleForm.type" :label="2">彩票</el-radio>
         <el-radio v-model="ruleForm.type" :label="3">兑换</el-radio>
       </el-form-item>
-      <el-form-item label="是否轮播展示">
+      <el-form-item label="赠送金额" v-if="ruleForm.type == 3">
+        <el-input v-model="ruleForm.giftAmount" />
+      </el-form-item>
+      <el-form-item label="需要充值金额" v-if="ruleForm.type == 3">
+        <el-input v-model="ruleForm.rechargeAmount" />
+      </el-form-item>
+      <el-form-item label="是否轮播展示" >
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.isShow"></el-switch>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
