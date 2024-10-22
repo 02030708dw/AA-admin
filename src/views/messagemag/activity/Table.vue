@@ -2,10 +2,12 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
-      <el-table-column prop="title" :label="$t('title')" />
-      <el-table-column prop="content" :label="$t('content')" />
-      <el-table-column :label="$t('typesof')">
+      <el-table-column type="index" :label="$t('SerialNumber')" width="80" />
+      <el-table-column prop="title" :label="$t('title')"  width="120"/>
+      <el-table-column prop="content" :label="$t('content')" width="120" />
+      <el-table-column prop="giftAmount" label="赠送金额"  width="120"/>
+      <el-table-column prop="rechargeAmount" label="需要充值金额"  width="120"/>
+      <el-table-column :label="$t('typesof')"  width="120">
         <template slot-scope="scope">
           {{ scope.row.type == 1 ? '体育' : '彩票' }}
         </template>
@@ -17,12 +19,12 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
+      <el-table-column prop="createdAt" :label="$t('Creationtime')"  width="120">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('state')" width="">
+      <el-table-column prop="" fixed="right"  :label="$t('state')"  width="140">
         <template slot-scope="scope">
           <div>
             <el-switch v-has="'activity:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0" active-color="#13ce66"
@@ -30,7 +32,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('operate')" width="">
+      <el-table-column fixed="right" prop="" :label="$t('operate')"  width="120">
         <template slot-scope="scope">
           <el-button v-has="'activity:edit'" type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{ $t("edit") }}</el-button>
           <el-button v-has="'activity:del'" type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete") }}</el-button>

@@ -48,7 +48,8 @@ export default {
       ],
       typeType: [
         { title: '体育', index: 1 },
-        { title: '彩票', index: 2 }
+        { title: '彩票', index: 2 },
+        { title: '兑换', index: 3 }
       ],
       btnIcoType: true,
     }
