@@ -1,9 +1,6 @@
 <template>
   <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="60%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item :label="$t('id')" prop="id">
-        <el-input v-model="ruleForm.id" />
-      </el-form-item>
       <el-form-item :label="$t('name')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -26,6 +23,20 @@
 <script>
 import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
+  props: {
+    gamerIdData: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+    gameIdData: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   components: {
     UploadImage
   },

@@ -5,8 +5,8 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getactivitydata" />
-    <ActivityAdd ref="ActivityAdd" @confirm="getactivityAdd" />
-    <ActivityEitor ref="ActivityEitor" @confirm="getactivityEitor" />
+    <ActivityAdd :gamer-id-data="GamerIdData" ref="ActivityAdd" @confirm="getactivityAdd" />
+    <ActivityEitor :gamer-id-data="GamerIdData" ref="ActivityEitor" @confirm="getactivityEitor" />
   </el-card>
 </template>
 
@@ -37,13 +37,26 @@ export default {
       total: 0,
       pageNo: 1,
       status: null, // 状态
-      PagesSize: 20
+      PagesSize: 20,
+      GamerIdData:[]
     }
   },
   created() {
     this.getactivitydata(1)
+    this.GetGamerPages()
   },
   methods: {
+    // 获取游戏商id
+    GetGamerPages() {
+      this.GamerIdData = []
+      let res = this.$store.state.user.gamer
+      for (let i = 0; i < res.length; i++) {
+        this.GamerIdData.push({
+          title: res[i].name,
+          index: res[i].id
+        })
+      }
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getactivitydata(this.pageNo)
@@ -136,10 +149,13 @@ export default {
       activityEdit({
         content: data.content,
         id: data.id,
-        pictureInfos:data.pictureInfos,
+        pictureInfos: data.pictureInfos,
         title: data.title,
-        type:data.type,
-        isShow:data.isShow,
+        type: data.type,
+        isShow: data.isShow,
+        gamerId: data.gamerId,
+        giftAmount: data.giftAmount,
+        rechargeAmount: data.rechargeAmount,
       })
         .then((res) => {
           this.getactivitydata(this.pageNo)

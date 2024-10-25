@@ -13,6 +13,7 @@ export default {
     authoritymanage: 'User Management',
     membermanagement: 'Member Management',
     agentmanagement: 'Agent Management',
+    agentapplication: 'Agent Application',
     abnormalwallet:'Abnormal Wallet',
     accountmanage: 'Account Management',
     financemanage: 'Finance Management',

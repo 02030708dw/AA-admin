@@ -29,7 +29,7 @@
         :header-cell-style="{ 'text-align': 'center' }"
         :cell-style="{ 'text-align': 'center' }"
       >
-        <el-table-column prop="id" label="会员钱包ID" width="" />
+        <!-- <el-table-column prop="id" label="会员钱包ID" width="" /> -->
         <el-table-column prop="memberName" label="会员名称" width="" />
         <el-table-column prop="betAmout" label="投注金额" width="" />
         <el-table-column prop="awardAmount" label="派奖金额" width="" />
@@ -43,7 +43,7 @@
             {{ scope.row.status | typeS }}
           </template>
         </el-table-column>
-        <el-table-column prop="gamerName" label="GameMerchantName" width="" />
+        <el-table-column prop="gamerName" label="游戏商名称" width="" />
         <el-table-column prop="createdAt" label="创建时间" width="" >
           <template slot-scope="scope">
               {{ $creationTime(scope.row.createdAt) }}
