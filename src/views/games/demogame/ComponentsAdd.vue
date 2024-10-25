@@ -8,12 +8,14 @@
         <el-input style="width: 400px" v-model="ruleForm.url"></el-input>
       </el-form-item>
       <el-form-item :label="$t('GameMerchantName')" prop="gamerId">
-        <el-select v-model="ruleForm.gamerId" filterable :placeholder="$t('SelectGameMerchant')" style="width: 200px">
+        <el-select v-model="ruleForm.gamerId" filterable @change="GetGamePages" :placeholder="$t('SelectGameMerchant')"
+          style="width: 200px">
           <el-option v-for="(item, index) in gamerIdData" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('gamename')" prop="gameId">
-        <el-select v-model="ruleForm.gameId" filterable :placeholder="$t('gamename')" style="width: 200px">
+        <el-select v-model="ruleForm.gameId" :loading="loading" filterable :placeholder="$t('gamename')"
+          style="width: 200px">
           <el-option v-for="(item, index) in gameIdData" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
@@ -36,6 +38,7 @@
 
 <script>
 import UploadImage from '@/components/Upload/imageDemo.vue'
+import { gamePage } from '@/api/game/game'
 export default {
   props: {
     gamerIdData: {
@@ -44,12 +47,6 @@ export default {
         return []
       }
     },
-    gameIdData: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    }
   },
   components: {
     UploadImage
@@ -71,11 +68,26 @@ export default {
         name: [{ required: true, message: this.$t("Namenotentered"), trigger: "blur" }],
         url: [{ required: true, message: "地址不能为空", trigger: "blur" }],
         gameId: [{ required: true, message: this.$t("GameIDnotentered"), trigger: "blur" }],
-
       },
+      gameIdData: [],
+      loading: false
     };
   },
   methods: {
+    // 获取游戏id
+    async GetGamePages() {
+      this.loading = true
+      this.gameIdData = []
+      let data = await gamePage({ pageNo: 1, pageSize: 1000000, gamerId: this.ruleForm.gamerId })
+      let res = data.resultSet.data
+      this.loading = false
+      for (let i = 0; i < res.length; i++) {
+        this.gameIdData.push({
+          title: res[i].name,
+          index: res[i].id
+        })
+      }
+    },
     // 改变弹窗状态
     getAddstatus() {
       if (!this.dialogVisible) {

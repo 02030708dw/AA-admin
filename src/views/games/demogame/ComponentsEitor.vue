@@ -23,20 +23,6 @@
 <script>
 import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
-  props: {
-    gamerIdData: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    },
-    gameIdData: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    }
-  },
   components: {
     UploadImage
   },
