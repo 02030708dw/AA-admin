@@ -13,7 +13,7 @@
           <el-option v-for="(item, index) in gamerIdData" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item :label="$t('gamename')" prop="gameId">
+      <el-form-item :label="$t('gamename')" >
         <el-select v-model="ruleForm.gameId" :loading="loading" filterable :placeholder="$t('gamename')"
           style="width: 200px">
           <el-option v-for="(item, index) in gameIdData" :key="index" :value="item.index" :label="item.title" />
@@ -67,7 +67,7 @@ export default {
         gamerId: [{ required: true, message: this.$t("GamerIDnotentered"), trigger: "blur" }],
         name: [{ required: true, message: this.$t("Namenotentered"), trigger: "blur" }],
         url: [{ required: true, message: "地址不能为空", trigger: "blur" }],
-        gameId: [{ required: true, message: this.$t("GameIDnotentered"), trigger: "blur" }],
+      
       },
       gameIdData: [],
       loading: false
