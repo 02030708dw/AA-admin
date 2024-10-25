@@ -5,17 +5,17 @@
         <span>{{ ruleForm.id }}</span>
       </el-form-item>
       <el-form-item label="目标会员列表" prop="">
-        <el-select v-model="targetAgentId" placeholder="选择代理" style="width: 200px;margin-left: 10px">
+        <!-- <el-select v-model="targetAgentId" placeholder="选择代理" style="width: 200px;margin-left: 10px">
           <el-option v-for="(item, index) in TargetMemberList" :key="index" :value="item.index" :label="item.title" />
-        </el-select>
+        </el-select> -->
       </el-form-item>
 
       <el-form-item label="转移会员列表" prop="">
-        <el-checkbox-group v-model="agentData">
+        <!-- <el-checkbox-group v-model="agentData">
           <el-checkbox v-for="(item, i) in MemberList" :key="item.id" :label="i">
             {{ item.realName }}
           </el-checkbox>
-        </el-checkbox-group>
+        </el-checkbox-group> -->
       </el-form-item>
     </el-form>
 

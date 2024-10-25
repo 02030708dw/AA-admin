@@ -17,11 +17,11 @@
 
             </el-form-item>
             <el-form-item label="选择转移的下级代理" prop="">
-                <el-checkbox-group v-model="agentS">
+                <!-- <el-checkbox-group v-model="agentS">
                     <el-checkbox v-for="(item, i) in agentList" :key="item.id" :label="i">
                         {{ item.realName }}
                     </el-checkbox>
-                </el-checkbox-group>
+                </el-checkbox-group> -->
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">

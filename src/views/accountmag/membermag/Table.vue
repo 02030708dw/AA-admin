@@ -11,16 +11,16 @@
 
       <!-- <el-table-column prop="password" :label="$t('password')" width="" /> -->
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
-      <el-table-column prop="gammerBlanace" label="游戏商余额" width="" />
       <el-table-column prop="blanace" label="会员余额" width="" />
-      <el-table-column prop="realName" :label="$t('name')" width="" />
+      <el-table-column prop="gammerBlanace" label="游戏商余额" width="" />
+      <el-table-column prop="realName" label="真实姓名" width="" />
       <el-table-column
         prop="parentName"
-        :label="$t('parentMemberId')"
+        label="上级会员名称"
         width=""
       />
-      <el-table-column prop="agenId" :label="$t('agenId')" width="" />
-      <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" />
+      <el-table-column prop="cashFlow" label="提现所需流水" width="" />
+      <!-- <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" /> -->
       <el-table-column prop="createdAt" label="注册时间" width="" >
           <template slot-scope="scope">
               {{ $creationTime(scope.row.createdAt) }}

@@ -33,7 +33,7 @@ const mutations = {
   SET_GAMER: (state, avatar) => {
     state.gamer = avatar
     sessionStorage.setItem('gamer', JSON.stringify(avatar))
-  },
+  },  
   //币种
   SET_CURRENCY: (state, avatar) => {
     state.currency = avatar
