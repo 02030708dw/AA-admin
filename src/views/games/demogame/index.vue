@@ -23,6 +23,7 @@ import {
   ServiceStatus,
   ServiceEdit
 } from '@/api/game/demo'
+import { gamePage } from '@/api/game/game'
 export default {
   components: {
     Table,
@@ -64,7 +65,8 @@ export default {
     // 获取游戏id
     async GetGamePages() {
       this.GameIdData = []
-      let res = this.$store.state.user.game
+      let data = await gamePage({ pageNo: 1, pageSize: 1000000 })
+      let res = data.resultSet.data
       for (let i = 0; i < res.length; i++) {
         this.GameIdData.push({
           title: res[i].name,
