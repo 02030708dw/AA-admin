@@ -2,12 +2,11 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="creator" label="创建人"  />
-      <el-table-column prop="name" :label="$t('name')"  />
-      <el-table-column prop="gamerId" label="游戏商id"  />
-      <el-table-column prop="gameId" label="游戏ID"  />
-      <el-table-column prop="gamerName" label="游戏商name"  />
- 
+      <el-table-column prop="creator" :label="$t('publisher')" />
+      <el-table-column prop="name" :label="$t('name')" />
+      <el-table-column prop="gamerName" :label="$t('GameMerchantName')" />
+      <el-table-column prop="gameName" :label="$t('gamename')" />
+
       <el-table-column prop="" :label="$t('icon')">
         <template slot-scope="scope">
           <div class="image_box">
@@ -23,15 +22,18 @@
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch v-has="'demogame:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0" active-color="#13ce66"
-              active-text="启用" inactive-text="停用" @change="getUdateStatus($event, scope.row.id)" />
+            <el-switch v-has="'demogame:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0"
+              active-color="#13ce66" :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
+              @change="getUdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-has="'demogame:edit'" type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{ $t("edit") }}</el-button>
-          <el-button v-has="'demogame:del'" type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete") }}</el-button>
+          <el-button v-has="'demogame:edit'" type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
+            $t("edit") }}</el-button>
+          <el-button v-has="'demogame:del'" type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
+            }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,9 +86,9 @@ export default {
     getUdateStatus(e, id) {
       this.$emit('UdateStatus', { status: e, id: id })
     },
-    toUrl(url){
+    toUrl(url) {
       //保留语言判断
-      if(url){
+      if (url) {
         return "https://gwstatic.mvkbnb.com/" + url
       }
     },

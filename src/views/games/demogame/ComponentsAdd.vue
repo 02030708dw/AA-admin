@@ -1,17 +1,21 @@
 <template>
   <el-dialog title="试玩游戏添加" :visible.sync="dialogVisible" width="40%">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item :label="$t('GamemerchantsID')" prop="gamerId">
-        <el-input v-model="ruleForm.gamerId" />
-      </el-form-item>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('name')" prop="name">
-        <el-input v-model="ruleForm.name" />
+        <el-input style="width: 400px" v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item label="试玩地址" prop="url">
-        <el-input v-model="ruleForm.url"></el-input>
+        <el-input style="width: 400px" v-model="ruleForm.url"></el-input>
       </el-form-item>
-      <el-form-item label="游戏ID" prop="gameId">
-        <el-input v-model="ruleForm.gameId"></el-input>
+      <el-form-item :label="$t('GameMerchantName')" prop="gamerId">
+        <el-select v-model="ruleForm.gamerId" filterable :placeholder="$t('SelectGameMerchant')" style="width: 200px">
+          <el-option v-for="(item, index) in gamerIdData" :key="index" :value="item.index" :label="item.title" />
+        </el-select>
+      </el-form-item>
+      <el-form-item :label="$t('gamename')" prop="gameId">
+        <el-select v-model="ruleForm.gameId" filterable :placeholder="$t('gamename')" style="width: 200px">
+          <el-option v-for="(item, index) in gameIdData" :key="index" :value="item.index" :label="item.title" />
+        </el-select>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
@@ -25,7 +29,7 @@
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">{{
         $t("determine")
-        }}</el-button>
+      }}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -33,6 +37,20 @@
 <script>
 import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
+  props: {
+    gamerIdData: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+    gameIdData: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   components: {
     UploadImage
   },
@@ -44,7 +62,7 @@ export default {
         name: "",
         url: "",
         gameId: "",
-        gamerId:"",
+        gamerId: "",
         status: 0,
         posterImage: 0,
       },
@@ -65,7 +83,7 @@ export default {
           name: "",
           url: "",
           gameId: "",
-          gamerId:"",
+          gamerId: "",
           status: 0,
           posterImage: 0,
         };

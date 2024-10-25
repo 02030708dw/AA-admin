@@ -217,7 +217,7 @@ export const asyncRoutes = [
   },
   {
     path: '/games',
-    meta: { title: 'games', icon: 'el-icon-chat-dot-square' },
+    meta: { title: 'games', icon: 'el-icon-mouse' },
     component: Layout,
     children: [
       {
