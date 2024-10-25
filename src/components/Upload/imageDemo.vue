@@ -35,7 +35,7 @@ export default {
         };
     },
     created() {
-        this.base_img = process.env.NODE_ENV == 'development' ? 'https://gwstatic.mvkbnb.com/' : 'https://gwstatic.mvkbnb.com/'
+        this.base_img = process.env.NODE_ENV == 'development' ? 'https://gwstatic.mvkbnb.com/' : 'https://static.44dog.cc/'
         this.imageURL = this.img
     },
     methods: {
