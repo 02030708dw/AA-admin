@@ -3,14 +3,12 @@ import { UserInfo } from '@/api/account/user'
 import { setToken, removeToken } from '@/utils/auth'
 import { resetRouter, newRouter, asyncRoutes } from '@/router'
 import { gamerPage } from '@/api/gamer/gamer'
-import { gamePage } from '@/api/game/game'
 import { CurrencytPage } from  '@/api/Currency/Currency'
 const getDefaultState = () => {
   return {
     token: '',
     name: '',
     avatar: '',
-    game: JSON.parse(sessionStorage.getItem('game')),//游戏
     gamer: JSON.parse(sessionStorage.getItem('gamer')),//游戏商
     currency: JSON.parse(sessionStorage.getItem('currency')),//币种
   }
@@ -36,11 +34,6 @@ const mutations = {
     state.gamer = avatar
     sessionStorage.setItem('gamer', JSON.stringify(avatar))
   },  
-  //游戏
-  SET_GAME: (state, avatar) => {
-    state.game = avatar
-    sessionStorage.setItem('game', JSON.stringify(avatar))
-  },
   //币种
   SET_CURRENCY: (state, avatar) => {
     state.currency = avatar
@@ -111,18 +104,6 @@ const actions = {
       gamerPage({ pageNo: 1, pageSize: 1000000 }).then((res) => {
         console.log(res);
         commit('SET_GAMER',res.resultSet.data)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-  //游戏
-  gameSet({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      gamePage({ pageNo: 1, pageSize: 1000000 }).then((res) => {
-        console.log(res);
-        commit('SET_GAME',res.resultSet.data)
         resolve()
       }).catch(error => {
         reject(error)

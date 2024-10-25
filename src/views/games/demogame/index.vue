@@ -5,8 +5,8 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd :gamerIdData="GamerIdData" :gameIdData="GameIdData" ref="ComponentsAdd" @confirm="getAdd" />
-    <ComponentsEitor :gamerIdData="GamerIdData" :gameIdData="GameIdData" ref="ComponentsEitor" @confirm="getEitor" />
+    <ComponentsAdd :gamerIdData="GamerIdData"  ref="ComponentsAdd" @confirm="getAdd" />
+    <ComponentsEitor  ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -40,14 +40,12 @@ export default {
       type: '',
       account: '',
       PagesSize: 20,
-      GameIdData: [],
       GamerIdData: []
     }
   },
   created() {
     this.getdata(1)
     this.GetGamerPages()
-    this.GetGamePages()
   },
   methods: {
     // 获取游戏商id
@@ -56,17 +54,6 @@ export default {
       let res = this.$store.state.user.gamer
       for (let i = 0; i < res.length; i++) {
         this.GamerIdData.push({
-          title: res[i].name,
-          index: res[i].id
-        })
-      }
-    },
-    // 获取游戏id
-    async GetGamePages() {
-      this.GameIdData = []
-      let res = this.$store.state.user.game
-      for (let i = 0; i < res.length; i++) {
-        this.GameIdData.push({
           title: res[i].name,
           index: res[i].id
         })
