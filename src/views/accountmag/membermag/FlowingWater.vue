@@ -29,7 +29,7 @@
         :header-cell-style="{ 'text-align': 'center' }"
         :cell-style="{ 'text-align': 'center' }"
       >
-        <el-table-column prop="memberWalletId" label="会员钱包ID" width="" />
+        <!-- <el-table-column prop="memberWalletId" label="会员钱包ID" width="" /> -->
         <el-table-column prop="changeAmout" label="变动金额" width="" />
         <el-table-column prop="beforeBalance" label="变动前余额" width="" />
         <el-table-column prop="afterBalance" label="变动后余额" width="" />
@@ -39,7 +39,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="remark" label="描述" width="" />
-        <el-table-column prop="createdAt" label="注册时间" width="" >
+        <el-table-column prop="createdAt" label="创建时间" width="" >
           <template slot-scope="scope">
               {{ $creationTime(scope.row.createdAt) }}
           </template>

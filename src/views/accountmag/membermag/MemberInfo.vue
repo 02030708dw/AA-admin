@@ -2,7 +2,7 @@
   <!-- 显示会员详情 -->
   <el-dialog title="会员详情" :visible.sync="dialogVisible" width="60%" @close="Handelclose">
     <el-tabs v-model="tabsValue" type="border-card" @tab-click="HandelTab">
-      <el-tab-pane name="0" v-has="'membermag:flow'"  label="会员资金流水">
+      <el-tab-pane name="0" v-has="'membermag:flow'" label="会员资金流水">
         <FlowingWater ref="flowingwaterView" />
       </el-tab-pane>
       <el-tab-pane name="1" v-has="'membermag:friend'" label="会员好友列表">
@@ -16,6 +16,9 @@
       </el-tab-pane>
       <el-tab-pane name="4" label="个人信息">
         <PersonalDetails @Refresh="HandelRefresh" ref="PersonalDetails" />
+      </el-tab-pane>
+      <el-tab-pane name="5" label="会员流水变更页列表">
+        <MemberFlow ref="MemberFlow" />
       </el-tab-pane>
     </el-tabs>
   </el-dialog>
@@ -36,13 +39,16 @@ import BalanceList from './BalanceList.vue'
 import History from './History.vue'
 //  个人资料
 import PersonalDetails from './PersonalDetails.vue'
+//  会员流水变更页列表
+import MemberFlow from './MemberFlow.vue'
 export default {
   components: {
     FlowingWater,
     Friends,
     BalanceList,
     History,
-    PersonalDetails
+    PersonalDetails,
+    MemberFlow
   },
   data() {
     return {
@@ -79,10 +85,15 @@ export default {
           // 个人资料
           this.$refs.PersonalDetails.UserInfo = {
             memberId: this.MemberInfo.id,
-            telPhone: this.MemberInfo.telPhone, 
+            telPhone: this.MemberInfo.telPhone,
             userName: this.MemberInfo.userName,
             bankCardNoList: this.MemberInfo.bankCardNoList,
           }
+          break
+        case '5':
+          // 会员流水变更页列表
+          this.$refs.MemberFlow.memberId = this.MemberInfo.id
+          this.$refs.MemberFlow.getList(1)
           break
       }
     },
@@ -111,6 +122,4 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

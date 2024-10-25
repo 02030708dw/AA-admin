@@ -14,6 +14,11 @@ module.exports = {
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
+    // 关闭所有与类型相关的规则
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "no-redeclare": "off",
+    //
     "vue/max-attributes-per-line": [2, {
       "singleline": 10,
       "multiline": {

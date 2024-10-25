@@ -14,11 +14,11 @@
         <!-- <el-input v-model="targetAgentId"></el-input> -->
       </el-form-item>
       <el-form-item label="原代理的会员列表" prop="">
-        <el-checkbox-group v-model="agentData">
+        <!-- <el-checkbox-group v-model="agentData">
           <el-checkbox v-for="(item, i) in agentList" :key="item.id" :label="i">
             {{ item.realName }}
           </el-checkbox>
-        </el-checkbox-group>
+        </el-checkbox-group> -->
       </el-form-item>
     </el-form>
 
