@@ -156,6 +156,7 @@ export default {
         gamerId: data.gamerId,
         giftAmount: data.giftAmount,
         rechargeAmount: data.rechargeAmount,
+        flowRate:data.flowRate
       })
         .then((res) => {
           this.getactivitydata(this.pageNo)

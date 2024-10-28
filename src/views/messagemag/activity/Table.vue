@@ -7,6 +7,7 @@
       <el-table-column prop="content" :label="$t('content')" width="120" />
       <el-table-column prop="giftAmount" label="赠送金额"  width="120"/>
       <el-table-column prop="rechargeAmount" label="需要充值金额"  width="120"/>
+      <el-table-column prop="flowRate" label="流水倍率"  width="120"/>
       <el-table-column :label="$t('typesof')"  width="120">
         <template slot-scope="scope">
           <span v-if="scope.row.type == 1">体育</span>
