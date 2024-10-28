@@ -3,8 +3,8 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column type="index" :label="$t('SerialNumber')" width="80" />
-      <el-table-column prop="title" :label="$t('title')"  width="120"/>
-      <el-table-column prop="content" :label="$t('content')" width="120" />
+      <el-table-column prop="title" :label="$t('title')"/>
+      <el-table-column prop="content" :label="$t('content')"/>
       <el-table-column prop="giftAmount" label="赠送金额"  width="120"/>
       <el-table-column prop="rechargeAmount" label="需要充值金额"  width="120"/>
       <el-table-column prop="flowRate" label="流水倍率"  width="120"/>
@@ -22,7 +22,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')"  width="120">
+      <el-table-column prop="createdAt" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
