@@ -9,7 +9,9 @@
       <el-table-column prop="rechargeAmount" label="需要充值金额"  width="120"/>
       <el-table-column :label="$t('typesof')"  width="120">
         <template slot-scope="scope">
-          {{ scope.row.type == 1 ? '体育' : '彩票' }}
+          <span v-if="scope.row.type == 1">体育</span>
+          <span v-if="scope.row.type == 2">彩票</span>
+          <span v-if="scope.row.type == 3">兑换</span>
         </template>
       </el-table-column>
       <el-table-column prop="" width="250" :label="$t('icon')">
