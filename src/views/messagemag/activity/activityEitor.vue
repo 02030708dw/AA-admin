@@ -13,6 +13,9 @@
       <el-form-item :label="$t('content')" prop="content">
         <el-input v-model="ruleForm.content"></el-input>
       </el-form-item>
+      <el-form-item label="流水倍率" >
+        <el-input v-model="ruleForm.flowRate"></el-input>
+      </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
         <el-radio v-model="ruleForm.type" :label="1">体育</el-radio>
         <el-radio v-model="ruleForm.type" :label="2">彩票</el-radio> 
@@ -68,6 +71,7 @@ export default {
         gamerId: null,
         giftAmount: null,
         rechargeAmount: null,
+        flowRate:''
       },
       rules: {
         note: [{ required: true, message: "请输入注释", trigger: "blur" }],
@@ -91,6 +95,7 @@ export default {
           gamerId: null,
           giftAmount: null,
           rechargeAmount: null,
+          flowRate:''
         }
       } else {
         this.ruleForm = { ...data }
