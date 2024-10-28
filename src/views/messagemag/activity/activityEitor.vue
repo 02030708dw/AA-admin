@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
         <el-radio v-model="ruleForm.type" :label="1">体育</el-radio>
-        <el-radio v-model="ruleForm.type" :label="2">彩票</el-radio>
+        <el-radio v-model="ruleForm.type" :label="2">彩票</el-radio> 
         <el-radio v-model="ruleForm.type" :label="3">兑换</el-radio>
       </el-form-item>
       <el-form-item label="赠送金额" v-if="ruleForm.type == 3">
