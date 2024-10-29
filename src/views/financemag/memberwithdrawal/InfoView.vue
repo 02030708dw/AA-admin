@@ -58,7 +58,7 @@ export default {
     },
     // 审核状态
     Aduit_Status() {
-      return this.ruleForm.aduitStatus < 1 ? '待审核' : (this.ruleForm.aduitStatus < 2 ? '审核通过' : (this.ruleForm.aduitStatus < 3 ? '驳回' : '已取消'))
+      return this.ruleForm.aduitStatus < 1 ? this.$t('PendingReview') : (this.ruleForm.aduitStatus < 2 ? this.$t('Approve') : (this.ruleForm.aduitStatus < 3 ? this.$t('Rejected') :  this.$t('Cancelled') ))
     }
   },
   methods: {

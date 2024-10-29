@@ -8,7 +8,7 @@
         <span>{{ ruleForm.id }}</span>
       </el-form-item>
       <el-form-item :label="$t('targetAgentId')" prop="">
-        <el-select v-model="targetAgentId" placeholder="选择代理" style="width: 200px;margin-left: 10px">
+        <el-select v-model="targetAgentId" :placeholder="$t('SelectProxy')" style="width: 200px;margin-left: 10px">
           <el-option v-for="(item, index) in agentIddata" :key="index" :value="item.index" :label="item.title" />
         </el-select>
         <!-- <el-input v-model="targetAgentId"></el-input> -->

@@ -351,5 +351,9 @@ export default {
   sort:'排序',
   MemberRebateRatio:'会员返点比例',
   ThreePartyNames:'三方名称',
-  gamerCode:'游戏商编码'
+  gamerCode:'游戏商编码',
+  PendingReview:'待审核',
+  Cancelled:'已取消',
+  Approve:'审核通过',
+  Rejected:'驳回'
 }
