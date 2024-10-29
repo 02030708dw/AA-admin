@@ -354,4 +354,8 @@ export default {
   MemberRebateRatio:'Member Rebate Ratio',
   ThreePartyNames: 'Three Party Names',
   gamerCode:'gamerCode',
+  PendingReview: 'Pending review',
+  Cancelled: 'Cancelled',
+  Approve: 'Approve',
+  Rejected: 'Rejected'
 }

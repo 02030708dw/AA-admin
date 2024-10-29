@@ -4,7 +4,7 @@
     <el-input v-model="userPhone" style="width: 200px;" :placeholder="$t('phone')" />
     <el-select
       v-model="agentId"
-      placeholder="选择代理"
+      :placeholder="$t('SelectProxy')"
       style="width: 200px;margin-left: 10px"
     >
       <el-option

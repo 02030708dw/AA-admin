@@ -18,7 +18,7 @@
 
     <el-select
       v-model="agentId"
-      placeholder="选择代理"
+      :placeholder="$t('SelectProxy')"
       style="width: 200px;margin-left: 10px"
     >
       <el-option
@@ -68,10 +68,10 @@ export default {
       agentId: '', // 代理
       cashChannelId: '', // 提现渠道id
       noticetype: [
-        { title: '待审核', index: 0 },
-        { title: '审核通过', index: 1 },
-        { title: '驳回', index: 2 },
-        { title: '已取消', index: 3 }
+        { title: this.$t('PendingReview'), index: 0 },
+        { title: this.$t('Approve'), index: 1 },
+        { title: this.$t('Rejected'), index: 2 },
+        { title: this.$t('Cancelled'), index: 3 }
       ],
       btnIcoType: true,
       AgentData: [],

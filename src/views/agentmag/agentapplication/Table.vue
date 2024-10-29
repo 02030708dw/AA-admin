@@ -11,7 +11,7 @@
       <el-table-column prop="socialSoftware" label="社交软件账号" />
       <el-table-column prop="status" label="申请状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.status == 1" type="info">待审核</el-tag>
+          <el-tag v-if="scope.row.status == 1" type="info">{{ $t('PendingReview') }}</el-tag>
           <el-tag v-if="scope.row.status == 2" type="success">通过</el-tag>
           <el-tag v-if="scope.row.status == 3" type="danger">拒绝</el-tag>
         </template>
@@ -23,8 +23,9 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.status == 1" v-has="'demogame:edit'" type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("toexamine") }}</el-button>
+          <el-button v-if="scope.row.status == 1" v-has="'demogame:edit'" type="text" style="color: #e6a23c"
+            @click="getEditor(scope.row)">{{
+              $t("toexamine") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
