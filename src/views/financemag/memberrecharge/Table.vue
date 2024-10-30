@@ -14,7 +14,7 @@
       <el-table-column prop="amount" :label="$t('amountofmoney')" width="" />
       <el-table-column prop="" :label="$t('RechargeChannels')" width="">
         <template slot-scope="scope">
-          {{ scope.row.channel | channelF }}
+          {{ scope.row.channelName }}
         </template>
       </el-table-column>
       <!-- <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" /> -->
