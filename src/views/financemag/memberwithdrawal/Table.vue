@@ -78,6 +78,7 @@
           <span>{{ scope.row.aduitTime | timeF }}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="updater" :label="$t('Updatedby')" width=""></el-table-column>
       <!-- <el-table-column
         prop="rejection"
         :label="$t('Reasonforrejection')"
