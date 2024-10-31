@@ -9,6 +9,7 @@
       <el-table-column prop="reviewDate" label="审核时间" />
       <el-table-column prop="remarks" label="审核备注/拒绝原因" />
       <el-table-column prop="socialSoftware" label="社交软件账号" />
+      <el-table-column prop="transferUrl" label="中转页域名" />
       <el-table-column prop="status" label="申请状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.status == 1" type="info">{{ $t('PendingReview') }}</el-tag>
