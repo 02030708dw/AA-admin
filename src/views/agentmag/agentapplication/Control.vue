@@ -31,7 +31,7 @@ export default {
       status: null, // 状态
       btnIcoType: true,
       statusType: [
-        { title: '待审核', index: 1 },
+        { title: this.$t('PendingReview'), index: 1 },
         { title: '通过', index: 2 },
         { title: '拒绝', index: 3 }
       ],

@@ -155,6 +155,7 @@ export default {
         name: data.name,
         posterImage: data.posterImage,
         url: data.url,
+        sort:data.sort,
       })
         .then((res) => {
           this.getdata(this.pageNo)

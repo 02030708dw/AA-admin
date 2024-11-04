@@ -171,7 +171,7 @@ export default {
   Login: '登录',
   Date: '日期',
   Bettingamount: '投注金额',
-  Awardamount: '派奖金额',
+  Awardamount: '派奖总额',
   Withdrawalamount: '提现金额',
   Rechargeamount: '充值金额',
   Profitamount: '盈利金额',
@@ -316,8 +316,9 @@ export default {
   Totalrebateamount: '总返点金额',
   Numberoffriends: '好友人数',
   Numberoffirstrechargeusers: '首次充值人数',
-  NumberofRechargers: '充值人数',
-  Totalamountofactivities: '活动总额',
+  IncomeNum:'充值人数',
+  NumberofRechargers: '首充总额',
+  Totalamountofactivities: '充值总额',
   Memberrebateamount: '会员返点金额',
   Enableautomaticrefresh: '开启自动刷新',
   Turnoffautomaticrefresh: '关闭自动刷新',
@@ -351,5 +352,9 @@ export default {
   sort:'排序',
   MemberRebateRatio:'会员返点比例',
   ThreePartyNames:'三方名称',
-  gamerCode:'游戏商编码'
+  gamerCode:'游戏商编码',
+  PendingReview:'待审核',
+  Cancelled:'已取消',
+  Approve:'审核通过',
+  Rejected:'驳回'
 }

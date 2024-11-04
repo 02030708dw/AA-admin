@@ -3,6 +3,7 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="creator" :label="$t('publisher')" />
+      <el-table-column prop="sort" :label="$t('sort')" width="80" />
       <el-table-column prop="name" :label="$t('name')" />
       <el-table-column prop="gamerName" :label="$t('GameMerchantName')" />
       <el-table-column prop="gameName" :label="$t('gamename')" />

@@ -44,9 +44,9 @@
       >
         <template slot-scope="scope">
           <div class="status_box">
-            <div class="title_box">{{ scope.row.aduitStatus | FaduitStatus }}</div>
+            <div class="title_box">{{ FaduitStatus(scope.row.aduitStatus)   }}</div>
             <!-- 驳回原因 -->
-            <div v-if="scope.row.aduitStatus === 2" class="text_box">驳回原因:{{ scope.row.rejection }}</div>
+            <div v-if="scope.row.aduitStatus === 2" class="text_box">{{$t('Reasonforrejection')}}:{{ scope.row.rejection }}</div>
           </div>
         </template>
       </el-table-column>
@@ -62,7 +62,7 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">查看详情</el-button>
+          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t('Detail') }}</el-button>
           <el-button v-has="'agentwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" @click="HandelOption(scope.row.id,1)">{{ $t('passthrough') }}</el-button>
           <el-button v-has="'agentwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color:red;" @click="HandelOption(scope.row.id,2)">{{ $t('reject') }}</el-button>
           <el-button v-has="'agentwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: black;" @click="HandelOption(scope.row.id,3)"> {{ $t('cancellation') }}</el-button>
@@ -77,18 +77,7 @@ import { formatDate } from '../../../utils/formattime'
 export default {
   name: 'Table',
   filters: {
-    FaduitStatus(value) {
-      switch (value) {
-        case 0:
-          return '待审核'
-        case 1:
-          return '审核通过'
-        case 2:
-          return '驳回'
-        case 3:
-          return '已取消'
-      }
-    },
+  
     timeF(value) {
       return formatDate(value)
     }
@@ -105,6 +94,18 @@ export default {
     return { loading: false }
   },
   methods: {
+    FaduitStatus(value) {
+      switch (value) {
+        case 0:
+          return this.$t('PendingReview')
+        case 1:
+          return this.$t('Approve')
+        case 2:
+          return this.$t('Rejected')
+        case 3:
+          return this.$t('Cancelled')
+      }
+    },
     // 改变loading
     HandelLoading(status) {
       this.loading = status
