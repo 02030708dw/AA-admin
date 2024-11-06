@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="$t('AddAnnouncementtype')" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="$t('AddAnnouncementtype')" :visible.sync="dialogVisible" width="70%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item :label="$t('SelectGameMerchant')" prop="gamerId">
         <el-select v-model="ruleForm.gamerId" clearable filterable :placeholder="$t('SelectGameMerchant')"
@@ -11,7 +11,8 @@
         <el-input v-model="ruleForm.title" />
       </el-form-item>
       <el-form-item :label="$t('content')" prop="content">
-        <el-input v-model="ruleForm.content"></el-input>
+        <vue-ueditor-wrap class="ueditor"  v-model="ruleForm.content"  :config="config" @ready="ready" />
+        <!-- <el-input v-model="ruleForm.content"></el-input> -->
       </el-form-item>
       <el-form-item label="流水倍率" >
         <el-input v-model="ruleForm.flowRate"></el-input>
@@ -46,6 +47,8 @@
 
 <script>
 import UploadImage from '@/components/Upload/image.vue'
+import VueUeditorWrap from 'vue-ueditor-wrap';
+import { ueditorConfig } from '@/components/UEditor.js';
 export default {
   props: {
     gamerIdData: {
@@ -56,12 +59,14 @@ export default {
     }
   },
   components: {
-    UploadImage
+    UploadImage,
+    VueUeditorWrap
   },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
+      config:ueditorConfig,
       ruleForm: {
         content: "",
         pictureInfos: "",
@@ -119,6 +124,9 @@ export default {
     },
     getImageURL(url) {
       this.ruleForm.pictureInfos = url
+    },
+    ready(editorInstance) {
+      console.log(`实例${editorInstance.key}已经初始化:`, editorInstance);
     },
   }
 }
