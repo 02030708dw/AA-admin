@@ -94,6 +94,7 @@ export default {
         endTime: '',
       },
       timeArr: null,
+      editorInstance:'',
       rules: {
         note: [{ required: true, message: "请输入注释", trigger: "blur" }],
         title: [{ required: true, message: "请输入标题", trigger: "blur" }],
