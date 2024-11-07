@@ -20,7 +20,7 @@ export default {
     props: {
         //是否回显图片
         img: {
-            type: String,
+            type: String | Array,
             default: "",
         },
         fn: {//功能标识符（广告：banner 活动：activity 游戏商：gamer）
@@ -59,6 +59,8 @@ export default {
         // 开发环境
         // this.base_img = process.env.NODE_ENV == 'development' ? 'https://gwstatic.mvkbnb.com/' : 'https://static.44dog.cc/'
         if (typeof this.img === 'string') {
+            console.log(this.img, 'this.img ');
+
             try {
                 let obj = JSON.parse(this.img);
                 let pictureInfos = []

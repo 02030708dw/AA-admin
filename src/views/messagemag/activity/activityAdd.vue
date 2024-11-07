@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="$t('AddAnnouncementtype')" :visible.sync="dialogVisible" width="70%">
+  <el-dialog :title="$t('AddAnnouncementtype')" :before-close="handleClose" :visible.sync="dialogVisible" width="70%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item :label="$t('SelectGameMerchant')" prop="gamerId">
         <el-select v-model="ruleForm.gamerId" clearable filterable :placeholder="$t('SelectGameMerchant')"
@@ -104,6 +104,13 @@ export default {
     };
   },
   methods: {
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => { });
+    },
     // 改变弹窗状态
     getAddstatus() {
       if (!this.dialogVisible) {
@@ -142,6 +149,7 @@ export default {
       this.ruleForm.pictureInfos = url
     },
     ready(editorInstance) {
+      this.editorInstance = editorInstance
       console.log(`实例${editorInstance.key}已经初始化:`, editorInstance);
     },
     changeTime() {
@@ -154,7 +162,6 @@ export default {
       } else {
         return callback(new Error('请选择活动日期'));
       }
-
     }
 
   },

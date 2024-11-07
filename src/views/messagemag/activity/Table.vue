@@ -4,15 +4,17 @@
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column type="index" :label="$t('SerialNumber')" width="80" />
       <el-table-column prop="title" :label="$t('title')" />
-      <el-table-column prop="content" :label="$t('content')" />
+      <el-table-column prop="content" :label="$t('content')" width="100">
+        <template slot-scope="scope">
+          <div class="overflow-hidden">{{ scope.row.content }}</div>
+        </template>
+      </el-table-column>
       <el-table-column prop="giftAmount" label="赠送金额" width="120" />
       <el-table-column prop="rechargeAmount" label="需要充值金额" width="120" />
       <el-table-column prop="flowRate" label="流水倍率" width="120" />
       <el-table-column :label="$t('typesof')" width="120">
         <template slot-scope="scope">
-          <span v-if="scope.row.type == 1">体育</span>
-          <span v-if="scope.row.type == 2">彩票</span>
-          <span v-if="scope.row.type == 3">兑换</span>
+          <span>{{ getTypeName(scope.row.type) }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="" width="250" :label="$t('icon')">
@@ -65,6 +67,17 @@ export default {
     }
   },
   methods: {
+    getTypeName(type) {
+      const types = {
+        1: '体育',
+        2: '彩票',
+        3: '兑换',
+        4: '电子',
+        5: '真人',
+        6: '棋牌'
+      }
+      return types[type] || ''
+    },
     // 改变loading
     HandelLoading(status) {
       this.loading = status
@@ -117,5 +130,11 @@ export default {
     width: 100%;
     height: 100%;
   }
+}
+
+.overflow-hidden {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
