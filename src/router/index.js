@@ -408,7 +408,8 @@ export const constantRoutes = [
 
 const createRouter = () => new Router({
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  mode: 'history', 
+  routes: constantRoutes,
 })
 
 const router = createRouter()
