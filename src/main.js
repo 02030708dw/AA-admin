@@ -22,8 +22,9 @@ Vue.use(hasPermissionbtn)
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
-import { creationTime } from '@/utils/formattime'
+import { creationTime,toYMDHMSTime } from '@/utils/formattime'
 Vue.prototype.$creationTime = creationTime
+Vue.prototype.$YMDHMS = toYMDHMSTime
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
