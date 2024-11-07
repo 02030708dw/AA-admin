@@ -3,12 +3,12 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column type="index" :label="$t('SerialNumber')" width="80" />
-      <el-table-column prop="title" :label="$t('title')"/>
-      <el-table-column prop="content" :label="$t('content')"/>
-      <el-table-column prop="giftAmount" label="赠送金额"  width="120"/>
-      <el-table-column prop="rechargeAmount" label="需要充值金额"  width="120"/>
-      <el-table-column prop="flowRate" label="流水倍率"  width="120"/>
-      <el-table-column :label="$t('typesof')"  width="120">
+      <el-table-column prop="title" :label="$t('title')" />
+      <el-table-column prop="content" :label="$t('content')" />
+      <el-table-column prop="giftAmount" label="赠送金额" width="120" />
+      <el-table-column prop="rechargeAmount" label="需要充值金额" width="120" />
+      <el-table-column prop="flowRate" label="流水倍率" width="120" />
+      <el-table-column :label="$t('typesof')" width="120">
         <template slot-scope="scope">
           <span v-if="scope.row.type == 1">体育</span>
           <span v-if="scope.row.type == 2">彩票</span>
@@ -27,18 +27,21 @@
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" fixed="right"  :label="$t('state')"  width="140">
+      <el-table-column prop="" fixed="right" :label="$t('state')" width="140">
         <template slot-scope="scope">
           <div>
-            <el-switch v-has="'activity:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0" active-color="#13ce66"
-              active-text="启用" inactive-text="停用" @change="getUdateStatus($event, scope.row.id)" />
+            <el-switch v-has="'activity:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0"
+              active-color="#13ce66" active-text="启用" inactive-text="停用"
+              @change="getUdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" prop="" :label="$t('operate')"  width="120">
+      <el-table-column fixed="right" prop="" :label="$t('operate')" width="120">
         <template slot-scope="scope">
-          <el-button v-has="'activity:edit'" type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{ $t("edit") }}</el-button>
-          <el-button v-has="'activity:del'" type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete") }}</el-button>
+          <el-button v-has="'activity:edit'" type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
+            $t("edit") }}</el-button>
+          <el-button v-has="'activity:del'" type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
+            }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -91,10 +94,11 @@ export default {
     getUdateStatus(e, id) {
       this.$emit('UdateStatus', { status: e, id: id })
     },
-    toUrl(list){
-      let url =list ? JSON.parse(list) :''
+    toUrl(list) {
+      let url = list ? JSON.parse(list) : []
+
       //保留语言判断
-      return "https://gwstatic.mvkbnb.com/" + url[0].pictureUrl
+      return url?.length ? "https://gwstatic.mvkbnb.com/" + url[0].pictureUrl : ''
     },
   }
 }
