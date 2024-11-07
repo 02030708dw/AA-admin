@@ -149,14 +149,16 @@ export default {
       activityEdit({
         content: data.content,
         id: data.id,
-        pictureInfos: data.pictureInfos,
+        pictureInfos: data.pictureUrl,
         title: data.title,
         type: data.type,
         isShow: data.isShow,
         gamerId: data.gamerId,
         giftAmount: data.giftAmount,
         rechargeAmount: data.rechargeAmount,
-        flowRate:data.flowRate
+        flowRate:data.flowRate,
+        startTime: data.startTime,
+        endTime:  data.endTime,
       })
         .then((res) => {
           this.getactivitydata(this.pageNo)
