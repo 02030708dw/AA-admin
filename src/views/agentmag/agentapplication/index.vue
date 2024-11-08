@@ -126,6 +126,8 @@ export default {
         id: data.id,
         remarks: data.remarks,
         status: data.status,
+        firstLevelDailyRate: data.firstLevelDailyRate,
+        secondLevelDailyRate: data.secondLevelDailyRate,
       })
         .then((res) => {
           this.getdata(this.pageNo)
