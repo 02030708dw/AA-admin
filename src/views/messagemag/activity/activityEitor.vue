@@ -23,12 +23,9 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
-        <el-radio v-model="ruleForm.type" :label="1">体育</el-radio>
-        <el-radio v-model="ruleForm.type" :label="2">彩票</el-radio>
-        <el-radio v-model="ruleForm.type" :label="3">兑换</el-radio>
-        <el-radio v-model="ruleForm.type" :label="4">电子</el-radio>
-        <el-radio v-model="ruleForm.type" :label="5">真人</el-radio>
-        <el-radio v-model="ruleForm.type" :label="6">棋牌</el-radio>
+        <el-radio-group v-model="ruleForm.type">
+          <el-radio v-for="v in typeList" :label="v.value">{{ v.name }}</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="赠送金额" v-if="ruleForm.type == 3">
         <el-input v-model="ruleForm.giftAmount" />
@@ -88,6 +85,15 @@ export default {
         startTime: '',
         endTime: '',
       },
+      typeList: [
+        { value: 1, name: '体育' },
+        { value: 2, name: '彩票' },
+        { value: 3, name: '兑换' },
+        { value: 4, name: '电子' },
+        { value: 5, name: '真人' },
+        { value: 6, name: '棋牌' },
+        { value: 10, name: '其他' },
+      ],
       timeArr: null,
       editorInstance: '',
       rules: {

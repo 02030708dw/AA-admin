@@ -91,14 +91,15 @@ export default {
   methods: {
     getTypeName(type) {
       const types = {
-        1: "体育",
-        2: "彩票",
-        3: "兑换",
-        4: "电子",
-        5: "真人",
-        6: "棋牌",
-      };
-      return types[type] || "";
+        1: '体育',
+        2: '彩票',
+        3: '兑换',
+        4: '电子',
+        5: '真人',
+        6: '棋牌',
+        10:'其他'
+      }
+      return types[type] || ''
     },
     // 改变loading
     HandelLoading(status) {
