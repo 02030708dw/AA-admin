@@ -2,11 +2,11 @@
 import request from '@/utils/request'
 
 // 分页列表
-export function MemberrechargelPage({ pageNo, pageSize, amount, auditStatus, cardNo, channelId, date, memberId }) {
+export function MemberrechargelPage({ pageNo, pageSize, amount, auditStatus, cardNo, channelId, date, userName }) {
   return request({
     url: '/finance/incomeRecord/page',
     method: 'get',
-    params: { pageNo, pageSize, amount, auditStatus, cardNo, channelId, date, memberId }
+    params: { pageNo, pageSize, amount, auditStatus, cardNo, channelId, date, userName }
   })
 }
 
