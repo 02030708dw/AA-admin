@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="$t('AddAnnouncementtype')" :before-close="handleClose" :visible.sync="dialogVisible" width="70%">
+  <el-dialog :title="$t('AddAnnouncementtype')"  :before-close="handleClose" :visible.sync="dialogVisible" width="70%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item :label="$t('SelectGameMerchant')" prop="gamerId">
         <el-select v-model="ruleForm.gamerId" clearable filterable :placeholder="$t('SelectGameMerchant')"
@@ -23,14 +23,14 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
-        <el-radio-group v-model="ruleForm.type">
-          <el-radio v-for="v in typeList" :key="v.value":label="v.value">{{ v.name }}</el-radio>
-        </el-radio-group>
+        <el-checkbox-group v-model="ruleForm.type">
+          <el-checkbox v-for="v in typeList" :key="v.value":label="v.value">{{ v.name }}</el-checkbox>
+        </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="赠送金额" v-if="ruleForm.type == 3">
+      <el-form-item label="赠送金额" v-if="ruleForm.type.indexOf(3) != -1">
         <el-input v-model="ruleForm.giftAmount" />
       </el-form-item>
-      <el-form-item label="需要充值金额" v-if="ruleForm.type == 3">
+      <el-form-item label="需要充值金额" v-if="ruleForm.type.indexOf(3) != -1">
         <el-input v-model="ruleForm.rechargeAmount" />
       </el-form-item>
       <el-form-item label="是否轮播展示">
@@ -79,7 +79,7 @@ export default {
         pictureInfos: null,
         status: 0,
         title: "",
-        type: 0,
+        type: [],
         isShow: 0,
         gamerId: null,
         giftAmount: null,
@@ -89,13 +89,13 @@ export default {
         endTime: '',
       },
       typeList: [
-        { value: 1, name: '体育' },
-        { value: 2, name: '彩票' },
-        { value: 3, name: '兑换' },
-        { value: 4, name: '电子' },
-        { value: 5, name: '真人' },
-        { value: 6, name: '棋牌' },
-        { value: 10, name: '其他' },
+        { value: '1', name: '体育' },
+        { value: '2', name: '彩票' },
+        { value: '3', name: '兑换' },
+        { value: '4', name: '电子' },
+        { value: '5', name: '真人' },
+        { value: '6', name: '棋牌' },
+        { value: '10', name: '其他' },
       ],
       timeArr: null,
       rules: {
@@ -123,7 +123,7 @@ export default {
           pictureInfos: null,
           status: 0,
           title: "",
-          type: 0,
+          type: [],
           isShow: 0,
           gamerId: null,
           giftAmount: null,
@@ -153,8 +153,8 @@ export default {
       this.ruleForm.pictureInfos = url
     },
     changeTime() {
-      this.ruleForm.startTime = this.$YMDHMS(this.timeArr[0])
-      this.ruleForm.endTime = this.$YMDHMS(this.timeArr[1])
+      this.ruleForm.startTime = this.$YMDHMS(this.timeArr?.[0])
+      this.ruleForm.endTime = this.$YMDHMS(this.timeArr?.[1])
     },
     checkFinalPayTime(rule, value, callback) {
       if (this.ruleForm.startTime) {

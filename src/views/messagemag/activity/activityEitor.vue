@@ -11,8 +11,7 @@
         <el-input v-model="ruleForm.title" />
       </el-form-item>
       <el-form-item :label="$t('content')" prop="content">
-        <Tinymce v-if="dialogVisible" ref="tinymceReft" v-model="ruleForm.content"></Tinymce>
-        <!-- <el-input v-model="ruleForm.content"></el-input> -->
+        <Tinymce v-if="dialogVisible" v-model="ruleForm.content"></Tinymce>
       </el-form-item>
       <el-form-item label="流水倍率">
         <el-input v-model="ruleForm.flowRate"></el-input>
@@ -23,14 +22,14 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
-        <el-radio-group v-model="ruleForm.type">
-          <el-radio v-for="v in typeList" :key="v.value" :label="v.value">{{ v.name }}</el-radio>
-        </el-radio-group>
+        <el-checkbox-group v-model="ruleForm.type">
+          <el-checkbox v-for="v in typeList" :key="v.value" :label="v.value">{{ v.name }}</el-checkbox>
+        </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="赠送金额" v-if="ruleForm.type == 3">
+      <el-form-item label="赠送金额" v-if="ruleForm.type.indexOf(3) != -1">
         <el-input v-model="ruleForm.giftAmount" />
       </el-form-item>
-      <el-form-item label="需要充值金额" v-if="ruleForm.type == 3">
+      <el-form-item label="需要充值金额" v-if="ruleForm.type.indexOf(3) != -1">
         <el-input v-model="ruleForm.rechargeAmount" />
       </el-form-item>
       <el-form-item label="是否轮播展示">
@@ -74,7 +73,7 @@ export default {
         content: "",
         pictureUrl: null,
         title: "",
-        type: 0,
+        type: [],
         isShow: 0,
         gamerId: null,
         giftAmount: null,
@@ -84,13 +83,13 @@ export default {
         endTime: '',
       },
       typeList: [
-        { value: 1, name: '体育' },
-        { value: 2, name: '彩票' },
-        { value: 3, name: '兑换' },
-        { value: 4, name: '电子' },
-        { value: 5, name: '真人' },
-        { value: 6, name: '棋牌' },
-        { value: 10, name: '其他' },
+        { value: '1', name: '体育' },
+        { value: '2', name: '彩票' },
+        { value: '3', name: '兑换' },
+        { value: '4', name: '电子' },
+        { value: '5', name: '真人' },
+        { value: '6', name: '棋牌' },
+        { value: '10', name: '其他' },
       ],
       timeArr: null,
       editorInstance: '',
@@ -119,7 +118,7 @@ export default {
           content: "",
           pictureUrl: null,
           title: "",
-          type: 0,
+          type: [],
           isShow: 0,
           gamerId: null,
           giftAmount: null,
@@ -132,10 +131,9 @@ export default {
 
         this.timeArr = [data.startTime, data.endTime]
         this.ruleForm = { ...data }
-        this.$nextTick(() => {
-          console.log(this.$refs.tinymceReft, 123);
-          // this.$refs.tinymceReft.activeEditor.setContent(this.ruleForm.content)
-        })
+        this.ruleForm.type = this.ruleForm.typeList
+        console.log(this.ruleForm.type);
+
       }
     },
     // 确定添加事件
