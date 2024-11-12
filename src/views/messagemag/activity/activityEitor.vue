@@ -11,7 +11,7 @@
         <el-input v-model="ruleForm.title" />
       </el-form-item>
       <el-form-item :label="$t('content')" prop="content">
-        <vue-ueditor-wrap class="ueditor" v-model="ruleForm.content" :config="config" @ready="ready" />
+        <Tinymce v-if="dialogVisible" ref="tinymceReft" v-model="ruleForm.content"></Tinymce>
         <!-- <el-input v-model="ruleForm.content"></el-input> -->
       </el-form-item>
       <el-form-item label="流水倍率">
@@ -24,7 +24,7 @@
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
         <el-radio-group v-model="ruleForm.type">
-          <el-radio v-for="v in typeList" :label="v.value">{{ v.name }}</el-radio>
+          <el-radio v-for="v in typeList" :key="v.value" :label="v.value">{{ v.name }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="赠送金额" v-if="ruleForm.type == 3">
@@ -52,8 +52,7 @@
 
 <script>
 import UploadImage from '@/components/Upload/image.vue'
-import VueUeditorWrap from 'vue-ueditor-wrap';
-import { ueditorConfig } from '@/components/UEditor.js';
+import Tinymce from '@/components/Editor/index.vue'
 export default {
   props: {
     gamerIdData: {
@@ -65,13 +64,12 @@ export default {
   },
   components: {
     UploadImage,
-    VueUeditorWrap
+    Tinymce
   },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
-      config: ueditorConfig,
       ruleForm: {
         content: "",
         pictureUrl: null,
@@ -131,13 +129,17 @@ export default {
           endTime: '',
         }
       } else {
+
         this.timeArr = [data.startTime, data.endTime]
         this.ruleForm = { ...data }
+        this.$nextTick(() => {
+          console.log(this.$refs.tinymceReft, 123);
+          // this.$refs.tinymceReft.activeEditor.setContent(this.ruleForm.content)
+        })
       }
     },
     // 确定添加事件
     getconfirm() {
-      this.ruleForm.content = this.editorInstance.getContent()
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.$emit('confirm', this.ruleForm)
@@ -154,10 +156,6 @@ export default {
     },
     getImageURL(url) {
       this.ruleForm.pictureUrl = url
-    },
-    ready(editorInstance) {
-      this.editorInstance = editorInstance
-      console.log(`实例${editorInstance.key}已经初始化:`, editorInstance);
     },
     changeTime() {
       this.ruleForm.startTime = this.$YMDHMS(this.timeArr[0])
