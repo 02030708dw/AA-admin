@@ -30,6 +30,12 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item  :label="$t('最大充值金额')" prop="maxMoney">
+        <el-input v-model="ruleForm.maxMoney" />
+      </el-form-item>
+      <el-form-item  :label="$t('最小充值金额')" prop="minMoney">
+        <el-input v-model="ruleForm.minMoney" />
+      </el-form-item>
       <el-form-item
         v-if="Channeltype > 3"
         label="三方充值"
@@ -239,6 +245,8 @@ export default {
         currency: "",
         bankCode: "",
         threePayId: "",
+        maxMoney:'',
+        minMoney:''
       },
       rules: {
         account: [{ required: true, message: "请输入户名", trigger: "blur" }],
@@ -264,6 +272,12 @@ export default {
         type: [{ required: true, message: "请输入渠道类型", trigger: "blur" }],
         icon: [{ required: true, message: "请上传图标", trigger: "blur" }],
         currency: [{ required: true, message: "请选择币种", trigger: "blur" }],
+        maxMoney: [
+          { required: true, message: "请输入最大金额", trigger: "blur" },
+        ],
+        minMoney: [
+          { required: true, message: "请输入最小金额", trigger: "blur" },
+        ],
       },
       bankCodeList: [],
     };
@@ -287,6 +301,8 @@ export default {
           icon: "",
           bankCode: "",
           threePayId: "",
+          maxMoney:'',
+          minMoney:'',
         };
       } else {
         this.ruleForm = { ...data };

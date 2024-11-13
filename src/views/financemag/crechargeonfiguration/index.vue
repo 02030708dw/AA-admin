@@ -241,6 +241,8 @@ export default {
         name: data.name,
         bankCode:data.bankCode,
         threePayId:data.threePayId,
+        maxMoney:data.maxMoney,
+        minMoney:data.minMoney,
       })
         .then((res) => {
           this.getRechargedata(this.pageNo)
