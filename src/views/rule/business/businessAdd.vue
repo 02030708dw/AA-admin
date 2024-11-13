@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="$t('AddAnnouncementtype')" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="$t('规则添加')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="提示消息" prop="msg">
         <el-input v-model="ruleForm.msg" />

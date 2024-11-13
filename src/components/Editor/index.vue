@@ -10,7 +10,7 @@
 import tinymce from "tinymce/tinymce";
 import Editor from "@tinymce/tinymce-vue";
 import "tinymce/skins/ui/oxide/skin.css";
-import "./langs/zh_CN.js"; // 本地汉化
+import 'tinymce/icons/default/icons';
 import "tinymce/themes/silver/theme";
 import "tinymce/plugins/image";
 import 'tinymce/plugins/media'
@@ -54,7 +54,7 @@ export default {
         return {
             //初始化配置
             init: {
-                language_url: "./langs/zh_CN.js",  //引入语言包文件
+                language_url: "tinymce/langs/zh_CN.js",  //引入语言包文件
                 language: "zh_CN",//语言类型
                 height: 500,
                 content_style: "img {max-width:100%;}",
