@@ -28,7 +28,7 @@
     </el-select>
     <!-- 查询 -->
     <el-button
-      v-has="'reportformsmaggamer:agent'"
+      v-has="'reportformsmaggamer:gamer'"
       style="margin-left: 10px"
       type="primary"
       @click="getquery()"

@@ -63,3 +63,8 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
+/* 富文本菜单 */
+.tox-tinymce-aux {
+  z-index: 9999 !important;
+}
