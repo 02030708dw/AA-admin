@@ -64,6 +64,7 @@ div:focus {
   padding: 20px;
 }
 
-.ueditor{
-  line-height: normal;
+/* 富文本菜单 */
+.tox-tinymce-aux {
+  z-index: 9999 !important;
 }

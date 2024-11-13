@@ -97,9 +97,15 @@ export default {
         4: '电子',
         5: '真人',
         6: '棋牌',
-        10:'其他'
+        10: '其他'
       }
-      return types[type] || ''
+      const typeArray = type.split(',');
+      let result = '';
+      typeArray.forEach(t => {
+        result += types[t] + ',';
+      });
+      // 去掉最后一个逗号
+      return result.slice(0, -1);
     },
     // 改变loading
     HandelLoading(status) {
