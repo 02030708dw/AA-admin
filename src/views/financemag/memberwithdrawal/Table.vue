@@ -1,13 +1,8 @@
 <template>
   <!-- 会员提现表格 -->
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="memberName" :label="$t('Membername')" width=""></el-table-column>
       <el-table-column prop="" :label="$t('Withdrawalinformation')" width="">
         <template slot-scope="scope">
@@ -53,23 +48,20 @@
         width="200"
       /> -->
       <el-table-column prop="amount" :label="$t('amountofmoney')" width="" />
-      <el-table-column
-        prop=""
-        :label="$t('Reviewstatus')"
-        aduit-time
-        width="200"
-      >
+      <el-table-column prop="" :label="$t('Reviewstatus')" aduit-time width="200">
         <template slot-scope="scope">
           <div class="status_box">
-            <div class="title_box">{{ FaduitStatus(scope.row.aduitStatus)   }}</div>
+            <div class="title_box">{{ FaduitStatus(scope.row.aduitStatus) }}</div>
             <!-- 驳回原因 -->
-            <div v-if="scope.row.aduitStatus === 2" class="text_box">{{$t('Reasonforrejection')}}:{{ scope.row.rejection ? scope.row.rejection :'无' }}</div>
+            <div v-if="scope.row.aduitStatus === 2" class="text_box">{{ $t('Reasonforrejection') }}:{{ scope.row.rejection
+              ? scope.row.rejection :'无' }}</div>
+            <div v-if="scope.row.aduitStatus === 4" class="text_box">进行中</div>
           </div>
           <!-- <span>{{ scope.row.aduitStatus | FaduitStatus }}</span> -->
         </template></el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
         <template slot-scope="scope">
-            {{ $creationTime(scope.row.createdAt) }}
+          {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
 
@@ -87,28 +79,24 @@
       <!-- 操作 -->
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t('Detail') }}</el-button>
-          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" @click="getaudit(1,scope.row.id)"> {{ $t("passthrough") }} </el-button>
-          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: red;" @click="getaudit(2,scope.row.id)"> {{ $t("reject") }} </el-button>
-          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: #a4a4a4;" @click="getaudit(3,scope.row.id)"> {{ $t("cancellation") }} </el-button>
-          <el-button v-has="'memberwithdrawal:fo'" v-if="scope.row.aduitStatus === 0"  type="text" @click="Handelpay(scope.row)">代付</el-button>
+          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t('Detail')
+            }}</el-button>
+          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text"
+            @click="getaudit(1, scope.row.id)"> {{ $t("passthrough") }} </el-button>
+          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: red;"
+            @click="getaudit(2, scope.row.id)"> {{ $t("reject") }} </el-button>
+          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text"
+            style="color: #a4a4a4;" @click="getaudit(3, scope.row.id)"> {{ $t("cancellation") }} </el-button>
+          <el-button v-has="'memberwithdrawal:fo'" v-if="scope.row.aduitStatus === 0" type="text"
+            @click="Handelpay(scope.row)">代付</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 驳回原因弹窗 -->
-    <el-dialog
-      :title="$t('Reasonforrejection')"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
+    <el-dialog :title="$t('Reasonforrejection')" :visible.sync="dialogVisible" width="30%">
       <span>请输入驳回原因</span>
-      <el-input
-        v-model="reason"
-        style="margin-top: 10px;"
-        type="textarea"
-        :rows="4"
-        :placeholder="$t('Pleaseenterthereasonforrejection')"
-      />
+      <el-input v-model="reason" style="margin-top: 10px;" type="textarea" :rows="4"
+        :placeholder="$t('Pleaseenterthereasonforrejection')" />
       <span slot="footer" class="dialog-footer">
         <el-button @click="getaudit(2)">跳 过</el-button>
         <el-button type="primary" @click="getaudit(2)">确 定</el-button>
@@ -123,7 +111,7 @@ import { Audit } from '@/api/finance/memberwithdrawal'
 export default {
   name: 'Table',
   filters: {
-    
+
     timeF(value) {
       return formatDate(value)
     }
@@ -223,27 +211,29 @@ export default {
 }
 </script>
 
-    <style lang="scss" scoped>
-    .info_box{
-      margin: 0 auto;
+<style lang="scss" scoped>
+.info_box {
+  margin: 0 auto;
 
-      .item_box{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        .item_title{
-          font-size: 16px;
-          font-weight: 510;
-          width: 150px;
+  .item_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 
-        }
-        .item_conent{
-          margin-left: 5px;
-          font-size: 16px;
-          font-weight: 520;
-          text-align: left;
-        }
-      }
+    .item_title {
+      font-size: 16px;
+      font-weight: 510;
+      width: 150px;
+
     }
+
+    .item_conent {
+      margin-left: 5px;
+      font-size: 16px;
+      font-weight: 520;
+      text-align: left;
+    }
+  }
+}
 </style>
