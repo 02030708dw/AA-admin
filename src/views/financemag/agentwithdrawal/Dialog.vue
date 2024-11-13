@@ -13,7 +13,7 @@
         v-model="reason"
         type="textarea"
         :rows="3"
-        placeholder="请输驳回原因"
+        :placeholder="$t('Pleaseenterthereasonforrejection')"
       />
     </span>
     <!-- 驳回原因 -->

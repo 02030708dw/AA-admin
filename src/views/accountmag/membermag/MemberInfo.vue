@@ -87,7 +87,7 @@ export default {
             memberId: this.MemberInfo.id,
             telPhone: this.MemberInfo.telPhone,
             userName: this.MemberInfo.userName,
-            bankCardNoList: this.MemberInfo.bankCardNoList,
+            bankCardNoList: this.MemberInfo.bankCardNoList || [{ bankCardNo: '', memberCashId: '' }],
           }
           break
         case '5':

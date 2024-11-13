@@ -13,6 +13,7 @@
       <el-table-column prop="cashAmount" :label="$t('Withdrawalamount')" width="" />
       <el-table-column prop="firstIncomeNum" :label="$t('Numberoffirstrechargeusers')" width="" />
       <el-table-column prop="firstIncomeAmount" :label="$t('NumberofRechargers')" width="" />
+      <el-table-column prop="incomeNum" :label="$t('IncomeNum')" width="" />
       <el-table-column prop="incomeAmount" :label="$t('Totalamountofactivities')" width="" />
       <el-table-column prop="activityAmount" :label="$t('Activityamount')" width="" />
       <el-table-column prop="memberRateAmount" :label="$t('Memberrebateamount')" width="" />

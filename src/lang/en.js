@@ -327,6 +327,7 @@ export default {
   Totalrebateamount: 'Total rebate amount',
   Numberoffriends: 'Number of friends',
   Numberoffirstrechargeusers: 'Number of first recharge users',
+  IncomeNum:'Income Num',
   NumberofRechargers: 'Number of Rechargers',
   Totalamountofactivities: 'Total amount of activities',
   Memberrebateamount: 'Member rebate amount',
@@ -354,4 +355,8 @@ export default {
   MemberRebateRatio:'Member Rebate Ratio',
   ThreePartyNames: 'Three Party Names',
   gamerCode:'gamerCode',
+  PendingReview: 'Pending review',
+  Cancelled: 'Cancelled',
+  Approve: 'Approve',
+  Rejected: 'Rejected'
 }

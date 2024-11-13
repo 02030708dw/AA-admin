@@ -7,6 +7,9 @@
       <el-form-item label="试玩地址" prop="url">
         <el-input v-model="ruleForm.url"></el-input>
       </el-form-item>
+      <el-form-item :label="$t('sort')" prop="sort">
+        <el-input type='number' v-model="ruleForm.sort" />
+      </el-form-item>
       <el-form-item :label="$t('icon')" prop="icon">
         <UploadImage v-if="dialogVisible" :img="ruleForm.posterImage" @Upload="getImageURL" />
       </el-form-item>
@@ -34,12 +37,14 @@ export default {
         name: "",
         id: 0,
         url: "",
+        sort:0,
         posterImage: "",
       },
       rules: {
         id: [{ required: true, message: this.$t("IDnumbercannotbeempty"), trigger: "blur" }],
         name: [{ required: true, message: this.$t("Namenotentered"), trigger: "blur" }],
         url: [{ required: true, message: "地址不能为空", trigger: "blur" }],
+        sort:[{ required: true, message: "排序不能为空", trigger: "blur" }],
       }
     }
   },
@@ -53,6 +58,7 @@ export default {
           id: 0,
           url: "",
           posterImage: "",
+          sort:0,
         }
       } else {
         this.ruleForm = { ...data }

@@ -10,8 +10,8 @@
 
     <!-- <el-date-picker v-model="date" style="width: 180px;margin-left:10px;" type="date" placeholder="选择日期" /> -->
 
-    <el-input v-model="memberId" style="width: 180px;margin-left:10px;" placeholder="用户id" />
-    <!-- <el-select v-model="memberId" :placeholder="$t('selectuser')" style="width: 200px;margin-left: 10px">
+    <el-input v-model="userName" style="width: 180px;margin-left:10px;" :placeholder="$t('username')" />
+    <!-- <el-select v-model="userName" :placeholder="$t('selectuser')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in UserId" :key="index" :value="item.index" :label="item.title" />
     </el-select> -->
     <el-select v-model="auditStatus" :placeholder="$t('Reviewstatus')" style="width: 200px;margin-left: 10px">
@@ -47,12 +47,12 @@ export default {
       // 时间
       date: '',
       // 用户id
-      memberId: '',
+      userName: '',
       auditStatusList: [
-        { title: '待审核', index: 0 },
-        { title: '审核通过', index: 1 },
-        { title: '驳回', index: 2 },
-        { title: '已取消', index: 3 }
+        { title: this.$t('PendingReview'), index: 0 },
+        { title: this.$t('Approve'), index: 1 },
+        { title: this.$t('Rejected'), index: 2 },
+        { title: this.$t('Cancelled'), index: 3 }
       ],
       btnIcoType: true,
       ChannelIdData: [],
@@ -116,7 +116,7 @@ export default {
     },
     // 查询
     getquery() {
-      this.$emit('Gamequery', { amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, memberId: this.memberId })
+      this.$emit('Gamequery', { amount: this.amount, auditStatus: this.auditStatus, cardNo: this.cardNo, channelId: this.channelId, userName: this.userName })
       // date: new Date(this.date).toISOString().slice(0, 10),
     },
     // 重置
@@ -126,7 +126,7 @@ export default {
       this.cardNo = ''
       this.channelId = ''
       // this.date = ''
-      this.memberId = ''
+      this.userName = ''
       this.$emit('resetting')
     }
   }

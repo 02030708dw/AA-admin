@@ -4,7 +4,7 @@
         <el-row style="padding-bottom: 10px">
             <el-input v-model="userName" style="width: 200px;margin-right:10px;" :placeholder="$t('username')" />
             <el-input v-model="ip" style="width: 200px;margin-right:10px;" :placeholder="$t('IPAddress')" />
-            <el-button v-has="'IP:record'" type="primary" @click="getdata">{{ $t('query') }}</el-button>
+            <el-button v-has="'IP:record'" type="primary" @click="getquery">{{ $t('query') }}</el-button>
             <el-button type="info" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
         </el-row>
         <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
@@ -36,20 +36,20 @@ export default {
             pageNo: 1,
             PageSize: 20,
             userName: null,
-            ip:'',
+            ip: '',
         }
     },
     created() {
-        this.getdata()
+        this.getdata(1)
     },
     methods: {
         HandelPagesChange(e) {
             this.PageSize = e
-            this.getdata()
+            this.getdata(this.pageNo)
         },
-        getdata(index) {
+        getdata(index = 1) {
             this.pageNo = index
-            ipPage({ pageNo: this.pageNo, PageSize: this.PageSize, userName: this.userNamem, ip:this.ip}).then(res => {
+            ipPage({ pageNo: this.pageNo, PageSize: this.PageSize, userName: this.userName, ip: this.ip }).then(res => {
                 this.tableData = res.resultSet.data
                 this.total = res.resultSet.total
             })
@@ -57,7 +57,12 @@ export default {
         getresetting() {
             this.pageNo = 1
             this.userName = null
-            this.getdata()
+            this.userName = ''
+            this.ip = ''
+            this.getdata(1)
+        },
+        getquery(e) {
+            this.getdata(1)
         },
     }
 }
