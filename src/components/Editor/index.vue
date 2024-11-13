@@ -80,7 +80,7 @@ export default {
                             'GamerCode': ''
                         },
                     }).then((res) => {
-                        success('https://gwstatic.mvkbnb.com/' + res.resultSet);
+                        success('https://static.44dog.cc/' + res.resultSet);
                     }).catch(() => {
                         failure("上传出错，服务器开小差了呢");
                     });
