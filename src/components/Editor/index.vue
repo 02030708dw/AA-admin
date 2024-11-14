@@ -65,9 +65,9 @@ export default {
                 //此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
                 //如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
                 images_upload_handler: (blobInfo, success, failure) => {
-                    const img = "data:image/jpeg;base64," + blobInfo.base64();
-                    console.log(blobInfo.blob());
-
+                    if(blobInfo.blob().size / 1024 / 1024 > 5){
+                        failure("图片上传不能超过5M");
+                    }
                     let formData = new FormData()
                     formData.append('file', blobInfo.blob())
                     request({
