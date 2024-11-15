@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="$t('AddAnnouncementtype')"  :before-close="handleClose" :visible.sync="dialogVisible" width="70%">
+  <el-dialog :title="$t('AddAnnouncementtype')" :before-close="handleClose" :visible.sync="dialogVisible" width="70%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item :label="$t('SelectGameMerchant')" prop="gamerId">
         <el-select v-model="ruleForm.gamerId" clearable filterable :placeholder="$t('SelectGameMerchant')"
@@ -11,8 +11,8 @@
         <el-input v-model="ruleForm.title" />
       </el-form-item>
       <el-form-item :label="$t('content')" prop="content">
-        <Tinymce  v-model="ruleForm.content"></Tinymce>
-       <!-- <el-input v-model="ruleForm.content"></el-input> -->
+        <Tinymce v-model="ruleForm.content"></Tinymce>
+        <!-- <el-input v-model="ruleForm.content"></el-input> -->
       </el-form-item>
       <el-form-item label="流水倍率">
         <el-input v-model="ruleForm.flowRate"></el-input>
@@ -24,7 +24,8 @@
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
         <el-checkbox-group v-model="ruleForm.type">
-          <el-checkbox v-for="v in typeList" :key="v.value":label="v.value">{{ v.name }}</el-checkbox>
+          <el-checkbox v-for="v in typeList" :key="v.value" :label="v.value" :disabled="isDisabled(v.value)">{{ v.name
+            }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="赠送金额" v-if="ruleForm.type.indexOf(3) != -1">
@@ -106,6 +107,15 @@ export default {
         date: [{ validator: this.checkFinalPayTime, required: true, trigger: 'change' }],
       },
     };
+  },
+  computed: {
+    isDisabled() {
+      return (v) => {
+        if (this.ruleForm.type.length == 0) return false
+        if (this.ruleForm.type.indexOf('3') == -1 && v == 3) return true
+        if (this.ruleForm.type.indexOf('3') != -1 && v != 3) return true
+      }
+    },
   },
   methods: {
     handleClose(done) {
