@@ -137,7 +137,7 @@ export default {
             TypeArrList.push('未分类')
             break
           case 1:
-            TypeArrList.push('电子（捕鱼+slot）')
+            TypeArrList.push('电子')
             break
           case 2:
             TypeArrList.push('棋牌')
@@ -156,6 +156,9 @@ export default {
             break
           case 7:
             TypeArrList.push('热门')
+            break  
+          case 8:
+            TypeArrList.push('捕鱼')
             break
         }
       }
