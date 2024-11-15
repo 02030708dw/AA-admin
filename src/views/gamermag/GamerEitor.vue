@@ -76,13 +76,14 @@ export default {
       // 游戏类型选项
       gamertype: [
         { label: '未分类', value: 0 },
-        { label: '电子（捕鱼+slot）', value: 1 },
+        { label: '电子', value: 1 },
         { label: '棋牌', value: 2 },
         { label: '彩票', value: 3 },
         { label: '体育', value: 4 },
         { label: '真人', value: 5 },
         { label: '小游戏', value: 6 },
-        { label: '热门', value: 7 }
+        { label: '热门', value: 7 },
+        { label: "捕鱼", value: 8 }
       ],
       rules: {
         name: [
