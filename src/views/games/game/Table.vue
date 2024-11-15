@@ -1,12 +1,7 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column type="index" :label="$t('SerialNumber')" width="80" />
       <el-table-column prop="sort" :label="$t('sort')" width="80" />
       <el-table-column prop="name" :label="$t('name')" width="" />
@@ -22,42 +17,25 @@
       <el-table-column prop="" :label="$t('PopularGames')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch
-              v-has="'game:setHot'"
-              v-model="scope.row.isHot"
-              :active-text="$t('Popular')"
-              :inactive-text="$t('ordinary')"
-              active-color="#13ce66"
-              :active-value="1"
-              :inactive-value="0"
-              @change="getupdateisHot($event, scope.row.id)"
-            />
+            <el-switch v-has="'game:setHot'" v-model="scope.row.isHot" :active-text="$t('Popular')"
+              :inactive-text="$t('ordinary')" active-color="#13ce66" :active-value="1" :inactive-value="0"
+              @change="getupdateisHot($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-select
-              v-has="'game:status'"
-              v-model="scope.row.status"
-              :placeholder="$t('state')"
-              style="width: 150px;margin-left: 10px"
-              @change="getupdateStatus($event, scope.row.id)"
-            >
-              <el-option
-                v-for="(item, index) in statusType"
-                :key="index"
-                :value="item.index"
-                :label="item.title"
-              />
+            <el-select v-has="'game:status'" v-model="scope.row.status" :placeholder="$t('state')"
+              style="width: 150px;margin-left: 10px" @change="getupdateStatus($event, scope.row.id)">
+              <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
             </el-select>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
         <template slot-scope="scope">
-            {{ $creationTime(scope.row.createdAt) }}
+          {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
@@ -66,13 +44,8 @@
             $t("edit")
           }}</el-button>
 
-          <el-button
-            v-has="'game:del'"
-            slot="reference"
-            type="text"
-            style="color: red"
-            @click="getdel(scope.row.id)"
-          >{{ $t("delete") }}</el-button>
+          <el-button v-has="'game:del'" slot="reference" type="text" style="color: red" @click="getdel(scope.row.id)">{{
+            $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -99,6 +72,10 @@ export default {
           return '真人'
         case 6:
           return '小游戏'
+        case 7:
+          return '热门'
+        case 8:
+          return '捕鱼'
       }
     }
   },
@@ -158,5 +135,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

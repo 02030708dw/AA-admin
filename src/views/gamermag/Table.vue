@@ -7,12 +7,8 @@
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
     >
-     <el-table-column prop="sort" :label="$t('sort')" width="80" />
-      <el-table-column
-        prop="name"
-        :label="$t('GameMerchantName')"
-        width=""
-      />
+      <el-table-column prop="sort" :label="$t('sort')" width="80" />
+      <el-table-column prop="name" :label="$t('GameMerchantName')" width="" />
       <!-- <el-table-column
         prop="betUrl"
         :label="$t('Bettinginformationinterfaceaddress')"
@@ -28,11 +24,21 @@
         :label="$t('Rechargeinterfaceaddress')"
         width=""
       /> -->
-      <el-table-column
+      <!-- <el-table-column
         prop="clientSecret"
         :label="$t('clientSecret')"
         width=""
-      />
+      /> -->
+      <el-table-column :label="$t('clientSecret')">
+        <template slot-scope="scope">
+          <el-popover width="400" trigger="hover" placement="top">
+            <p>{{ scope.row.clientSecret }}</p>
+            <div slot="reference" class="name-wrapper">
+              <el-tag size="medium">{{ scope.row.clientSecret }}</el-tag>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="apiBaseUrl"
         :label="$t('GameproviderAPIbasicaddress')"
@@ -65,7 +71,7 @@
               v-has="'gamer:status'"
               v-model="scope.row.status"
               :placeholder="$t('state')"
-              style="width: 150px;margin-left: 10px"
+              style="width: 150px; margin-left: 10px"
               @change="getupdateStatus($event, scope.row.id)"
             >
               <el-option
@@ -78,20 +84,31 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
         <template slot-scope="scope">
-            {{ $creationTime(scope.row.createdAt) }}
+          {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-has="'gamer:createGamerUser'" type="text" style="color: #85ce61" @click="geteroleAdd(scope.row.name,scope.row.id)">{{
-            $t("increase")
-          }}</el-button>
-          <el-button v-has="'gamer:edit'" type="text" @click="geteroleEitor(scope.row)">{{
-            $t("edit")
-          }}</el-button>
-          <el-button v-has="'gamer:synchronizePhotos'" type="text" @click="getsynchronizePhotos(scope.row.code)">
+          <el-button
+            v-has="'gamer:createGamerUser'"
+            type="text"
+            style="color: #85ce61"
+            @click="geteroleAdd(scope.row.name, scope.row.id)"
+            >{{ $t("increase") }}</el-button
+          >
+          <el-button
+            v-has="'gamer:edit'"
+            type="text"
+            @click="geteroleEitor(scope.row)"
+            >{{ $t("edit") }}</el-button
+          >
+          <el-button
+            v-has="'gamer:synchronizePhotos'"
+            type="text"
+            @click="getsynchronizePhotos(scope.row.code)"
+          >
             同步游戏图片
           </el-button>
           <el-button
@@ -99,22 +116,21 @@
             slot="reference"
             type="text"
             style="color: #4c8e75"
-            @click="getbind(scope.row.id,scope.row.typeList)"
-          >{{ $t("Bindgametypes") }}</el-button>
+            @click="getbind(scope.row.id, scope.row.typeList)"
+            >{{ $t("Bindgametypes") }}</el-button
+          >
           <el-button
             v-has="'gamer:del'"
             slot="reference"
             type="text"
             style="color: red"
             @click="getroledel(scope.row.id)"
-          >{{ $t("delete") }}</el-button>
+            >{{ $t("delete") }}</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog
-      title="提示"
-      :visible.sync="dialogVisible"
-      width="30%">
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
       <span>为{{ name }}添加游戏商用户</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
@@ -125,129 +141,133 @@
 </template>
 
 <script>
-import { gamerCreateUser, synchronizePhotos } from '@/api/gamer/gamer'
+import { gamerCreateUser, synchronizePhotos } from "@/api/gamer/gamer";
 export default {
-  name: 'Table',
+  name: "Table",
   filters: {
     GamerType(value) {
-      const TypeArrList = []
+      const TypeArrList = [];
       for (let i = 0; i < value.length; i++) {
         switch (value[i]) {
           case 0:
-            TypeArrList.push('未分类')
-            break
+            TypeArrList.push("未分类");
+            break;
           case 1:
-            TypeArrList.push('电子（捕鱼+slot）')
+            TypeArrList.push('电子')
             break
           case 2:
-            TypeArrList.push('棋牌')
-            break
+            TypeArrList.push("棋牌");
+            break;
           case 3:
-            TypeArrList.push('彩票')
-            break
+            TypeArrList.push("彩票");
+            break;
           case 4:
-            TypeArrList.push('体育')
-            break
+            TypeArrList.push("体育");
+            break;
           case 5:
-            TypeArrList.push('真人')
-            break
+            TypeArrList.push("真人");
+            break;
           case 6:
-            TypeArrList.push('小游戏')
-            break
+            TypeArrList.push("小游戏");
+            break;
           case 7:
             TypeArrList.push('热门')
+            break  
+          case 8:
+            TypeArrList.push('捕鱼')
             break
         }
       }
-      return TypeArrList.join(',')
-    }
+      return TypeArrList.join(",");
+    },
   },
   props: {
     tableData: {
       type: Array,
       default: () => {
-        return []
-      }
-    }
+        return [];
+      },
+    },
   },
   data() {
     return {
       statusType: [
-        { title: '停用', index: 0 },
-        { title: '启用', index: 1 },
-        { title: '游戏商维护中', index: 2 }
+        { title: "停用", index: 0 },
+        { title: "启用", index: 1 },
+        { title: "游戏商维护中", index: 2 },
       ],
       loading: false,
       dialogVisible: false,
-      name:'',
-      gamerId:'',
-    }
+      name: "",
+      gamerId: "",
+    };
   },
   methods: {
     //同步游戏图片
-    getsynchronizePhotos(code){
+    getsynchronizePhotos(code) {
       const loading = this.$loading({
         lock: true,
-        text: 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(255, 255, 255, 0.7)'
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(255, 255, 255, 0.7)",
       });
-      synchronizePhotos(code).then(() => {
-        this.$message.success('同步成功')
-        loading.close();
-      }).catch(()=>{
-        loading.close();
-      })
+      synchronizePhotos(code)
+        .then(() => {
+          this.$message.success("同步成功");
+          loading.close();
+        })
+        .catch(() => {
+          loading.close();
+        });
     },
     // 删除事件
     getroledel(Id) {
-      this.$confirm('确定删除此游戏商?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
+      this.$confirm("确定删除此游戏商?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
       })
         .then(() => {
-          this.$emit('delete', Id)
+          this.$emit("delete", Id);
         })
         .catch(() => {
           this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
     // 编辑事件
     geteroleEitor(item) {
-      this.$emit('eitor', item)
+      this.$emit("eitor", item);
     },
     // 状态修改
     getupdateStatus(e, Id) {
-      this.$emit('updateStatus', { status: e, id: Id })
+      this.$emit("updateStatus", { status: e, id: Id });
     },
     // 绑定游戏类型
     getbind(id, data) {
-      console.log('绑定游戏类型', data)
-      this.$emit('bind', { id: id, data: data })
+      console.log("绑定游戏类型", data);
+      this.$emit("bind", { id: id, data: data });
     },
     // 改变loading
     HandelLoading(status) {
-      this.loading = status
+      this.loading = status;
     },
     //添加游戏商
-    geteroleAdd(name,id){
-      this.dialogVisible = true
-      this.name = name
-      this.gamerId = id
+    geteroleAdd(name, id) {
+      this.dialogVisible = true;
+      this.name = name;
+      this.gamerId = id;
     },
-    gamerCreateUser(){
-      gamerCreateUser({ gamerId: this.gamerId }).then(res => {
-          this.$message.success('添加成功')
-          this.dialogVisible = false
-      })
-    }
-  }
-}
+    gamerCreateUser() {
+      gamerCreateUser({ gamerId: this.gamerId }).then((res) => {
+        this.$message.success("添加成功");
+        this.dialogVisible = false;
+      });
+    },
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>
