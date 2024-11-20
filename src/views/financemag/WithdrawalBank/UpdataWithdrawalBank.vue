@@ -12,11 +12,16 @@
             </el-form-item>
             <el-form-item label="选择币种" prop="currency">
                 <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
-                  <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
+                    <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index"
+                        :label="item.item" />
                 </el-select>
-              </el-form-item>
-
-
+            </el-form-item>
+            <el-form-item :label="'三方支付'">
+                <el-select multiple v-model="ruleForm.threePayIds" placeholder="充值类型" style="width: 300px">
+                    <el-option v-for="(item, index) in threePayList" :key="index" :value="item.id"
+                        :label="item.threeName" />
+                </el-select>
+            </el-form-item>
 
             <el-form-item label="图标" prop="icon">
                 <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
@@ -30,12 +35,13 @@
             <el-button @click="HandelChange()">{{ $t("cancellation") }}</el-button>
             <el-button type="primary" @click="getconfirm()">{{
                 $t("determine")
-            }}</el-button>
+                }}</el-button>
         </span>
 
     </el-dialog>
 </template>
 <script>
+import { ThreePayList } from '@/api/finance/memberwithdrawal'
 export default {
     props: {
         // 0 添加 1 修改
@@ -49,7 +55,7 @@ export default {
             default: () => {
                 return []
             }
-        }
+        },
     },
     data() {
         return {
@@ -60,15 +66,23 @@ export default {
                 icon: '', //图标
                 status: 0,// 状态
                 id: '', //ID
-                currency:''
+                currency: '',
+                threePayIds: ''
             },
             rules: {
                 bankCode: [{ required: true, message: '请输入银行编码', trigger: 'blur' }],
                 bankName: [{ required: true, message: '请输入银行名称', trigger: 'blur' }],
                 icon: [{ required: true, message: '请上传银行图标', trigger: 'blur' }],
-                currency:[{ required: true, message: '请选择币种', trigger: 'blur' }]
-            }
+                currency: [{ required: true, message: '请选择币种', trigger: 'blur' }],
+                // threePayIds: [{ required: true, message: '请选择三方支付', trigger: 'blur' }],
+            },
+            threePayList: [],
         }
+    },
+    created() {
+        ThreePayList().then(res => {
+            this.threePayList = res.resultSet
+        })
     },
     methods: {
         HandelClose() {
@@ -79,7 +93,8 @@ export default {
                 icon: '', //图标
                 status: 0,// 状态
                 id: '', //ID
-                currency:''
+                currency: '',
+                threePayIds: ''
             }
         },
         // 改变弹窗状态
@@ -93,7 +108,8 @@ export default {
                     icon: data.icon,
                     status: data.status,
                     id: data.id,
-                    currency:data.currency
+                    currency: data.currency,
+                    threePayIds:data.threePayIds == '0'? '':data.threePayIds.split(',')
                 }
             }
             // 关闭时清空数据
@@ -104,7 +120,8 @@ export default {
                     icon: '', //图标
                     status: 0,// 状态
                     id: '', //ID
-                    currency:''
+                    currency: '',
+                    threePayIds: ''
                 }
             }
         },
@@ -139,7 +156,8 @@ export default {
         },
         // 确定事件
         getconfirm() {
-            console.log("编辑",this.ruleForm)
+
+            this.ruleForm.threePayIds = this.ruleForm.threePayIds.toString()
             this.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     this.$emit('upta', this.ruleForm)

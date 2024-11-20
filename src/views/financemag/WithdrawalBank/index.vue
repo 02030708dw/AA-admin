@@ -114,7 +114,7 @@ export default {
             console.log(e)
             if (this.TypeIndex === 0) {
                 // 添加
-                Add({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, currency: e.currency }).then(res => {
+                Add({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, currency: e.currency,threePayIds: e.threePayIds }).then(res => {
                     console.log(res)
                     this.$message({ message: '添加成功!', type: 'success' })
                     // 刷新数据
@@ -125,7 +125,7 @@ export default {
                 })
             } else if (this.TypeIndex === 1) {
                 // 编辑
-                Edit({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, id: e.id, currency: e.currency }).then(res => {
+                Edit({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, id: e.id, currency: e.currency,threePayIds:e.threePayIds  }).then(res => {
                     this.$message({ message: '编辑成功!', type: 'success' })
                     // 刷新
                     this.GetPagesData(this.pageNo)
@@ -148,7 +148,7 @@ export default {
         },
         // 修改状态
         getupdateStatus(e) {
-            Edit({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, id: e.id, currency: e.currency }).then(res => {
+            Edit({ bankCode: e.bankCode, bankName: e.bankName, icon: e.icon, status: e.status, id: e.id, currency: e.currency,threePayIds:e.threePayIds }).then(res => {
                 this.$message({ message: '修改成功!', type: 'success' })
                 // 刷新
                 this.GetPagesData(this.pageNo)
@@ -165,7 +165,7 @@ export default {
             // })
         },
         HandelPagesChange(e) {
-            this.PagesSize = e
+            this.pageSize = e
             this.GetPagesData(this.pageNo)
         },
     },
