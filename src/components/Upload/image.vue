@@ -94,7 +94,7 @@ export default {
                 Code = that.code + '/' + lang
             } else {
                 Fn = that.fn + lang
-                Code = that.code + '/' + lang
+                Code = lang
             }
             formData.append('file', item.file)
             request({
