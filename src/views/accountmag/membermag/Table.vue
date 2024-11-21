@@ -11,7 +11,12 @@
 
       <!-- <el-table-column prop="password" :label="$t('password')" width="" /> -->
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
-      <el-table-column prop="blanace" label="会员余额" width="" />
+      <el-table-column prop="currency" label="货币" width="" />
+      <el-table-column prop="blanace" label="会员余额" width="" >
+      <template slot-scope="scope">
+          {{ +scope.row.blanace + +scope.row.gammerBlanace}}
+        </template>
+      </el-table-column>
       <el-table-column prop="gammerBlanace" label="游戏商余额" width="" />
       <el-table-column prop="realName" label="真实姓名" width="" />
       <el-table-column
