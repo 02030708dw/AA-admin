@@ -139,3 +139,11 @@ export function MemberflowPage(params) {
     params
   })
 }
+
+// 根据地区获取支持银行列表
+export function financeCashBank(currency) {
+  return request({
+    url: `/finance/cashBank/${currency}`,
+    method: 'get',
+  })
+}
