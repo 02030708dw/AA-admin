@@ -89,6 +89,7 @@ export default {
             userName: this.MemberInfo.userName,
             bankCardNoList: this.MemberInfo.bankCardNoList || [{ bankCardNo: '', memberCashId: '' }],
           }
+          this.$refs.PersonalDetails.getfinanceCashBank(this.MemberInfo.currency)
           break
         case '5':
           // 会员流水变更页列表
