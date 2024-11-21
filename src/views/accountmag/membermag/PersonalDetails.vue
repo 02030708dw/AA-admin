@@ -1,26 +1,34 @@
 <template>
     <el-card shadow="never" style="border: 0px;display: flex;justify-content: center;">
-        <el-form label-width="100px" ref="ruleForm" :model="UserInfo" :rules="rules" style="margin-right: 100px;" class="demo-ruleForm">
+        <el-form label-width="100px" ref="ruleForm" :model="UserInfo" :rules="rules" style="margin-right: 100px;"
+            class="demo-ruleForm">
             <el-form-item :label="$t('name')" prop="userName">
-                <el-input v-model="UserInfo.userName" style="width: 300px" :placeholder="$t('name')"  />
+                <el-input v-model="UserInfo.userName" style="width: 300px" :placeholder="$t('name')" />
             </el-form-item>
             <el-form-item :label="$t('phone')" prop="telPhone">
                 <el-input v-model="UserInfo.telPhone" style="width: 300px" :placeholder="$t('phone')" />
             </el-form-item>
-            <el-form-item v-for="(v,i) in UserInfo.bankCardNoList" :key="i" :label="$t('Bankaccount')+(i+1)">
-                <el-input v-model="v.bankCardNo" style="width: 300px" :placeholder="$t('Bankaccount')" />
+            <el-form-item v-for="(v, i) in UserInfo.bankCardNoList" :key="i" :label="$t('Bankaccount') + (i + 1)">
+                <el-input v-model="v.bankCardNo" style="width: 300px;margin-right: 10px;"
+                    :placeholder="$t('Bankaccount')" />
+                <el-select v-model="v.bankName" placeholder="请选择">
+                    <el-option v-for="item in bankList" :key="item.bankName" :label="item.bankName"
+                        :value="item.bankName">
+                    </el-option>
+                </el-select>
             </el-form-item>
         </el-form>
         <el-row
             style="margin-top: 10px;display: flex;align-items: center;justify-content: space-between;flex-wrap: wrap;width:100%;">
-            <el-button :loading="loading" :type="'primary'" style="width: 150px;" @click="submit">{{ $t('save') }}</el-button>
+            <el-button :loading="loading" :type="'primary'" style="width: 150px;" @click="submit">{{ $t('save')
+                }}</el-button>
 
         </el-row>
     </el-card>
 </template>
 
 <script>
-import { MemberEdit } from '@/api/account/member'
+import { MemberEdit, financeCashBank } from '@/api/account/member'
 export default {
     data() {
         return {
@@ -36,21 +44,22 @@ export default {
                 telPhone: [{ required: true, message: '请输入电话' }],
             },
             loading: false,
+            bankList: []
         }
     },
     methods: {
-        submit(){
+        submit() {
             this.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    MemberEdit(this.UserInfo).then(()=>{
+                    MemberEdit(this.UserInfo).then(() => {
                         this.$message({
                             message: '修改成功!',
                             type: 'success'
                         })
                         this.loading = false
                         this.$emit('Refresh')
-                    }).catch(()=>{
+                    }).catch(() => {
                         this.loading = false
                     })
                 } else {
@@ -62,10 +71,12 @@ export default {
                 }
             });
         },
-        
+        getfinanceCashBank(currency) {
+            financeCashBank(currency).then(res => {
+                this.bankList = res.resultSet
+            })
+        }
     }
 }
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
