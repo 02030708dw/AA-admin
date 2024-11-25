@@ -132,7 +132,7 @@ export default {
     },
     // 添加
     getGamerAdd(e) {
-      gamerAdd(e)
+      gamerAdd({...e,rate:JSON.stringify(e.rate)})
         .then((res) => {
           // 刷新数据
           this.getroledata(this.pageNo)
@@ -176,7 +176,7 @@ export default {
         incomeUrl: item.incomeUrl,
         cashUrl: item.cashUrl,
         betUrl: item.betUrl,
-        rate: item.rate,
+        rate: JSON.stringify(item.rate),
         code: item.code,
         currency: item.currency,
         memberRate: item.memberRate,
