@@ -216,6 +216,18 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/maintenance',
+    component: Layout,
+    children: [
+      {
+        path: 'maintenance',
+        name: 'maintenance',
+        component: () => import('@/views/maintenance/index'),
+        meta: { title: 'Maintenance', icon: 'el-icon-place' }
+      }
+    ]
+  },
+  {
     path: '/games',
     meta: { title: 'games', icon: 'el-icon-mouse' },
     component: Layout,

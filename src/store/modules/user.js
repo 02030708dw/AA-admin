@@ -3,7 +3,7 @@ import { UserInfo } from '@/api/account/user'
 import { setToken, removeToken } from '@/utils/auth'
 import { resetRouter, newRouter, asyncRoutes } from '@/router'
 import { gamerPage } from '@/api/gamer/gamer'
-import { CurrencytPage } from  '@/api/Currency/Currency'
+import { CurrencytPage } from '@/api/Currency/Currency'
 const getDefaultState = () => {
   return {
     token: '',
@@ -33,7 +33,7 @@ const mutations = {
   SET_GAMER: (state, avatar) => {
     state.gamer = avatar
     sessionStorage.setItem('gamer', JSON.stringify(avatar))
-  },  
+  },
   //币种
   SET_CURRENCY: (state, avatar) => {
     state.currency = avatar
@@ -103,7 +103,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       gamerPage({ pageNo: 1, pageSize: 1000000 }).then((res) => {
         console.log(res);
-        commit('SET_GAMER',res.resultSet.data)
+        commit('SET_GAMER', res.resultSet.data)
         resolve()
       }).catch(error => {
         reject(error)
@@ -114,7 +114,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       CurrencytPage({ pageNo: 1, pageSize: 1000000 }).then((res) => {
         console.log(res);
-        commit('SET_CURRENCY',res.resultSet.data)
+        commit('SET_CURRENCY', res.resultSet.data)
         resolve()
       }).catch(error => {
         reject(error)
@@ -128,6 +128,10 @@ const actions = {
       commit('RESET_STATE')
       resolve()
     })
+  },
+  init({ dispatch }) {
+    if (!sessionStorage.getItem('gamer')) dispatch('gamerSet')
+    if (!sessionStorage.getItem('currency')) dispatch('currencySet')
   }
 }
 
