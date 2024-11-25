@@ -38,7 +38,8 @@ module.exports = {
     },
     proxy: {
       '/': {
-        target: 'http://192.168.124.5:8000',
+        // target: 'http://192.168.124.5:8000', //z
+        target: 'http://192.168.124.34:8000',
         changeOrigin: true
       }
     }
