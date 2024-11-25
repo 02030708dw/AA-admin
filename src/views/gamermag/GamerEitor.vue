@@ -167,6 +167,7 @@ export default {
         this.ruleForm.currency = data.currency.split(',')
         try {
           this.ruleForm.rate = this.ruleForm.rate ? JSON.parse(this.ruleForm.rate) : []
+          if (!Array.isArray(this.ruleForm.rate)) this.ruleForm.rate = []
         } catch (error) {
           this.ruleForm.rate = []
         }
