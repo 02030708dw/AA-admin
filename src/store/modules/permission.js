@@ -1,4 +1,3 @@
-
 import { allByUser } from '@/api/systemmag/role'
 import router, { asyncRoutes, filterAsyncRoutes, flatten } from '@/router'
 import Layout from '@/layout'
@@ -32,6 +31,8 @@ const actions = {
     async getRouter({ commit }) {
         return await new Promise((resolve, reject) => {
             allByUser().then(response => {
+                console.log( '---');
+                this.dispatch('user/init')
                 if (response.resultSet.authorityDtos.length === 0) {
                     commit('SET_ROLES', [{ menuCode: "test", menuUrl: "/test" }])
                     resolve([{ menuCode: "test", menuUrl: "/test" }])

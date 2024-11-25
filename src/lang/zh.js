@@ -50,6 +50,7 @@ export default {
     Rule:'规则管理',
     RuleBussines:'业务规则',
     RuleCondition:'引擎规则',
+    Maintenance:'游戏商维护'
   },
   role: {
     permission: '权限'

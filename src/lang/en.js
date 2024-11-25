@@ -59,6 +59,7 @@ export default {
     Rule:'Rule',
     RuleBussines:'Rule Bussines',
     RuleCondition:'Rule Condition',
+    Maintenance:'Game Vendor Maintenance'
   },
   role: {
     permission: 'Permission'

@@ -68,3 +68,21 @@ export function synchronizePhotos(gamerCode) {
     method: 'get',
   })
 }
+
+//游戏商类型对应游戏商分页查询
+export function gamerTypePage(params) {
+  return request({
+    url: `/gamertype/page`,
+    method: 'get',
+    params
+  })
+}
+
+//游戏商类型对应游戏商状态修改
+export function gamerTypeUpdateStatus(data) {
+  return request({
+    url: `/gamertype/updateStatus`,
+    method: 'post',
+    data
+  })
+}
