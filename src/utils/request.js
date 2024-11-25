@@ -12,7 +12,7 @@ import router, { resetRouter } from "@/router/index";
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'https://admin1.doravnd.com',
+  baseURL: process.env.VUE_APP_BASE_API,
   // baseURL: '/',
   timeout: 60000, // request timeout
 });
