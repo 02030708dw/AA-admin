@@ -20,7 +20,7 @@
         </el-form>
         <el-row
             style="margin-top: 10px;display: flex;align-items: center;justify-content: space-between;flex-wrap: wrap;width:100%;">
-            <el-button :loading="loading" :type="'primary'" style="width: 150px;" @click="submit">{{ $t('save')
+            <el-button v-has="'membermag:edit'" :loading="loading" :type="'primary'" style="width: 150px;" @click="submit">{{ $t('save')
                 }}</el-button>
 
         </el-row>
