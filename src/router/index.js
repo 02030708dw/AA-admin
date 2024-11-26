@@ -466,6 +466,9 @@ export function flatten(nameList = [], data, btnP = []) {
     if (v.children && v.children.length > 0) {
       flatten(nameList, v.children, btnP)
       nameList.push({ name: v.menuCode, path: v.menuUrl })
+      if(v.menuCode.match(/:(.*)$/)){ //按钮权限页有children的情况, [会员详情]
+        btnP.push(v.menuCode)
+      }
     } else if (v.menuCode && v.menuCode.match(/:(.*)$/)) {     // 是否是按钮权限页
       btnP.push(v.menuCode)
     } else {

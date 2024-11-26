@@ -31,9 +31,9 @@
               {{ $creationTime(scope.row.createdAt) }}
           </template>
         </el-table-column>
-      <el-table-column v-has="'membermag:status'" prop="" :label="$t('state')" width="">
+      <el-table-column  prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
-          <div>
+          <div v-has="'membermag:status'">
             <el-switch
               v-model="scope.row.status"
               active-color="#13ce66"
@@ -46,7 +46,7 @@
       </el-table-column>
       <el-table-column prop="" label="会员信息" width="">
         <template slot-scope="scope">
-          <el-button  v-has="'membermag:resetPwd'" type="text" @click="MemberInfo(scope.row)">会员详情</el-button>
+          <el-button v-has="'membermag:memberInfo'" type="text" @click="MemberInfo(scope.row)">会员详情</el-button>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
