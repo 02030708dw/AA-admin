@@ -1,12 +1,7 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="sort" :label="$t('sort')" width="80" />
       <el-table-column prop="name" :label="$t('GameMerchantName')" width="" />
       <!-- <el-table-column
@@ -39,26 +34,14 @@
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="apiBaseUrl"
-        :label="$t('GameproviderAPIbasicaddress')"
-        width=""
-      />
-      <el-table-column
-        prop="playBaseUrl"
-        :label="$t('GameMerchantGameConnectionBasicAddress')"
-        width=""
-      />
-      <el-table-column
-        prop="rate"
-        :label="$t('Gamemerchantsdrawapercentage')"
-        width=""
-      />
-      <el-table-column
-        prop="memberRate"
-        :label="$t('MemberRebateRatio')"
-        width=""
-      />
+      <el-table-column prop="apiBaseUrl" :label="$t('GameproviderAPIbasicaddress')" width="" />
+      <el-table-column prop="playBaseUrl" :label="$t('GameMerchantGameConnectionBasicAddress')" width="" />
+      <el-table-column prop="rate" :label="$t('Gamemerchantsdrawapercentage')" width="" >
+        <template slot-scope="scope">
+          <div style="white-space: pre-wrap;">{{ scope.row.rate | parseJsonData }}</div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="memberRate" :label="$t('MemberRebateRatio')" width="" />
       <el-table-column prop="type" :label="$t('typesof')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.typeList | GamerType }}</span>
@@ -67,19 +50,9 @@
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-select
-              v-has="'gamer:status'"
-              v-model="scope.row.status"
-              :placeholder="$t('state')"
-              style="width: 150px; margin-left: 10px"
-              @change="getupdateStatus($event, scope.row.id)"
-            >
-              <el-option
-                v-for="(item, index) in statusType"
-                :key="index"
-                :value="item.index"
-                :label="item.title"
-              />
+            <el-select v-has="'gamer:status'" v-model="scope.row.status" :placeholder="$t('state')"
+              style="width: 150px; margin-left: 10px" @change="getupdateStatus($event, scope.row.id)">
+              <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
             </el-select>
           </div>
         </template>
@@ -91,42 +64,16 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button
-            v-has="'gamer:createGamerUser'"
-            type="text"
-            style="color: #85ce61"
-            @click="geteroleAdd(scope.row.name, scope.row.id)"
-            >{{ $t("increase") }}</el-button
-          >
-          <el-button
-            v-has="'gamer:edit'"
-            type="text"
-            @click="geteroleEitor(scope.row)"
-            >{{ $t("edit") }}</el-button
-          >
-          <el-button
-            v-has="'gamer:synchronizePhotos'"
-            type="text"
-            @click="getsynchronizePhotos(scope.row.code)"
-          >
+          <el-button v-has="'gamer:createGamerUser'" type="text" style="color: #85ce61"
+            @click="geteroleAdd(scope.row.name, scope.row.id)">{{ $t("increase") }}</el-button>
+          <el-button v-has="'gamer:edit'" type="text" @click="geteroleEitor(scope.row)">{{ $t("edit") }}</el-button>
+          <el-button v-has="'gamer:synchronizePhotos'" type="text" @click="getsynchronizePhotos(scope.row.code)">
             同步游戏图片
           </el-button>
-          <el-button
-            v-has="'gamer:bingType'"
-            slot="reference"
-            type="text"
-            style="color: #4c8e75"
-            @click="getbind(scope.row.id, scope.row.typeList)"
-            >{{ $t("Bindgametypes") }}</el-button
-          >
-          <el-button
-            v-has="'gamer:del'"
-            slot="reference"
-            type="text"
-            style="color: red"
-            @click="getroledel(scope.row.id)"
-            >{{ $t("delete") }}</el-button
-          >
+          <el-button v-has="'gamer:bingType'" slot="reference" type="text" style="color: #4c8e75"
+            @click="getbind(scope.row.id, scope.row.typeList)">{{ $t("Bindgametypes") }}</el-button>
+          <el-button v-has="'gamer:del'" slot="reference" type="text" style="color: red"
+            @click="getroledel(scope.row.id)">{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -172,7 +119,7 @@ export default {
             break;
           case 7:
             TypeArrList.push('热门')
-            break  
+            break
           case 8:
             TypeArrList.push('捕鱼')
             break
@@ -180,6 +127,16 @@ export default {
       }
       return TypeArrList.join(",");
     },
+    parseJsonData(value) {
+      try {
+        let data = JSON.parse(value);
+        if(!Array.isArray(data)) return value
+        return data.map(item => `${item.type}: ${item.value}`).join('\n');
+      } catch (error) {
+        // console.log('解析 JSON 数据时出错:',value, error);
+        return value
+      }
+    }
   },
   props: {
     tableData: {
