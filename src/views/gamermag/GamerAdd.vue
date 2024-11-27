@@ -4,10 +4,10 @@
       <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <el-form-item label="编码" prop="code">
+      <el-form-item :label="$t('code')" prop="code">
         <el-input v-model="ruleForm.code" />
       </el-form-item>
-      <el-form-item label="选择币种" prop="currency">
+      <el-form-item :label="$t('SelectCurrency')" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
           <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-checkbox>
         </el-checkbox-group>
@@ -39,26 +39,26 @@
       <el-form-item :label="$t('state')" prop="status">
         <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
-      <el-form-item label="印尼游戏商乘千">
+      <el-form-item :label="$t('Indonesiangamedevelopersridethousands')">
         <el-radio-group v-model="ruleForm.idr">
-          <el-radio :label="0" size="large">是</el-radio>
-          <el-radio :label="1" size="large">否</el-radio>
+          <el-radio :label="0" size="large">{{$t('correct')}}</el-radio>
+          <el-radio :label="1" size="large">{{$t('deny')}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="越南盾游戏商乘千">
+      <el-form-item :label="$t('VietnameseDongGameMerchantRidingThousand')">
         <el-radio-group v-model="ruleForm.vnd">
-          <el-radio :label="0" size="large">是</el-radio>
-          <el-radio :label="1" size="large">否</el-radio>
+          <el-radio :label="0" size="large">{{$t('correct')}}</el-radio>
+          <el-radio :label="1" size="large">{{$t('deny')}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="游戏商抽成比例" prop="rate">
+      <el-form-item :label="$t('Gamedevelopersdrawapercentage')" prop="rate">
         <el-table :cell-class-name="tableCellClassName" @cell-click="cellClick" :data="ruleForm.rate" height="200"
           border style="width: 100%">
-          <el-table-column prop="type" label="游戏类型" width="180">
+          <el-table-column prop="type" :label="$t('GameType')" width="180">
             <template slot-scope="scope">
               <el-select v-model="scope.row.type"
                 v-if="isdblclick && scope.row.index === rowIndex && scope.column.index === columnIndex"
-                placeholder="请选择">
+                :placeholder="$t('Pleaseselect')">
                 <el-option v-for="item in gamerRatetype" :key="item.label" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -66,7 +66,7 @@
                 }} </div>
             </template>
           </el-table-column>
-          <el-table-column prop="value" label="抽成比例" width="180">
+          <el-table-column prop="value" :label="$t('Drawproportion')" width="180">
             <template slot-scope="scope">
               <div @click.stop v-if="isdblclick && scope.row.index === rowIndex && scope.column.index === columnIndex">
                 <el-input min="0" max="1" step="0.01" v-model="scope.row.value" type="number" size="mini" />
@@ -75,12 +75,12 @@
                 }} </div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="right">
+          <el-table-column :label="$t('operate')" align="right">
             <template slot="header" slot-scope="scope">
-              <el-button size="mini" type="success" @click="handAdd(scope.$index, scope.row)">添加</el-button>
+              <el-button size="mini" type="success" @click="handAdd(scope.$index, scope.row)">{{$t('increase')}}</el-button>
             </template>
             <template slot-scope="scope">
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, ruleForm.rate)">删除</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, ruleForm.rate)">{{$t('delete')}}</el-button>
             </template>
           </el-table-column>
         </el-table>

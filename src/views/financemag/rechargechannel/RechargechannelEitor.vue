@@ -28,7 +28,7 @@
       />
     </el-select>
       </el-form-item>
-      <el-form-item label="选择币种" prop="currency">
+      <el-form-item :label="$t('SelectCurrency')" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
           <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
         </el-checkbox-group>

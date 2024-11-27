@@ -30,10 +30,10 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item  :label="$t('最大充值金额')" prop="maxMoney">
+      <el-form-item  :label="$t('Maximumrechargeamount')" prop="maxMoney">
         <el-input v-model="ruleForm.maxMoney" />
       </el-form-item>
-      <el-form-item  :label="$t('最小充值金额')" prop="minMoney">
+      <el-form-item  :label="$t('Minimumrechargeamount')" prop="minMoney">
         <el-input v-model="ruleForm.minMoney" />
       </el-form-item>
       <el-form-item
@@ -111,7 +111,7 @@
 
       <el-form-item
         v-if="ruleForm.type === 0"
-        label="选择币种"
+        :label="$t('SelectCurrency')"
         prop="bankCardNo"
       >
         <el-input v-model="ruleForm.currency" disabled />

@@ -5,7 +5,7 @@
       <el-select
         v-model="gammerId"
         filterable
-        placeholder="选择游戏商"
+        :placeholder="$t('SelectGameMerchant')"
         style="width: 200px;margin-left: 10px"
       >
         <el-option

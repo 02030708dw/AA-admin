@@ -11,22 +11,22 @@
 
       <!-- <el-table-column prop="password" :label="$t('password')" width="" /> -->
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
-      <el-table-column prop="currency" label="货币" width="" />
-      <el-table-column prop="blanace" label="会员余额" width="" >
+      <el-table-column prop="currency" :label="$t('currency')" width="" />
+      <el-table-column prop="blanace" :label="$t('Memberbalance')" width="" >
       <template slot-scope="scope">
           {{ +scope.row.blanace + +scope.row.gammerBlanace}}
         </template>
       </el-table-column>
-      <el-table-column prop="gammerBlanace" label="游戏商余额" width="" />
-      <el-table-column prop="realName" label="真实姓名" width="" />
+      <el-table-column prop="gammerBlanace" :label="$t('Gamemerchantbalance')" width="" />
+      <el-table-column prop="realName" :label="$t('Realname')" width="" />
       <el-table-column
         prop="parentName"
-        label="上级会员名称"
+        :label="$t('Superiormembername')"
         width=""
       />
-      <el-table-column prop="cashFlow" label="提现所需流水" width="" />
+      <el-table-column prop="cashFlow" :label="$t('Withdrawalrequiredtransactionflow')" width="" />
       <!-- <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" /> -->
-      <el-table-column prop="createdAt" label="注册时间" width="" >
+      <el-table-column prop="createdAt" :label="$t('Registrationtime')" width="" >
           <template slot-scope="scope">
               {{ $creationTime(scope.row.createdAt) }}
           </template>
@@ -44,9 +44,9 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" label="会员信息" width="">
+      <el-table-column prop="" :label="$t('Memberinformation')" width="">
         <template slot-scope="scope">
-          <el-button v-has="'membermag:memberInfo'" type="text" @click="MemberInfo(scope.row)">会员详情</el-button>
+          <el-button v-has="'membermag:memberInfo'" type="text" @click="MemberInfo(scope.row)">{{$t('MemberDetails')}}</el-button>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
@@ -54,8 +54,8 @@
           <el-button v-if="scope.row.parentName" v-has="'membermag:memberTransfer'" type="text" @click="Membershiptransfer(scope.row)">{{
             $t("Membershiptransfer")
           }}</el-button>
-          <el-button v-has="'membermag:resetPwd'" type="text" @click="MemberresettingPwd(scope.row)">重置密码</el-button>
-          <el-button v-has="'membermag:changeBalance'" type="text" @click="MemberUpdatebalance(scope.row)">余额加减</el-button>
+          <el-button v-has="'membermag:resetPwd'" type="text" @click="MemberresettingPwd(scope.row)">{{$t('resetpassword')}}</el-button>
+          <el-button v-has="'membermag:changeBalance'" type="text" @click="MemberUpdatebalance(scope.row)">{{$t('Balanceadditionandsubtraction')}}</el-button>
           <el-button v-if="scope.row.agenId" v-has="'membermag:agentTransfer'" type="text" @click="Proxytransfer(scope.row)">{{
             $t("Proxytransfer")
           }}</el-button>
