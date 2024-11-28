@@ -2,7 +2,7 @@
 <template>
   <!-- 查看详情 -->
   <el-dialog
-    title="代理提现详情"
+    :title="$t('Proxywithdrawaldetails')"
     :visible.sync="dialogVisible"
     width="40%"
   >

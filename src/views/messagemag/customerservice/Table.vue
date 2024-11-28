@@ -26,7 +26,7 @@
         <template slot-scope="scope">
           <div>
             <el-switch v-has="'customerservice:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0" active-color="#13ce66"
-              active-text="启用" inactive-text="停用" @change="getUdateStatus($event, scope.row.id)" />
+            :active-text="$t('Enable')" :inactive-text="$t('Deactivate')" @change="getUdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>

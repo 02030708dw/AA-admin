@@ -2,7 +2,7 @@
 <template>
   <!-- 查看详情 -->
   <el-dialog
-    title="会员充值详情"
+    :title="$t('Memberrechargedetails')"
     :visible.sync="dialogVisible"
     width="40%"
   >

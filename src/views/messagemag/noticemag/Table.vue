@@ -27,8 +27,8 @@
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-              active-text="发布"
-              inactive-text="撤销"
+              :active-text="$t('release')"
+              :inactive-text="$t('revoke')"
               @change="getupdateStatus($event, scope.row.id)"
             />
           </div>

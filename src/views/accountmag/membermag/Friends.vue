@@ -16,18 +16,18 @@
         :cell-style="{ 'text-align': 'center' }"
       >
         <!-- <el-table-column prop="nickeName" label="昵称" width="" /> -->
-        <el-table-column prop="userName" label="用户名" width="" />
+        <el-table-column prop="userName" :label="$t('username')" width="" />
         <!-- <el-table-column prop="parentMemberId" label="上级会员ID" width="" /> -->
-        <el-table-column prop="realName" label="真实姓名" width="" />
-        <el-table-column prop="plugUrl" label="推广链接" width="" />
-        <el-table-column prop="" label="状态" width="">
+        <el-table-column prop="realName" :label="$t('Realname')" width="" />
+        <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" />
+        <el-table-column prop="" :label="$t('state')" width="">
           <template slot-scope="scope">
             {{ scope.row.status | typeF }}
           </template>
         </el-table-column>
-        <el-table-column prop="telPhone" label="手机号" width="" />
-        <el-table-column prop="friendNum" label="好友人数" width="" />
-        <el-table-column prop="gammerBlanace" label="在游戏商总余额" width="" />
+        <el-table-column prop="telPhone" :label="$t('cellphonenumber')" width="" />
+        <el-table-column prop="friendNum" :label="$t('Numberoffriends')" width="" />
+        <el-table-column prop="gammerBlanace" :label="$t('Totalbalanceofgamemerchants')" width="" />
       </el-table>
     </el-card>
 

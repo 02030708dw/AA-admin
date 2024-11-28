@@ -60,8 +60,7 @@
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-              active-text="启用"
-              inactive-text="停用"
+              :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
               @change="getupdateStatus($event, scope.row.id)"
             />
           </div>

@@ -31,7 +31,7 @@
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <el-switch v-has="'activity:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0" active-color="#13ce66"
-          active-text="启用" inactive-text="停用" @change="getUdateStatus($event, scope.row)" />
+          :active-text="$t('Enable')" :inactive-text="$t('Deactivate')" @change="getUdateStatus($event, scope.row)" />
           <!-- <div :style="{color:scope.row.status === 0 ? 'red':'green'}">
             {{ scope.row.status === 0 ? '停用':'启用' }}
           </div> -->

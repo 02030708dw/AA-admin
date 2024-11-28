@@ -88,18 +88,18 @@
           <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text"
             style="color: #a4a4a4;" @click="getaudit(3, scope.row.id)"> {{ $t("cancellation") }} </el-button>
           <el-button v-has="'memberwithdrawal:fo'" v-if="scope.row.aduitStatus === 0" type="text"
-            @click="Handelpay(scope.row)">代付</el-button>
+            @click="Handelpay(scope.row)">{{$t('Paymentonbehalf')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 驳回原因弹窗 -->
     <el-dialog :title="$t('Reasonforrejection')" :visible.sync="dialogVisible" width="30%">
-      <span>请输入驳回原因</span>
+      <span>{{$t('Pleaseenterthereasonforrejection')}}</span>
       <el-input v-model="reason" style="margin-top: 10px;" type="textarea" :rows="4"
         :placeholder="$t('Pleaseenterthereasonforrejection')" />
       <span slot="footer" class="dialog-footer">
-        <el-button @click="getaudit(2)">跳 过</el-button>
-        <el-button type="primary" @click="getaudit(2)">确 定</el-button>
+        <el-button @click="getaudit(2)">{{$t('skip')}}</el-button>
+        <el-button type="primary" @click="getaudit(2)">{{$t('determine')}}</el-button>
       </span>
     </el-dialog>
   </el-card>
