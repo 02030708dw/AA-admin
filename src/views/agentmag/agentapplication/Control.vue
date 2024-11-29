@@ -1,13 +1,13 @@
 <template>
   <el-row class="row" style="padding-bottom: 10px">
     <el-date-picker v-model="application" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
-      start-placeholder="申请开始日期" end-placeholder="申请结束日期" :picker-options="pickerOptions"
+      :start-placeholder="$t('Applicationstartdate')" :end-placeholder="$t('ApplicationEndDate')" :picker-options="pickerOptions"
       @blur="() => heandlerTime('application')" />
     <el-date-picker style="margin-left:10px;" v-model="review" type="daterange" align="right" unlink-panels
-      :range-separator="$t('to')" start-placeholder="审核开始日期" end-placeholder="审核结束日期" :picker-options="pickerOptions"
+      :range-separator="$t('to')" :start-placeholder="$t('Auditstartdate')" :end-placeholder="$t('Auditenddate')" :picker-options="pickerOptions"
       @blur="() => heandlerTime('review')" />
     <el-input v-model="memberId" style="width: 200px;margin-left:10px;" :placeholder="$t('MemberID')" />
-    <el-input v-model="reviewerId" style="width: 200px;margin-left:10px;" placeholder="审核人id" />
+    <el-input v-model="reviewerId" style="width: 200px;margin-left:10px;" :placeholder="$t('ReviewerID')" />
     <el-select v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
     </el-select>

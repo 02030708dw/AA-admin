@@ -11,7 +11,7 @@
         <el-select
           v-model="ruleForm.gamerId"
           filterable
-          placeholder="选择游戏商"
+           :placeholder="$t('SelectGameMerchant')"
           style="width: 200px; margin-left: 10px"
         >
           <el-option

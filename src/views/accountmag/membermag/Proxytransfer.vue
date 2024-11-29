@@ -13,7 +13,7 @@
         </el-select>
         <!-- <el-input v-model="targetAgentId"></el-input> -->
       </el-form-item>
-      <el-form-item label="原代理的会员列表" prop="">
+      <el-form-item :label="$t('Listoforiginalagentsmembers')" prop="">
         <!-- <el-checkbox-group v-model="agentData">
           <el-checkbox v-for="(item, i) in agentList" :key="item.id" :label="i">
             {{ item.realName }}
@@ -23,8 +23,8 @@
     </el-form>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="getAddstatus()">取 消</el-button>
-      <el-button type="primary" @click="getconfirm()">确 定</el-button>
+      <el-button @click="getAddstatus()">{{$t('cancellation')}}</el-button>
+      <el-button type="primary" @click="getconfirm()">{{$t('determine')}}</el-button>
     </span>
   </el-dialog>
 </template>

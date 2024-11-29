@@ -1,10 +1,10 @@
 <template>
-  <el-dialog title="试玩游戏添加" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="$t('Trialgameaddition')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('name')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <el-form-item label="试玩地址" prop="url">
+      <el-form-item :label="$t('Trialaddress')" prop="url">
         <el-input v-model="ruleForm.url"></el-input>
       </el-form-item>
       <el-form-item :label="$t('GameMerchantName')" prop="gamerId">

@@ -4,7 +4,7 @@
       <el-form-item :label="$t('account')" prop="account">
         <el-input v-model="ruleForm.account" />
       </el-form-item>
-      <el-form-item label="链接地址" prop="linkUrl">
+      <el-form-item :label="$t('LinkAddress')" prop="linkUrl">
         <el-input v-model="ruleForm.linkUrl" />
       </el-form-item>
       <el-form-item :label="$t('ExplanatoryNote')" prop="note">

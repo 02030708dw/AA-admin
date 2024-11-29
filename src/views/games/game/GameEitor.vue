@@ -14,11 +14,11 @@
       <!-- <el-form-item :label="$t('GamemerchantsID')" prop="gamerId">
         <el-input v-model="ruleForm.gamerId" />
       </el-form-item> -->
-      <el-form-item label="选择游戏商" prop="gamerId">
+      <el-form-item :label="$t('SelectGameMerchant')" prop="gamerId">
         <el-select
           filterable
           v-model="ruleForm.gamerId"
-          placeholder="选择游戏商"
+          :placeholder="$t('SelectGameMerchant')"
           style="width: 200px;margin-left: 10px"
         >
           <el-option
@@ -64,7 +64,7 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="游戏商图片" prop="pictureInfos">
+      <el-form-item :label="$t('Gamevendorimages')" prop="pictureInfos">
         <UploadImage v-if="dialogVisible" fn="gamer" :code="ruleForm.gamerName" :img="ruleForm.pictureUrl" @Upload="getImageURL" />
       </el-form-item>
     </el-form>

@@ -10,7 +10,7 @@
       <el-table-column prop="channelName" :label="$t('Channelname')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
       <el-table-column prop="currency" :label="$t('Currency')" width="" />
-      <el-table-column  label="充值信息" width="500">
+      <el-table-column  :label="$t('Rechargeinformation')" width="500">
         <template slot-scope="scope">
           <div class="info_box">
             <div v-if="scope.row.alipay" class="item_box">
@@ -60,8 +60,7 @@
               active-color="#13ce66"
               :active-value="1"
               :inactive-value="0"
-              active-text="启用"
-              inactive-text="停用"
+              :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
               @change="getupdateStatus($event, scope.row.id)"
             />
           </div>

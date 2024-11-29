@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/return-in-computed-property -->
 <template>
   <!-- 查看详情 -->
-  <el-dialog title="代理提现详情" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="$t('Proxywithdrawaldetails')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item :label="$t('Nameofwithdrawalbank')">
         <el-input v-model="ruleForm.bankName" :disabled="true" />
@@ -57,7 +57,7 @@ export default {
         case 1:
           return this.$t('Approve')
         case 2:
-          return this.$t('Rejected')
+          return this.$t('reject')
         case 3:
           return this.$t('Cancelled')
         case 4:

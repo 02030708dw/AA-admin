@@ -68,7 +68,7 @@
             @click="geteroleAdd(scope.row.name, scope.row.id)">{{ $t("increase") }}</el-button>
           <el-button v-has="'gamer:edit'" type="text" @click="geteroleEitor(scope.row)">{{ $t("edit") }}</el-button>
           <el-button v-has="'gamer:synchronizePhotos'" type="text" @click="getsynchronizePhotos(scope.row.code)">
-            同步游戏图片
+            {{$t('Synchronizegameimages')}}
           </el-button>
           <el-button v-has="'gamer:bingType'" slot="reference" type="text" style="color: #4c8e75"
             @click="getbind(scope.row.id, scope.row.typeList)">{{ $t("Bindgametypes") }}</el-button>
@@ -77,11 +77,11 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+    <el-dialog :title="$t('prompt')" :visible.sync="dialogVisible" width="30%">
       <span>为{{ name }}添加游戏商用户</span>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="gamerCreateUser">确 定</el-button>
+        <el-button @click="dialogVisible = false">{{$t('cancellation')}}</el-button>
+        <el-button type="primary" @click="gamerCreateUser">{{$t('determine')}}</el-button>
       </span>
     </el-dialog>
   </el-card>

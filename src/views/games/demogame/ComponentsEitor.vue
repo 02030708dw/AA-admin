@@ -4,7 +4,7 @@
       <el-form-item :label="$t('name')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <el-form-item label="试玩地址" prop="url">
+      <el-form-item :label="$t('Trialaddress')" prop="url">
         <el-input v-model="ruleForm.url"></el-input>
       </el-form-item>
       <el-form-item :label="$t('sort')" prop="sort">

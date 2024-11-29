@@ -5,10 +5,14 @@ import Cookies from 'js-cookie' // 引入 Cookies 保存当前默认语言选项
 
 import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui 英文包
 import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui 中文包
+import elementVnLocale from 'element-ui/lib/locale/lang/vi'// element-ui 越南文包
+import elementTnLocale from 'element-ui/lib/locale/lang/th'// element-ui 泰文包
 
 // 自定义的中英文配置
 import enLocale from './en'
 import zhLocale from './zh'
+import vnLocale from './vn'
+import tnLocale from './tn'
 
 Vue.use(VueI18n) // 全局注册国际化包
 
@@ -27,6 +31,14 @@ const i18n = new VueI18n({
     zh: {
       ...zhLocale,
       ...elementZhLocale
+    },
+    vn: {
+      ...vnLocale,
+      ...elementVnLocale
+    },
+    tn: {
+      ...tnLocale,
+      ...elementTnLocale
     }
   }
 })

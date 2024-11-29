@@ -2,7 +2,7 @@
 <template>
   <!-- 查看详情 -->
   <el-dialog
-    title="代理提现详情"
+    :title="$t('Proxywithdrawaldetails')"
     :visible.sync="dialogVisible"
     width="40%"
   >
@@ -58,7 +58,7 @@ export default {
     },
     // 审核状态
     Aduit_Status() {
-      return this.ruleForm.aduitStatus < 1 ? this.$t('PendingReview') : (this.ruleForm.aduitStatus < 2 ? this.$t('Approve') : (this.ruleForm.aduitStatus < 3 ? this.$t('Rejected') :  this.$t('Cancelled') ))
+      return this.ruleForm.aduitStatus < 1 ? this.$t('PendingReview') : (this.ruleForm.aduitStatus < 2 ? this.$t('Approve') : (this.ruleForm.aduitStatus < 3 ? this.$t('reject') :  this.$t('Cancelled') ))
     }
   },
   methods: {
