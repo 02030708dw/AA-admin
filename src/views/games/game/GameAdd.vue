@@ -8,8 +8,8 @@
         <el-input v-model="ruleForm.gamerId" />
       </el-form-item> -->
 
-      <el-form-item label="选择游戏商" prop="gamerId">
-        <el-select v-model="ruleForm.gamerId" filterable placeholder="选择游戏商" style="width: 200px;margin-left: 10px">
+      <el-form-item :label="$t('SelectGameMerchant')" prop="gamerId">
+        <el-select v-model="ruleForm.gamerId" filterable :placeholder="$t('SelectGameMerchant')" style="width: 200px;margin-left: 10px">
           <el-option v-for="(item, index) in gameriddata" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
@@ -30,7 +30,7 @@
           <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item label="游戏商图片" prop="pictureInfos">
+      <el-form-item :label="$t('Gamevendorimages')" prop="pictureInfos">
           <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
       </el-form-item>
     </el-form>

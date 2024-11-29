@@ -1,29 +1,29 @@
 <template>
     <!-- 新增 修改 -->
-    <el-dialog :title="TypeIndex === 1 ? '编辑提现银行' : '添加提现银行'" :visible.sync="dialogVisible" width="40%"
+    <el-dialog :title="TypeIndex === 1 ? $t('Editwithdrawalbank') : $t('Addwithdrawalbank')" :visible.sync="dialogVisible" width="40%"
         @close="HandelClose">
 
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
-            <el-form-item label="银行编码" prop="bankCode">
-                <el-input v-model="ruleForm.bankCode" placeholder="请输入银行编码" />
+            <el-form-item :label="$t('Bankcode')" prop="bankCode">
+                <el-input v-model="ruleForm.bankCode" :placeholder="$t('Pleaseenterbankcode')" />
             </el-form-item>
-            <el-form-item label="银行名称" prop="bankName">
-                <el-input v-model="ruleForm.bankName" placeholder="请输入银行名称" />
+            <el-form-item :label="$t('BankName')" prop="bankName">
+                <el-input v-model="ruleForm.bankName" :placeholder="$t('Pleaseenterthebankname')" />
             </el-form-item>
-            <el-form-item label="选择币种" prop="currency">
-                <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
+            <el-form-item :label="$t('SelectCurrency')" prop="currency">
+                <el-select v-model="ruleForm.currency" :placeholder="$t('SelectCurrency')" style="width: 200px">
                     <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index"
                         :label="item.item" />
                 </el-select>
             </el-form-item>
-            <el-form-item :label="'三方支付'">
-                <el-select multiple v-model="ruleForm.threePayIds" placeholder="充值类型" style="width: 300px">
+            <el-form-item :label="$t('Threepartypayment')">
+                <el-select multiple v-model="ruleForm.threePayIds" :placeholder="$t('Rechargetype')" style="width: 300px">
                     <el-option v-for="(item, index) in threePayList" :key="index" :value="item.id"
                         :label="item.threeName" />
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="图标" prop="icon">
+            <el-form-item :label="$t('icon')" prop="icon">
                 <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
                     :on-error="uploadonerror">
                     <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar">

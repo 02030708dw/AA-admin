@@ -2,8 +2,8 @@
     <el-card>
         <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
             :cell-style="{ 'text-align': 'center' }">
-            <el-table-column prop="bankCode" label="银行编码" width="" />
-            <el-table-column prop="bankName" label="银行名称" width="" />
+            <el-table-column prop="bankCode" :label="$t('Bankcode')" width="" />
+            <el-table-column prop="bankName" :label="$t('BankName')" width="" />
             <el-table-column prop="currency" :label="$t('Currency')" width="" />
             <el-table-column prop="" :label="$t('icon')" width="120">
                 <template slot-scope="scope">
@@ -12,15 +12,15 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column prop="status" label="状态" width="">
+            <el-table-column prop="status" :label="$t('state')" width="">
                 <template slot-scope="scope">
                     <div>
                         <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
-                            active-text="启用" inactive-text="停用" @change="getupdateStatus($event, scope.row)" />
+                            :active-text="$t('Enable')" :inactive-text="$t('Deactivate')" @change="getupdateStatus($event, scope.row)" />
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column prop="threePayNames" label="银行支持三方配置" width="" />
+            <el-table-column prop="threePayNames" :label="$t('Bankssupportthirdpartyconfiguration')" width="" />
             <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
                 <template slot-scope="scope">
                     {{ $creationTime(scope.row.createdAt) }}

@@ -101,7 +101,7 @@ export default {
         case 1:
           return this.$t('Approve')
         case 2:
-          return this.$t('Rejected')
+          return this.$t('reject')
         case 3:
           return this.$t('Cancelled')
       }
