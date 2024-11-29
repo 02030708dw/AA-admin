@@ -6,10 +6,10 @@
           <el-option v-for="(item, index) in channelidList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item  :label="$t('最大充值金额')" prop="maxMoney">
+      <el-form-item  :label="$t('Maximumrechargeamount')" prop="maxMoney">
         <el-input v-model="ruleForm.maxMoney" />
       </el-form-item>
-      <el-form-item  :label="$t('最小充值金额')" prop="minMoney">
+      <el-form-item  :label="$t('Minimumrechargeamount')" prop="minMoney">
         <el-input v-model="ruleForm.minMoney" />
       </el-form-item>
       <el-form-item style="width: 350px" :label="$t('state')" prop="status">
@@ -48,7 +48,7 @@
           <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
         </el-select>
       </el-form-item>
-      <el-form-item v-if="ruleForm.type === 0" label="选择币种">
+      <el-form-item v-if="ruleForm.type === 0" :label="$t('SelectCurrency')">
         <el-input v-model="ruleForm.currency" disabled />
         <!-- <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
           <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />

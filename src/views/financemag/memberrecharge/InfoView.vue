@@ -2,7 +2,7 @@
 <template>
   <!-- 查看详情 -->
   <el-dialog
-    title="会员充值详情"
+    :title="$t('Memberrechargedetails')"
     :visible.sync="dialogVisible"
     width="40%"
   >
@@ -59,7 +59,7 @@ export default {
     },
     // 审核状态
     Aduit_Status() {
-      return this.ruleForm.aduitStatus < 1 ? this.$t('PendingReview') : (this.ruleForm.aduitStatus < 2 ? this.$t('Approve') : (this.ruleForm.aduitStatus < 3 ? this.$t('Rejected') :  this.$t('Cancelled') ))
+      return this.ruleForm.aduitStatus < 1 ? this.$t('PendingReview') : (this.ruleForm.aduitStatus < 2 ? this.$t('Approve') : (this.ruleForm.aduitStatus < 3 ? this.$t('reject') :  this.$t('Cancelled') ))
    },
     channel_c() {
       return this.ruleForm.channel < 1 ? '银行卡' : (this.ruleForm.channel < 2 ? '支付宝' : (this.ruleForm.channel < 3 ? '微信' : '虚拟币'))

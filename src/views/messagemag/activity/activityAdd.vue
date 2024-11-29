@@ -14,12 +14,12 @@
         <Tinymce v-model="ruleForm.content"></Tinymce>
         <!-- <el-input v-model="ruleForm.content"></el-input> -->
       </el-form-item>
-      <el-form-item label="流水倍率">
+      <el-form-item :label="$t('Flowrateratio')">
         <el-input v-model="ruleForm.flowRate"></el-input>
       </el-form-item>
-      <el-form-item label="活动时间" prop="date">
+      <el-form-item :label="$t('Activitytime')" prop="date">
         <el-date-picker v-model="timeArr" @change="changeTime" type="datetimerange" range-separator="至"
-          start-placeholder="开始日期" end-placeholder="结束日期">
+          :start-placeholder="$t('Startdate')" :end-placeholder="$t('EndDate')">
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
@@ -28,19 +28,19 @@
             }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="赠送金额" v-if="ruleForm.type.indexOf(3) != -1">
+      <el-form-item :label="$t('Giftamount')" v-if="ruleForm.type.indexOf(3) != -1">
         <el-input v-model="ruleForm.giftAmount" />
       </el-form-item>
-      <el-form-item label="需要充值金额" v-if="ruleForm.type.indexOf(3) != -1">
+      <el-form-item :label="$t('Needtorechargeamount')" v-if="ruleForm.type.indexOf(3) != -1">
         <el-input v-model="ruleForm.rechargeAmount" />
       </el-form-item>
-      <el-form-item label="是否轮播展示">
+      <el-form-item :label="$t('Isitarotatingdisplay')">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.isShow"></el-switch>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
       </el-form-item>
-      <el-form-item label="图片" prop="icon">
+      <el-form-item :label="$t('picture')" prop="icon">
         <UploadImage v-if="dialogVisible" fn="activity" @Upload="getImageURL" />
       </el-form-item>
 

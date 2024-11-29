@@ -20,7 +20,7 @@
       <el-form-item :label="$t('Permissiontype')" prop="type">
         <el-select
           v-model="ruleForm.type"
-          placeholder="请选择权限类型"
+          :placeholder="$t('Pleaseselectpermissiontype')"
           style="width: 40%"
         >
           <el-option

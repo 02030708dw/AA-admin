@@ -2,19 +2,19 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="memberName" label="申请人" />
-      <el-table-column prop="applicantEmail" label="申请人邮箱" />
-      <el-table-column prop="applicantPhone" label="申请人电话" />
-      <el-table-column prop="updater" label="审核人" />
-      <el-table-column prop="reviewDate" label="审核时间" />
-      <el-table-column prop="remarks" label="审核备注/拒绝原因" />
-      <el-table-column prop="socialSoftware" label="社交软件账号" />
-      <el-table-column prop="transferUrl" label="中转页域名" />
-      <el-table-column prop="status" label="申请状态">
+      <el-table-column prop="memberName" :label="$t('applicant')" />
+      <el-table-column prop="applicantEmail" :label="$t('Applicantsemail')" />
+      <el-table-column prop="applicantPhone" :label="$t('Applicantisphonenumber')" />
+      <el-table-column prop="updater" :label="$t('reviewer')" />
+      <el-table-column prop="reviewDate" :label="$t('Audittime')" />
+      <el-table-column prop="remarks" :label="$t('Reviewremarksreasonsforrejection')" />
+      <el-table-column prop="socialSoftware" :label="$t('Socialmediaaccounts')" />
+      <el-table-column prop="transferUrl" label="$t('Transferpagedomainname')" />
+      <el-table-column prop="status" :label="$t('applicationstatus')">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.status == 1" type="info">{{ $t('PendingReview') }}</el-tag>
-          <el-tag v-if="scope.row.status == 2" type="success">通过</el-tag>
-          <el-tag v-if="scope.row.status == 3" type="danger">拒绝</el-tag>
+          <el-tag v-if="scope.row.status == 2" type="success">{{$t('passthrough')}}</el-tag>
+          <el-tag v-if="scope.row.status == 3" type="danger">{{$t('refuse')}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">

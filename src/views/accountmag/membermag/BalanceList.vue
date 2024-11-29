@@ -16,7 +16,7 @@
         :cell-style="{ 'text-align': 'center' }"
       >
         <el-table-column prop="gamerName" label="GameMerchantName" width="" />
-        <el-table-column prop="balance" label="余额" width="" />
+        <el-table-column prop="balance" :label="$t('balance')" width="" />
         <!-- <el-table-column prop="plugUrl" label="推广链接" width="" />
         <el-table-column prop="realName" label="真实姓名" width="" />
         <el-table-column prop="" label="状态" width="">

@@ -9,9 +9,9 @@
           <div class="overflow-hidden">{{ scope.row.content }}</div>
         </template>
       </el-table-column>
-      <el-table-column prop="giftAmount" label="赠送金额" width="120" />
-      <el-table-column prop="rechargeAmount" label="需要充值金额" width="120" />
-      <el-table-column prop="flowRate" label="流水倍率" width="120" />
+      <el-table-column prop="giftAmount" :label="$t('Giftamount')" width="120" />
+      <el-table-column prop="rechargeAmount"  :label="$t('Needtorechargeamount')" width="120" />
+      <el-table-column prop="flowRate" :label="$t('Flowrateratio')" width="120" />
       <el-table-column :label="$t('typesof')" width="120">
         <template slot-scope="scope">
           <span>{{ getTypeName(scope.row.type) }}</span>
@@ -33,7 +33,7 @@
         <template slot-scope="scope">
           <div>
             <el-switch v-has="'activity:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0"
-              active-color="#13ce66" active-text="启用" inactive-text="停用"
+              active-color="#13ce66" :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
               @change="getUdateStatus($event, scope.row.id)" />
           </div>
         </template>

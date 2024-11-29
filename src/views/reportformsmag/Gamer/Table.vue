@@ -14,8 +14,8 @@
       <el-table-column prop="phaseAmount" :label="$t('Totalprofitandloss')" width="" />
       <el-table-column prop="rate" :label="$t('Drawproportion')" width="" />
       <el-table-column prop="rateAmount" :label="$t('Commissionamount')" width="" />
-      <el-table-column prop="realBetAmount" label="有效投注金额" width="" />
-      <el-table-column prop="winAmount" label="中奖总额" width="" />
+      <el-table-column prop="realBetAmount" :label="$t('Effectivebettingamount')" width="" />
+      <el-table-column prop="winAmount" :label="$t('Totalwinningamount')" width="" />
     </el-table>
   </el-card>
 </template>
