@@ -3,13 +3,13 @@
         <!-- 新增按钮 -->
         <el-button v-has="'WithdrawalBank:add'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
         <!-- 银行编码 -->
-        <el-input v-model="bankCode" style="width: 180px; margin-left: 10px" placeholder="请输入银行编码" />
+        <el-input v-model="bankCode" style="width: 180px; margin-left: 10px" :placeholder="$t('Pleaseenterbankcode')" />
         <!-- 银行名称 -->
-        <el-input v-model="bankName" style="width: 180px; margin-left: 10px" placeholder="请输入银行名称" />
+        <el-input v-model="bankName" style="width: 180px; margin-left: 10px" :placeholder="$t('Pleaseenterthebankname')" />
         <!-- 状态 -->
         <el-select v-model="status" :placeholder="$t('state')" style="width: 200px; margin-left: 10px">
-            <el-option :value="0" label="停用" />
-            <el-option :value="1" label="启用" />
+            <el-option :value="0" :label="$t('Deactivate')" />
+            <el-option :value="1" :label="$t('Enable')" />
         </el-select>
         <!-- 查询 -->
         <el-button v-has="'WithdrawalBank:page'" style="margin-left: 10px" type="primary" @click="getquery()">

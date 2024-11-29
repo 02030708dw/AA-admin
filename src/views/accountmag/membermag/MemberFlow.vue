@@ -11,9 +11,9 @@
         <el-card shadow="never">
             <el-table v-loading="loading" :data="tableData" :border="true"
                 :header-cell-style="{ 'text-align': 'center' }" :cell-style="{ 'text-align': 'center' }">
-                <el-table-column prop="remark" label="描述" width=""></el-table-column>
-                <el-table-column prop="flow" label="流水金额" width=""></el-table-column>
-                <el-table-column prop="createdAt" label="创建时间" width="">
+                <el-table-column prop="remark" :label="$t('describe')" width=""></el-table-column>
+                <el-table-column prop="flow" :label="$t('Flowamount')" width=""></el-table-column>
+                <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
                     <template slot-scope="scope">
                         {{ $creationTime(scope.row.createdAt) }}
                     </template>

@@ -9,7 +9,7 @@
         <template slot-scope="scope">
           <div>
             <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
-              active-text="启用" inactive-text="停用" @change="getupdateStatus($event, scope.row.id)" />
+            :active-text="$t('Enable')" :inactive-text="$t('Deactivate')" @change="getupdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
@@ -28,7 +28,7 @@
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
           <el-button type="text" @click="geterolePermission(scope.row)">
-            绑定权限
+            {{$t('Bindpermissions')}}
           </el-button>
           <el-button v-has="'role:edit'" type="text" @click="geteroleEitor(scope.row)">
             {{ $t("edit") }}

@@ -72,7 +72,7 @@ export default {
       noticetype: [
         { title: this.$t('PendingReview'), index: 0 },
         { title: this.$t('Approve'), index: 1 },
-        { title: this.$t('Rejected'), index: 2 },
+        { title: this.$t('reject'), index: 2 },
         { title: this.$t('Cancelled'), index: 3 }
       ],
       btnIcoType: true,

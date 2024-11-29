@@ -1,23 +1,23 @@
 <template>
   <el-dialog
-    title="余额加/减"
+    :title="$t('Balanceadditionsubtraction')"
     :visible.sync="dialogVisible"
     width="30%"
   >
     <el-form ref="FormData" :rules="rules" :model="FormData" label-width="110px">
-      <el-form-item label="操作金额" prop="amt">
+      <el-form-item :label="$t('Operationamount')" prop="amt">
         <el-input v-model="FormData.amt" />
       </el-form-item>
-      <el-form-item label="提现所需流水" prop="flowAmt">
+      <el-form-item :label="$t('Withdrawalrequiredtransactionflow')" prop="flowAmt">
         <el-input v-model="FormData.flowAmt" />
       </el-form-item>
-      <el-form-item label="操作类型" prop="operate">
+      <el-form-item :label="$t('Operationtype')" prop="operate">
         <el-radio-group v-model="FormData.operate">
-          <el-radio-button :label="1">加钱</el-radio-button>
-          <el-radio-button :label="2">扣钱</el-radio-button>
+          <el-radio-button :label="1">{{$t('addmoney')}}</el-radio-button>
+          <el-radio-button :label="2">{{$t('deductmoney')}}</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="备注">
+      <el-form-item :label="$t('Notes')">
         <el-input
           v-model="FormData.remark"
           type="textarea"
@@ -26,8 +26,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="HandelUpdataBalance">确 定</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancellation')}}</el-button>
+      <el-button type="primary" @click="HandelUpdataBalance">{{$t('determine')}}</el-button>
     </span>
   </el-dialog>
 </template>

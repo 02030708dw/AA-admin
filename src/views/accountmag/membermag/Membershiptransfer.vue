@@ -4,13 +4,13 @@
       <el-form-item :label="$t('MemberID')" prop="">
         <span>{{ ruleForm.id }}</span>
       </el-form-item>
-      <el-form-item label="目标会员列表" prop="">
+      <el-form-item :label="$t('TargetMemberList')" prop="">
         <!-- <el-select v-model="targetAgentId" placeholder="选择代理" style="width: 200px;margin-left: 10px">
           <el-option v-for="(item, index) in TargetMemberList" :key="index" :value="item.index" :label="item.title" />
         </el-select> -->
       </el-form-item>
 
-      <el-form-item label="转移会员列表" prop="">
+      <el-form-item :label="$t('TransferMemberList')" prop="">
         <!-- <el-checkbox-group v-model="agentData">
           <el-checkbox v-for="(item, i) in MemberList" :key="item.id" :label="i">
             {{ item.realName }}
@@ -20,8 +20,8 @@
     </el-form>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="getAddstatus()">取 消</el-button>
-      <el-button type="primary" @click="getconfirm()">确 定</el-button>
+      <el-button @click="getAddstatus()">{{$t('cancellation')}}</el-button>
+      <el-button type="primary" @click="getconfirm()">{{$t('determine')}}</el-button>
     </span>
   </el-dialog>
 </template>

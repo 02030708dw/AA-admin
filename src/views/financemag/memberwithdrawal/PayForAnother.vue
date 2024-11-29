@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/return-in-computed-property -->
 <template>
     <!-- 查看详情 -->
-    <el-dialog title="代理提现详情" :visible.sync="dialogVisible" :rules="rules" width="40%">
+    <el-dialog :title="$t('Proxywithdrawaldetails')" :visible.sync="dialogVisible" :rules="rules" width="40%">
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm">
             <el-form-item :label="'提现金额'">
                 <el-input v-model="ruleForm.amount" disabled />

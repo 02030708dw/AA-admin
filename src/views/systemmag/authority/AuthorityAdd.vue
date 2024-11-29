@@ -20,7 +20,7 @@
       <el-form-item :label="$t('Permissiontype')" prop="type">
         <el-select
           v-model="ruleForm.type"
-          placeholder="请选择权限类型"
+          :placeholder="$t('Pleaseselectpermissiontype')"
           style="width: 40%"
         >
           <el-option
@@ -34,7 +34,7 @@
       <el-form-item :label="$t('ParentnodeID')" prop="parentId">
         <el-input v-model="ruleForm.parentId"></el-input>
       </el-form-item>
-      <el-form-item label="地址" prop="menuUrl">
+      <el-form-item :label="$t('address')" prop="menuUrl">
         <el-input v-model="ruleForm.menuUrl"></el-input>
       </el-form-item>
       <el-form-item :label="$t('Notes')" prop="remark">

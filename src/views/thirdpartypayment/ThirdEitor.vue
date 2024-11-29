@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="添加第三方支付" :visible.sync="dialogVisible" width="50%">
+  <el-dialog :title="$t('Addthirdpartypayment')" :visible.sync="dialogVisible" width="50%">
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -10,7 +10,7 @@
       <el-form-item :label="$t('account')" prop="account">
         <el-input v-model="ruleForm.account"></el-input>
       </el-form-item>
-      <el-form-item label="调用地址" prop="apiUrl">
+      <el-form-item :label="$t('calladdress')" prop="apiUrl">
         <el-input v-model="ruleForm.apiUrl"></el-input>
       </el-form-item>
       <el-form-item :label="$t('Currency')" prop="currency">
@@ -19,7 +19,7 @@
       <el-form-item label="javaBean" prop="javaBean">
         <el-input v-model="ruleForm.javaBean"></el-input>
       </el-form-item>
-      <el-form-item label="秘钥" prop="secret">
+      <el-form-item :label="$t('secretkey')" prop="secret">
         <el-input v-model="ruleForm.secret"></el-input>
       </el-form-item>
       <el-form-item :label="$t('ThreePartyNames')" prop="threeName">

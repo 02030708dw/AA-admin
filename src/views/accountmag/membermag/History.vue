@@ -5,7 +5,7 @@
       <el-select
         v-model="gammerId"
         filterable
-        placeholder="选择游戏商"
+        :placeholder="$t('SelectGameMerchant')"
         style="width: 200px;margin-left: 10px"
       >
         <el-option
@@ -30,21 +30,21 @@
         :cell-style="{ 'text-align': 'center' }"
       >
         <!-- <el-table-column prop="id" label="会员钱包ID" width="" /> -->
-        <el-table-column prop="memberName" label="会员名称" width="" />
-        <el-table-column prop="betAmout" label="投注金额" width="" />
-        <el-table-column prop="awardAmount" label="派奖金额" width="" />
+        <el-table-column prop="memberName" :label="$t('Membername')" width="" />
+        <el-table-column prop="betAmout" :label="$t('Bettingamount')" width="" />
+        <el-table-column prop="awardAmount" :label="$t('Awardamount')" width="" />
         <!-- <el-table-column prop="" label="变动类型" width="">
           <template slot-scope="scope">
             {{ scope.row.type | typeF }}
           </template>
         </el-table-column> -->
-         <el-table-column prop="" label="状态" width="">
+         <el-table-column prop="" :label="$t('state')" width="">
           <template slot-scope="scope">
             {{ scope.row.status | typeS }}
           </template>
         </el-table-column>
-        <el-table-column prop="gamerName" label="游戏商名称" width="" />
-        <el-table-column prop="createdAt" label="创建时间" width="" >
+        <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
+        <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
           <template slot-scope="scope">
               {{ $creationTime(scope.row.createdAt) }}
           </template>
