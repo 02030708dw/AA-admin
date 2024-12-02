@@ -359,6 +359,7 @@ export default {
   Cancelled: 'Cancelled',
   Approve: 'Approve',
   Rejected: 'Rejected',
+  InProgress:'InProgress',
   currency: 'currency',
   Memberbalance:' Member balance',
   Gamemerchantbalance: 'Game merchant balance',
@@ -462,4 +463,5 @@ export default {
   prompt: 'prompt',
   release: 'release',
   revoke: 'revoke',
+  orderNo:"Order number"
 }

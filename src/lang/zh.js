@@ -358,6 +358,7 @@ export default {
   Cancelled:'已取消',
   Approve:'审核通过',
   Rejected:'驳回',
+  InProgress:'进行中',
   currency:'货币',
   Memberbalance:'会员余额',
   Gamemerchantbalance:'游戏商余额',
@@ -461,4 +462,5 @@ export default {
   prompt: '提示',
   release: '发布',
   revoke: '撤销',
+  orderNo:"订单号"
 }
