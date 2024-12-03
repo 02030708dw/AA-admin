@@ -6,14 +6,21 @@
       <el-table-column prop="weight" :label="$t('权重')" />
       <el-table-column prop="segmentIndex" :label="$t('转盘格子索引')" />
       <el-table-column prop="amount" :label="$t('奖励金额')" />
+      <el-table-column prop="" :label="$t('icon')">
+        <template slot-scope="scope" >
+          <div class="image_box">
+            <img :src="toUrl(scope.row.pictureUrl)" alt="">
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="type" :label="$t('奖励类型')">
         <template slot-scope="scope">
-          {{ tpye(scope.row.type)  }}
+          {{ tpye(scope.row.type) }}
         </template>
       </el-table-column>
       <el-table-column prop="sort" :label="$t('创建时间')">
         <template slot-scope="scope">
-          {{ $creationTime(scope.row.createdAt)  }}
+          {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
       <el-table-column prop="updater" :label="$t('更新人')" />
@@ -80,6 +87,12 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    toUrl(url) {
+      //保留语言判断
+      if (url) {
+        return "https://gwstatic.mvkbnb.com/" + url
+      }
     },
   }
 }

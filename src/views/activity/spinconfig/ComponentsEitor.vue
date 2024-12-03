@@ -15,6 +15,9 @@
       <el-form-item label="转盘格子索引">
         <el-input v-model="ruleForm.segmentIndex" />
       </el-form-item>
+      <el-form-item :label="$t('icon')" >
+        <UploadImage v-if="dialogVisible" :img="ruleForm.pictureUrl" :Fn="'spin'" @Upload="getImageURL" />
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -26,6 +29,7 @@
 </template>
 
 <script>
+import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
   data() {
     return {
@@ -51,6 +55,9 @@ export default {
 
       }
     }
+  },
+  components: {
+    UploadImage
   },
   methods: {
     // 改变弹窗状态
@@ -82,6 +89,9 @@ export default {
           return false
         }
       })
+    },
+    getImageURL(url) {
+      this.ruleForm.pictureUrl = url
     },
   }
 }
