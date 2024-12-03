@@ -3,10 +3,10 @@
     <Control ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
+    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd :gamerIdData="GamerIdData"  ref="ComponentsAdd" @confirm="getAdd" />
-    <ComponentsEitor  ref="ComponentsEitor" @confirm="getEitor" />
+    <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
+    <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -20,9 +20,8 @@ import {
   ServicePage,
   ServiceAdd,
   ServiceDel,
-  ServiceStatus,
   ServiceEdit
-} from '@/api/game/demo'
+} from '@/api/activity/spinmemberconfig'
 export default {
   components: {
     Table,
@@ -36,29 +35,13 @@ export default {
       tableData: [],
       total: 0,
       pageNo: 1,
-      status: null, // 状态
-      type: '',
-      account: '',
       PagesSize: 20,
-      GamerIdData: []
     }
   },
   created() {
     this.getdata(1)
-    this.GetGamerPages()
   },
   methods: {
-    // 获取游戏商id
-    GetGamerPages() {
-      this.GamerIdData = []
-      let res = this.$store.state.user.gamer
-      for (let i = 0; i < res.length; i++) {
-        this.GamerIdData.push({
-          title: res[i].name,
-          index: res[i].id
-        })
-      }
-    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
@@ -100,15 +83,9 @@ export default {
         })
     },
     getquery(e) {
-      this.status = e.status
-      this.account = e.account
-      this.type = e.type
       this.getdata(1)
     },
     getresetting() {
-      this.status = null
-      this.account = null
-      this.type = null
       this.getdata(1)
     },
     // 显示添加弹窗
@@ -150,13 +127,7 @@ export default {
       this.$refs.ComponentsEitor.getAddstatus(e)
     },
     getEitor(data) {
-      ServiceEdit({
-        id: data.id,
-        name: data.name,
-        posterImage: data.posterImage,
-        url: data.url,
-        sort:data.sort,
-      })
+      ServiceEdit(data)
         .then((res) => {
           this.getdata(this.pageNo)
           this.$message({
@@ -169,26 +140,6 @@ export default {
           console.log(err)
         })
     },
-    // 状态修改
-    getStatus(data) {
-      console.log(data)
-      // return;
-      ServiceStatus({
-        status: data.status,
-        id: data.id,
-      })
-        .then((res) => {
-          // this.getdata(this.pageNo);
-          this.$message({
-            message: '修改成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error('修改失败!')
-          console.log(err)
-        })
-    }
   }
 }
 </script>

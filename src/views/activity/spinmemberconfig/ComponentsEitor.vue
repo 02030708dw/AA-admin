@@ -1,17 +1,15 @@
 <template>
-  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="60%">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item :label="$t('name')" prop="name">
-        <el-input v-model="ruleForm.name" />
+  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form-item label="用户id">
+        <el-input v-model="ruleForm.memberId" />
       </el-form-item>
-      <el-form-item :label="$t('Trialaddress')" prop="url">
-        <el-input v-model="ruleForm.url"></el-input>
+      <el-form-item label="下次可领取时间点">
+        <el-date-picker v-model="ruleForm.nextSpinTime" type="datetime" placeholder="选择日期时间">
+        </el-date-picker>
       </el-form-item>
-      <el-form-item :label="$t('sort')" prop="sort">
-        <el-input type='number' v-model="ruleForm.sort" />
-      </el-form-item>
-      <el-form-item :label="$t('icon')" prop="icon">
-        <UploadImage v-if="dialogVisible" :img="ruleForm.posterImage" @Upload="getImageURL" />
+      <el-form-item label="剩余转盘次数">
+        <el-input v-model="ruleForm.remainingSpins" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -24,27 +22,28 @@
 </template>
 
 <script>
-import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
-  components: {
-    UploadImage
-  },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        name: "",
-        id: 0,
-        url: "",
-        sort:0,
-        posterImage: "",
+        "memberId": null,
+        "nextSpinTime": "",
+        "remainingSpins": null
       },
+      typeData: [{
+        index: 1,
+        title: '金额'
+      }, {
+        index: 2,
+        title: '谢谢惠顾'
+      }, {
+        index: 3,
+        title: '再转一次'
+      }],
       rules: {
-        id: [{ required: true, message: this.$t("IDnumbercannotbeempty"), trigger: "blur" }],
-        name: [{ required: true, message: this.$t("Namenotentered"), trigger: "blur" }],
-        url: [{ required: true, message: "地址不能为空", trigger: "blur" }],
-        sort:[{ required: true, message: "排序不能为空", trigger: "blur" }],
+
       }
     }
   },
@@ -54,11 +53,9 @@ export default {
       this.dialogVisible = !this.dialogVisible
       if (!this.dialogVisible) {
         this.ruleForm = {
-          name: "",
-          id: 0,
-          url: "",
-          posterImage: "",
-          sort:0,
+          "memberId": null,
+          "nextSpinTime": "",
+          "remainingSpins": null
         }
       } else {
         this.ruleForm = { ...data }
@@ -79,9 +76,6 @@ export default {
           return false
         }
       })
-    },
-    getImageURL(url) {
-      this.ruleForm.posterImage = url
     },
   }
 }
