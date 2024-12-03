@@ -1,17 +1,18 @@
 <template>
-  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="60%">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item :label="$t('name')" prop="name">
-        <el-input v-model="ruleForm.name" />
+  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form-item label="游戏类型">
+        <el-select v-model="ruleForm.gameType" style="width: 200px;margin-right:10px;"
+          :placeholder="$t('Pleaseselectagametype')">
+          <el-option v-for="(item, index) in gamertype" :key="index" :label="item.label"
+            :value="item.value"></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item :label="$t('Trialaddress')" prop="url">
-        <el-input v-model="ruleForm.url"></el-input>
+      <el-form-item label="反水率">
+        <el-input v-model="ruleForm.rebate" />
       </el-form-item>
-      <el-form-item :label="$t('sort')" prop="sort">
-        <el-input type='number' v-model="ruleForm.sort" />
-      </el-form-item>
-      <el-form-item :label="$t('icon')" prop="icon">
-        <UploadImage v-if="dialogVisible" :img="ruleForm.posterImage" @Upload="getImageURL" />
+      <el-form-item label="vip等级配置id">
+        <el-input v-model="ruleForm.vipConfigId" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -24,27 +25,31 @@
 </template>
 
 <script>
-import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
-  components: {
-    UploadImage
-  },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        name: "",
-        id: 0,
-        url: "",
-        sort:0,
-        posterImage: "",
+        "amount": 0,
+        "description": "",
+        "memberId": 0,
+        "spinTime": ""
       },
+      // 游戏类型选项
+      gamertype: [
+        { label: "未分类", value: 0 },
+        { label: "电子", value: 1 },
+        { label: "棋牌", value: 2 },
+        { label: "彩票", value: 3 },
+        { label: "体育", value: 4 },
+        { label: "真人", value: 5 },
+        { label: "小游戏", value: 6 },
+        { label: "热门", value: 7 },
+        { label: "捕鱼", value: 8 },
+      ],
       rules: {
-        id: [{ required: true, message: this.$t("IDnumbercannotbeempty"), trigger: "blur" }],
-        name: [{ required: true, message: this.$t("Namenotentered"), trigger: "blur" }],
-        url: [{ required: true, message: "地址不能为空", trigger: "blur" }],
-        sort:[{ required: true, message: "排序不能为空", trigger: "blur" }],
+
       }
     }
   },
@@ -54,11 +59,10 @@ export default {
       this.dialogVisible = !this.dialogVisible
       if (!this.dialogVisible) {
         this.ruleForm = {
-          name: "",
-          id: 0,
-          url: "",
-          posterImage: "",
-          sort:0,
+          "amount": null,
+          "description": "",
+          "memberId": null,
+          "spinTime": ""
         }
       } else {
         this.ruleForm = { ...data }
@@ -79,9 +83,6 @@ export default {
           return false
         }
       })
-    },
-    getImageURL(url) {
-      this.ruleForm.posterImage = url
     },
   }
 }

@@ -51,7 +51,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, status: this.status, account: this.account, type: this.type,
+        pageNo: this.pageNo, pageSize: this.PagesSize
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -73,7 +73,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, status: this.status, account: this.account, type: this.type, })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize})
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data

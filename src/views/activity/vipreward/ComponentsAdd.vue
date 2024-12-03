@@ -1,35 +1,28 @@
 <template>
-  <el-dialog :title="$t('Trialgameaddition')" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item :label="$t('name')" prop="name">
-        <el-input v-model="ruleForm.name" />
-      </el-form-item>
-      <el-form-item :label="$t('Trialaddress')" prop="url">
-        <el-input v-model="ruleForm.url"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('GameMerchantName')" prop="gamerId">
-        <el-select v-model="ruleForm.gamerId" filterable @change="GetGamePages" :placeholder="$t('SelectGameMerchant')"
-          style="width: 200px">
-          <el-option v-for="(item, index) in gamerIdData" :key="index" :value="item.index" :label="item.title" />
+      <el-form-item label="领取类型">
+        <el-select v-model="ruleForm.repeatableType" placeholder="领取类型" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in [{ index: 1, title: '领一次' }, { index: 2, title: '每天领取' }]" :key="index"
+            :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item :label="$t('sort')" prop="sort">
-        <el-input type='number' v-model="ruleForm.sort" />
-      </el-form-item>
-      <el-form-item :label="$t('gamename')" >
-        <el-select v-model="ruleForm.gameId" :loading="loading" filterable :placeholder="$t('gamename')"
-          style="width: 200px">
-          <el-option v-for="(item, index) in gameIdData" :key="index" :value="item.index" :label="item.title" />
+      <el-form-item label="奖励类型">
+        <el-select v-model="ruleForm.rewardType" placeholder="奖励类型" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in [{ index: 1, title: '奖金' }, { index: 2, title: '反水' }]" :key="index"
+            :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item :label="$t('state')" prop="status">
-        <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
+      <el-form-item label="vip等级配置id">
+        <el-input v-model="ruleForm.vipConfigId" />
       </el-form-item>
-      <el-form-item :label="$t('icon')" prop="icon">
-        <UploadImage v-if="dialogVisible" @Upload="getImageURL" />
+      <el-form-item label="奖励数值">
+        <el-input v-model="ruleForm.rewardValue" />
+      </el-form-item>
+      <el-form-item label="描述">
+        <el-input v-model="ruleForm.description" />
       </el-form-item>
     </el-form>
-
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
       <el-button type="primary" @click="getconfirm()">{{
@@ -40,68 +33,34 @@
 </template>
 
 <script>
-import UploadImage from '@/components/Upload/imageDemo.vue'
-import { gamePage } from '@/api/game/game'
 export default {
-  props: {
-    gamerIdData: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    },
-  },
-  components: {
-    UploadImage
-  },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        name: "",
-        url: "",
-        sort:0,
-        gameId: "",
-        gamerId: "",
-        status: 0,
-        posterImage: 0,
+        "description": "",
+        "repeatableType": 0,
+        "rewardType": 0,
+        "rewardValue": 0,
+        "vipConfigId": 0
       },
       rules: {
-        gamerId: [{ required: true, message: this.$t("GamerIDnotentered"), trigger: "blur" }],
-        name: [{ required: true, message: this.$t("Namenotentered"), trigger: "blur" }],
-        url: [{ required: true, message: "地址不能为空", trigger: "blur" }],
-        sort:[{ required: true, message: "排序不能为空", trigger: "blur" }],
+
       },
-      gameIdData: [],
       loading: false
     };
   },
   methods: {
-    // 获取游戏id
-    async GetGamePages() {
-      this.loading = true
-      this.gameIdData = []
-      let data = await gamePage({ pageNo: 1, pageSize: 1000000, gamerId: this.ruleForm.gamerId })
-      let res = data.resultSet.data
-      this.loading = false
-      for (let i = 0; i < res.length; i++) {
-        this.gameIdData.push({
-          title: res[i].name,
-          index: res[i].id
-        })
-      }
-    },
     // 改变弹窗状态
     getAddstatus() {
       if (!this.dialogVisible) {
         this.ruleForm = {
-          name: "",
-          url: "",
-          gameId: "",
-          gamerId: "",
-          status: 0,
-          posterImage: 0,
+          "description": "",
+          "repeatableType": null,
+          "rewardType": null,
+          "rewardValue": null,
+          "vipConfigId": null
         };
       }
       this.dialogVisible = !this.dialogVisible;
@@ -122,9 +81,6 @@ export default {
           return false;
         }
       });
-    },
-    getImageURL(url) {
-      this.ruleForm.posterImage = url
     },
   },
 };
