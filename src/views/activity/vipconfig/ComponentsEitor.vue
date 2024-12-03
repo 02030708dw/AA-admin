@@ -1,17 +1,17 @@
 <template>
-  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="60%">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item :label="$t('name')" prop="name">
-        <el-input v-model="ruleForm.name" />
+  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form-item label="vip等级">
+        <el-input v-model="ruleForm.vipLevel" />
       </el-form-item>
-      <el-form-item :label="$t('Trialaddress')" prop="url">
-        <el-input v-model="ruleForm.url"></el-input>
+      <el-form-item label="充值条件">
+        <el-input v-model="ruleForm.rechargeThreshold" />
       </el-form-item>
-      <el-form-item :label="$t('sort')" prop="sort">
-        <el-input type='number' v-model="ruleForm.sort" />
+      <el-form-item label="流水条件">
+        <el-input v-model="ruleForm.turnoverThreshold" />
       </el-form-item>
-      <el-form-item :label="$t('icon')" prop="icon">
-        <UploadImage v-if="dialogVisible" :img="ruleForm.posterImage" @Upload="getImageURL" />
+      <el-form-item label="描述">
+        <el-input v-model="ruleForm.description" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -24,27 +24,19 @@
 </template>
 
 <script>
-import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
-  components: {
-    UploadImage
-  },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        name: "",
-        id: 0,
-        url: "",
-        sort:0,
-        posterImage: "",
+        "amount": 0,
+        "description": "",
+        "memberId": 0,
+        "spinTime": ""
       },
       rules: {
-        id: [{ required: true, message: this.$t("IDnumbercannotbeempty"), trigger: "blur" }],
-        name: [{ required: true, message: this.$t("Namenotentered"), trigger: "blur" }],
-        url: [{ required: true, message: "地址不能为空", trigger: "blur" }],
-        sort:[{ required: true, message: "排序不能为空", trigger: "blur" }],
+
       }
     }
   },
@@ -54,11 +46,10 @@ export default {
       this.dialogVisible = !this.dialogVisible
       if (!this.dialogVisible) {
         this.ruleForm = {
-          name: "",
-          id: 0,
-          url: "",
-          posterImage: "",
-          sort:0,
+          "amount": null,
+          "description": "",
+          "memberId": null,
+          "spinTime": ""
         }
       } else {
         this.ruleForm = { ...data }
@@ -79,9 +70,6 @@ export default {
           return false
         }
       })
-    },
-    getImageURL(url) {
-      this.ruleForm.posterImage = url
     },
   }
 }
