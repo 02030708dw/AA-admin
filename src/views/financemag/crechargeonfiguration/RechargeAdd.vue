@@ -6,10 +6,10 @@
           <el-option v-for="(item, index) in channelidList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item  :label="$t('Maximumrechargeamount')" prop="maxMoney">
+      <el-form-item :label="$t('Maximumrechargeamount')" prop="maxMoney">
         <el-input v-model="ruleForm.maxMoney" />
       </el-form-item>
-      <el-form-item  :label="$t('Minimumrechargeamount')" prop="minMoney">
+      <el-form-item :label="$t('Minimumrechargeamount')" prop="minMoney">
         <el-input v-model="ruleForm.minMoney" />
       </el-form-item>
       <el-form-item style="width: 350px" :label="$t('state')" prop="status">
@@ -38,15 +38,26 @@
         </el-select>
       </el-form-item>
       <el-form-item v-if="Channeltype > 3" label="银行编号" placeholder="请选择银行编号" prop="bankCode">
-        <el-select v-model="ruleForm.bankCode" :placeholder="$t('typesof')" style="width: 200px">
-          <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
-        </el-select>
+        <el-autocomplete @select="handleSelect" class="inline-input" v-model="ruleForm.bankCode"
+          :fetch-suggestions="querySearch" placeholder="请输入内容">
+          <template slot-scope="{ item }">
+            <div class="name">{{ item.bankCode }}</div>
+          </template>
+        </el-autocomplete>
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
         <el-select v-model="ruleForm.bankName" :placeholder="$t('typesof')" style="width: 200px"
           @change="bankNameChange">
           <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
         </el-select>
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type > 3" :label="$t('BankName')" prop="bankName">
+        <el-input v-model="ruleForm.bankName" />
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type > 3" :label="$t('SelectCurrency')" prop="currency">
+        <el-radio-group v-model="ruleForm.currency">
+          <el-radio v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 0" :label="$t('SelectCurrency')">
         <el-input v-model="ruleForm.currency" disabled />
@@ -151,8 +162,8 @@ export default {
         currency: "",
         bankCode: "",
         threePayId: "",
-        maxMoney:'',
-        minMoney:''
+        maxMoney: '',
+        minMoney: ''
       },
       rules: {
         account: [{ required: true, message: "请输入户名", trigger: "blur" }],
@@ -190,14 +201,30 @@ export default {
           { required: true, message: "请输入最小金额", trigger: "blur" },
         ],
       },
+      loading: false,
       bankCodeList: [],
     };
   },
   methods: {
+    querySearch(queryString, cb) {
+      var restaurants = this.bankCodeList;
+      var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+      return (restaurant) => {
+        return (restaurant.bankCode.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    handleSelect(v) {
+      this.ruleForm.bankCode = v.bankCode;
+    },
     // 改变弹窗状态
     getAddstatus() {
       // 关闭时清空
       if (!this.dialogVisible) {
+        this.bankCodeList = []
         this.ruleForm = {
           account: "",
           alipay: "",
@@ -211,8 +238,8 @@ export default {
           icon: "",
           bankCode: "",
           threePayId: "",
-          maxMoney:'',
-          minMoney:'',
+          maxMoney: '',
+          minMoney: '',
         };
       }
       this.dialogVisible = !this.dialogVisible;
@@ -232,8 +259,10 @@ export default {
       });
     },
     threePayIdChange() {
+      this.loading = true
       cashBankList(this.ruleForm.threePayId).then((res) => {
         this.bankCodeList = res.resultSet;
+        this.loading = false
       });
     },
     bankNameChange() {
