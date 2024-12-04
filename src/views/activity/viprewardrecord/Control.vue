@@ -2,13 +2,13 @@
   <el-row style="padding-bottom: 10px">
     <!-- <el-button  type="primary" @click="getAdd()">{{ $t("increase") }}</el-button> -->
     <el-input v-model="vipRewardId" style="width: 200px; margin:0 5px" :placeholder="$t('vip奖励id')" />
-    <el-select v-model="memberId" placeholder="选择会员" style="width: 200px; margin:0 5px">
+    <el-select clearable v-model="memberId" placeholder="选择会员" style="width: 200px; margin:0 5px">
       <el-option v-for="(item, index) in MemberData" :key="index" :value="item.index" :label="item.title" />
     </el-select>
     <!-- 选择日期 -->
     <el-date-picker v-model="value" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
       start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" @blur="heandlerTime" />
-    <el-select v-model="isClaimed" placeholder="领取类型" style="width: 200px;margin-left: 10px">
+    <el-select clearable v-model="isClaimed" placeholder="领取类型" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in [{ index: 1, title: '是' }, { index: 0, title: '否' }]" :key="index"
         :value="item.index" :label="item.title" />
     </el-select>

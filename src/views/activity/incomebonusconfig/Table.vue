@@ -20,11 +20,9 @@
       <el-table-column prop="updater" :label="$t('更新人')" />
       <el-table-column prop="" :label="$t('state')" width="140">
         <template slot-scope="scope">
-
             <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
               :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
               @change="getUdateStatus($event, scope.row)" />
-  
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">

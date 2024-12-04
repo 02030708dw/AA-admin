@@ -1,12 +1,10 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @resetting="getresetting" @query="getquery"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
+    <Table ref="TableView" :table-data="tableData" @Edl="getDel" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd :gamerIdData="GamerIdData"  ref="ComponentsAdd" @confirm="getAdd" />
-    <ComponentsEitor  ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -14,51 +12,29 @@
 import Table from './Table.vue'
 import Control from './Control'
 import Pagination from '@/components/Pagination/Pagination.vue'
-import ComponentsAdd from './ComponentsAdd.vue'
-import ComponentsEitor from './ComponentsEitor.vue'
 import {
   ServicePage,
-  ServiceAdd,
-  ServiceDel,
-  ServiceStatus,
-  ServiceEdit
-} from '@/api/game/demo'
+} from '@/api/activity/rewardrecord'
 export default {
   components: {
     Table,
     Control,
     Pagination,
-    ComponentsAdd,
-    ComponentsEitor
   },
   data() {
     return {
       tableData: [],
       total: 0,
       pageNo: 1,
-      status: null, // 状态
-      type: '',
-      account: '',
       PagesSize: 20,
-      GamerIdData: []
+      isClaimed: null, //是否已领取（0.否，1是）
+      name: null,//用户名称
     }
   },
   created() {
     this.getdata(1)
-    this.GetGamerPages()
   },
   methods: {
-    // 获取游戏商id
-    GetGamerPages() {
-      this.GamerIdData = []
-      let res = this.$store.state.user.gamer
-      for (let i = 0; i < res.length; i++) {
-        this.GamerIdData.push({
-          title: res[i].name,
-          index: res[i].id
-        })
-      }
-    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
@@ -68,7 +44,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, status: this.status, account: this.account, type: this.type,
+        pageNo: this.pageNo, pageSize: this.PagesSize, isClaimed: this.isClaimed, name: this.name
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -90,7 +66,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, status: this.status, account: this.account, type: this.type, })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, isClaimed: this.isClaimed, name: this.name })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -100,95 +76,15 @@ export default {
         })
     },
     getquery(e) {
-      this.status = e.status
-      this.account = e.account
-      this.type = e.type
+      this.isClaimed = e.isClaimed
+      this.name = e.name
       this.getdata(1)
     },
     getresetting() {
-      this.status = null
-      this.account = null
-      this.type = null
+      this.isClaimed = null
+      this.name = null
       this.getdata(1)
     },
-    // 显示添加弹窗
-    getAddShow() {
-      this.$refs.ComponentsAdd.getAddstatus()
-    },
-    // 添加公告
-    getAdd(e) {
-      ServiceAdd(e)
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '添加成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          console.log(err)
-          this.$message.error('添加失败!')
-        })
-    },
-    // 删除
-    getDel(id) {
-      ServiceDel(id)
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '删除成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error('删除失败!')
-          console.log(err)
-        })
-    },
-    // 显示编辑弹窗
-    getEitorShow(e) {
-      this.$refs.ComponentsEitor.getAddstatus(e)
-    },
-    getEitor(data) {
-      ServiceEdit({
-        id: data.id,
-        name: data.name,
-        posterImage: data.posterImage,
-        url: data.url,
-        sort:data.sort,
-      })
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '编辑成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error('编辑失败!')
-          console.log(err)
-        })
-    },
-    // 状态修改
-    getStatus(data) {
-      console.log(data)
-      // return;
-      ServiceStatus({
-        status: data.status,
-        id: data.id,
-      })
-        .then((res) => {
-          // this.getdata(this.pageNo);
-          this.$message({
-            message: '修改成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error('修改失败!')
-          console.log(err)
-        })
-    }
   }
 }
 </script>

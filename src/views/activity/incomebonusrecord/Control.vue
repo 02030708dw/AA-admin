@@ -1,7 +1,12 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button v-has="'demogame:create'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
-
+    <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('用户名称')" />
+    <el-select clearable v-model="isOpen" placeholder="领取类型" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in [{ index: 1, title: '是' }, { index: 0, title: '否' }]" :key="index"
+        :value="item.index" :label="item.title" />
+    </el-select>
+    <el-button v-has="'noticemag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
+      }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
       }}</el-button>
@@ -14,11 +19,10 @@ export default {
   name: 'Control',
   data() {
     return {
-      account: null,
-      type: null,
-      status: null, // 状态
-
+      isOpen: '',
+      name: '',
       btnIcoType: true,
+
     }
   },
   methods: {
@@ -39,7 +43,10 @@ export default {
     // 改变按钮状态
     HandelBtnStatus() {
       this.btnIcoType = true
-    }
+    },
+    getquery() {
+      this.$emit('query', { name: this.name, isOpen: this.isOpen })
+    },
   }
 }
 </script>
