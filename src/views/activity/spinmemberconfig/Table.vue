@@ -2,8 +2,6 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-
-      <el-table-column prop="memberId" :label="$t('memberId')" />
       <el-table-column prop="nextSpinTime" :label="$t('下次可领取时间点')" />
       <el-table-column prop="remainingSpins" :label="$t('剩余转盘次数')" />
       <el-table-column prop="sort" :label="$t('创建时间')">

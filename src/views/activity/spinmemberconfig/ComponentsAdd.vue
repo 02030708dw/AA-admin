@@ -1,9 +1,6 @@
 <template>
   <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item label="用户id">
-        <el-input v-model="ruleForm.memberId" />
-      </el-form-item>
       <el-form-item label="下次可领取时间点">
         <el-date-picker v-model="ruleForm.nextSpinTime" type="datetime" placeholder="选择日期时间">
         </el-date-picker>
@@ -28,7 +25,6 @@ export default {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        "memberId": 0,
         "nextSpinTime": "",
         "remainingSpins": 0
       },
@@ -43,7 +39,6 @@ export default {
     getAddstatus() {
       if (!this.dialogVisible) {
         this.ruleForm = {
-          "memberId": null,
           "nextSpinTime": "",
           "remainingSpins": null
         };

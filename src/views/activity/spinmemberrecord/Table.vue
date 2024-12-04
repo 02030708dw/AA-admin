@@ -3,7 +3,7 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
 
-      <el-table-column prop="memberId" :label="$t('memberId')" />
+      <el-table-column prop="userName" :label="$t('用户名')" />
       <el-table-column prop="amount" :label="$t('奖励金额')" />
       <el-table-column prop="description" :label="$t('描述')" />
       <el-table-column prop="spinTime" :label="$t('转盘时间')" />
