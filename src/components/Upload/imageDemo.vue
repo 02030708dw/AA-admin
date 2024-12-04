@@ -24,6 +24,10 @@ export default {
             type: String,
             default: "",
         },
+        Fn: {
+            type: String,
+            default: "",
+        }
     },
     data() {
         return {
@@ -45,7 +49,7 @@ export default {
             let formData = new FormData()
             that.UploadPercent = 0
             that.imageFlag = true
-            Fn = 'demogame'
+            Fn = this.Fn ? this.Fn : 'demogame'
             formData.append('file', item.file)
             request({
                 url: `/upload/image/single`,

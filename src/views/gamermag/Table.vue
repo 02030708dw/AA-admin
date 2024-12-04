@@ -123,6 +123,9 @@ export default {
           case 8:
             TypeArrList.push('捕鱼')
             break
+          case 9:
+            TypeArrList.push('斗鸡')
+            break
         }
       }
       return TypeArrList.join(",");

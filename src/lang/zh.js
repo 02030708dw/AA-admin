@@ -50,7 +50,19 @@ export default {
     Rule:'规则管理',
     RuleBussines:'业务规则',
     RuleCondition:'引擎规则',
-    Maintenance:'游戏商维护'
+    Maintenance:'游戏商维护',
+    activityInfo: "活动信息",
+    spinconfig: "转盘配置管理",
+    spinmemberconfig: "用户转盘信息配置管理",
+    spinmemberrecord: "用户转盘记录表",
+    vipconfig: "vip配置",
+    viprebateconfig: "vip反水配置",
+    vipreward: "vip奖励明细",
+    viprewardrecord: "vip奖励领取记录",
+    incomebonusconfig: "充值红包配置",
+    incomebonusrecord: "用户红包记录",
+    rewardconfig: "奖励配置",
+    rewardrecord: "用户奖励记录"
   },
   role: {
     permission: '权限'
@@ -358,6 +370,7 @@ export default {
   Cancelled:'已取消',
   Approve:'审核通过',
   Rejected:'驳回',
+  InProgress:'进行中',
   currency:'货币',
   Memberbalance:'会员余额',
   Gamemerchantbalance:'游戏商余额',
@@ -461,4 +474,5 @@ export default {
   prompt: '提示',
   release: '发布',
   revoke: '撤销',
+  orderNo:"订单号"
 }
