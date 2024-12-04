@@ -358,6 +358,7 @@ export default {
   Cancelled: 'Đã hủy',
   Approve: 'Đã duyệt',
   Rejected: 'Đã từ chối',
+  InProgress:'Đang xử lý',
   currency: 'Tiền tệ',
   Memberbalance: 'Số dư thành viên',
   Gamemerchantbalance: 'Số dư nhà cung cấp trò chơi',
@@ -461,4 +462,5 @@ export default {
   prompt: 'Thông báo',
   release: 'Phát hành',
   revoke: 'Thu hồi',
+  orderNo:"Số thứ tự"
 }

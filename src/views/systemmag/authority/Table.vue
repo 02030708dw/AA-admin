@@ -8,25 +8,23 @@
       :cell-style="{ 'text-align': 'center' }"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
+      <el-table-column type="index" :label="$t('SerialNumber')" />
       <el-table-column
         prop="authorityName"
         :label="$t('PermissionName')"
-        width=""
       />
-      <el-table-column prop="id" :label="$t('PermissionID')" width="" />
-      <el-table-column prop="code" :label="$t('Permissioncode')" width="" />
+      <el-table-column prop="id" :label="$t('PermissionID')" />
+      <el-table-column prop="code" :label="$t('Permissioncode')" />
       <el-table-column
         prop="parentId"
         :label="$t('ParentnodeID')"
-        width=""
-      />remark
+      />
       <el-table-column prop="" :label="$t('Permissiontype')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.type | AuthorityType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" :label="$t('Notes')" width="200" />
+      <el-table-column prop="remark" :label="$t('Notes')" />
 
       <el-table-column prop="" v-has="'authority:status'" :label="$t('state')" width="150">
         <template slot-scope="scope">
@@ -42,7 +40,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('operate')" width="200">
+      <el-table-column prop="" :label="$t('operate')" width="100">
         <template slot-scope="scope">
           <el-button v-has="'authority:edit'" type="text" @click="geteroleEitor(scope.row)">{{
             $t("edit")

@@ -358,6 +358,7 @@ export default {
     Cancelled:'ยกเลิกแล้ว',
     Approve:'การตรวจสอบผ่าน',
     Rejected:'ปฏิเสธแล้ว',
+    InProgress:'กำลังทำอยู่',
     currency:'สกุลเงิน',
     Memberbalance:'ยอดคงเหลือของสมาชิก',
     Gamemerchantbalance:'ยอดคงเหลือของผู้ให้บริการเกม',
@@ -461,5 +462,6 @@ export default {
     prompt: 'ข้อความแจ้งเตือน',
     release: 'เผยแพร่',
     revoke: 'ถອນ',
+    orderNo:"หมายเลขคำสั่ง"
   }
   
