@@ -56,6 +56,7 @@ export default {
         { label: "小游戏", value: 6 },
         { label: "热门", value: 7 },
         { label: "捕鱼", value: 8 },
+        { label: "斗鸡", value: 9 },
       ],
       rules: {
         gamerId: [

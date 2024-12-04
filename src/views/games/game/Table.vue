@@ -76,6 +76,8 @@ export default {
           return '热门'
         case 8:
           return '捕鱼'
+        case 9:
+          return '斗鸡'
       }
     }
   },

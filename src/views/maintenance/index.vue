@@ -63,6 +63,7 @@ export default {
                 { label: "小游戏", value: 6 },
                 { label: "热门", value: 7 },
                 { label: "捕鱼", value: 8 },
+                { label: "斗鸡", value: 9 },
             ],
             statusType: [
                 { title: "停用", index: 0 },
@@ -107,6 +108,8 @@ export default {
                     return '热门'
                 case 8:
                     return '捕鱼'
+                case 8:
+                    return '斗鸡'
 
             }
         },

@@ -82,6 +82,7 @@ export default {
         { title: '小游戏', index: 6 },
         { title: '热门', index: 7 },
         { title: "捕鱼", index: 8 },
+        { title: "斗鸡", index: 9 },
       ],
       btnIcoType: true
     }
