@@ -12,7 +12,7 @@ import elementTnLocale from 'element-ui/lib/locale/lang/th'// element-ui 泰文�
 import enLocale from './en'
 import zhLocale from './zh'
 import vnLocale from './vn'
-import tnLocale from './tn'
+import tnLocale from './th'
 
 Vue.use(VueI18n) // 全局注册国际化包
 
@@ -36,7 +36,7 @@ const i18n = new VueI18n({
       ...vnLocale,
       ...elementVnLocale
     },
-    tn: {
+    th: {
       ...tnLocale,
       ...elementTnLocale
     }

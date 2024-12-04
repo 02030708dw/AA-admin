@@ -41,7 +41,7 @@
             </el-form-item>
             <el-form-item :label="'三方支付'" prop="threePayId">
                 <el-select v-model="ruleForm.threePayId" placeholder="充值类型" style="width: 200px">
-                    <el-option v-for="(item, index) in threePayList" :key="index" :value="item.id"
+                    <el-option v-for="(item, index) in ThreePayfiletr" :key="index" :value="item.id"
                         :label="item.threeName" />
                 </el-select>
             </el-form-item>
@@ -49,8 +49,8 @@
         <span slot="footer" class="dialog-footer">
             <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
             <el-button type="primary" @click="getconfirm()">{{
-        $t("determine")
-                }}</el-button>
+                $t("determine")
+            }}</el-button>
         </span>
     </el-dialog>
 </template>
@@ -60,11 +60,18 @@ export default {
     data() {
         return {
             dialogVisible: false,
-            ruleForm: {},
+            ruleForm: {
+                threePayIds:[]
+            },
             threePayList: [],
             rules: {
                 threePayId: [{ required: true, message: '请选择三方支付', trigger: 'blur' }],
             }
+        }
+    }, 
+    computed: {
+        ThreePayfiletr() {
+            return this.threePayList.filter(item => this.ruleForm.threePayIds.includes(item.id))
         }
     },
     created() {

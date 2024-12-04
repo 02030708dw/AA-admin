@@ -276,18 +276,98 @@ export const asyncRoutes = [
         component: () => import('@/views/messagemag/advertising/index'),
         meta: { title: 'Advertising', icon: 'el-icon-video-camera-solid' }
       },
-      {
-        path: 'activity',
-        name: 'activity',
-        component: () => import('@/views/messagemag/activity/index'),
-        meta: { title: 'Activity', icon: 'el-icon-s-flag' }
-      },
+      // {
+      //   path: 'activity',
+      //   name: 'activity',
+      //   component: () => import('@/views/messagemag/activity/index'),
+      //   meta: { title: 'Activity', icon: 'el-icon-s-flag' }
+      // },
       {
         path: 'customerservice',
         name: 'customerservice',
         component: () => import('@/views/messagemag/customerservice/index'),
         meta: { title: 'Customerservice', icon: 'el-icon-s-flag' }
       }
+    ]
+  },
+  {
+    path: '/activity',
+    component: Layout,
+    name: "activity",
+    meta: { title: 'Activity', icon: 'el-icon-s-flag' },
+    children: [
+      {//活动信息
+        path: 'activityInfo',
+        name: 'activityInfo',
+        component: () => import('@/views/activity/activityInfo/index'),
+        meta: { title: 'activityInfo', icon: 'el-icon-s-flag' }
+      },
+      {//转盘配置管理
+        path: 'spinconfig',
+        name: 'spinconfig',
+        component: () => import('@/views/activity/spinconfig/index'),
+        meta: { title: 'spinconfig', icon: 'el-icon-s-flag' }
+      },
+      {//用户转盘信息配置管理
+        path: 'spinmemberconfig',
+        name: 'spinmemberconfig',
+        component: () => import('@/views/activity/spinmemberconfig/index'),
+        meta: { title: 'spinmemberconfig', icon: 'el-icon-s-flag' }
+      },
+      {//用户转盘记录表
+        path: 'spinmemberrecord',
+        name: 'spinmemberrecord',
+        component: () => import('@/views/activity/spinmemberrecord/index'),
+        meta: { title: 'spinmemberrecord', icon: 'el-icon-s-flag' }
+      },
+      {//vip配置
+        path: 'vipconfig',
+        name: 'vipconfig',
+        component: () => import('@/views/activity/vipconfig/index'),
+        meta: { title: 'vipconfig', icon: 'el-icon-s-flag' }
+      },
+      {//vip反水配置
+        path: 'viprebateconfig',
+        name: 'viprebateconfig',
+        component: () => import('@/views/activity/viprebateconfig/index'),
+        meta: { title: 'viprebateconfig', icon: 'el-icon-s-flag' }
+      },
+      {//vip奖励明细
+        path: 'vipreward',
+        name: 'vipreward',
+        component: () => import('@/views/activity/vipreward/index'),
+        meta: { title: 'vipreward', icon: 'el-icon-s-flag' }
+      },
+      {//vip奖励领取记录
+        path: 'viprewardrecord',
+        name: 'viprewardrecord',
+        component: () => import('@/views/activity/viprewardrecord/index'),
+        meta: { title: 'viprewardrecord', icon: 'el-icon-s-flag' }
+      },
+      {//充值红包配置
+        path: 'incomebonusconfig',
+        name: 'incomebonusconfig',
+        component: () => import('@/views/activity/incomebonusconfig/index'),
+        meta: { title: 'incomebonusconfig', icon: 'el-icon-s-flag' }
+      },
+      {//用户红包记录
+        path: 'incomebonusrecord',
+        name: 'incomebonusrecord',
+        component: () => import('@/views/activity/incomebonusrecord/index'),
+        meta: { title: 'incomebonusrecord', icon: 'el-icon-s-flag' }
+      },
+      {//奖励配置
+        path: 'rewardconfig',
+        name: 'rewardconfig',
+        component: () => import('@/views/activity/rewardconfig/index'),
+        meta: { title: 'rewardconfig', icon: 'el-icon-s-flag' }
+      },
+      {//奖励配置
+        path: 'rewardrecord',
+        name: 'rewardrecord',
+        component: () => import('@/views/activity/rewardrecord/index'),
+        meta: { title: 'rewardrecord', icon: 'el-icon-s-flag' }
+      },
     ]
   },
   {
@@ -466,7 +546,7 @@ export function flatten(nameList = [], data, btnP = []) {
     if (v.children && v.children.length > 0) {
       flatten(nameList, v.children, btnP)
       nameList.push({ name: v.menuCode, path: v.menuUrl })
-      if(v.menuCode.match(/:(.*)$/)){ //按钮权限页有children的情况, [会员详情]
+      if (v.menuCode.match(/:(.*)$/)) { //按钮权限页有children的情况, [会员详情]
         btnP.push(v.menuCode)
       }
     } else if (v.menuCode && v.menuCode.match(/:(.*)$/)) {     // 是否是按钮权限页
