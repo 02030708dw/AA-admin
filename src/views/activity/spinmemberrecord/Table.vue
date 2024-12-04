@@ -13,14 +13,14 @@
         </template>
       </el-table-column>
       <el-table-column prop="updater" :label="$t('更新人')" />
-      <el-table-column prop="" :label="$t('operate')" width="">
+      <!-- <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
             $t("edit") }}</el-button>
           <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
             }}</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
   </el-card>
 </template>
