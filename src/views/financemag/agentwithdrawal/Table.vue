@@ -97,13 +97,17 @@ export default {
     FaduitStatus(value) {
       switch (value) {
         case 0:
-          return this.$t('PendingReview')
+          return this.$t("PendingReview");
         case 1:
-          return this.$t('Approve')
+          return this.$t("Approve");
         case 2:
-          return this.$t('reject')
+          return this.$t("Rejected");
         case 3:
-          return this.$t('Cancelled')
+          return this.$t("Cancelled");
+        case 4:
+          return this.$t("InProgress");
+        default:
+          return this.$t("PendingReview");
       }
     },
     // 改变loading

@@ -12,7 +12,11 @@
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
     "lint": "eslint --ext .js,.vue src",
     "test:unit": "jest --clearCache && vue-cli-service test:unit",
-    "test:ci": "npm run lint && npm run test:unit"
+    "test:ci": "npm run lint && npm run test:unit",
+    "build:vndUat": "vue-cli-service build --mode test",
+    "build-php": "vue-cli-service build --mode prodphp",
+    "build-thb": "vue-cli-service build --mode prodthb",
+    "build-vnd": "vue-cli-service build --mode prodvnd"
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^3.0.1",

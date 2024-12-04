@@ -57,25 +57,6 @@
         </el-select>
       </el-form-item>
       <el-form-item
-        v-if="Channeltype > 3"
-        label="银行编号"
-        placeholder="请选择银行编号"
-        prop="bankCode"
-      >
-        <el-select
-          v-model="ruleForm.bankCode"
-          :placeholder="$t('typesof')"
-          style="width: 200px"
-        >
-          <el-option
-            v-for="(item, index) in bankCodeList"
-            :key="index"
-            :value="item.bankCode"
-            :label="item.bankCode"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item
         v-if="ruleForm.type === 0"
         :label="$t('AccountName')"
         prop="account"
@@ -118,6 +99,22 @@
         <!-- <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
           <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
         </el-select> -->
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type > 3" label="银行编号" placeholder="请选择银行编号" prop="bankCode">
+        <el-autocomplete @select="handleSelect" class="inline-input" v-model="ruleForm.bankCode"
+          :fetch-suggestions="querySearch" placeholder="请输入内容">
+          <template slot-scope="{ item }">
+            <div class="name">{{ item.bankCode }}</div>
+          </template>
+        </el-autocomplete>
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type > 3" :label="$t('BankName')" prop="bankName">
+        <el-input v-model="ruleForm.bankName" />
+      </el-form-item>
+      <el-form-item v-if="ruleForm.type > 3" :label="$t('SelectCurrency')" prop="currency">
+        <el-radio-group v-model="ruleForm.currency">
+          <el-radio v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item
         v-if="ruleForm.type === 0"
@@ -262,6 +259,12 @@ export default {
         channelId: [
           { required: true, message: "请输入渠道ID", trigger: "blur" },
         ],
+        threePayId: [
+          { required: true, message: "请选择充值类型", trigger: "blur" },
+        ],
+        bankCode: [
+          { required: true, message: "请选择银行编号", trigger: "blur" },
+        ],
         coin: [
           { required: true, message: "请输入虚拟币地址", trigger: "blur" },
         ],
@@ -283,6 +286,20 @@ export default {
     };
   },
   methods: {
+    querySearch(queryString, cb) {
+      var restaurants = this.bankCodeList;
+      var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+      return (restaurant) => {
+        return (restaurant.bankCode.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    handleSelect(v) {
+      this.ruleForm.bankCode = v.bankCode;
+    },
     // 改变弹窗状态
     getAddstatus(data) {
       this.dialogVisible = !this.dialogVisible;
