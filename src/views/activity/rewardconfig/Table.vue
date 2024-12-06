@@ -2,23 +2,23 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="" :label="$t('统计类型')">
+      <el-table-column prop="" :label="$t('Statistictype')">
         <template slot-scope="scope">
-          {{ scope.row.countType == 1 ? '当天' : '总计' }}
+          {{ scope.row.countType == 1 ? $t('thesameday') : $t('total') }}
         </template>
       </el-table-column>
-      <el-table-column prop="threshold" :label="$t('条件值')" />
-      <el-table-column prop="" :label="$t('条件类型')">
+      <el-table-column prop="threshold" :label="$t('conditionvalue')" />
+      <el-table-column prop="" :label="$t('conditiontype')">
         <template slot-scope="scope">
-          {{ scope.row.thresholdType == 1 ? '反水' : '输反' }}
+          {{ scope.row.thresholdType == 1 ? $t('defect') : $t('ReverseLoss') }}
         </template>
       </el-table-column>
-      <el-table-column prop="sort" :label="$t('创建时间')">
+      <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('更新人')" />
+      <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('state')" width="140">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
