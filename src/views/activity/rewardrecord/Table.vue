@@ -2,20 +2,20 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="userName" :label="$t('用户名称')" />
-      <el-table-column prop="rewardAmount" :label="$t('奖励金额')" />
-      <el-table-column prop="rewardConfigId" :label="$t('奖励配置ID')" />
-      <el-table-column prop="" :label="$t('是否已领取')">
+      <el-table-column prop="userName" :label="$t('username')" />
+      <el-table-column prop="rewardAmount" :label="$t('Rewardamount')" />
+      <el-table-column prop="rewardConfigId" :label="$t('RewardconfigurationID')" />
+      <el-table-column prop="" :label="$t('Hasitbeencollected')">
         <template slot-scope="scope">
-          {{ scope.row.isClaimed == 1 ? '是' : '否' }}
+          {{ scope.row.isClaimed == 1 ? $t('correct') : $t('deny') }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('领取时间')">
+      <el-table-column prop="" :label="$t('Collectiontime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.claimedTime) }}
         </template>
       </el-table-column>
-      <el-table-column prop="sort" :label="$t('创建时间')">
+      <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>

@@ -1,25 +1,25 @@
 <template>
   <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item label="领取类型">
-        <el-select v-model="ruleForm.repeatableType" placeholder="领取类型" style="width: 200px;margin-left: 10px">
-          <el-option v-for="(item, index) in [{ index: 1, title: '领一次' }, { index: 2, title: '每天领取' }]" :key="index"
-            :value="item.index" :label="item.title" />
+      <el-form-item :label="$t('Typeofclaim')">
+        <el-select v-model="ruleForm.repeatableType" :placeholder="$t('Typeofclaim')" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in [{ index: 1, title: 'Takeonce' }, { index: 2, title: 'Receiveddaily' }]" :key="index"
+            :value="item.index" :label="$t(item.title)" />
         </el-select>
       </el-form-item>
-      <el-form-item label="奖励类型">
-        <el-select v-model="ruleForm.rewardType" placeholder="奖励类型" style="width: 200px;margin-left: 10px">
-          <el-option v-for="(item, index) in [{ index: 1, title: '奖金' }, { index: 2, title: '反水' }]" :key="index"
-            :value="item.index" :label="item.title" />
+      <el-form-item :label="$t('RewardType')">
+        <el-select v-model="ruleForm.rewardType" :placeholder="$t('RewardType')" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in [{ index: 1, title: 'bonus' }, { index: 2, title: 'defect' }]" :key="index"
+            :value="item.index" :label="$t(item.title)" />
         </el-select>
       </el-form-item>
-      <el-form-item label="vip等级配置id">
+      <el-form-item :label="$t('VIPlevelconfigurationID')">
         <el-input v-model="ruleForm.vipConfigId" />
       </el-form-item>
-      <el-form-item label="奖励数值">
+      <el-form-item :label="$t('Rewardvalue')">
         <el-input v-model="ruleForm.rewardValue" />
       </el-form-item>
-      <el-form-item label="描述">
+      <el-form-item :label="$t('describe')">
         <el-input v-model="ruleForm.description" />
       </el-form-item>
     </el-form>

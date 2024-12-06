@@ -4,11 +4,11 @@
       <el-form-item label="用户id">
         <el-input v-model="ruleForm.memberId" />
       </el-form-item>
-      <el-form-item label="下次可领取时间点">
-        <el-date-picker v-model="ruleForm.nextSpinTime" type="datetime" placeholder="选择日期时间">
+      <el-form-item :label="$t('Nexttimeyoucanclaimthetimepoint')">
+        <el-date-picker v-model="ruleForm.nextSpinTime" type="datetime" :placeholder="$t('Selectdateandtime')">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="剩余转盘次数">
+      <el-form-item :label="$t('Remainingnumberofturntables')">
         <el-input v-model="ruleForm.remainingSpins" />
       </el-form-item>
     </el-form>

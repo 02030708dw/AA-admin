@@ -1,12 +1,9 @@
 <template>
   <el-dialog :title="$t('Addthirdpartypayment')" :visible.sync="dialogVisible" width="50%">
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form-item :label="$t('sort')" prop="sort">
+        <el-input v-model="ruleForm.sort"></el-input>
+      </el-form-item>
       <el-form-item :label="$t('account')" prop="account">
         <el-input v-model="ruleForm.account"></el-input>
       </el-form-item>

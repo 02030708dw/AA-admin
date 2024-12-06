@@ -146,6 +146,7 @@ export default {
         javaBean: data.javaBean,
         secret: data.secret,
         threeName: data.threeName,
+        sort: data.sort,
       }).then((res) => {
         this.getThirdData(this.pageNo);
         this.$message({
