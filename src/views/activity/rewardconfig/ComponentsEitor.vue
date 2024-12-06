@@ -1,22 +1,22 @@
 <template>
   <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item label="统计类型" prop="countType">
-        <el-select v-model="ruleForm.countType" placeholder="统计类型" style="width: 200px;margin-left: 10px">
-          <el-option v-for="(item, index) in [{ index: 1, title: '当天' }, { index: 2, title: '总计' }]" :key="index"
-            :value="item.index" :label="item.title" />
+      <el-form-item :label="$t('Statistictype')" prop="countType">
+        <el-select v-model="ruleForm.countType" :placeholder="$t('Statistictype')" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in [{ index: 1, title: 'thesameday' }, { index: 2, title: 'total' }]" :key="index"
+            :value="item.index" :label="$t(item.title)" />
         </el-select>
       </el-form-item>
-      <el-form-item label="条件类型" prop="thresholdType">
-        <el-select v-model="ruleForm.thresholdType" placeholder="条件类型" style="width: 200px;margin-left: 10px">
-          <el-option v-for="(item, index) in [{ index: 1, title: '反水' }, { index: 2, title: '输反' }]" :key="index"
-            :value="item.index" :label="item.title" />
+      <el-form-item :label="$t('conditiontype')" prop="thresholdType">
+        <el-select v-model="ruleForm.thresholdType" :placeholder="$t('conditiontype')" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in [{ index: 1, title: 'defect' }, { index: 2, title: 'ReverseLoss' }]" :key="index"
+            :value="item.index" :label="$t(item.title)" />
         </el-select>
       </el-form-item>
-      <el-form-item label="奖励金额" prop="rewardAmount">
+      <el-form-item :label="$t('Rewardamount')" prop="rewardAmount">
         <el-input v-model="ruleForm.rewardAmount" />
       </el-form-item>
-      <el-form-item label="条件值" prop="threshold">
+      <el-form-item :label="$t('conditionvalue')" prop="threshold">
         <el-input v-model="ruleForm.threshold" />
       </el-form-item>
       <el-form-item :label="$t('state')">

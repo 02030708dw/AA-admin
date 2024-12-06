@@ -1,18 +1,18 @@
 <template>
   <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="权重">
+      <el-form-item :label="$t('weight')">
         <el-input v-model="ruleForm.weight" />
       </el-form-item>
-      <el-form-item label="奖励金额">
+      <el-form-item :label="$t('Rewardamount')">
         <el-input v-model="ruleForm.amount" />
       </el-form-item>
-      <el-form-item label="奖励类型">
-        <el-select v-model="ruleForm.type" placeholder="奖励类型" style="width: 200px">
+      <el-form-item :label="$t('RewardType')">
+        <el-select v-model="ruleForm.type":placeholder="$t('RewardType')" style="width: 200px">
           <el-option v-for="(item, index) in typeData" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item label="转盘格子索引">
+      <el-form-item :label="$t('Rotarygridindex')">
         <el-input v-model="ruleForm.segmentIndex" />
       </el-form-item>
       <el-form-item :label="$t('icon')" >
