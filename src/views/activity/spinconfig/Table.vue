@@ -3,9 +3,9 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
 
-      <el-table-column prop="weight" :label="$t('权重')" />
-      <el-table-column prop="segmentIndex" :label="$t('转盘格子索引')" />
-      <el-table-column prop="amount" :label="$t('奖励金额')" />
+      <el-table-column prop="weight" :label="$t('weight')" />
+      <el-table-column prop="segmentIndex" :label="$t('Rotarygridindex')" />
+      <el-table-column prop="amount" :label="$t('Rewardamount')" />
       <el-table-column prop="" :label="$t('icon')">
         <template slot-scope="scope" >
           <div class="image_box">
@@ -13,17 +13,17 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="type" :label="$t('奖励类型')">
+      <el-table-column prop="type" :label="$t('RewardType')">
         <template slot-scope="scope">
           {{ tpye(scope.row.type) }}
         </template>
       </el-table-column>
-      <el-table-column prop="sort" :label="$t('创建时间')">
+      <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('更新人')" />
+      <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{

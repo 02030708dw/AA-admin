@@ -2,21 +2,21 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="gameType" :label="$t('游戏类型')">
+      <el-table-column prop="gameType" :label="$t('GameType')">
         <template slot-scope="scope">
           {{ getGamerType(scope.row.gameType) }}
         </template>
       </el-table-column>
-      <el-table-column prop="vipConfigId" :label="$t('vip等级配置id')" />
-      <el-table-column prop="vipRewardId" :label="$t('vip奖励id')" />
-      <el-table-column prop="rebate" :label="$t('反水率')" />
+      <el-table-column prop="vipConfigId" :label="$t('VIPlevelconfigurationID')" />
+      <el-table-column prop="vipRewardId" :label="$t('VIPrewardID')" />
+      <el-table-column prop="rebate" :label="$t('Reversewaterrate')" />
 
-      <el-table-column prop="sort" :label="$t('创建时间')">
+      <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('更新人')" />
+      <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{

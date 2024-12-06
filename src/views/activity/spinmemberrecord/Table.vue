@@ -3,16 +3,16 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
 
-      <el-table-column prop="userName" :label="$t('用户名')" />
-      <el-table-column prop="amount" :label="$t('奖励金额')" />
-      <el-table-column prop="description" :label="$t('描述')" />
-      <el-table-column prop="spinTime" :label="$t('转盘时间')" />
-      <el-table-column prop="sort" :label="$t('创建时间')">
+      <el-table-column prop="userName" :label="$t('username')" />
+      <el-table-column prop="amount" :label="$t('Rewardamount')" />
+      <el-table-column prop="description" :label="$t('describe')" />
+      <el-table-column prop="spinTime" :label="$t('Turntabletime')" />
+      <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('更新人')" />
+      <el-table-column prop="updater" :label="$t('Updatedby')" />
       <!-- <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{

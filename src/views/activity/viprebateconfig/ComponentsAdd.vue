@@ -1,17 +1,17 @@
 <template>
   <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item label="游戏类型">
+      <el-form-item :label="$t('GameType')">
         <el-select v-model="ruleForm.gameType" style="width: 200px;margin-right:10px;"
           :placeholder="$t('Pleaseselectagametype')">
           <el-option v-for="(item, index) in gamertype" :key="index" :label="item.label"
             :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="反水率">
+      <el-form-item :label="$t('Reversewaterrate')">
         <el-input v-model="ruleForm.rebate" />
       </el-form-item>
-      <el-form-item label="vip等级配置id">
+      <el-form-item :label="$t('VIPlevelconfigurationID')">
         <el-input v-model="ruleForm.vipConfigId" />
       </el-form-item>
     </el-form>

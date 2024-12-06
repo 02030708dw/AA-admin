@@ -2,14 +2,14 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="nextSpinTime" :label="$t('下次可领取时间点')" />
-      <el-table-column prop="remainingSpins" :label="$t('剩余转盘次数')" />
-      <el-table-column prop="sort" :label="$t('创建时间')">
+      <el-table-column prop="nextSpinTime" :label="$t('Nexttimeyoucanclaimthetimepoint')" />
+      <el-table-column prop="remainingSpins" :label="$t('Remainingnumberofturntables')" />
+      <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('更新人')" />
+      <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
