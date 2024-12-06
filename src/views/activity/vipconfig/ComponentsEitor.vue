@@ -1,16 +1,16 @@
 <template>
   <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item label="vip等级">
+      <el-form-item :label="$t('VIPlevel')">
         <el-input v-model="ruleForm.vipLevel" />
       </el-form-item>
-      <el-form-item label="充值条件">
+      <el-form-item :label="$t('Rechargeconditions')">
         <el-input v-model="ruleForm.rechargeThreshold" />
       </el-form-item>
-      <el-form-item label="流水条件">
+      <el-form-item :label="$t('Flowconditions')">
         <el-input v-model="ruleForm.turnoverThreshold" />
       </el-form-item>
-      <el-form-item label="描述">
+      <el-form-item :label="$t('describe')">
         <el-input v-model="ruleForm.description" />
       </el-form-item>
     </el-form>

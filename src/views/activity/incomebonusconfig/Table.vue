@@ -2,22 +2,22 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="bonusNumbers" :label="$t('红包数量')" />
-      <el-table-column prop="countType" :label="$t('统计类型')">
+      <el-table-column prop="bonusNumbers" :label="$t('Quantityofredenvelopes')" />
+      <el-table-column prop="countType" :label="$t('Statistictype')">
         <template slot-scope="scope">
-          {{ scope.row.countType == 1 ? "当天" : "总计" }}
+          {{ scope.row.countType == 1 ? $t('thesameday') : $t('total') }}
         </template>
       </el-table-column>
-      <el-table-column prop="randomMax" :label="$t('随机红包最大值')" />
-      <el-table-column prop="randomMin" :label="$t('随机红包最小值')" />
-      <el-table-column prop="rechargeAmount" :label="$t('充值金额条件')" />
+      <el-table-column prop="randomMax" :label="$t('Maximumvalueofrandomredenvelope')" />
+      <el-table-column prop="randomMin" :label="$t('Minimumvalueofrandomredenvelope')" />
+      <el-table-column prop="rechargeAmount" :label="$t('Rechargeconditionamount')" />
 
-      <el-table-column prop="sort" :label="$t('创建时间')" width="170">
+      <el-table-column prop="sort" :label="$t('Creationtime')" width="170">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('更新人')" />
+      <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('state')" width="140">
         <template slot-scope="scope">
             <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"

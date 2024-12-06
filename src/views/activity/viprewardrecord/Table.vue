@@ -2,25 +2,25 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="vipConfigId" :label="$t('vip等级配置id')" />
-      <el-table-column prop="rewardValue" :label="$t('奖励数值')" />
-      <el-table-column prop="" :label="$t('领取类型')">
+      <el-table-column prop="vipConfigId" :label="$t('VIPlevelconfigurationID')" />
+      <el-table-column prop="rewardValue" :label="$t('Rewardvalue')" />
+      <el-table-column prop="" :label="$t('Typeofclaim')">
         <template slot-scope="scope">
           {{ getRepeatableType(scope.row.repeatableType) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('领取类型')">
+      <el-table-column prop="" :label="$t('Typeofclaim')">
         <template slot-scope="scope">
-          {{ scope.row.rewardType == 1 ? '奖金' : '反水' }}
+          {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
         </template>
       </el-table-column>
-      <el-table-column prop="description" :label="$t('描述')" />
-      <el-table-column prop="sort" :label="$t('创建时间')">
+      <el-table-column prop="description" :label="$t('describe')" />
+      <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('更新人')" />
+      <el-table-column prop="updater" :label="$t('Updatedby')" />
     </el-table>
   </el-card>
 </template>

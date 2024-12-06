@@ -2,20 +2,20 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="userName" :label="$t('用户名称')" />
-      <el-table-column prop="amount" :label="$t('红包金额')" />
-      <el-table-column prop="incomeBonusConfigId" :label="$t('充值红包配置id')" />
-      <el-table-column prop="" :label="$t('是否打开红包')">
+      <el-table-column prop="userName" :label="$t('username')" />
+      <el-table-column prop="amount" :label="$t('Redenvelopeamount')" />
+      <el-table-column prop="incomeBonusConfigId" :label="$t('RechargeredenvelopeconfigurationID')" />
+      <el-table-column prop="" :label="$t('Doyouwanttoopentheredenvelope')">
         <template slot-scope="scope">
-          {{ scope.row.isOpen == 1 ? '是' : '否' }}
+          {{ scope.row.isOpen == 1 ? $t('correct') : $t('deny') }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('打开时间')">
+      <el-table-column prop="" :label="$t('opentime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.openTime) }}
         </template>
       </el-table-column>
-      <el-table-column prop="sort" :label="$t('创建时间')">
+      <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
