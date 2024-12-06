@@ -1,12 +1,9 @@
 <template>
   <el-dialog :title="$t('Addthirdpartypayment')" :visible.sync="dialogVisible" width="50%">
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form-item :label="$t('sort')" prop="sort">
+        <el-input v-model="ruleForm.sort"></el-input>
+      </el-form-item>
       <el-form-item :label="$t('account')" prop="account">
         <el-input v-model="ruleForm.account"></el-input>
       </el-form-item>
@@ -49,6 +46,7 @@ export default {
         javaBean: "",
         secret: "",
         threeName: "",
+        sort: ''
       },
       rules: {
         account: [{ required: true, message: "请输入账号", trigger: "blur" }],
@@ -62,6 +60,9 @@ export default {
         secret: [{ required: true, message: "请输入秘钥", trigger: "blur" }],
         threeName: [
           { required: true, message: "请输入三方名称", trigger: "blur" },
+        ],
+        sort: [
+          { required: true, message: "排序", trigger: "blur" },
         ],
       },
     };
@@ -78,6 +79,7 @@ export default {
           javaBean: "",
           secret: "",
           threeName: "",
+          sort: ''
         };
       }
       this.dialogVisible = !this.dialogVisible;

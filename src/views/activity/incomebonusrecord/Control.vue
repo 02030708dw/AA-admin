@@ -1,7 +1,7 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('用户名称')" />
-    <el-select clearable v-model="isOpen" placeholder="领取类型" style="width: 200px;margin-left: 10px">
+    <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
+    <el-select clearable v-model="isOpen" :placeholder="$t('Typeofclaim')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in [{ index: 1, title: '是' }, { index: 0, title: '否' }]" :key="index"
         :value="item.index" :label="item.title" />
     </el-select>

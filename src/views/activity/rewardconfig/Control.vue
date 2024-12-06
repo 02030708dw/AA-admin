@@ -1,17 +1,17 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-button  type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
-    <el-select clearable v-model="countType" placeholder="统计类型" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in [{ index: 1, title: '当天' }, { index: 2, title: '总计' }]" :key="index"
-        :value="item.index" :label="item.title" />
+    <el-select clearable v-model="countType" :placeholder="$t('Statistictype')" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in [{ index: 1, title: 'thesameday' }, { index: 2, title: 'total' }]" :key="index"
+        :value="item.index" :label="$t(item.title)" />
     </el-select>
-    <el-select clearable v-model="thresholdType" placeholder="条件类型" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in [{ index: 1, title: '反水' }, { index: 2, title: '输反' }]" :key="index"
-        :value="item.index" :label="item.title" />
+    <el-select clearable v-model="thresholdType" :placeholder="$t(conditiontype)" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in [{ index: 1, title: 'defect' }, { index: 2, title: 'ReverseLoss' }]" :key="index"
+        :value="item.index" :label="$t(item.title)" />
     </el-select>
-    <el-select clearable v-model="status" placeholder="是否启用" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in [{ index: 0, title: '停用' }, { index: 1, title: '启用' }]" :key="index"
-        :value="item.index" :label="item.title" />
+    <el-select clearable v-model="status" :placeholder="$t(Isitenabled)" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in [{ index: 0, title: 'Deactivate' }, { index: 1, title: 'Enable' }]" :key="index"
+        :value="item.index" :label="$t(item.title)" />
     </el-select>
     <el-button  style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
       }}</el-button>

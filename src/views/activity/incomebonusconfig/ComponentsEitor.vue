@@ -1,22 +1,22 @@
 <template>
   <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item label="统计类型" prop="countType">
-        <el-select v-model="ruleForm.countType" placeholder="统计类型" style="width: 200px;margin-left: 10px">
-          <el-option v-for="(item, index) in [{ index: 1, title: '当天' }, { index: 2, title: '总计' }]" :key="index"
-            :value="item.index" :label="item.title" />
+      <el-form-item :label="$t('Statistictype')" prop="countType">
+        <el-select v-model="ruleForm.countType" :placeholder="$t('Statistictype')" style="width: 200px;margin-left: 10px">
+          <el-option v-for="(item, index) in [{ index: 1, title: 'thesameday' }, { index: 2, title: 'total' }]" :key="index"
+            :value="item.index" :label="$t(item.title)" />
         </el-select>
       </el-form-item>
-      <el-form-item label="红包数量" prop="bonusNumbers">
+      <el-form-item :label="$t('Quantityofredenvelopes')" prop="bonusNumbers">
         <el-input v-model="ruleForm.bonusNumbers" />
       </el-form-item>
-      <el-form-item label="随机红包最大值" prop="randomMax">
+      <el-form-item :label="$t('Maximumvalueofrandomredenvelope')" prop="randomMax">
         <el-input v-model="ruleForm.randomMax" />
       </el-form-item>
-      <el-form-item label="随机红包最小值" prop="randomMin">
+      <el-form-item :label="$t('Minimumvalueofrandomredenvelope')" prop="randomMin">
         <el-input v-model="ruleForm.randomMin" />
       </el-form-item>
-      <el-form-item label="充值条件金额" prop="rechargeAmount">
+      <el-form-item :label="$t('Rechargeconditionamount')" prop="rechargeAmount">
         <el-input v-model="ruleForm.rechargeAmount" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
