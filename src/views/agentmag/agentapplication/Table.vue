@@ -24,7 +24,7 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.status == 1" v-has="'demogame:edit'" type="text" style="color: #e6a23c"
+          <el-button v-if="scope.row.status == 1" v-has="'agentapplication:examine'" type="text" style="color: #e6a23c"
             @click="getEditor(scope.row)">{{
               $t("toexamine") }}</el-button>
         </template>

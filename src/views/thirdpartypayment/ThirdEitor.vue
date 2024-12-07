@@ -46,6 +46,7 @@ export default {
         javaBean: "",
         secret: "",
         threeName: "",
+        sort: ''
       },
       rules: {
         account: [{ required: true, message: "请输入账号", trigger: "blur" }],
@@ -59,6 +60,9 @@ export default {
         secret: [{ required: true, message: "请输入秘钥", trigger: "blur" }],
         threeName: [
           { required: true, message: "请输入三方名称", trigger: "blur" },
+        ],
+        sort: [
+          { required: true, message: "排序", trigger: "blur" },
         ],
       },
     };
@@ -76,6 +80,7 @@ export default {
           javaBean: "",
           secret: "",
           threeName: "",
+          sort:'',
         };
       } else {
         this.ruleForm = { ...data };
