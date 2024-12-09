@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="$t('edit')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('Typeofclaim')">
         <el-select v-model="ruleForm.repeatableType" :placeholder="$t('Typeofclaim')" style="width: 200px;margin-left: 10px">

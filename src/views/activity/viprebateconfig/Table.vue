@@ -7,8 +7,7 @@
           {{ getGamerType(scope.row.gameType) }}
         </template>
       </el-table-column>
-      <el-table-column prop="vipConfigId" :label="$t('VIPlevelconfigurationID')" />
-      <el-table-column prop="vipRewardId" :label="$t('VIPrewardID')" />
+      <el-table-column prop="vipConfigId" :label="$t('VIPlevel')" />
       <el-table-column prop="rebate" :label="$t('Reversewaterrate')" />
 
       <el-table-column prop="sort" :label="$t('Creationtime')">

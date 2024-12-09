@@ -2,7 +2,7 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="vipConfigId" :label="$t('VIPlevelconfigurationID')" />
+      <el-table-column prop="vipConfigId" :label="$t('VIPlevel')" />
       <el-table-column prop="rewardValue" :label="$t('Rewardvalue')" />
       <el-table-column prop="" :label="$t('Typeofclaim')">
         <template slot-scope="scope">

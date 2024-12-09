@@ -1,9 +1,6 @@
 <template>
   <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item :label="$t('VIPlevel')">
-        <el-input v-model="ruleForm.vipLevel" />
-      </el-form-item>
       <el-form-item :label="$t('Rechargeconditions')">
         <el-input v-model="ruleForm.rechargeThreshold" />
       </el-form-item>
@@ -33,7 +30,6 @@ export default {
         "description": "",
         "rechargeThreshold": 0,
         "turnoverThreshold": 0,
-        "vipLevel": 0
       },
       rules: {
 
@@ -49,7 +45,6 @@ export default {
           "description": "",
           "rechargeThreshold": null,
           "turnoverThreshold": null,
-          "vipLevel": null
         };
       }
       this.dialogVisible = !this.dialogVisible;
