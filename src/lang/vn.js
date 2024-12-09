@@ -489,6 +489,7 @@ export default {
   total: 'Tổng cộng',
   Quantityofredenvelopes: 'Số lượng hồng bào',
   Maximumvalueofrandomredenvelope: 'Giá trị tối đa của hồng bào ngẫu nhiên',
+  Minimumvalueofrandomredenvelope: 'Minimum value of random red envelope',
   Rechargeconditionamount: 'Số tiền điều kiện nạp',
   Redenvelopeamount: 'Số tiền hồng bào',
   RechargeredenvelopeconfigurationID: 'ID cấu hình hồng bào nạp tiền',

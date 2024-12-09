@@ -501,6 +501,7 @@ export default {
   total:'总计',
   Quantityofredenvelopes: '红包数量',
   Maximumvalueofrandomredenvelope: '随机红包最大值',
+  Minimumvalueofrandomredenvelope: 'Minimum value of random red envelope',
   Rechargeconditionamount: '充值条件金额',
   Redenvelopeamount: '红包金额',
   RechargeredenvelopeconfigurationID: '充值红包配置ID',

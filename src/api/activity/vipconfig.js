@@ -34,3 +34,12 @@ export function ServicePage(data) {
         data
     })
 }
+
+// 分页查询
+export function getVipLevel(data) {
+    return request({
+        url: `/vip/config/getVipLevel`,
+        method: 'post',
+        data
+    })
+}

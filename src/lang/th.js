@@ -489,6 +489,7 @@ export default {
     total: 'รวม',
     Quantityofredenvelopes: 'จำนวนซองจดหมายสีแดง',
     Maximumvalueofrandomredenvelope: 'สุ่มซองจดหมายสีแดงสูงสุด',
+    Minimumvalueofrandomredenvelope: 'Minimum value of random red envelope',
     Rechargeconditionamount: 'จำนวนเงື່ອນໄขการชําระ',
     Redenvelopeamount: 'จำนวนซองจดหมายสีแดง',
     RechargeredenvelopeconfigurationID: 'รหัสการกำหนดค่าซองจดหมายสีแดงเติมเงิน',
