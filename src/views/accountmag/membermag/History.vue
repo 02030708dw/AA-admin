@@ -2,51 +2,47 @@
   <el-card shadow="never" style="border: 0px;">
     <!-- 顶部查询栏 -->
     <el-row style="margin-bottom: 10px;">
-      <el-select
-        v-model="gammerId"
-        filterable
-        :placeholder="$t('SelectGameMerchant')"
-        style="width: 200px;margin-left: 10px"
-      >
-        <el-option
-          v-for="(item, index) in gamerPagesList"
-          :key="index"
-          :value="item.index"
-          :label="item.title"
-        />
+      <el-select v-model="gammerId" filterable :placeholder="$t('SelectGameMerchant')"
+        style="width: 200px;margin-right: 10px">
+        <el-option v-for="(item, index) in gamerPagesList" :key="index" :value="item.index" :label="item.title" />
       </el-select>
+      <el-date-picker v-model="timeArr" type="daterange" range-separator="至" start-placeholder="开始日期"
+        end-placeholder="结束日期" value-format="yyyy-MM-dd">
+      </el-date-picker>
       <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
       <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
-      <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh') }}</el-button>
+      <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
+        }}</el-button>
       <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
     </el-row>
     <!-- 表格 -->
     <el-card shadow="never">
-      <el-table
-        v-loading="loading"
-        :data="tableData"
-        :border="true"
-        :header-cell-style="{ 'text-align': 'center' }"
-        :cell-style="{ 'text-align': 'center' }"
-      >
+      <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+        :cell-style="{ 'text-align': 'center' }">
         <!-- <el-table-column prop="id" label="会员钱包ID" width="" /> -->
-        <el-table-column prop="memberName" :label="$t('Membername')" width="" />
-        <el-table-column prop="betAmout" :label="$t('Bettingamount')" width="" />
-        <el-table-column prop="awardAmount" :label="$t('Awardamount')" width="" />
+        <el-table-column prop="" label="总计" width="">
+          <el-table-column prop="memberName" :label="$t('Membername')" width="" />
+        </el-table-column>
+        <el-table-column prop="" :label="'' + this.resultSet.betAmoutSum" width="">
+          <el-table-column prop="betAmout" :label="$t('Bettingamount')" width="" />
+        </el-table-column>
+        <el-table-column prop="" :label="'' + this.resultSet.awardAmountSum" width="">
+          <el-table-column prop="awardAmount" :label="$t('Awardamount')" width="" />
+        </el-table-column>
         <!-- <el-table-column prop="" label="变动类型" width="">
           <template slot-scope="scope">
             {{ scope.row.type | typeF }}
           </template>
-        </el-table-column> -->
-         <el-table-column prop="" :label="$t('state')" width="">
+</el-table-column> -->
+        <el-table-column prop="" :label="$t('state')" width="">
           <template slot-scope="scope">
             {{ scope.row.status | typeS }}
           </template>
         </el-table-column>
         <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
-        <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+        <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
           <template slot-scope="scope">
-              {{ $creationTime(scope.row.createdAt) }}
+            {{ $creationTime(scope.row.createdAt) }}
           </template>
         </el-table-column>
       </el-table>
@@ -83,7 +79,7 @@ export default {
         case 7:
           return '冻结金额,'
         case 8:
-          return '解冻金额'    
+          return '解冻金额'
         case 9:
           return '活动金额'
       }
@@ -117,6 +113,7 @@ export default {
       gammerId: '',
       loading: false,
       tableData: [],
+      timeArr: [],
       btnIcoType: true,
       // 总条数
       total: 0,
@@ -125,7 +122,11 @@ export default {
       // 页数
       PagesSize: 20,
       // 会员id
-      memberId: ''
+      memberId: '',
+      resultSet: {
+        betAmoutSum:'',
+        awardAmountSum:''
+      },
     }
   },
   created() {
@@ -136,13 +137,13 @@ export default {
     HandelAgentPages() {
       this.gamerPagesList = []
       // gamerPage({ pageNo: 1, pageSize: 1000000 }).then(res => {
-        let res = this.$store.state.user.gamer
-        for (let i = 0; i < res.length; i++) {
-          this.gamerPagesList.push({
-            title: res[i].name,
-            index: res[i].id
-          })
-        }
+      let res = this.$store.state.user.gamer
+      for (let i = 0; i < res.length; i++) {
+        this.gamerPagesList.push({
+          title: res[i].name,
+          index: res[i].id
+        })
+      }
       // }).catch((err) => {
       //   console.log(err)
       // })
@@ -150,10 +151,11 @@ export default {
     // 获取分页数据
     getMemberFlowingWater(index) {
       this.pageNo = index
-      MemberHistory({ pageNo: index, pageSize: this.PagesSize, memberId: this.memberId, gammerId: this.gammerId }).then(res => {
+      MemberHistory({ pageNo: index, pageSize: this.PagesSize, memberId: this.memberId, gammerId: this.gammerId, startTime: this.timeArr?.[0], endTime: this.timeArr?.[1] }).then(res => {
         console.log(res)
         this.tableData = res.resultSet.data
-        this.total = res.resultSet.total
+        this.resultSet = res.resultSet
+        this.total = +res.resultSet.total
       }).catch(err => {
         console.log(err)
       })
@@ -166,10 +168,11 @@ export default {
     HandelRefresh() {
       this.btnIcoType = false
       this.loading = true
-      MemberHistory({ pageNo: this.pageNo, pageSize: this.PagesSize, memberId: this.memberId, gammerId: this.gammerId }).then(res => {
+      MemberHistory({ pageNo: this.pageNo, pageSize: this.PagesSize, memberId: this.memberId, gammerId: this.gammerId, startTime: this.timeArr?.[0], endTime: this.timeArr?.[1] }).then(res => {
         console.log(res)
         this.tableData = res.resultSet.data
-        this.total = res.resultSet.total
+        this.total = +res.resultSet.total
+        this.resultSet = res.resultSet
         setTimeout(() => {
           this.btnIcoType = true
           this.loading = false
@@ -191,6 +194,7 @@ export default {
     // 重置
     getresetting() {
       this.gammerId = null
+      this.timeArr = null
       this.getMemberFlowingWater(1)
     },
     // 改变页数
@@ -201,7 +205,4 @@ export default {
   }
 }
 </script>
-  <style lang="scss" scoped>
-
-  </style>
-
+<style lang="scss" scoped></style>
