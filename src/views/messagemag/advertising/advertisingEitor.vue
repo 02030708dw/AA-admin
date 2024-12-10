@@ -7,6 +7,12 @@
       <el-form-item :label="$t('sort')" prop="sort">
         <el-input type='number' v-model.number="ruleForm.sort" />
       </el-form-item>
+      <el-form-item :label="$t('类型')" prop="type">
+        <el-radio-group v-model="ruleForm.type">
+          <el-radio :label="1">轮播广告</el-radio>
+          <el-radio :label="2">弹窗广告</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item :label="$t('icon')" prop="icon">
         <UploadImage v-if="dialogVisible" :img="ruleForm.pictureUrl" fn="banner" @Upload="getImageURL"/>
       </el-form-item>
@@ -35,10 +41,12 @@ export default {
         pictureInfos: '',
         sort: null,
         status: 0,
+        type: '',
       },
       rules: {
         note: [{ required: true, message: "请输入注释", trigger: "blur" }],
         sort: [{ required: true, message: "请输入排序", trigger: "blur" }],
+        type: [{ required: true, message: "请选择类型", trigger: "blur" }],
       }
     }
   },
@@ -52,6 +60,7 @@ export default {
           pictureInfos: '',
           sort: null,
           status: 0,
+          type: '',
         }
       } else {
         this.ruleForm = { ...data }

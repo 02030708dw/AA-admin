@@ -136,6 +136,7 @@ export default {
         note: data.note,
         pictureInfos: data.pictureInfos,
         sort: data.sort,
+        type: data.type
       })
         .then((res) => {
           this.getdata(this.pageNo)
