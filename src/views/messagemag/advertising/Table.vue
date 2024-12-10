@@ -4,6 +4,7 @@
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="sort" :label="$t('sort')"   />
       <el-table-column prop="note" :label="$t('ExplanatoryNote')"  />
+      <el-table-column prop="type" :label="$t('typesof')" :formatter="formatType"/>
       <el-table-column prop="" width="250" :label="$t('icon')">
         <template slot-scope="scope">
           <div class="image_box">
@@ -47,7 +48,11 @@ export default {
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      tableData: [
+        { type: 1, name: 'Item 1' },
+        { type: 2, name: 'Item 2' },
+      ],
     }
   },
   methods: {
@@ -84,6 +89,15 @@ export default {
       let url =list ? JSON.parse(list) :''
       //保留语言判断
       return "https://gwstatic.mvkbnb.com/" + url[0].pictureUrl
+    },
+    // 格式化
+    formatType(row, column, cellValue) {
+      // 根据 type 值返回对应的文本
+      const typeMap = {
+        1: this.$t('carousel'), // 对应多语言的 "轮播"
+        2: this.$t('popup'),   // 对应多语言的 "弹窗"
+      };
+      return typeMap[cellValue] || this.$t('unknown'); // 未知类型处理
     },
   }
 }

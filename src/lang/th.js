@@ -504,6 +504,8 @@ export default {
     Isitenabled: 'เปิดໃຊ้งານหรือไม่',
     Hasitbeencollected: 'ได้รับหรือยัง',
     RewardconfigurationID: 'IDการกำหนดรางวัล',
-    Collectiontime: 'เวลารับ'
+    Collectiontime: 'เวลารับ',
+    carousel:'carousel',
+    popup:"popup"
   }
   

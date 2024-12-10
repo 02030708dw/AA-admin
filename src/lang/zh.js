@@ -516,5 +516,7 @@ export default {
   Isitenabled:'是否启用',
   Hasitbeencollected:'是否已领取',
   RewardconfigurationID:'奖励配置ID',
-  Collectiontime:'领取时间'
+  Collectiontime:'领取时间',
+  carousel:'轮播',
+  popup:"弹窗"
 }

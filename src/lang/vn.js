@@ -504,5 +504,7 @@ export default {
   Isitenabled: 'Đã kích hoạt không?',
   Hasitbeencollected: 'Đã nhận chưa?',
   RewardconfigurationID: 'ID cấu hình thưởng',
-  Collectiontime: 'Thời gian nhận thưởng'
+  Collectiontime: 'Thời gian nhận thưởng',
+  carousel:'carousel',
+  popup:"popup"
 }
