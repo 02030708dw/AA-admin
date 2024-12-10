@@ -503,4 +503,6 @@ export default {
   Hasitbeencollected: 'Has it been collected',
   RewardconfigurationID: 'Reward configuration ID',
   Collectiontime: 'Collection time',
+  carousel:'carousel',
+  popup:"popup"
 }
