@@ -311,6 +311,7 @@ export default {
   Totalprofitandloss: 'Tổng lợi nhuận/thua lỗ',
   netprofit: 'Lợi nhuận ròng',
   Totalbettingamount: 'Tổng số tiền đặt cược',
+  awardAmount: 'Số tiền chiến thắng',
   Drawproportion: 'Tỷ lệ chiết khấu',
   Commissionamount: 'Số tiền chiết khấu',
   Numberofnonrepeatedbets: 'Số người đặt cược không lặp lại',

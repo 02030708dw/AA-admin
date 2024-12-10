@@ -323,6 +323,7 @@ export default {
   Totalprofitandloss: '盈亏总额',
   netprofit: '净盈利',
   Totalbettingamount: '投注总金额',
+  awardAmount: '中奖金额',
   Drawproportion: '抽成比例',
   Commissionamount: '抽成金额',
   Numberofnonrepeatedbets: '不重复投注人数',

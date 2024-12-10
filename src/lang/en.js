@@ -321,6 +321,7 @@ export default {
   Totalprofitandloss: 'Total profit and loss',
   netprofit: 'net profit',
   Totalbettingamount: 'Total betting amount',
+  awardAmount: 'Amount won',
   Drawproportion: 'Drawproportion',
   Commissionamount: 'Commission amount',
   Numberofnonrepeatedbets: 'Number of non repeated bets',

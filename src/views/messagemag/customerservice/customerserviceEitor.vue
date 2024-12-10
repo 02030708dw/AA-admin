@@ -13,6 +13,8 @@
       <el-form-item :label="$t('typesof')" prop="type">
         <el-radio v-model="ruleForm.type" :label="1">skype</el-radio>
         <el-radio v-model="ruleForm.type" :label="2">telegram</el-radio>
+        <el-radio v-model="ruleForm.type" :label="3" >line</el-radio>
+        <el-radio v-model="ruleForm.type" :label="4" >live Chat</el-radio>
       </el-form-item>
       <el-form-item :label="$t('icon')" prop="icon">
         <UploadImage v-if="dialogVisible" :img="ruleForm.pictureUrl" fn="customerService" @Upload="getImageURL" />

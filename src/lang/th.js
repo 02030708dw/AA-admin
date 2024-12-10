@@ -311,6 +311,7 @@ export default {
     Totalprofitandloss: 'กำไรและขาดทุนทั้งหมด',
     netprofit: 'กำไรสุทธิ',
     Totalbettingamount: 'จำนวนเงินเดิมพันทั้งหมด',
+    awardAmount: 'จำนวนเงิน ที่ชนะ',
     Drawproportion: 'วาดในสัดส่วน',
     Commissionamount: 'จำนวนเงินที่ถอน',
     Numberofnonrepeatedbets: 'ไม่มีการแทงซ้ำจำนวนคน',
