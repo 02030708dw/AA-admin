@@ -4,6 +4,10 @@
     <el-select v-model="type" :placeholder="$t('typesof')" style="width: 200px;margin-right: 10px">
       <el-option v-for="(item, index) in gametype" :key="index" :value="item.value" :label="item.label" />
     </el-select>
+    <el-select v-model="countType" :placeholder="$t('typesof')" style="width: 200px;margin-right: 10px">
+      <el-option v-for="(item, index) in [{ label: '区间明细', value: 0 }, { label: '区间总计', value: 1 }]" :key="index"
+        :value="item.value" :label="item.label" />
+    </el-select>
     <!-- 选择日期 -->
     <el-date-picker v-model="value" style="margin-right: 20px;" type="daterange" align="right" unlink-panels
       :range-separator="$t('to')" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions"
@@ -55,6 +59,7 @@ export default {
       // 按钮状态
       btnIcoType: true,
       name: '',
+      countType: '',
       type: '',
       // 游戏类型选项
       gametype: [
@@ -103,7 +108,7 @@ export default {
     },
     // 查询
     getquery() {
-      this.$emit('query', { name: this.name, type: this.type })
+      this.$emit('query', { name: this.name, type: this.type, countType: this.countType })
     }
   }
 }

@@ -33,7 +33,8 @@ export default {
       // 页数
       PagesSize: 20,
       name: '',
-      type: ''
+      type: '',
+      countType:''
     }
   },
   mounted() {
@@ -63,7 +64,7 @@ export default {
     // 请求数据
     getData(index = 1) {
       this.pageNo = index
-      getaMemberBetPages({ pageNo: index, pageSize: this.PagesSize, endDay: this.endDate, startDay: this.startDate, name: this.name, type: this.type }).then(res => {
+      getaMemberBetPages({ pageNo: index, pageSize: this.PagesSize, endDay: this.endDate, startDay: this.startDate, name: this.name, type: this.type,countType:this.countType }).then(res => {
         this.tableData = res.resultSet.memberBetReportList
         this.resultSet = res.resultSet
         this.total = res.resultSet.total
@@ -86,7 +87,7 @@ export default {
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      getaMemberBetPages({ pageNo: this.pageNo, pageSize: this.PagesSize, endDay: this.endDate, startDay: this.startDate, name: this.name, type: this.type }).then(res => {
+      getaMemberBetPages({ pageNo: this.pageNo, pageSize: this.PagesSize, endDay: this.endDate, startDay: this.startDate, name: this.name, type: this.type, countType:this.countType}).then(res => {
         this.tableData = res.resultSet.memberBetReportList
         this.resultSet = res.resultSet
         this.total = res.resultSet.total
@@ -107,6 +108,7 @@ export default {
     Handelquery(e) {
       this.name = e.name
       this.type = e.type
+      this.countType = e.countType
       this.getData(this.pageNo)
     },
   }
