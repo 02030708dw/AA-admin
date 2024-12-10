@@ -78,6 +78,14 @@ export default {
           return '从游戏商转入'
         case 5:
           return '下级会员投注返点'
+        case 6:
+          return '平台加扣款'
+        case 7:
+          return '冻结金额,'
+        case 8:
+          return '解冻金额'    
+        case 9:
+          return '活动金额'
       }
     },
     typeS(value) {
@@ -115,7 +123,7 @@ export default {
       // 页码
       pageNo: 1,
       // 页数
-      PagesSize: 10,
+      PagesSize: 20,
       // 会员id
       memberId: ''
     }
