@@ -62,7 +62,9 @@ export default {
     incomebonusconfig: "充值红包配置",
     incomebonusrecord: "用户红包记录",
     rewardconfig: "奖励配置",
-    rewardrecord: "用户奖励记录"
+    rewardrecord: "用户奖励记录",
+    AgentDetail: '下级代理明细表',
+    MemberBets:'会员投注表',
   },
   role: {
     permission: '权限'

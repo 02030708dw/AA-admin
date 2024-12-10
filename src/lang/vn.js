@@ -50,7 +50,9 @@ export default {
     Rule: 'Quản lý quy tắc',
     RuleBussines: 'Quy tắc kinh doanh',
     RuleCondition: 'Quy tắc công cụ',
-    Maintenance: 'Bảo trì nhà cung cấp trò chơi'
+    Maintenance: 'Bảo trì nhà cung cấp trò chơi',
+    AgentDetail: 'Agent Detail',
+    MemberBets:'Member Bets',
   },
   role: {
     permission: 'quyền hạn'

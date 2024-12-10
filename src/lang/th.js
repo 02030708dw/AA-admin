@@ -50,7 +50,9 @@ export default {
       Rule:'การจัดการกฎ',
       RuleBussines:'กฎเกณฑ์ทางธุรกิจ',
       RuleCondition:'กฎของเครื่องยนต์',
-      Maintenance:'การบำรุงรักษาเกมเมอร์'
+      Maintenance:'การบำรุงรักษาเกมเมอร์',
+      AgentDetail: 'Agent Detail',
+      MemberBets:'Member Bets',
     },
     role: {
       permission: 'การอนุญาต'

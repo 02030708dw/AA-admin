@@ -59,7 +59,9 @@ export default {
     Rule:'Rule',
     RuleBussines:'Rule Bussines',
     RuleCondition:'Rule Condition',
-    Maintenance:'Game Vendor Maintenance'
+    Maintenance:'Game Vendor Maintenance',
+    AgentDetail: 'Agent Detail',
+    MemberBets:'Member Bets',
   },
   role: {
     permission: 'Permission'
