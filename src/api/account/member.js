@@ -57,11 +57,11 @@ export function MemberBalanceList({ memberId }) {
   })
 }
 // 获取会员历史投注信息
-export function MemberHistory({ memberId, pageNo, pageSize, gammerId }) {
+export function MemberHistory({ memberId, pageNo, pageSize, gammerId, startTime, endTime }) {
   return request({
     url: '/user/member/history',
     method: 'GET',
-    params: { memberId, pageNo, pageSize, gammerId }
+    params: { memberId, pageNo, pageSize, gammerId, startTime, endTime }
   })
 }
 

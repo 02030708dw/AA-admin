@@ -50,7 +50,9 @@ export default {
       Rule:'การจัดการกฎ',
       RuleBussines:'กฎเกณฑ์ทางธุรกิจ',
       RuleCondition:'กฎของเครื่องยนต์',
-      Maintenance:'การบำรุงรักษาเกมเมอร์'
+      Maintenance:'การบำรุงรักษาเกมเมอร์',
+      AgentDetail: 'Agent Detail',
+      MemberBets:'Member Bets',
     },
     role: {
       permission: 'การอนุญาต'
@@ -309,6 +311,7 @@ export default {
     Totalprofitandloss: 'กำไรและขาดทุนทั้งหมด',
     netprofit: 'กำไรสุทธิ',
     Totalbettingamount: 'จำนวนเงินเดิมพันทั้งหมด',
+    awardAmount: 'จำนวนเงิน ที่ชนะ',
     Drawproportion: 'วาดในสัดส่วน',
     Commissionamount: 'จำนวนเงินที่ถอน',
     Numberofnonrepeatedbets: 'ไม่มีการแทงซ้ำจำนวนคน',
@@ -489,6 +492,7 @@ export default {
     total: 'รวม',
     Quantityofredenvelopes: 'จำนวนซองจดหมายสีแดง',
     Maximumvalueofrandomredenvelope: 'สุ่มซองจดหมายสีแดงสูงสุด',
+    Minimumvalueofrandomredenvelope: 'Minimum value of random red envelope',
     Rechargeconditionamount: 'จำนวนเงື່ອນໄขการชําระ',
     Redenvelopeamount: 'จำนวนซองจดหมายสีแดง',
     RechargeredenvelopeconfigurationID: 'รหัสการกำหนดค่าซองจดหมายสีแดงเติมเงิน',
@@ -500,6 +504,8 @@ export default {
     Isitenabled: 'เปิดໃຊ้งານหรือไม่',
     Hasitbeencollected: 'ได้รับหรือยัง',
     RewardconfigurationID: 'IDการกำหนดรางวัล',
-    Collectiontime: 'เวลารับ'
+    Collectiontime: 'เวลารับ',
+    carousel:'carousel',
+    popup:"popup"
   }
   

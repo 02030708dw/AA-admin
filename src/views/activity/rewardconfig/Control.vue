@@ -5,11 +5,11 @@
       <el-option v-for="(item, index) in [{ index: 1, title: 'thesameday' }, { index: 2, title: 'total' }]" :key="index"
         :value="item.index" :label="$t(item.title)" />
     </el-select>
-    <el-select clearable v-model="thresholdType" :placeholder="$t(conditiontype)" style="width: 200px;margin-left: 10px">
+    <el-select clearable v-model="thresholdType" :placeholder="$t('conditiontype')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in [{ index: 1, title: 'defect' }, { index: 2, title: 'ReverseLoss' }]" :key="index"
         :value="item.index" :label="$t(item.title)" />
     </el-select>
-    <el-select clearable v-model="status" :placeholder="$t(Isitenabled)" style="width: 200px;margin-left: 10px">
+    <el-select clearable v-model="status" :placeholder="$t('Isitenabled')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in [{ index: 0, title: 'Deactivate' }, { index: 1, title: 'Enable' }]" :key="index"
         :value="item.index" :label="$t(item.title)" />
     </el-select>

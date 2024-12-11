@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="$t('edit')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('GameType')">
         <el-select v-model="ruleForm.gameType" style="width: 200px;margin-right:10px;"
@@ -8,11 +8,13 @@
             :value="item.value"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item :label="$t('VIPlevel')">
+        <el-select v-model="ruleForm.vipConfigId" :placeholder="$t('VIPlevel')" style="width: 200px">
+          <el-option v-for="(item, index) in vipLevelList" :key="index" :value="item.index" :label="item.title" />
+        </el-select>
+      </el-form-item>
       <el-form-item :label="$t('Reversewaterrate')">
         <el-input v-model="ruleForm.rebate" />
-      </el-form-item>
-      <el-form-item :label="$t('VIPlevelconfigurationID')">
-        <el-input v-model="ruleForm.vipConfigId" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -26,6 +28,14 @@
 
 <script>
 export default {
+  props: {
+    vipLevelList: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
       // 弹窗状态
