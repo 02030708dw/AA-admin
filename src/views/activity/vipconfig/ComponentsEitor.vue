@@ -1,9 +1,6 @@
 <template>
-  <el-dialog :title="$t('EditAnnouncement')" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="$t('edit')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item :label="$t('VIPlevel')">
-        <el-input v-model="ruleForm.vipLevel" />
-      </el-form-item>
       <el-form-item :label="$t('Rechargeconditions')">
         <el-input v-model="ruleForm.rechargeThreshold" />
       </el-form-item>
@@ -30,10 +27,9 @@ export default {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        "amount": 0,
         "description": "",
-        "memberId": 0,
-        "spinTime": ""
+        "rechargeThreshold": null,
+        "turnoverThreshold": null,
       },
       rules: {
 
@@ -46,10 +42,9 @@ export default {
       this.dialogVisible = !this.dialogVisible
       if (!this.dialogVisible) {
         this.ruleForm = {
-          "amount": null,
           "description": "",
-          "memberId": null,
-          "spinTime": ""
+          "rechargeThreshold": null,
+          "turnoverThreshold": null,
         }
       } else {
         this.ruleForm = { ...data }

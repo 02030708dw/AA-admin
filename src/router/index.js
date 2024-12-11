@@ -184,6 +184,12 @@ export const asyncRoutes = [
         meta: { title: 'Proxyreport', icon: 'el-icon-coordinate' }
       },
       {
+        path: '/Reportagentdetailform',
+        name: 'reportagentdetailform',
+        component: () => import('@/views/reportformsmag/AgentDetail/index.vue'),
+        meta: { title: 'AgentDetail', icon: 'el-icon-pie-chart' }
+      },
+      {
         path: '/ReportformsmagGamer',
         name: 'reportformsmaggamer',
         component: () => import('@/views/reportformsmag/Gamer/index.vue'),
@@ -200,7 +206,13 @@ export const asyncRoutes = [
         name: 'reportformsmagplatform',
         component: () => import('@/views/reportformsmag/Platform/index.vue'),
         meta: { title: 'Platformreport', icon: 'el-icon-pie-chart' }
-      }
+      },
+      {
+        path: '/Reportmemberbetform',
+        name: 'reportmemberbetform',
+        component: () => import('@/views/reportformsmag/Memberbet/index.vue'),
+        meta: { title: 'MemberBets', icon: 'el-icon-pie-chart' }
+      },
     ]
   },
   {

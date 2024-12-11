@@ -63,7 +63,7 @@ export default {
       // 页码
       pageNo: 1,
       // 页数
-      PagesSize: 10,
+      PagesSize: 20,
       // 会员id
       memberId: ''
     }

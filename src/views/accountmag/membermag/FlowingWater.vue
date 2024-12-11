@@ -72,6 +72,14 @@ export default {
           return '从游戏商转入'
         case 5:
           return '下级会员投注返点'
+        case 6:
+          return '平台加扣款'
+        case 7:
+          return '冻结金额,'
+        case 8:
+          return '解冻金额'    
+        case 9:
+          return '活动金额'
       }
     }
   },
@@ -82,7 +90,11 @@ export default {
         { title: '充值', index: 2 },
         { title: '转出到游戏商', index: 3 },
         { title: '从游戏商转入', index: 4 },
-        { title: '下级会员投注返点', index: 5 }
+        { title: '下级会员投注返点', index: 5 },
+        { title: '平台加扣款', index: 6 },
+        { title: '冻结金额', index: 7 },
+        { title: '解冻金额', index: 8 },
+        { title: '活动金额', index: 9 }
       ],
       loading: false,
       tableData: [],
@@ -92,7 +104,7 @@ export default {
       // 页码
       pageNo: 1,
       // 页数
-      PagesSize: 10,
+      PagesSize: 20,
       // 会员id
       memberId: '',
       // 类型

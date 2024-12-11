@@ -35,3 +35,11 @@ export function PayFor(data) {
     data
   })
 }
+
+// 待审核数量
+export function toBeReviewed() {
+  return request({
+    url: '/finance/memberCashRecord/toBeReviewed',
+    method: 'get', 
+  })
+}

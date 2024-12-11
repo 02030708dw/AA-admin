@@ -59,7 +59,9 @@ export default {
     Rule:'Rule',
     RuleBussines:'Rule Bussines',
     RuleCondition:'Rule Condition',
-    Maintenance:'Game Vendor Maintenance'
+    Maintenance:'Game Vendor Maintenance',
+    AgentDetail: 'Agent Detail',
+    MemberBets:'Member Bets',
   },
   role: {
     permission: 'Permission'
@@ -319,6 +321,7 @@ export default {
   Totalprofitandloss: 'Total profit and loss',
   netprofit: 'net profit',
   Totalbettingamount: 'Total betting amount',
+  awardAmount: 'Amount won',
   Drawproportion: 'Drawproportion',
   Commissionamount: 'Commission amount',
   Numberofnonrepeatedbets: 'Number of non repeated bets',
@@ -500,4 +503,6 @@ export default {
   Hasitbeencollected: 'Has it been collected',
   RewardconfigurationID: 'Reward configuration ID',
   Collectiontime: 'Collection time',
+  carousel:'carousel',
+  popup:"popup"
 }

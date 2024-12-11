@@ -1,9 +1,9 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @SelectDate="HandelSelectDate" @resetting="getresetting" @query="getquery"
+    <Control ref="ControlView"  @resetting="getresetting" @query="getquery"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @Edl="getDel" />
+    <Table ref="TableView" :table-data="tableData" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
   </el-card>
 </template>
