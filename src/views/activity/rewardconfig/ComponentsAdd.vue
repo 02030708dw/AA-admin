@@ -16,7 +16,7 @@
       <el-form-item :label="$t('Rewardamount')" prop="rewardAmount">
         <el-input v-model="ruleForm.rewardAmount" />
       </el-form-item>
-      <el-form-item :label="$t(conditionvalue)" prop="threshold">
+      <el-form-item :label="$t('conditionvalue')" prop="threshold">
         <el-input v-model="ruleForm.threshold" />
       </el-form-item>
       <el-form-item :label="$t('state')" >

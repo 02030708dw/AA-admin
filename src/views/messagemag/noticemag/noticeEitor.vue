@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="$t('EditAnnouncement')"
+    :title="$t('edit')"
     :visible.sync="dialogVisible"
     width="60%"
   >

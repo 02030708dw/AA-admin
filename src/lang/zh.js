@@ -62,7 +62,9 @@ export default {
     incomebonusconfig: "充值红包配置",
     incomebonusrecord: "用户红包记录",
     rewardconfig: "奖励配置",
-    rewardrecord: "用户奖励记录"
+    rewardrecord: "用户奖励记录",
+    AgentDetail: '下级代理明细表',
+    MemberBets:'会员投注表',
   },
   role: {
     permission: '权限'
@@ -321,6 +323,7 @@ export default {
   Totalprofitandloss: '盈亏总额',
   netprofit: '净盈利',
   Totalbettingamount: '投注总金额',
+  awardAmount: '中奖金额',
   Drawproportion: '抽成比例',
   Commissionamount: '抽成金额',
   Numberofnonrepeatedbets: '不重复投注人数',
@@ -501,6 +504,7 @@ export default {
   total:'总计',
   Quantityofredenvelopes: '红包数量',
   Maximumvalueofrandomredenvelope: '随机红包最大值',
+  Minimumvalueofrandomredenvelope: 'Minimum value of random red envelope',
   Rechargeconditionamount: '充值条件金额',
   Redenvelopeamount: '红包金额',
   RechargeredenvelopeconfigurationID: '充值红包配置ID',
@@ -512,5 +516,7 @@ export default {
   Isitenabled:'是否启用',
   Hasitbeencollected:'是否已领取',
   RewardconfigurationID:'奖励配置ID',
-  Collectiontime:'领取时间'
+  Collectiontime:'领取时间',
+  carousel:'轮播',
+  popup:"弹窗"
 }

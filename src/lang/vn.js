@@ -50,7 +50,9 @@ export default {
     Rule: 'Quản lý quy tắc',
     RuleBussines: 'Quy tắc kinh doanh',
     RuleCondition: 'Quy tắc công cụ',
-    Maintenance: 'Bảo trì nhà cung cấp trò chơi'
+    Maintenance: 'Bảo trì nhà cung cấp trò chơi',
+    AgentDetail: 'Agent Detail',
+    MemberBets:'Member Bets',
   },
   role: {
     permission: 'quyền hạn'
@@ -309,6 +311,7 @@ export default {
   Totalprofitandloss: 'Tổng lợi nhuận/thua lỗ',
   netprofit: 'Lợi nhuận ròng',
   Totalbettingamount: 'Tổng số tiền đặt cược',
+  awardAmount: 'Số tiền chiến thắng',
   Drawproportion: 'Tỷ lệ chiết khấu',
   Commissionamount: 'Số tiền chiết khấu',
   Numberofnonrepeatedbets: 'Số người đặt cược không lặp lại',
@@ -489,6 +492,7 @@ export default {
   total: 'Tổng cộng',
   Quantityofredenvelopes: 'Số lượng hồng bào',
   Maximumvalueofrandomredenvelope: 'Giá trị tối đa của hồng bào ngẫu nhiên',
+  Minimumvalueofrandomredenvelope: 'Minimum value of random red envelope',
   Rechargeconditionamount: 'Số tiền điều kiện nạp',
   Redenvelopeamount: 'Số tiền hồng bào',
   RechargeredenvelopeconfigurationID: 'ID cấu hình hồng bào nạp tiền',
@@ -500,5 +504,7 @@ export default {
   Isitenabled: 'Đã kích hoạt không?',
   Hasitbeencollected: 'Đã nhận chưa?',
   RewardconfigurationID: 'ID cấu hình thưởng',
-  Collectiontime: 'Thời gian nhận thưởng'
+  Collectiontime: 'Thời gian nhận thưởng',
+  carousel:'carousel',
+  popup:"popup"
 }
