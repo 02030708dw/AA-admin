@@ -5,8 +5,8 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
-    <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
+    <ComponentsAdd ref="ComponentsAdd" :vipLevelList="vipLevelList" @confirm="getAdd" />
+    <ComponentsEitor ref="ComponentsEitor" :vipLevelList="vipLevelList" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -22,6 +22,7 @@ import {
   ServiceDel,
   ServiceEdit
 } from '@/api/activity/viprebateconfig'
+import { getVipLevel } from '@/api/activity/vipconfig'
 export default {
   components: {
     Table,
@@ -36,12 +37,26 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
+      vipLevelList: []
     }
   },
   created() {
     this.getdata(1)
+    this.getVipLevelList()
   },
   methods: {
+    // 获取vip等级id
+    getVipLevelList() {
+      this.vipLevelList = []
+      getVipLevel({ pageNo: 1, pageSize: 100 }).then(res => {
+        for (let i = 0; i < res.resultSet.length; i++) {
+          this.vipLevelList.push({
+            title: res.resultSet[i].description,
+            index: res.resultSet[i].id
+          })
+        }
+      })
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
