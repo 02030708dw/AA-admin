@@ -34,7 +34,7 @@ export default {
       PagesSize: 20,
       name: '',
       type: '',
-      countType:''
+      countType:0
     }
   },
   mounted() {

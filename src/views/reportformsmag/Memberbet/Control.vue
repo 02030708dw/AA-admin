@@ -59,7 +59,7 @@ export default {
       // 按钮状态
       btnIcoType: true,
       name: '',
-      countType: '',
+      countType: 0,
       type: '',
       // 游戏类型选项
       gametype: [
