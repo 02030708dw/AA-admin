@@ -15,13 +15,13 @@
         </el-table-column>
         <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
       </el-table-column>
-      <el-table-column prop="" :label="'' + this.resultSet.sumBetAmount" width="">
+      <el-table-column prop="" :label=" this.resultSet.sumBetAmount ? '' + this.resultSet.sumBetAmount : '0'" width="">
         <el-table-column prop="betAmount" :label="$t('Totalbettingamount')" width="" />
       </el-table-column>
-      <el-table-column prop="" :label="'' + this.resultSet.sumAwardAmount" width="">
+      <el-table-column prop="" :label=" this.resultSet.sumAwardAmount ? '' + this.resultSet.sumAwardAmount : '0'" width="">
         <el-table-column prop="awardAmount" :label="$t('awardAmount')" width="" />
       </el-table-column>
-      <el-table-column prop="" :label="'' + this.resultSet.sumPhaseAmount" width="">
+      <el-table-column prop="" :label="this.resultSet.sumPhaseAmount ? '' + this.resultSet.sumPhaseAmount : '0'" width="">
         <el-table-column prop="phaseAmount" :label="$t('Totalprofitandloss')" width="" />
       </el-table-column>
     </el-table>
