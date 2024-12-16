@@ -1,5 +1,8 @@
 <template>
-    <audio src="@/assets/y1897.mp3" controls hidden ref="refaudio"></audio>
+    <div>
+        <audio src="@/assets/payouts.mp3" controls hidden ref="payouts"></audio>
+        <audio src="@/assets/recharge.mp3" controls hidden ref="recharge"></audio>
+    </div>
 </template>
 
 <script>
@@ -13,8 +16,13 @@ export default {
         intervalId = setInterval(() => {
             if (getToken()) {
                 toBeReviewed().then(res => {
-                    if (res.resultSet > 0) {
-                        this.$refs.refaudio.play();
+                    if (res.resultSet.cashCount > 0) {
+                        this.$refs.payouts.play();
+                    }
+                    if(res.resultSet.incomeCount > 0){
+                        setTimeout(() => {
+                            this.$refs.recharge.play(); 
+                        },1500)
                     }
                 })
             }
