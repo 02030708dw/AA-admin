@@ -13,7 +13,7 @@
                     :placeholder="$t('Bankaccount')" />
                 <el-select v-model="v.bankName" placeholder="请选择">
                     <el-option v-for="item in bankList" :key="item.bankName" :label="item.bankName"
-                        :value="item.bankName">
+                        :value="item.bankCode">
                     </el-option>
                 </el-select>
             </el-form-item>
