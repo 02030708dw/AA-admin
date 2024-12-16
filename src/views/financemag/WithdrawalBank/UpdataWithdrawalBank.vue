@@ -74,7 +74,7 @@ export default {
                 id: '', //ID
                 currency: '',
                 threePayIds: [],
-                amountRange: [],
+                amountRange: [{ id: 0, threeName: 'system', min: 0, max: 0 }],
             },
             rules: {
                 bankCode: [{ required: true, message: '请输入银行编码', trigger: 'blur' }],
@@ -93,7 +93,8 @@ export default {
     },
     methods: {
         selectChange(v) {
-            this.ruleForm.amountRange = this.threePayList.filter(item => v.includes(item.id));
+            const list = this.threePayList.filter(item => v.includes(item.id));
+            this.ruleForm.amountRange = [{ id: 0, threeName: 'system', min: 0, max: 0 }, ...list]
         },
         HandelClose() {
             this.dialogVisible = false
@@ -104,8 +105,8 @@ export default {
                 status: 0,// 状态
                 id: '', //ID
                 currency: '',
-                threePayIds: '',
-                amountRange: [],
+                threePayIds: [],
+                amountRange: [{ id: 0, threeName: 'system', min: 0, max: 0 }],
             }
         },
         // 改变弹窗状态
@@ -120,8 +121,8 @@ export default {
                     status: data.status,
                     id: data.id,
                     currency: data.currency,
-                    threePayIds: data.threePayIds == '0' ? '' : data.threePayIds.split(','),
-                    amountRange: JSON.parse(data.amountRange),
+                    threePayIds: +data.threePayIds == false ? [] : data.threePayIds.split(','),
+                    amountRange: data.amountRange == null ? [{ id: 0, threeName: 'system', min: 0, max: 0 }] : JSON.parse(data.amountRange),
                 }
             }
             // 关闭时清空数据
