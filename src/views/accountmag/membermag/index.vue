@@ -1,23 +1,17 @@
 <template>
   <el-card>
-    <Control ref="ControlView":agentIddata='agentIddata' @Memquery="getMemquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" :agentIddata='agentIddata' @Memquery="getMemquery" @resetting="getresetting"
+      @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table
-      ref="TableView"
-      :table-data="tableData"
-      @updateStatus="getMemberUdateStatus"
-      @Membershiptransfer="getMembershiptransfer"
-      @Proxytransfer="getProxytransfer"
-      @Info="HandelShowInfo"
-      @MemberresettingPwd="getMemberresettingPwd"
-      @Updatebalance="HandelUpdatebalance"
-    />
+    <Table ref="TableView" :gamer-balance-list="gamerBalanceList" :table-data="tableData" @updateStatus="getMemberUdateStatus"
+      @Membershiptransfer="getMembershiptransfer" @Proxytransfer="getProxytransfer" @Info="HandelShowInfo"
+      @MemberresettingPwd="getMemberresettingPwd" @Updatebalance="HandelUpdatebalance" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer :agentIddata="agentIddata" ref="Proxytransfer" @confirm="getProxytransferok" />
     <!-- 会员详情 -->
-    <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh"/>
-    <MemberUpdatebalanceview ref="MemberUpdatebalanceview"/>
+    <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh" />
+    <MemberUpdatebalanceview ref="MemberUpdatebalanceview" />
   </el-card>
 </template>
 
@@ -37,7 +31,8 @@ import {
   MemberTransfer,
   agentTransfer,
   MemberUpdateStatus,
-  MemberresettingPwd
+  MemberresettingPwd,
+  getGamerBalance
 } from '@/api/account/member'
 import { AgentPage } from '@/api/account/agent'
 export default {
@@ -57,7 +52,8 @@ export default {
       // 页码
       pageNo: 1,
       tableData: [],
-      agentIddata:[],
+      agentIddata: [],
+      gamerBalanceList:[],
       agentId: null,
       userName: null,
       status: null,
@@ -91,6 +87,10 @@ export default {
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
+          const userIds = this.tableData.map((item) => item.id)
+          getGamerBalance({ userIds }).then(res => {
+           this.gamerBalanceList = res.resultSet
+          })
           setTimeout(() => {
             this.$refs.ControlView.HandelBtnStatus()
             this.$refs.TableView.HandelLoading(false)
@@ -147,18 +147,21 @@ export default {
     getMemberPage(index) {
       // 记录当前页码
       this.pageNo = index
-     
-      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, userName: this.userName, status: this.status, userPhone: this.userPhone})
+      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, userName: this.userName, status: this.status, userPhone: this.userPhone })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
+          const userIds = this.tableData.map((item) => item.id)
+          getGamerBalance({ userIds }).then(res => {
+           this.gamerBalanceList = res.resultSet
+          })
         })
         .catch((err) => {
           console.log(err)
         })
     },
     getMemquery(e) {
-    
+
       this.agentId = e.agentId
       this.userName = e.userName
       this.status = e.status

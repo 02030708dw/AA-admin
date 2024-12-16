@@ -147,3 +147,12 @@ export function financeCashBank(currency) {
     method: 'get',
   })
 }
+
+// 批量获取游戏商余额
+export function getGamerBalance(data) {
+  return request({
+    url: `/user/member/getGamerBalance`,
+    method: 'post',
+    data
+  })
+}
