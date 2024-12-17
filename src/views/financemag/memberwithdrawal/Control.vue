@@ -1,6 +1,7 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <!-- <el-button type="primary" @click="getroleAdd()">新增</el-button> -->
+    <el-input v-model="userName" style="width: 180px; margin-right: 10px" :placeholder="$t('username')" />
     <!-- 条件筛选框 -->
 
     <el-select
@@ -69,6 +70,7 @@ export default {
       aduitStatus: null, // 审核状态
       orderNo: '', // 订单号
       cashChannelId: '', // 提现渠道id
+      userName:'', // 会员账号
       noticetype: [
         { title: this.$t('PendingReview'), index: 0 },
         { title: this.$t('Approve'), index: 1 },
@@ -128,7 +130,8 @@ export default {
       this.$emit('query', {
         aduitStatus: this.aduitStatus,
         orderNo: this.orderNo,
-        cashChannelId: this.cashChannelId
+        cashChannelId: this.cashChannelId,
+        userName: this.userName
       })
     },
     // 恢复默认查找
@@ -136,6 +139,7 @@ export default {
       this.aduitStatus = null
       this.orderNo = ''
       this.cashChannelId = ''
+      this.userName = ''
       this.$emit('resetting')
     }
   }

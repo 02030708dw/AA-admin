@@ -506,5 +506,9 @@ export default {
   RewardconfigurationID: 'ID cấu hình thưởng',
   Collectiontime: 'Thời gian nhận thưởng',
   carousel:'carousel',
-  popup:"popup"
+  popup:"popup",
+  UserAccountName:'User account name',
+  UserBankCardNumber:'User bank card number',
+  UserBankName:'User bank name',
+  WithdrawOrderNumber: 'Withdraw order number',
 }

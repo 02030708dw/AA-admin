@@ -506,6 +506,10 @@ export default {
     RewardconfigurationID: 'IDการกำหนดรางวัล',
     Collectiontime: 'เวลารับ',
     carousel:'carousel',
-    popup:"popup"
+    popup:"popup",
+    UserAccountName:'User account name',
+    UserBankCardNumber:'User bank card number',
+    UserBankName:'User bank name',
+    WithdrawOrderNumber: 'Withdraw order number',
   }
   
