@@ -2,11 +2,11 @@
 import request from '@/utils/request'
 
 // 分页数据
-export function MemberwithdrawalPage({ pageNo, pageSize, aduitStatus, cashChannelId, orderNo }) {
+export function MemberwithdrawalPage({ pageNo, pageSize, aduitStatus, cashChannelId, orderNo, userName }) {
   return request({
     url: '/finance/memberCashRecord/page',
     method: 'get',
-    params: { pageNo, pageSize, aduitStatus, cashChannelId, orderNo }
+    params: { pageNo, pageSize, aduitStatus, cashChannelId, orderNo, userName}
   })
 }
 

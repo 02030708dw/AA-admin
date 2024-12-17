@@ -61,7 +61,8 @@ export default {
         return {
             dialogVisible: false,
             ruleForm: {
-                threePayIds:[]
+                threePayIds:[],
+                threePayId: '',
             },
             threePayList: [],
             rules: {
@@ -71,7 +72,7 @@ export default {
     }, 
     computed: {
         ThreePayfiletr() {
-            return this.threePayList.filter(item => this.ruleForm.threePayIds.includes(item.id))
+            return this.ruleForm?.threePayIds?.length && this.threePayList.filter(item => this.ruleForm.threePayIds.includes(item.id))
         }
     },
     created() {
@@ -102,7 +103,7 @@ export default {
                         bankName: this.ruleForm.bankName,
                         ifsc: this.ruleForm.ifsc ? this.ruleForm.ifsc : 'no',
                         orderNo: this.ruleForm.orderNo,
-                        threePayId: this.ruleForm.threePayId,
+                        threePayId: +this.ruleForm.threePayId,
                     }
                     this.$emit("pay", ruleForm);
                     // 关闭弹窗
