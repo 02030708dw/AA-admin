@@ -44,6 +44,7 @@
               {{ $creationTime(scope.row.createdAt) }}
           </template>
         </el-table-column>
+        <el-table-column prop="creator" :label="$t('Updatedby')" width="" />
       </el-table>
     </el-card>
 

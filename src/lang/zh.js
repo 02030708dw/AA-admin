@@ -518,5 +518,9 @@ export default {
   RewardconfigurationID:'奖励配置ID',
   Collectiontime:'领取时间',
   carousel:'轮播',
-  popup:"弹窗"
+  popup:"弹窗",
+  UserAccountName:'入款账户名称',
+  UserBankCardNumber:'入款银行卡号',
+  UserBankName:'入款银行名称',
+  WithdrawOrderNumber: '提现订单号',
 }

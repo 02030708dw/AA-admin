@@ -35,6 +35,7 @@ export default {
       aduitStatus: null,
       orderNo: '',
       cashChannelId: '',
+      userName:'',
       PagesSize: 20
     }
   },
@@ -89,7 +90,7 @@ export default {
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      MemberwithdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId })
+      MemberwithdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId, userName: this.userName})
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -114,7 +115,7 @@ export default {
     getMemWitdata(index) {
       // 记录当前页码
       this.pageNo = index
-      MemberwithdrawalPage({ pageNo: index, pageSize: this.PagesSize, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId })
+      MemberwithdrawalPage({ pageNo: index, pageSize: this.PagesSize, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId, userName: this.userName })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -128,6 +129,7 @@ export default {
       this.aduitStatus = e.aduitStatus
       this.orderNo = e.orderNo
       this.cashChannelId = e.cashChannelId
+      this.userName = e.userName
       this.getMemWitdata(1)
     },
     // 恢复默认查询
@@ -135,6 +137,7 @@ export default {
       this.aduitStatus = null
       this.orderNo = ''
       this.cashChannelId = ''
+      this.userName = ''
       this.getMemWitdata(1)
     }
   }
