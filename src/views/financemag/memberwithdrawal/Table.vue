@@ -68,8 +68,8 @@
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
             }}</el-button>
           <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')" v-if="scope.row.aduitStatus === 0"
-            :title="$t('passthrough')" @confirm="getaudit(1, scope.row.id)">
-            <el-button style="margin-right: 5px;" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
+            :title="$t('passthrough')" >
+            <el-button @click="getaudit(1, scope.row.id)" style="margin-right: 5px;" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
               {{ $t("passthrough") }}
             </el-button>
           </el-popconfirm>
