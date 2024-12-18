@@ -103,7 +103,7 @@ export default {
                         bankName: this.ruleForm.bankName,
                         ifsc: this.ruleForm.ifsc ? this.ruleForm.ifsc : 'no',
                         orderNo: this.ruleForm.orderNo,
-                        threePayId: +this.ruleForm.threePayId,
+                        threePayId: this.ruleForm.threePayId,
                     }
                     this.$emit("pay", ruleForm);
                     // 关闭弹窗
