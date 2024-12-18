@@ -1,8 +1,8 @@
 <template>
   <!-- 下级代理明细 -->
   <el-card>
-    <Control ref="ControlView" @Refresh="HandelRefresh" @query="Handelquery" />
-    <Table ref="TableView" :table-data="tableData" />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" @query="Handelquery" />
+    <Table ref="TableView" :table-data="tableData" :result-set="resultSet" />
     <Pagination :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
   </el-card>
 </template>
@@ -27,19 +27,32 @@ export default {
       pageNo: 1,
       // 页数
       PagesSize: 20,
-      name: ''
+      name: '',
+      // 开始时间
+      startDate: '',
+      // 结束时间
+      endDate: '',
+      resultSet:{},
     }
   },
   mounted() {
 
   },
   methods: {
+    // 时间选择
+    HandelSelectDate(data) {
+      this.startDate = data.startDate
+      this.endDate = data.endDate
+      // 请求数据
+      this.getData(1)
+    },
     // 请求数据
     getData(index = 1) {
       this.pageNo = index
-      getaAentDetailPages({ pageNo: index, pageSize: this.PagesSize, name: this.name, }).then(res => {
-        this.tableData = res.resultSet.data
-        this.total = res.resultSet.total
+      getaAentDetailPages({ pageNo: index, pageSize: this.PagesSize, name: this.name,startDate:this.startDate,endDate:this.endDate }).then(res => {
+        this.tableData = res.resultSet.date
+        this.resultSet = res.resultSet
+        this.total = +res.resultSet.total
       }).catch(err => {
         console.log(err)
       })
@@ -52,9 +65,10 @@ export default {
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      getaAentDetailPages({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, }).then(res => {
-        this.tableData = res.resultSet.data
-        this.total = res.resultSet.total
+      getaAentDetailPages({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name,startDate:this.startDate,endDate:this.endDate }).then(res => {
+        this.tableData = res.resultSet.date
+        this.resultSet = res.resultSet
+        this.total = +res.resultSet.total
         setTimeout(() => {
           this.$refs.ControlView.HandelBtnStatus()
           this.$refs.TableView.HandelLoading(false)
