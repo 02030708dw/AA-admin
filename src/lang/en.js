@@ -510,4 +510,6 @@ export default {
   UserBankCardNumber: 'User bank card number',
   UserBankName: 'User bank name',
   WithdrawOrderNumber: 'Withdraw order number',
+  Other: "Other",
+  Promotions: "Promotions",
 }
