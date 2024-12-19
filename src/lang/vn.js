@@ -53,6 +53,7 @@ export default {
     Maintenance: 'Bảo trì nhà cung cấp trò chơi',
     AgentDetail: 'Agent Detail',
     MemberBets:'Member Bets',
+    Sysconfig:'System Configuration',
   },
   role: {
     permission: 'quyền hạn'

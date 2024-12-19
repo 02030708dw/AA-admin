@@ -65,6 +65,7 @@ export default {
     rewardrecord: "用户奖励记录",
     AgentDetail: '下级代理明细表',
     MemberBets:'会员投注表',
+    sysconfig:'系统配置',
   },
   role: {
     permission: '权限'

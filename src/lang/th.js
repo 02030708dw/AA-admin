@@ -53,6 +53,7 @@ export default {
       Maintenance:'การบำรุงรักษาเกมเมอร์',
       AgentDetail: 'Agent Detail',
       MemberBets:'Member Bets',
+      Sysconfig:'System Configuration',
     },
     role: {
       permission: 'การอนุญาต'
