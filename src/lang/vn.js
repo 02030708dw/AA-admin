@@ -53,6 +53,7 @@ export default {
     Maintenance: 'Bảo trì nhà cung cấp trò chơi',
     AgentDetail: 'Agent Detail',
     MemberBets:'Member Bets',
+    Sysconfig:'System Configuration',
   },
   role: {
     permission: 'quyền hạn'
@@ -511,4 +512,6 @@ export default {
   UserBankCardNumber:'User bank card number',
   UserBankName:'User bank name',
   WithdrawOrderNumber: 'Withdraw order number',
+  Other: "Chơi thử",
+  Promotions: "Cộng khuyến mại",
 }

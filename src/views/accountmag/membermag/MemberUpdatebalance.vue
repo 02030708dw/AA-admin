@@ -13,11 +13,11 @@
       </el-form-item>
       <el-form-item :label="$t('Operationtype')" prop="type">
         <el-radio-group v-model="FormData.type">
-          <el-radio-button :label="6">{{'平台加扣款'}}</el-radio-button>
-          <el-radio-button :label="9">{{'活动奖金'}}</el-radio-button>
+          <el-radio-button :label="6">{{$t('Other')}}</el-radio-button>
+          <el-radio-button :label="9">{{$t('Promotions')}}</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item :label="$t('加减')" prop="operate">
+      <el-form-item label="+/-" prop="operate">
         <el-radio-group v-model="FormData.operate">
           <el-radio-button :label="1">{{$t('addmoney')}}</el-radio-button>
           <el-radio-button :label="2">{{$t('deductmoney')}}</el-radio-button>
