@@ -7,7 +7,7 @@
     </el-select>
     <!-- 选择日期 -->
     <el-date-picker v-model="value" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
-      :start-placeholder="$t('Startdate')" :end-placeholder="$t('EndDate')" :picker-options="pickerOptions" @blur="heandlerTime" />
+      :start-placeholder="$t('Startdate')" :end-placeholder="$t('EndDate')" :picker-options="pickerOptions" @change="heandlerTime" />
     <el-select clearable v-model="isClaimed" :placeholder="$t('Typeofclaim')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in [{ index: 1, title: '是' }, { index: 0, title: '否' }]" :key="index"
         :value="item.index" :label="item.title" />
@@ -69,7 +69,7 @@ export default {
     // 选择日期
     heandlerTime() {
       const timearr = []
-      for (let i = 0; i < this.value.length; i++) {
+      for (let i = 0; i < this.value?.length; i++) {
         const date = new Date(this.value[i])
         const year = date.getFullYear()
         const month =

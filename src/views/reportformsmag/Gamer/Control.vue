@@ -10,7 +10,7 @@
       start-placeholder="开始日期"
       end-placeholder="结束日期"
       :picker-options="pickerOptions"
-      @blur="heandlerTime"
+      @change="heandlerTime"
     />
     <!-- 选择代理 -->
     <el-select
@@ -108,7 +108,7 @@ export default {
     // 选择日期
     heandlerTime() {
       const timearr = []
-      for (let i = 0; i < this.value.length; i++) {
+      for (let i = 0; i < this.value?.length; i++) {
         const date = new Date(this.value[i])
         const year = date.getFullYear()
         const month =
