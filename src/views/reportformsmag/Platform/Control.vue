@@ -11,7 +11,7 @@
       start-placeholder="开始日期"
       end-placeholder="结束日期"
       :picker-options="pickerOptions"
-      @blur="heandlerTime"
+      @change="heandlerTime"
     />
     <!-- 刷新 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
@@ -62,7 +62,7 @@ export default {
     // 选择日期
     heandlerTime() {
       const timearr = []
-      for (let i = 0; i < this.value.length; i++) {
+      for (let i = 0; i < this.value?.length; i++) {
         const date = new Date(this.value[i])
         const year = date.getFullYear()
         const month =

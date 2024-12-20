@@ -5,7 +5,7 @@
       @blur="() => heandlerTime('application')" />
     <el-date-picker style="margin-left:10px;" v-model="review" type="daterange" align="right" unlink-panels
       :range-separator="$t('to')" :start-placeholder="$t('Auditstartdate')" :end-placeholder="$t('Auditenddate')" :picker-options="pickerOptions"
-      @blur="() => heandlerTime('review')" />
+      @change="() => heandlerTime('review')" />
     <el-input v-model="memberId" style="width: 200px;margin-left:10px;" :placeholder="$t('MemberID')" />
     <el-input v-model="reviewerId" style="width: 200px;margin-left:10px;" :placeholder="$t('ReviewerID')" />
     <el-select v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
@@ -94,7 +94,7 @@ export default {
     // 选择日期
     heandlerTime(type) {
       const timearr = []
-      for (let i = 0; i < this[type].length; i++) {
+      for (let i = 0; i < this[type]?.length; i++) {
         const date = new Date(this[type][i])
         const year = date.getFullYear()
         const month =

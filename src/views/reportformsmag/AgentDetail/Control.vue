@@ -4,7 +4,7 @@
     <!-- 选择日期 -->
     <el-date-picker v-model="value" style="margin-right: 10px;" type="daterange" align="right" unlink-panels
       :range-separator="$t('to')" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions"
-      @blur="heandlerTime" />
+      @change="heandlerTime" />
     <el-button style="margin-left: 10px" type="primary" @click="getquery()"> {{
       $t('query') }} </el-button>
     <!-- 刷新 -->
@@ -58,7 +58,7 @@ export default {
     // 选择日期
     heandlerTime() {
       const timearr = []
-      for (let i = 0; i < this.value.length; i++) {
+      for (let i = 0; i < this.value?.length; i++) {
         const date = new Date(this.value[i])
         const year = date.getFullYear()
         const month =

@@ -62,6 +62,7 @@ export default {
     Maintenance: 'Game Vendor Maintenance',
     AgentDetail: 'Agent Detail',
     MemberBets: 'Member Bets',
+    Sysconfig:'System Configuration',
   },
   role: {
     permission: 'Permission'
@@ -509,4 +510,6 @@ export default {
   UserBankCardNumber: 'User bank card number',
   UserBankName: 'User bank name',
   WithdrawOrderNumber: 'Withdraw order number',
+  Other: "Other",
+  Promotions: "Promotions",
 }

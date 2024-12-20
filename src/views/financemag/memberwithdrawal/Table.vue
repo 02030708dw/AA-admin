@@ -67,9 +67,9 @@
         <template slot-scope="scope">
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
             }}</el-button>
-          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')" v-if="scope.row.aduitStatus === 0"
-            :title="$t('passthrough')" >
-            <el-button @click="getaudit(1, scope.row.id)" style="margin-right: 5px;" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
+          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
+            v-if="scope.row.aduitStatus === 0" :title="$t('passthrough')" @onConfirm="getaudit(1, scope.row.id)">
+            <el-button style="margin-right: 5px;" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
               {{ $t("passthrough") }}
             </el-button>
           </el-popconfirm>
@@ -77,10 +77,13 @@
             @click="getaudit(2, scope.row.id)">
             {{ $t("reject") }}
           </el-button>
-          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text"
-            style="color: #a4a4a4" @click="getaudit(3, scope.row.id)">
-            {{ $t("cancellation") }}
-          </el-button>
+          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
+            v-if="scope.row.aduitStatus === 0" :title="$t('cancellation')" @onConfirm="getaudit(3, scope.row.id)">
+            <el-button slot="reference" v-has="'memberwithdrawal:aduit'" type="text"
+              style="margin-left: 5px; color: #a4a4a4">
+              {{ $t("cancellation") }}
+            </el-button>
+          </el-popconfirm>
           <el-button v-has="'memberwithdrawal:fo'" v-if="scope.row.aduitStatus === 0" type="text"
             @click="Handelpay(scope.row)">{{ $t("Paymentonbehalf") }}</el-button>
         </template>
