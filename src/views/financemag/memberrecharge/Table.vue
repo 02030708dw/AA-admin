@@ -19,6 +19,8 @@
           {{ scope.row.channelName }}
         </template>
       </el-table-column>
+      <el-table-column prop="threePayName" :label="$t('ThreePartyNames')" width="" />
+
       <!-- <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" /> -->
       <!-- <el-table-column prop="bankName" :label="$t('BankName')" width="" /> -->
 
