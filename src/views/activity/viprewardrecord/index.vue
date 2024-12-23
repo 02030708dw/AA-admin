@@ -14,10 +14,7 @@ import Control from './Control'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import {
   ServicePage,
-  ServiceAdd,
-  ServiceDel,
-  ServiceEdit
-} from '@/api/activity/vipreward'
+} from '@/api/activity/viprewardrecord'
 export default {
   components: {
     Table,
@@ -30,11 +27,8 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      startTime: null, //领取类型
-      entTime: null,//奖励类型
       isClaimed: null,//是否领取过
-      memberId: null,//用户id
-      vipRewardId: null,//vip奖励id
+      name: null,//用户名
     }
   },
   created() {
@@ -57,7 +51,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, startTime: this.startTime, entTime: this.entTime, isClaimed: this.isClaimed, memberId: this.memberId, vipRewardId: this.vipRewardId
+        pageNo: this.pageNo, pageSize: this.PagesSize, isClaimed: this.isClaimed, name: this.name
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -79,7 +73,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, startTime: this.startTime, entTime: this.entTime, isClaimed: this.isClaimed, memberId: this.memberId, vipRewardId: this.vipRewardId })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, isClaimed: this.isClaimed, name: this.name,  })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -90,14 +84,12 @@ export default {
     },
     getquery(e) {
       this.isClaimed = e.isClaimed
-      this.memberId = e.memberId
-      this.vipRewardId = e.vipRewardId
+      this.name = e.name
       this.getdata(1)
     },
     getresetting() {
       this.isClaimed = null
-      this.memberId = null
-      this.vipRewardId = null
+      this.name = null
       this.getdata(1)
     },
     // 删除
