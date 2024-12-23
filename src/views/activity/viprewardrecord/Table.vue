@@ -2,19 +2,15 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="userName" :label="$t('username')" />
       <el-table-column prop="vipLevel" :label="$t('VIPlevel')" />
-      <el-table-column prop="rewardValue" :label="$t('Rewardvalue')" />
-      <el-table-column prop="" :label="$t('Typeofclaim')">
-        <template slot-scope="scope">
-          {{ getRepeatableType(scope.row.repeatableType) }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="" :label="$t('Typeofclaim')">
-        <template slot-scope="scope">
-          {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
-        </template>
-      </el-table-column>
       <el-table-column prop="description" :label="$t('describe')" />
+      <el-table-column prop="rebateAmount" :label="$t('Rebateamount')" />
+      <el-table-column prop="" :label="$t('Hasitbeencollected')">
+        <template slot-scope="scope">
+          {{ scope.row.isClaimed == 1 ? $t('correct') : $t('deny') }}
+        </template>
+      </el-table-column>
       <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
