@@ -29,6 +29,10 @@ export default {
       PagesSize: 20,
       isClaimed: null,//是否领取过
       name: null,//用户名
+      // 开始时间
+      startDate: '',
+      // 结束时间
+      endDate: '',
     }
   },
   created() {
@@ -37,10 +41,10 @@ export default {
   methods: {
     // 时间选择
     HandelSelectDate(data) {
-      this.startTime = data.startDate
-      this.entTime = data.endDate
+      this.startDate = data.startDate
+      this.endDate = data.endDate
       // 请求数据
-      this.getData(1)
+      this.getdata(1)
     },
     HandelPagesChange(e) {
       this.PagesSize = e
@@ -51,7 +55,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, isClaimed: this.isClaimed, name: this.name
+        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -73,7 +77,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, isClaimed: this.isClaimed, name: this.name,  })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
