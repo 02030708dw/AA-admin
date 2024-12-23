@@ -11,6 +11,11 @@
           {{ scope.row.isClaimed == 1 ? $t('correct') : $t('deny') }}
         </template>
       </el-table-column>
+      <el-table-column prop="" :label="$t('Collectiontime')">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row.claimedTime) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
