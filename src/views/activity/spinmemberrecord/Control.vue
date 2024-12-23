@@ -1,5 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
+    <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
     <!-- 选择日期 -->
     <el-date-picker v-model="value" style="margin-right: 10px;" type="daterange" align="right" unlink-panels
       :range-separator="$t('to')" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions"
@@ -50,6 +51,7 @@ export default {
       value: '',
       // 按钮状态
       btnIcoType: true,
+      name:'',
     }
   },
   methods: {
