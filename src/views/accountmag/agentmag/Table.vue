@@ -7,7 +7,8 @@
       <el-table-column prop="password" :label="$t('password')" width="" />
       <el-table-column prop="realName" :label="$t('name')" width="" />
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
-
+      <el-table-column prop="firstLevelDailyRate" :label="$t('一级日盈利率')" width="" />
+      <el-table-column prop="secondLevelDailyRate" :label="$t('二级日盈利率')" width="" />
       <el-table-column prop="assiRate" :label="$t('Matchablerebate')" width="" />
       <el-table-column prop="parentId" :label="$t('parentId')" width="" />
       <el-table-column prop="parentRate" :label="$t('Superiorrebate')" width="" />
