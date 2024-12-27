@@ -1,11 +1,12 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @Refresh="HandelRefresh" @AgentAdd="getAgentAddShow" @Agequery="getAgequery"
+    <Control ref="ControlView" @Refresh="HandelRefresh"   @AgentAdd="getAgentAddShow" @Agequery="getAgequery"
       @resetting="getresetting" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @transfer="getTransferShow" @updateStatus="getAgentUdateStatus" />
+    <Table ref="TableView" :table-data="tableData" @Edit="getAgentEditShow" @transfer="getTransferShow" @updateStatus="getAgentUdateStatus" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getAgentdata" />
     <AgentAdd ref="AgentAdd" @confirm="getAgentAdd" />
+    <AgentEdit ref="AgentEdit" @confirm="getAgentEdit" />
     <AgentTransfer ref="AgentTransfer" @confirm="getTransferConfirm" />
   </el-card>
 </template>
@@ -16,15 +17,17 @@ import Control from './Control.vue'
 // 分页
 import Pagination from '@/components/Pagination/Pagination.vue'
 import AgentAdd from './AgentAdd.vue'
+import AgentEdit from './AgentEdit.vue'
 import AgentTransfer from './AgentTransfer.vue'
 import {
   AgentPage,
   AgentUpdateStatus,
-  AddAgent,
+  AddAgent, 
+  EditAgent,
   TransferAgent
 } from '@/api/account/agent'
 export default {
-  components: { Table, Pagination, Control, AgentAdd, AgentTransfer },
+  components: { Table, Pagination, Control, AgentAdd, AgentTransfer,AgentEdit },
   data() {
     return {
       // 总条数
@@ -130,11 +133,11 @@ export default {
       this.$refs.AgentTransfer.getStatus(data)
     },
     //转移
-    getTransferConfirm(data){
+    getTransferConfirm(data) {
       TransferAgent({
-        agentS:data.agentS,
-        oldAgentId:data.oldAgentId,
-        targetAgentId:data.targetAgentId
+        agentS: data.agentS,
+        oldAgentId: data.oldAgentId,
+        targetAgentId: data.targetAgentId
       })
         .then((res) => {
           this.getAgentdata(this.pageNo)
@@ -146,6 +149,22 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    // 显示编辑弹窗
+    getAgentEditShow(e) {
+      this.$refs.AgentEdit.getEditstatus(e)
+    },
+    // 编辑
+    getAgentEdit(e) {
+      EditAgent({ id: e.id, firstLevelDailyRate: e.firstLevelDailyRate, secondLevelDailyRate: e.secondLevelDailyRate, email: e.email }).then(res => {
+        this.getAgentdata(this.pageNo)
+        this.$message({
+          message: '编辑成功!',
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message.error('编辑失败!')
+      })
     },
   }
 }
