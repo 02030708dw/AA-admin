@@ -24,7 +24,7 @@
 
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-has="'agent:transfer'" type="text" @click="geteroleEitor(scope.row)">{{
+          <el-button  type="text" @click="geteroleEitor(scope.row)">{{
       $t("Transfersubordinateagents")
     }}</el-button>
         </template>
