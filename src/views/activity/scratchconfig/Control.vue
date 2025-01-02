@@ -1,11 +1,11 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button v-has="'demogame:create'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
     <el-select v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
     </el-select>
     <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
-    <el-button v-has="'noticemag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
+    <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
       }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')

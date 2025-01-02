@@ -2,24 +2,10 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="vipLevel" :label="$t('VIPlevel')" />
-      <el-table-column prop="rewardValue" :label="$t('Rewardvalue')" />
-      <el-table-column prop="" :label="$t('Typeofclaim')">
-        <template slot-scope="scope">
-          {{ getRepeatableType(scope.row.repeatableType) }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="" :label="$t('Typeofclaim')">
-        <template slot-scope="scope">
-          {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
-        </template>
-      </el-table-column>
+      <el-table-column prop="name" label="权重组名称" />
+      <el-table-column prop="scratchConfigId" label="刮刮乐活动配置id" />
       <el-table-column prop="description" :label="$t('describe')" />
-      <el-table-column prop="sort" :label="$t('Creationtime')">
-        <template slot-scope="scope">
-          {{ $creationTime(scope.row.createdAt) }}
-        </template>
-      </el-table-column>
+      <el-table-column prop="creator" label="创建人" />
       <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
@@ -86,6 +72,10 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    // 修改状态
+    getUdateStatus(e, id) {
+      this.$emit('UdateStatus', { status: e, id: id })
     },
   }
 }

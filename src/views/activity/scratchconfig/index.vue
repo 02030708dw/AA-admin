@@ -98,7 +98,7 @@ export default {
     getAddShow() {
       this.$refs.ComponentsAdd.getAddstatus()
     },
-    // 添加公告
+  
     getAdd(e) {
       ServiceAdd(e)
         .then((res) => {

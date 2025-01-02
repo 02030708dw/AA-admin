@@ -1,28 +1,14 @@
 <template>
   <el-dialog :title="$t('edit')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item :label="$t('Typeofclaim')">
-        <el-select v-model="ruleForm.repeatableType" :placeholder="$t('Typeofclaim')" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 1, title: 'Takeonce' }, { index: 2, title: 'Receiveddaily' }]" :key="index"
-            :value="item.index" :label="item.title" />
-        </el-select>
+      <el-form-item label="奖金" prop="prize">
+        <el-input v-model="ruleForm.prize" />
       </el-form-item>
-      <el-form-item :label="$t('RewardType')">
-        <el-select v-model="ruleForm.rewardType" :placeholder="$t('RewardType')" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 1, title: 'bonus' }, { index: 2, title: 'defect' }]" :key="index"
-            :value="item.index" :label="$t(item.title)" />
-        </el-select>
+      <el-form-item label="权重分组id" prop="scratchWeightGroupId">
+        <el-input v-model="ruleForm.scratchWeightGroupId" />
       </el-form-item>
-      <el-form-item :label="$t('VIPlevel')">
-        <el-select v-model="ruleForm.vipConfigId" :placeholder="$t('VIPlevel')" style="width: 200px">
-          <el-option v-for="(item, index) in vipLevelList" :key="index" :value="item.index" :label="item.title" />
-        </el-select>
-      </el-form-item>
-      <el-form-item :label="$t('Rewardvalue')">
-        <el-input v-model="ruleForm.rewardValue" />
-      </el-form-item>
-      <el-form-item :label="$t('describe')">
-        <el-input v-model="ruleForm.description" />
+      <el-form-item label="权重" prop="weight">
+        <el-input v-model="ruleForm.weight" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -36,28 +22,24 @@
 
 <script>
 export default {
-  props: {
-    vipLevelList: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    }
-  },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        "description": "",
-        "repeatableType": 0,
-        "rewardType": 0,
-        "rewardValue": 0,
-        "vipConfigId": 0
+        "prize": 0,
+        "scratchWeightGroupId": 0,
+        "weight": 0
       },
       rules: {
-
-      }
+        prize: [{ required: true, message: '请输入奖金', trigger: 'blur' }],
+        scratchWeightGroupId: [
+          { required: true, message: '请输入权重分组id', trigger: 'blur' }
+        ],
+        weight: [
+          { required: true, message: '请输入权重', trigger: 'blur' }
+        ],
+      },
     }
   },
   methods: {
@@ -66,11 +48,9 @@ export default {
       this.dialogVisible = !this.dialogVisible
       if (!this.dialogVisible) {
         this.ruleForm = {
-          "description": "",
-          "repeatableType": null,
-          "rewardType": null,
-          "rewardValue": null,
-          "vipConfigId": null
+          "prize": null,
+          "scratchWeightGroupId": null,
+          "weight": null
         }
       } else {
         this.ruleForm = { ...data }

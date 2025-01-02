@@ -6,7 +6,7 @@
       <el-option v-for="(item, index) in [{ index: 0, title: '普通用户' }, { index: 1, title: '代理' }]" :key="index"
         :value="item.index" :label="$t(item.title)" />
     </el-select>
-    <el-button v-has="'noticemag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
+    <el-button  style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
       }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
