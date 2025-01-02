@@ -148,8 +148,6 @@ export default {
     },
     //修改状态
     getStatus(data) {
-      console.log(data);
-
       ServiceEdit(data)
         .then((res) => {
           this.$message({

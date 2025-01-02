@@ -1,15 +1,15 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button v-has="'demogame:create'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
-    <el-select clearable v-model="repeatable_type" :placeholder="$t('Typeofclaim')" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in [{ index: 1, title: 'Takeonce' }, { index: 2, title: 'Receiveddaily' }]" :key="index"
-        :value="item.index" :label="item.title" />
+    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-select clearable v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
     </el-select>
-    <el-select clearable v-model="reward_type" :placeholder="$t('RewardType')" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in [{ index: 1, title: 'bonus' }, { index: 2, title: 'defect' }]" :key="index"
-        :value="item.index" :label="$t(item.title)" />
+    <el-select clearable v-model="triggerType" placeholder="触发类型" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in triggerTypeList" :key="index" :value="item.index" :label="item.title" />
     </el-select>
-    <el-button v-has="'noticemag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
+    <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
+    <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
+      }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
       }}</el-button>
@@ -22,11 +22,20 @@ export default {
   name: 'Control',
   data() {
     return {
-      account: null,
-      type: null,
-      repeatable_type: null, //领取类型
-      reward_type: null,//奖励类型
+      name: null,
+      status:null,
       btnIcoType: true,
+      triggerType: null,
+      triggerTypeList: [
+        { index: 1, title: '注册' },
+        { index: 2, title: '使用优惠券次数' },
+        { index: 3, title: '充值总额' },
+        { index: 4, title: '充值次数' },
+      ],
+      statusType: [
+        { title: '停用', index: 0 },
+        { title: '启用', index: 1 }
+      ],
     }
   },
   methods: {
@@ -49,7 +58,7 @@ export default {
       this.btnIcoType = true
     },
     getquery() {
-      this.$emit('query', { repeatable_type: this.repeatable_type, reward_type: this.reward_type })
+      this.$emit('query', { name: this.name, status: this.status, triggerType: this.triggerType })
     },
   }
 }
