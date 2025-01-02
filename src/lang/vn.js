@@ -54,6 +54,13 @@ export default {
     AgentDetail: 'Agent Detail',
     MemberBets:'Member Bets',
     Sysconfig:'System Configuration',
+    scratchconfig:'Scratch Config',
+    scratchmember:'Scratch Member',
+    scratchmemberrecord:'Scratch Member Record',
+    scratchprizeconfig:'Scratch Prize Config',
+    scratchweightgroup:'Scratch Weight Group',
+    voucherconfig:'Voucher Config',
+    vouchermember:'Member Voucher',
   },
   role: {
     permission: 'quyền hạn'
