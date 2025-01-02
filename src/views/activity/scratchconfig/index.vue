@@ -3,10 +3,10 @@
     <Control ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
+    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd ref="ComponentsAdd" :vipLevelList="vipLevelList" @confirm="getAdd" />
-    <ComponentsEitor ref="ComponentsEitor" :vipLevelList="vipLevelList" @confirm="getEitor" />
+    <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
+    <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -21,8 +21,7 @@ import {
   ServiceAdd,
   ServiceDel,
   ServiceEdit
-} from '@/api/activity/vipreward'
-import { getVipLevel } from '@/api/activity/vipconfig'
+} from '@/api/activity/scratchconfig'
 export default {
   components: {
     Table,
@@ -37,28 +36,14 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      repeatable_type: null, //领取类型
-      reward_type: null,//奖励类型
-      vipLevelList: []
+      name: null, //
+      status: null,//
     }
   },
   created() {
     this.getdata(1)
-    this.getVipLevelList()
   },
   methods: {
-    // 获取vip等级id
-    getVipLevelList() {
-      this.vipLevelList = []
-      getVipLevel({ pageNo: 1, pageSize: 100 }).then(res => {
-        for (let i = 0; i < res.resultSet.length; i++) {
-          this.vipLevelList.push({
-            title: res.resultSet[i].description,
-            index: res.resultSet[i].id
-          })
-        }
-      })
-    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
@@ -68,7 +53,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, repeatable_type: this.repeatable_type, reward_type: this.reward_type
+        pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, status: this.status
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -90,7 +75,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, repeatable_type: this.repeatable_type, reward_type: this.reward_type })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, name: this.name, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -100,13 +85,13 @@ export default {
         })
     },
     getquery(e) {
-      this.repeatable_type = e.repeatable_type
-      this.reward_type = e.reward_type
+      this.name = e.name
+      this.status = e.status
       this.getdata(1)
     },
     getresetting() {
-      this.repeatable_type = null
-      this.reward_type = null
+      this.name = null
+      this.status = null
       this.getdata(1)
     },
     // 显示添加弹窗
@@ -158,6 +143,23 @@ export default {
         })
         .catch((err) => {
           this.$message.error('编辑失败!')
+          console.log(err)
+        })
+    },
+    //修改状态
+    getStatus(data) {
+      console.log(data);
+
+      ServiceEdit(data)
+        .then((res) => {
+          this.$message({
+            message: '修改成功!',
+            type: 'success'
+          })
+          this.getdata(this.pageNo)
+        })
+        .catch((err) => {
+          this.$message.error('修改失败!')
           console.log(err)
         })
     },

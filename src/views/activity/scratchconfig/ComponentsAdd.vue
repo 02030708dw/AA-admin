@@ -1,25 +1,27 @@
 <template>
   <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item :label="$t('Typeofclaim')">
-        <el-select v-model="ruleForm.repeatableType" :placeholder="$t('Typeofclaim')" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 1, title: 'Takeonce' }, { index: 2, title: 'Receiveddaily' }]" :key="index"
-            :value="item.index" :label="$t(item.title)" />
-        </el-select>
+  
+      <el-form-item :label="$t('name')" prop="name">
+        <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <el-form-item :label="$t('RewardType')">
-        <el-select v-model="ruleForm.rewardType" :placeholder="$t('RewardType')" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 1, title: 'bonus' }, { index: 2, title: 'defect' }]" :key="index"
-            :value="item.index" :label="$t(item.title)" />
-        </el-select>
+      <el-form-item label="充值奖金" prop="rechargeBonus">
+        <el-input placeholder="每个充值用户奖励的奖金(20p,代理)" v-model="ruleForm.rechargeBonus" />
       </el-form-item>
-      <el-form-item :label="$t('VIPlevel')">
-        <el-select v-model="ruleForm.vipConfigId" :placeholder="$t('VIPlevel')" style="width: 200px">
-          <el-option v-for="(item, index) in vipLevelList" :key="index" :value="item.index" :label="item.title" />
-        </el-select>
+      <el-form-item label="充值刮刮卡数量"  prop="rechargeCards">
+        <el-input  placeholder="每个充值用户奖励的刮刮卡数量" v-model="ruleForm.rechargeCards" />
       </el-form-item>
-      <el-form-item :label="$t('Rewardvalue')">
-        <el-input v-model="ruleForm.rewardValue" />
+      <el-form-item label="注册奖金"  prop="registrationBonus">
+        <el-input  placeholder="每个注册用户奖励的奖金(2p,代理)" v-model="ruleForm.registrationBonus" />
+      </el-form-item>
+      <el-form-item label="注册刮刮卡数量"  prop="registrationCards">
+        <el-input  placeholder="每个注册用户奖励的刮刮卡数量" v-model="ruleForm.registrationCards" />
+      </el-form-item>
+      <el-form-item label="每日刮刮卡初始数量" prop="dailyCardsLimit">
+        <el-input v-model="ruleForm.dailyCardsLimit" />
+      </el-form-item>
+      <el-form-item :label="$t('state')" prop="status">
+        <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
       </el-form-item>
       <el-form-item :label="$t('describe')">
         <el-input v-model="ruleForm.description" />
@@ -36,27 +38,33 @@
 
 <script>
 export default {
-  props: {
-    vipLevelList: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    }
-  },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
+        "dailyCardsLimit": 0,
         "description": "",
-        "repeatableType": 0,
-        "rewardType": 0,
-        "rewardValue": 0,
-        "vipConfigId": 0
+        "name": "",
+        "rechargeBonus": 0,
+        "rechargeCards": 0,
+        "registrationBonus": 0,
+        "registrationCards": 0,
+        "status": 0
       },
       rules: {
-
+        dailyCardsLimit: [{ required: true, message: '请输入每日刮刮卡初始数量', trigger: 'blur' }],
+        name: [
+          { required: true, message: '请输入名称', trigger: 'blur' }
+        ],
+        rechargeBonus: [
+          { required: true, message: '请输入用户奖励的奖金', trigger: 'blur' }
+        ],
+        rechargeCards: [
+          { required: true, message: '请输入用户奖励的刮刮卡数量', trigger: 'blur' }
+        ],
+        registrationBonus: [{ required: true, message: '请输入注册用户奖励的奖金', trigger: 'blur' }],
+        registrationCards: [{ required: true, message: '请输入注册用户奖励的刮刮卡数量', trigger: 'blur' }],
       },
       loading: false
     };
@@ -66,11 +74,14 @@ export default {
     getAddstatus() {
       if (!this.dialogVisible) {
         this.ruleForm = {
+          "dailyCardsLimit": null,
           "description": "",
-          "repeatableType": null,
-          "rewardType": null,
-          "rewardValue": null,
-          "vipConfigId": null
+          "name": "",
+          "rechargeBonus": null,
+          "rechargeCards": null,
+          "registrationBonus": null,
+          "registrationCards": null,
+          "status": 0
         };
       }
       this.dialogVisible = !this.dialogVisible;

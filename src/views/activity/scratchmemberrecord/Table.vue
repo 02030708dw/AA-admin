@@ -2,31 +2,29 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="vipLevel" :label="$t('VIPlevel')" />
-      <el-table-column prop="rewardValue" :label="$t('Rewardvalue')" />
-      <el-table-column prop="" :label="$t('Typeofclaim')">
+      <el-table-column prop="memberName" :label="$t('username')" />
+      <el-table-column prop="" :label="$t('customertype')">
         <template slot-scope="scope">
-          {{ getRepeatableType(scope.row.repeatableType) }}
+          {{ scope.row.type == 1 ? '游客' : '正式用户' }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('Typeofclaim')">
+      <el-table-column prop="parentMemberId" label="注册绑定上级会员ID" />
+      <el-table-column prop="prizeAmount" label="中奖金额" />
+      <el-table-column prop="scratchName" label="刮刮卡名称" />
+      <el-table-column prop="status" label="是否刮开">
         <template slot-scope="scope">
-          {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
+          {{ scope.row.status == 0 ? '否' : '是' }}
         </template>
       </el-table-column>
-      <el-table-column prop="description" :label="$t('describe')" />
+      <el-table-column prop="uniqueCode" label="游客唯一码" />
+      <el-table-column prop="updatedAt" :label="$t('Updatetime')" width="">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row.updatedAt) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="updater" :label="$t('Updatedby')" />
-      <el-table-column prop="" :label="$t('operate')" width="">
-        <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
         </template>
       </el-table-column>
     </el-table>

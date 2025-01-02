@@ -2,13 +2,11 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="vipLevel" :label="$t('VIPlevel')" />
-      <el-table-column prop="rewardValue" :label="$t('Rewardvalue')" />
-      <el-table-column prop="" :label="$t('Typeofclaim')">
-        <template slot-scope="scope">
-          {{ getRepeatableType(scope.row.repeatableType) }}
-        </template>
-      </el-table-column>
+      <el-table-column prop="name" :label="$t('name')" />
+      <el-table-column prop="rechargeBonus" label="充值奖金" />
+      <el-table-column prop="rechargeCards" label="充值刮刮卡数量" />
+      <el-table-column prop="registrationBonus" label="注册奖金" />
+      <el-table-column prop="registrationCards" label="注册刮刮卡数量" />
       <el-table-column prop="" :label="$t('Typeofclaim')">
         <template slot-scope="scope">
           {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
@@ -18,6 +16,12 @@
       <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="" :label="$t('state')" width="140">
+        <template slot-scope="scope">
+          <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
+            :active-text="$t('Enable')" :inactive-text="$t('Deactivate')" @change="getUdateStatus($event, scope.row.id)" />
         </template>
       </el-table-column>
       <el-table-column prop="updater" :label="$t('Updatedby')" />
@@ -86,6 +90,10 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    // 修改状态
+    getUdateStatus(e, id) {
+      this.$emit('UdateStatus', { status: e, id: id })
     },
   }
 }
