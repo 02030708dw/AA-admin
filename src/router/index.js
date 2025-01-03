@@ -386,6 +386,48 @@ export const asyncRoutes = [
         component: () => import('@/views/activity/rewardrecord/index'),
         meta: { title: 'rewardrecord', icon: 'el-icon-s-flag' }
       },
+      {//刮刮乐配置
+        path: "/scratchconfig",
+        name: "scratchconfig",
+        component: () => import('@/views/activity/scratchconfig/index'),
+        meta: { title: 'scratchconfig', icon: 'el-icon-s-flag' }
+      },
+      {//刮刮乐用户信息表
+        path: "/scratchmember",
+        name: "scratchmember",
+        component: () => import('@/views/activity/scratchmember/index'),
+        meta: { title: 'scratchmember', icon: 'el-icon-s-flag' }
+      },
+      {//用户刮刮卡记录
+        path: "/scratchmemberrecord",
+        name: "scratchmemberrecord",
+        component: () => import('@/views/activity/scratchmemberrecord/index'),
+        meta: { title: 'scratchmemberrecord', icon: 'el-icon-s-flag' }
+      },
+      {//刮刮乐奖金配置
+        path: "/scratchprizeconfig",
+        name: "scratchprizeconfig",
+        component: () => import('@/views/activity/scratchprizeconfig/index'),
+        meta: { title: 'scratchprizeconfig', icon: 'el-icon-s-flag' }
+      },
+      {//刮刮乐权重分组
+        path: "/scratchweightgroup",
+        name: "scratchweightgroup",
+        component: () => import('@/views/activity/scratchweightgroup/index'),
+        meta: { title: 'scratchweightgroup', icon: 'el-icon-s-flag' }
+      },
+      {//代金券配置
+        path: "/voucherconfig",
+        name: "voucherconfig",
+        component: () => import('@/views/activity/voucherconfig/index'),
+        meta: { title: 'voucherconfig', icon: 'el-icon-s-flag' }
+      },
+      {//用户代金券
+        path: "/vouchermember",
+        name: "vouchermember",
+        component: () => import('@/views/activity/vouchermember/index'),
+        meta: { title: 'vouchermember', icon: 'el-icon-s-flag' }
+      }
     ]
   },
   {

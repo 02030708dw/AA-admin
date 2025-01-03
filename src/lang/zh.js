@@ -66,6 +66,13 @@ export default {
     AgentDetail: '下级代理明细表',
     MemberBets:'会员投注表',
     sysconfig:'系统配置',
+    scratchconfig:'刮刮乐配置',
+    scratchmember:'刮刮乐用户信息表',
+    scratchmemberrecord:'用户刮刮卡记录',
+    scratchprizeconfig:'刮刮乐奖金配置',
+    scratchweightgroup:'刮刮乐权重分组',
+    voucherconfig:'代金券配置',
+    vouchermember:'用户代金券',
   },
   role: {
     permission: "权限",
