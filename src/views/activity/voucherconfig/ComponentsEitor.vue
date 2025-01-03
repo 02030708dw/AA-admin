@@ -67,7 +67,7 @@ export default {
       triggerTypeList: [
         { index: 1, title: '注册' },
         { index: 2, title: '使用优惠券次数' },
-        { index: 3, title: '充值总额' },
+        { index: 3, title: '单笔充值总额' },
         { index: 4, title: '充值次数' },
         { index: 5, title: '累计充值' },
       ],
