@@ -60,6 +60,8 @@ export default {
           return '充值总额'
         case 4:
           return '充值次数'
+        case 5:
+          return '累计充值'
       }
     },
     // 改变loading
