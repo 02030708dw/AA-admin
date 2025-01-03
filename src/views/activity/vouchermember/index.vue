@@ -1,12 +1,10 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
+    <Control ref="ControlView"  @resetting="getresetting" @query="getquery"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
+    <Table ref="TableView" :table-data="tableData" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd ref="ComponentsAdd" :vipLevelList="vipLevelList" @confirm="getAdd" />
-    <ComponentsEitor ref="ComponentsEitor" :vipLevelList="vipLevelList" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -14,22 +12,14 @@
 import Table from './Table.vue'
 import Control from './Control'
 import Pagination from '@/components/Pagination/Pagination.vue'
-import ComponentsAdd from './ComponentsAdd.vue'
-import ComponentsEitor from './ComponentsEitor.vue'
 import {
   ServicePage,
-  ServiceAdd,
-  ServiceDel,
-  ServiceEdit
-} from '@/api/activity/vipreward'
-import { getVipLevel } from '@/api/activity/vipconfig'
+} from '@/api/activity/vouchermember'
 export default {
   components: {
     Table,
     Control,
     Pagination,
-    ComponentsAdd,
-    ComponentsEitor
   },
   data() {
     return {
@@ -37,28 +27,14 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      repeatable_type: null, //领取类型
-      reward_type: null,//奖励类型
-      vipLevelList: []
+      status: null, 
+      name: null,//用户名称
     }
   },
   created() {
     this.getdata(1)
-    this.getVipLevelList()
   },
   methods: {
-    // 获取vip等级id
-    getVipLevelList() {
-      this.vipLevelList = []
-      getVipLevel({ pageNo: 1, pageSize: 100 }).then(res => {
-        for (let i = 0; i < res.resultSet.length; i++) {
-          this.vipLevelList.push({
-            title: res.resultSet[i].description,
-            index: res.resultSet[i].id
-          })
-        }
-      })
-    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
@@ -68,7 +44,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, repeatable_type: this.repeatable_type, reward_type: this.reward_type
+        pageNo: this.pageNo, pageSize: this.PagesSize, status: this.status, name: this.name
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -90,7 +66,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, repeatable_type: this.repeatable_type, reward_type: this.reward_type })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize,  status: this.status, name: this.name })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -100,66 +76,14 @@ export default {
         })
     },
     getquery(e) {
-      this.repeatable_type = e.repeatable_type
-      this.reward_type = e.reward_type
+      this.status = e.status
+      this.name = e.name
       this.getdata(1)
     },
     getresetting() {
-      this.repeatable_type = null
-      this.reward_type = null
+      this.status = null
+      this.name = null
       this.getdata(1)
-    },
-    // 显示添加弹窗
-    getAddShow() {
-      this.$refs.ComponentsAdd.getAddstatus()
-    },
-    // 添加公告
-    getAdd(e) {
-      ServiceAdd(e)
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '添加成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          console.log(err)
-          this.$message.error('添加失败!')
-        })
-    },
-    // 删除
-    getDel(id) {
-      ServiceDel(id)
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '删除成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error('删除失败!')
-          console.log(err)
-        })
-    },
-    // 显示编辑弹窗
-    getEitorShow(e) {
-      this.$refs.ComponentsEitor.getAddstatus(e)
-    },
-    getEitor(data) {
-      ServiceEdit(data)
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '编辑成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error('编辑失败!')
-          console.log(err)
-        })
     },
   }
 }

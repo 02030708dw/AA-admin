@@ -2,31 +2,23 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="vipLevel" :label="$t('VIPlevel')" />
-      <el-table-column prop="rewardValue" :label="$t('Rewardvalue')" />
-      <el-table-column prop="" :label="$t('Typeofclaim')">
+      <el-table-column prop="userName" :label="$t('username')" />
+      <el-table-column prop="" :label="$t('status')">
         <template slot-scope="scope">
-          {{ getRepeatableType(scope.row.repeatableType) }}
+          {{ getStatus(scope.row.status) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('Typeofclaim')">
+      <el-table-column prop="voucherConfigId" label="代金券配置ID" />
+      <el-table-column prop="useAt" label="使用时间" width="">
         <template slot-scope="scope">
-          {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
+          {{ $creationTime(scope.row.useAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="description" :label="$t('describe')" />
-      <el-table-column prop="sort" :label="$t('Creationtime')">
+      <el-table-column prop="expireAt" label="过期时间" width="" />
+
+      <el-table-column prop="" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="updater" :label="$t('Updatedby')" />
-      <el-table-column prop="" :label="$t('operate')" width="">
-        <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -50,16 +42,16 @@ export default {
     }
   },
   methods: {
-    getRepeatableType(v) {
+    getStatus(v) {
       switch (v) {
+        case 0:
+          return '未刮开'
         case 1:
-          return '领一次'
+          return '已使用'
         case 2:
-          return '每天领取'
+          return '已过期'
         case 3:
-          return '每月领取'
-        case 4:
-          return '每年领取'
+          return '未使用'
       }
     },
     // 改变loading
