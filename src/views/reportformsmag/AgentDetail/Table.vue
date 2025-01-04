@@ -27,6 +27,10 @@
         width="">
         <el-table-column prop="selfCashAmount" label="累计提款" width="" />
       </el-table-column>
+      <el-table-column prop="" :label="this.resultSet.sumActivityAmount ? '' + this.resultSet.sumActivityAmount : '0'"
+        width="">
+        <el-table-column prop="activityAmount" label="活动金额" width="" />
+      </el-table-column>
       <el-table-column prop="" label="注册日期" width="">
         <template slot-scope="scope">
           {{ $creationTime(scope.row?.registerDate) }}
