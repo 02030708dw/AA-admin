@@ -128,6 +128,12 @@ export default {
           return "解冻金额";
         case 9:
           return "活动金额";
+        case 10:
+          return "提现取消";
+        case 11:
+          return "提现驳回";
+        case 12:
+          return "提现成功";
       }
     },
     typeS(value) {

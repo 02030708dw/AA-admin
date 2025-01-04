@@ -81,6 +81,12 @@ export default {
           return '解冻金额'    
         case 9:
           return '活动金额'
+        case 10:
+          return '提现取消'
+        case 11:
+          return '提现驳回'    
+        case 12:
+          return '提现成功'
       }
     }
   },
@@ -95,7 +101,10 @@ export default {
         { title: '平台加扣款', index: 6 },
         { title: '冻结金额', index: 7 },
         { title: '解冻金额', index: 8 },
-        { title: '活动金额', index: 9 }
+        { title: '活动金额', index: 9 },
+        { title: '提现取消', index: 10 },
+        { title: '提现驳回', index: 11 },
+        { title: '提现成功', index: 12 },
       ],
       loading: false,
       tableData: [],
