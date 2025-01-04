@@ -57,9 +57,11 @@ export default {
         case 2:
           return '使用优惠券次数'
         case 3:
-          return '充值总额'
+          return '单笔充值总额'
         case 4:
           return '充值次数'
+        case 5:
+          return '累计充值'
       }
     },
     // 改变loading
