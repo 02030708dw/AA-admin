@@ -64,7 +64,7 @@ export default {
     typeF(value) {
       switch (value) {
         case 1:
-          return '提现'
+          return '提现发起'
         case 2:
           return '充值'
         case 3:
@@ -93,7 +93,7 @@ export default {
   data() {
     return {
       statusType: [
-        { title: '提现', index: 1 },
+        { title: '提现发起', index: 1 },
         { title: '充值', index: 2 },
         { title: '转出到游戏商', index: 3 },
         { title: '从游戏商转入', index: 4 },

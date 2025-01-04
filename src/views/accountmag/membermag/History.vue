@@ -111,7 +111,7 @@ export default {
     typeF(value) {
       switch (value) {
         case 1:
-          return "提现";
+          return "提现发起";
         case 2:
           return "充值";
         case 3:
