@@ -13,8 +13,11 @@
       <el-form-item label="最低充值金额条件" prop="minRecharge">
         <el-input v-model="ruleForm.minRecharge" />
       </el-form-item>
-      <el-form-item label="流水倍数" prop="turnoverMultiple">
-        <el-input v-model="ruleForm.turnoverMultiple" />
+      <el-form-item label="最大流水倍数" prop="maxTurnoverMultiple">
+        <el-input v-model="ruleForm.maxTurnoverMultiple" />
+      </el-form-item>
+      <el-form-item label="最小流水倍数" prop="minTurnoverMultiple">
+        <el-input v-model="ruleForm.minTurnoverMultiple" />
       </el-form-item>
       <el-form-item label="触发条件值" prop="conditionValue">
         <el-input v-model="ruleForm.conditionValue" />
@@ -49,11 +52,12 @@ export default {
         "amount": 0,
         "conditionValue": 0,
         "expirationDate": 0,
+        "maxTurnoverMultiple": 0,
         "minRecharge": 0,
+        "minTurnoverMultiple": 0,
         "name": "",
         "status": 0,
-        "triggerType": 0,
-        "turnoverMultiple": 0
+        "triggerType": 0
       },
       rules: {
         amount: [{ required: true, message: '请输入代金券金额', trigger: 'blur' }],
@@ -62,7 +66,8 @@ export default {
         minRecharge: [{ required: true, message: '请输入最低充值金额条件', trigger: 'blur' }],
         name: [{ required: true, message: '请输入代金券名称', trigger: 'blur' }],
         triggerType: [{ required: true, message: '请选择触发类型', trigger: 'blur' }],
-        turnoverMultiple: [{ required: true, message: '请输入流水倍数', trigger: 'blur' }],
+        maxTurnoverMultiple: [{ required: true, message: '请输入最大流水倍数', trigger: 'blur' }],
+        minTurnoverMultiple: [{ required: true, message: '请输入最小流水倍数', trigger: 'blur' }],
       },
       triggerTypeList: [
         { index: 1, title: '注册' },
@@ -86,7 +91,8 @@ export default {
           "name": "",
           "status": 0,
           "triggerType": null,
-          "turnoverMultiple": null
+          "maxTurnoverMultiple": null,
+          "minTurnoverMultiple": null,
         }
       } else {
         this.ruleForm = { ...data }
