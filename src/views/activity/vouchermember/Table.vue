@@ -3,6 +3,7 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="userName" :label="$t('username')" />
+      <el-table-column prop="turnoverMultiple" label="流水倍数" />
       <el-table-column prop="" :label="$t('status')">
         <template slot-scope="scope">
           {{ getStatus(scope.row.status) }}
