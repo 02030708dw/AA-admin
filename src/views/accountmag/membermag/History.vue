@@ -111,7 +111,7 @@ export default {
     typeF(value) {
       switch (value) {
         case 1:
-          return "提现发起";
+          return "提现成功";
         case 2:
           return "充值";
         case 3:
@@ -133,7 +133,7 @@ export default {
         case 11:
           return "提现驳回";
         case 12:
-          return "提现成功";
+          return "提现发起";
       }
     },
     typeS(value) {
