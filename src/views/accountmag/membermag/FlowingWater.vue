@@ -64,7 +64,7 @@ export default {
     typeF(value) {
       switch (value) {
         case 1:
-          return '提现发起'
+          return '提现成功'
         case 2:
           return '充值'
         case 3:
@@ -86,14 +86,14 @@ export default {
         case 11:
           return '提现驳回'    
         case 12:
-          return '提现成功'
+          return '提现发起'
       }
     }
   },
   data() {
     return {
       statusType: [
-        { title: '提现发起', index: 1 },
+        { title: '提现成功', index: 1 },
         { title: '充值', index: 2 },
         { title: '转出到游戏商', index: 3 },
         { title: '从游戏商转入', index: 4 },
@@ -104,7 +104,7 @@ export default {
         { title: '活动金额', index: 9 },
         { title: '提现取消', index: 10 },
         { title: '提现驳回', index: 11 },
-        { title: '提现成功', index: 12 },
+        { title: '提现发起', index: 12 },
       ],
       loading: false,
       tableData: [],
