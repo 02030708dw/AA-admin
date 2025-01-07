@@ -46,6 +46,7 @@ export default {
             rules: {
                 userName: [{ required: true, message: '请输入名称' }],
                 telPhone: [{ required: true, message: '请输入电话' }],
+                realName: [{ required: true, message: '请输入名称' }],
             },
             loading: false,
             bankList: []
