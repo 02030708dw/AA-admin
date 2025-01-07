@@ -8,6 +8,9 @@
             <el-form-item :label="$t('phone')" prop="telPhone">
                 <el-input v-model="UserInfo.telPhone" style="width: 300px" :placeholder="$t('phone')" />
             </el-form-item>
+            <el-form-item :label="$t('realName')" prop="realName">
+                <el-input v-model="UserInfo.realName" style="width: 300px" :placeholder="$t('realName')" />
+            </el-form-item>
             <el-form-item v-for="(v, i) in UserInfo.bankCardNoList" :key="i" :label="$t('Bankaccount') + (i + 1)">
                 <el-input v-model="v.bankCardNo" style="width: 300px;margin-right: 10px;"
                     :placeholder="$t('Bankaccount')" />
@@ -35,6 +38,7 @@ export default {
             // 用户信息
             UserInfo: {
                 memberId: '',
+                realName: '', // 真实姓名
                 telPhone: '', // 电话
                 userName: '', // 名称
                 bankCardNoList: [], // 银行卡
@@ -42,6 +46,7 @@ export default {
             rules: {
                 userName: [{ required: true, message: '请输入名称' }],
                 telPhone: [{ required: true, message: '请输入电话' }],
+                realName: [{ required: true, message: '请输入名称' }],
             },
             loading: false,
             bankList: []
