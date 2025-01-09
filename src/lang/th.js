@@ -61,6 +61,10 @@ export default {
       scratchweightgroup:'Scratch Weight Group',
       voucherconfig:'Voucher Config',
       vouchermember:'Member Voucher',
+      redpacketconfig: 'Red Packet Config',
+      redpacketcreate: 'Red Packet Create',
+      redpacketmember: 'Red Packet Member',
+      redpacketrecord: 'Red Packet Record',
     },
     role: {
       permission: 'การอนุญาต'
