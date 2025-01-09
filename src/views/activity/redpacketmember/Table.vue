@@ -2,10 +2,12 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="weight" :label="$t('weight')"/>
-      <el-table-column prop="prize" label="充值奖金" />
-      <el-table-column prop="scratchWeightGroupId" label="权重分组id" />
-      <el-table-column prop="creator" label="创建人" />
+      <el-table-column prop="userName" :label="$t('username')" />
+      <el-table-column prop="balance" label="当前可用创建红包余额"/>
+      <el-table-column prop="pendingBonus" label="待领取的红包金额"/>
+      <el-table-column prop="recharged" label="已充值用户数量"/>
+      <el-table-column prop="registered" label="已注册用户数量"/>
+ 
       <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">

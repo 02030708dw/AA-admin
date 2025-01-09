@@ -2,12 +2,34 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="weight" :label="$t('weight')"/>
-      <el-table-column prop="prize" label="充值奖金" />
-      <el-table-column prop="scratchWeightGroupId" label="权重分组id" />
-      <el-table-column prop="creator" label="创建人" />
-      <el-table-column prop="updater" :label="$t('Updatedby')" />
-      <el-table-column prop="" :label="$t('operate')" width="">
+      <el-table-column prop="description" fixed="left" label="描述" width="150" />
+      <el-table-column prop="amountRatioMax" label="红包金额比例最大值" width="120" />
+      <el-table-column prop="amountRatioMin" label="红包金额比例最小值" width="120" />
+      <el-table-column prop="createAmountMax" label="单个红包最大金额" width="120" />
+      <el-table-column prop="createAmountMin" label="单个红包最小金额" width="120" />
+      <el-table-column prop="createNumberMax" label="创建红包数量上限" width="120" />
+      <el-table-column prop="createUrlMax" label="创建链接数量上限" width="120" />
+      <el-table-column prop="dailyBonus" label="平台每天赠送的红包金额" width="120" />
+      <el-table-column prop="" :label="$t('customertype')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.isAgent == 0 ? '普通用户' : '代理' }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="rechargeBonus" label="每个充值用户奖励的奖金" width="160" />
+      <el-table-column prop="registrationBonus" label="每个注册用户奖励的奖金" width="140" />
+      <el-table-column prop="" fixed="right" :label="$t('state')" width="140">
+        <template slot-scope="scope">
+          <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
+            :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
+            @change="getUdateStatus($event, scope.row.id)" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="160">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row.createdAt) }}
+        </template>
+      </el-table-column>
+      <el-table-column fixed="right" prop="" :label="$t('operate')" width="140">
         <template slot-scope="scope">
           <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
             $t("edit") }}</el-button>

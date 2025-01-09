@@ -1,12 +1,9 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
-      @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
+    <Table ref="TableView" :table-data="tableData" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
-    <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -14,21 +11,14 @@
 import Table from './Table.vue'
 import Control from './Control'
 import Pagination from '@/components/Pagination/Pagination.vue'
-import ComponentsAdd from './ComponentsAdd.vue'
-import ComponentsEitor from './ComponentsEitor.vue'
 import {
   ServicePage,
-  ServiceAdd,
-  ServiceDel,
-  ServiceEdit
-} from '@/api/activity/scratchprizeconfig'
+} from '@/api/activity/redpacketmember'
 export default {
   components: {
     Table,
     Control,
     Pagination,
-    ComponentsAdd,
-    ComponentsEitor
   },
   data() {
     return {
@@ -36,7 +26,7 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      name: null, //
+      userName: null, //
       status: null,//
     }
   },
@@ -53,7 +43,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, 
+        pageNo: this.pageNo, pageSize: this.PagesSize, status: this.status, userName: this.userName
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -75,7 +65,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize,})
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, status: this.status, userName: this.userName })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -85,62 +75,18 @@ export default {
         })
     },
     getquery(e) {
+      this.userName = e.userName
+      this.status = e.status
       this.getdata(1)
     },
     getresetting() {
+      this.status = null
+      this.userName = null
       this.getdata(1)
     },
     // 显示添加弹窗
     getAddShow() {
       this.$refs.ComponentsAdd.getAddstatus()
-    },
-  
-    getAdd(e) {
-      ServiceAdd(e)
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '添加成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          console.log(err)
-          this.$message.error('添加失败!')
-        })
-    },
-    // 删除
-    getDel(id) {
-      ServiceDel(id)
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '删除成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error('删除失败!')
-          console.log(err)
-        })
-    },
-    // 显示编辑弹窗
-    getEitorShow(e) {
-      this.$refs.ComponentsEitor.getAddstatus(e)
-    },
-    getEitor(data) {
-      ServiceEdit(data)
-        .then((res) => {
-          this.getdata(this.pageNo)
-          this.$message({
-            message: '编辑成功!',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error('编辑失败!')
-          console.log(err)
-        })
     },
   }
 }

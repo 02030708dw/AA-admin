@@ -2,19 +2,23 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="weight" :label="$t('weight')"/>
-      <el-table-column prop="prize" label="充值奖金" />
-      <el-table-column prop="scratchWeightGroupId" label="权重分组id" />
-      <el-table-column prop="creator" label="创建人" />
-      <el-table-column prop="updater" :label="$t('Updatedby')" />
-      <el-table-column prop="" :label="$t('operate')" width="">
+      <el-table-column prop="userName" :label="$t('username')" />
+      <el-table-column prop="claimedCount" label="已领取红包个数" />
+      <el-table-column prop="createType" label="红包创建类型">
         <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
+          {{ scope.row.createType == 1 ? '红包余额创建' : '用户余额创建' }}
         </template>
       </el-table-column>
+      <el-table-column prop="shareUrl" label="分享链接" />
+      <el-table-column prop="singleAmount" label="单个红包金额" />
+      <el-table-column prop="status" label="红包状态">
+        <template slot-scope="scope">
+          {{ getStatus(scope.row.status) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="totalAmount" label="红包总金额" />
+      <el-table-column prop="totalCount" label="红包总个数" />
+      <el-table-column prop="updater" :label="$t('Updatedby')" />
     </el-table>
   </el-card>
 </template>
@@ -36,46 +40,21 @@ export default {
     }
   },
   methods: {
-    getRepeatableType(v) {
+    getStatus(v) {
       switch (v) {
         case 1:
-          return '领一次'
+          return '已创建'
         case 2:
-          return '每天领取'
+          return '已领完'
         case 3:
-          return '每月领取'
+          return '用户删除'
         case 4:
-          return '每年领取'
+          return '系统过期删除'
       }
     },
     // 改变loading
     HandelLoading(status) {
       this.loading = status
-    },
-    // 编辑
-    getEditor(item) {
-      this.$emit('EditorShow', item)
-    },
-    // 删除
-    getEdl(Id) {
-      this.$confirm('确定删除吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(() => {
-          this.$emit('Edl', Id)
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
-    },
-    // 修改状态
-    getUdateStatus(e, id) {
-      this.$emit('UdateStatus', { status: e, id: id })
     },
   }
 }

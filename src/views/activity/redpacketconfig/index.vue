@@ -3,7 +3,8 @@
     <Control ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
+    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @UdateStatus="getUdateStatus"
+      @EditorShow="getEitorShow" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
     <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
@@ -36,7 +37,7 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      name: null, //
+      isAgent: null, //
       status: null,//
     }
   },
@@ -44,6 +45,21 @@ export default {
     this.getdata(1)
   },
   methods: {
+    //修改状态
+    getUdateStatus(data) {
+      ServiceEdit(data)
+        .then((res) => {
+          this.$message({
+            message: '修改成功!',
+            type: 'success'
+          })
+          this.getdata(this.pageNo)
+        })
+        .catch((err) => {
+          this.$message.error('修改失败!')
+          console.log(err)
+        })
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
@@ -53,7 +69,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, 
+        pageNo: this.pageNo, pageSize: this.PagesSize, status: this.status, isAgent: this.isAgent
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -75,7 +91,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize,})
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, status: this.status, isAgent: this.isAgent })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -85,16 +101,20 @@ export default {
         })
     },
     getquery(e) {
+      this.status = e.status
+      this.isAgent = e.isAgent
       this.getdata(1)
     },
     getresetting() {
+      this.status = null
+      this.isAgent = null
       this.getdata(1)
     },
     // 显示添加弹窗
     getAddShow() {
       this.$refs.ComponentsAdd.getAddstatus()
     },
-  
+
     getAdd(e) {
       ServiceAdd(e)
         .then((res) => {

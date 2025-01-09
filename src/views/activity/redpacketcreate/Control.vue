@@ -1,6 +1,12 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button  type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-input v-model="userName" style="width: 200px;margin-left:10px;" :placeholder="$t('username')" />
+    <el-select v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
+    </el-select>
+    <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
+      }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
       }}</el-button>
@@ -14,6 +20,14 @@ export default {
   data() {
     return {
       btnIcoType: true,
+      status: null,
+      userName: null,
+      statusType: [
+        { title: '已创建', index: 1 },
+        { title: '已领完', index: 2 },
+        { title: '用户删除', index: 3 },
+        { title: '系统过期删除', index: 4 },
+      ],
     }
   },
   methods: {
@@ -36,7 +50,7 @@ export default {
       this.btnIcoType = true
     },
     getquery() {
-      this.$emit('query')
+      this.$emit('query', { status: this.status, userName: this.userName })
     },
   }
 }

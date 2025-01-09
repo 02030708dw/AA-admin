@@ -2,10 +2,15 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="weight" :label="$t('weight')"/>
-      <el-table-column prop="prize" label="充值奖金" />
-      <el-table-column prop="scratchWeightGroupId" label="权重分组id" />
-      <el-table-column prop="creator" label="创建人" />
+      <el-table-column prop="userName" :label="$t('username')" />
+      <el-table-column prop="amount" label="领取的金额" />
+      <el-table-column prop="claimTime" label="领取时间">
+        <template slot-scope="scope">
+          {{ getClaimTime(scope.row.claimTime) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="claimerId" label="领取用户ID" />
+
       <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
@@ -36,17 +41,10 @@ export default {
     }
   },
   methods: {
-    getRepeatableType(v) {
-      switch (v) {
-        case 1:
-          return '领一次'
-        case 2:
-          return '每天领取'
-        case 3:
-          return '每月领取'
-        case 4:
-          return '每年领取'
-      }
+    getClaimTime(v) {
+      let date = new Date(...v);
+      let formattedDate = `${date.getFullYear()}-${String(date.getMonth()).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
+      return formattedDate
     },
     // 改变loading
     HandelLoading(status) {
