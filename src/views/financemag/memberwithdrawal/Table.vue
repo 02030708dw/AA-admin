@@ -1,18 +1,9 @@
 <template>
   <!-- 会员提现表格 -->
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
-      <el-table-column
-        prop="memberName"
-        :label="$t('Membername')"
-        width=""
-      ></el-table-column>
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="memberName" :label="$t('Membername')" width=""></el-table-column>
       <el-table-column prop="" :label="$t('Withdrawalinformation')" width="">
         <template slot-scope="scope">
           <div class="info_box">
@@ -43,6 +34,7 @@
       </el-table-column>
       <el-table-column prop="orderNo" :label="$t('orderNo')" />
       <el-table-column prop="amount" :label="$t('amountofmoney')" />
+      <el-table-column prop="threePayName" :label="$t('ThreePartyNames')" />
       <el-table-column :label="$t('Reviewstatus')" prop="aduitStatus">
         <template slot-scope="scope">
           <div class="status_box">
@@ -69,70 +61,39 @@
           <span>{{ scope.row.aduitTime | timeF }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="updater"
-        :label="$t('Updatedby')"
-        width=""
-      ></el-table-column>
+      <el-table-column prop="updater" :label="$t('Updatedby')" width=""></el-table-column>
       <!-- 操作 -->
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button
-            v-if="scope.row.aduitStatus != 0"
-            type="text"
-            @click="HandelInfo(scope.row)"
-            >{{ $t("Detail") }}</el-button
-          >
-          <el-button
-            v-has="'memberwithdrawal:aduit'"
-            v-if="scope.row.aduitStatus === 0"
-            type="text"
-            @click="getaudit(1, scope.row.id)"
-          >
-            {{ $t("passthrough") }}
-          </el-button>
-          <el-button
-            v-has="'memberwithdrawal:aduit'"
-            v-if="scope.row.aduitStatus === 0"
-            type="text"
-            style="color: red"
-            @click="getaudit(2, scope.row.id)"
-          >
+          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
+            }}</el-button>
+          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
+            v-if="scope.row.aduitStatus === 0" :title="$t('passthrough')" @onConfirm="getaudit(1, scope.row.id)">
+            <el-button style="margin-right: 5px;" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
+              {{ $t("passthrough") }}
+            </el-button>
+          </el-popconfirm>
+          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: red"
+            @click="getaudit(2, scope.row.id)">
             {{ $t("reject") }}
           </el-button>
-          <el-button
-            v-has="'memberwithdrawal:aduit'"
-            v-if="scope.row.aduitStatus === 0"
-            type="text"
-            style="color: #a4a4a4"
-            @click="getaudit(3, scope.row.id)"
-          >
-            {{ $t("cancellation") }}
-          </el-button>
-          <el-button
-            v-has="'memberwithdrawal:fo'"
-            v-if="scope.row.aduitStatus === 0"
-            type="text"
-            @click="Handelpay(scope.row)"
-            >{{ $t("Paymentonbehalf") }}</el-button
-          >
+          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
+            v-if="scope.row.aduitStatus === 0" :title="$t('cancellation')" @onConfirm="getaudit(3, scope.row.id)">
+            <el-button slot="reference" v-has="'memberwithdrawal:aduit'" type="text"
+              style="margin-left: 5px; color: #a4a4a4">
+              {{ $t("cancellation") }}
+            </el-button>
+          </el-popconfirm>
+          <el-button v-has="'memberwithdrawal:fo'" v-if="scope.row.aduitStatus === 0" type="text"
+            @click="Handelpay(scope.row)">{{ $t("Paymentonbehalf") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 驳回原因弹窗 -->
-    <el-dialog
-      :title="$t('Reasonforrejection')"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
+    <el-dialog :title="$t('Reasonforrejection')" :visible.sync="dialogVisible" width="30%">
       <span>{{ $t("Pleaseenterthereasonforrejection") }}</span>
-      <el-input
-        v-model="reason"
-        style="margin-top: 10px"
-        type="textarea"
-        :rows="4"
-        :placeholder="$t('Pleaseenterthereasonforrejection')"
-      />
+      <el-input v-model="reason" style="margin-top: 10px" type="textarea" :rows="4"
+        :placeholder="$t('Pleaseenterthereasonforrejection')" />
       <span slot="footer" class="dialog-footer">
         <el-button @click="getaudit(2)">{{ $t("skip") }}</el-button>
         <el-button type="primary" @click="getaudit(2)">{{

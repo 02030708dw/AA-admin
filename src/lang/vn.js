@@ -53,6 +53,18 @@ export default {
     Maintenance: 'Bảo trì nhà cung cấp trò chơi',
     AgentDetail: 'Agent Detail',
     MemberBets:'Member Bets',
+    Sysconfig:'System Configuration',
+    scratchconfig:'Scratch Config',
+    scratchmember:'Scratch Member',
+    scratchmemberrecord:'Scratch Member Record',
+    scratchprizeconfig:'Scratch Prize Config',
+    scratchweightgroup:'Scratch Weight Group',
+    voucherconfig:'Voucher Config',
+    vouchermember:'Member Voucher',
+    redpacketconfig: 'Red Packet Config',
+    redpacketcreate: 'Red Packet Create',
+    redpacketmember: 'Red Packet Member',
+    redpacketrecord: 'Red Packet Record',
   },
   role: {
     permission: 'quyền hạn'
@@ -506,5 +518,11 @@ export default {
   RewardconfigurationID: 'ID cấu hình thưởng',
   Collectiontime: 'Thời gian nhận thưởng',
   carousel:'carousel',
-  popup:"popup"
+  popup:"popup",
+  UserAccountName:'User account name',
+  UserBankCardNumber:'User bank card number',
+  UserBankName:'User bank name',
+  WithdrawOrderNumber: 'Withdraw order number',
+  Other: "Chơi thử",
+  Promotions: "Cộng khuyến mại",
 }

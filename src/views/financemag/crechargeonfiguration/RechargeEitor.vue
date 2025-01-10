@@ -226,6 +226,7 @@ export default {
         { title: "usdt充值", index: 8 },
         { title: "MAYA充值", index: 9 },
         { title: "网银", index: 10 },
+        { title: '充值卡', index: 11 },
       ],
       // 表单数据
       ruleForm: {

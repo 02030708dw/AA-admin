@@ -2,8 +2,8 @@
 <template>
     <!-- 查看详情 -->
     <el-dialog :title="$t('Proxywithdrawaldetails')" :visible.sync="dialogVisible" :rules="rules" width="40%">
-        <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm">
-            <el-form-item :label="'提现金额'">
+        <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="180px" class="demo-ruleForm">
+            <el-form-item :label="$t('Withdrawalamount')">
                 <el-input v-model="ruleForm.amount" disabled />
             </el-form-item>
             <el-form-item v-if="ruleForm.channelType == 1" :label="$t('Alipayaccount')">
@@ -12,13 +12,13 @@
             <el-form-item v-if="ruleForm.channelType == 4" label="收款人姓名">
                 <el-input v-model="ruleForm.bankAccount" disabled />
             </el-form-item>
-            <el-form-item v-if="ruleForm.channelType == 0" label="提现银行卡号">
+            <el-form-item v-if="ruleForm.channelType == 0" :label="$t('Withdrawalbankcardnumber')">
                 <el-input v-model="ruleForm.bankCardNo" disabled />
             </el-form-item>
             <el-form-item v-if="ruleForm.channelType == 4" label="Gcash收款手机号">
                 <el-input v-model="ruleForm.bankCardNo" disabled />
             </el-form-item>
-            <el-form-item v-if="ruleForm.channelType == 0" label="提现银行名称">
+            <el-form-item v-if="ruleForm.channelType == 0" :label="$t('Nameofwithdrawalbank')">
                 <el-input v-model="ruleForm.bankName" disabled />
             </el-form-item>
             <el-form-item v-if="ruleForm.channelType == 4" label="'银行code'">
@@ -36,10 +36,10 @@
             <el-form-item v-if="ruleForm.channelType == 2" label="微信账号">
                 <el-input v-model="ruleForm.wechat" disabled />
             </el-form-item>
-            <el-form-item :label="'提现订单号'">
+            <el-form-item :label="$t('Nameofwithdrawalbank')">
                 <el-input v-model="ruleForm.orderNo" disabled />
             </el-form-item>
-            <el-form-item :label="'三方支付'" prop="threePayId">
+            <el-form-item :label="$t('Threepartypayment')" prop="threePayId">
                 <el-select v-model="ruleForm.threePayId" placeholder="充值类型" style="width: 200px">
                     <el-option v-for="(item, index) in ThreePayfiletr" :key="index" :value="item.id"
                         :label="item.threeName" />
@@ -61,7 +61,8 @@ export default {
         return {
             dialogVisible: false,
             ruleForm: {
-                threePayIds:[]
+                threePayIds:[],
+                threePayId: '',
             },
             threePayList: [],
             rules: {
@@ -71,7 +72,7 @@ export default {
     }, 
     computed: {
         ThreePayfiletr() {
-            return this.threePayList.filter(item => this.ruleForm.threePayIds.includes(item.id))
+            return this.ruleForm?.threePayIds?.length && this.threePayList.filter(item => this.ruleForm.threePayIds.includes(item.id))
         }
     },
     created() {

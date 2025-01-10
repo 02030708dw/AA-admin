@@ -11,7 +11,13 @@
       <el-form-item :label="$t('Withdrawalrequiredtransactionflow')" prop="flowAmt">
         <el-input v-model="FormData.flowAmt" />
       </el-form-item>
-      <el-form-item :label="$t('Operationtype')" prop="operate">
+      <el-form-item :label="$t('Operationtype')" prop="type">
+        <el-radio-group v-model="FormData.type">
+          <el-radio-button :label="6">{{$t('Other')}}</el-radio-button>
+          <el-radio-button :label="9">{{$t('Promotions')}}</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="+/-" prop="operate">
         <el-radio-group v-model="FormData.operate">
           <el-radio-button :label="1">{{$t('addmoney')}}</el-radio-button>
           <el-radio-button :label="2">{{$t('deductmoney')}}</el-radio-button>
@@ -42,12 +48,14 @@ export default {
         flowAmt: '',
         operate: null,
         remark: '',
-        memberId: ''
+        memberId: '',
+        type: null
       },
       rules: {
         amt: [{ required: true, message: '请输入操作金额', trigger: 'blur' }],
         flowAmt: [{ required: true, message: '请输入提现所需流水金额', trigger: 'blur' }],
-        operate: [{ required: true, message: '请选择操作类型', trigger: 'blur' }]
+        operate: [{ required: true, message: '请选择操作类型', trigger: 'blur' }],
+        type: [{ required: true, message: '请选择操作类型', trigger: 'blur' }]
       }
     }
   },
@@ -62,7 +70,8 @@ export default {
           flowAmt: '',
           operate: null,
           remark: '',
-          memberId: ''
+          memberId: '',
+          type: null
         }
       }
     },

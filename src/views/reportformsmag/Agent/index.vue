@@ -1,9 +1,12 @@
 <template>
   <!-- 代理报表 -->
   <el-card>
-    <Control ref="ControlView" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" @query="Handelquery" @resetting="Handelresetting" />
-    <Table ref="TableView" :table-data="tableData" />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" @query="Handelquery"
+      @resetting="Handelresetting" />
+    <Table ref="TableView" :table-data="tableData" @Activity="HandelActivity" @Plantform="HandelPlantform" />
     <Pagination :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
+    <Activity ref="ActivityDialog" />
+    <Plantform ref="PlantformDialog" />
   </el-card>
 </template>
 <script>
@@ -12,11 +15,15 @@ import Table from './Table.vue'
 import Control from './Control.vue'
 // 分页组件
 import Pagination from '@/components/Pagination/Pagination.vue'
+import Activity from './ActivityDialog.vue'
+import Plantform from './PlantformDialog.vue'
 export default {
   components: {
     Pagination,
     Control,
-    Table
+    Table,
+    Activity,
+    Plantform
   },
   data() {
     return {
@@ -39,6 +46,12 @@ export default {
     this.HandelInitializationTime()
   },
   methods: {
+    HandelActivity(id) {
+      this.$refs.ActivityDialog.HandelShow(id)
+    },
+    HandelPlantform(id){
+      this.$refs.PlantformDialog.HandelShow(id)
+    },
     // 初始化时间
     HandelInitializationTime() {
       const currentDate = new Date()
@@ -49,7 +62,7 @@ export default {
       date.setDate(date.getDate() - 30) // 将日期设置为前30天
       getMonth = date.getMonth() >= 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
       getDate = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
-      const startDate = date.getFullYear() + '-' + getMonth + '-' + getDate; 
+      const startDate = date.getFullYear() + '-' + getMonth + '-' + getDate;
       this.startDate = startDate
       this.endDate = endDate
       // 请求数据
@@ -110,6 +123,4 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

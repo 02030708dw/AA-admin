@@ -52,3 +52,21 @@ export function getaMemberBetPages(data) {
     data
   })
 }
+
+// 代理报表活动金额详情
+export function getActivityInfo(params) {
+  return request({
+    url: '/report/agent/activityInfo',
+    method: 'GET',
+    params
+  })
+}
+
+// 代理报表平台费用详情
+export function getGamerInfo(params) {
+  return request({
+    url: '/report/agent/gamerInfo',
+    method: 'GET',
+    params
+  })
+}

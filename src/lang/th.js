@@ -53,6 +53,18 @@ export default {
       Maintenance:'การบำรุงรักษาเกมเมอร์',
       AgentDetail: 'Agent Detail',
       MemberBets:'Member Bets',
+      Sysconfig:'System Configuration',
+      scratchconfig:'Scratch Config',
+      scratchmember:'Scratch Member',
+      scratchmemberrecord:'Scratch Member Record',
+      scratchprizeconfig:'Scratch Prize Config',
+      scratchweightgroup:'Scratch Weight Group',
+      voucherconfig:'Voucher Config',
+      vouchermember:'Member Voucher',
+      redpacketconfig: 'Red Packet Config',
+      redpacketcreate: 'Red Packet Create',
+      redpacketmember: 'Red Packet Member',
+      redpacketrecord: 'Red Packet Record',
     },
     role: {
       permission: 'การอนุญาต'
@@ -506,6 +518,12 @@ export default {
     RewardconfigurationID: 'IDการกำหนดรางวัล',
     Collectiontime: 'เวลารับ',
     carousel:'carousel',
-    popup:"popup"
+    popup:"popup",
+    UserAccountName:'User account name',
+    UserBankCardNumber:'User bank card number',
+    UserBankName:'User bank name',
+    WithdrawOrderNumber: 'Withdraw order number',
+    Other: "Other",
+    Promotions: "Promotions",
   }
   

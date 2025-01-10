@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <Control ref="ControlView"  @resetting="getresetting" @query="getquery"
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @resetting="getresetting" @query="getquery"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" />
@@ -29,12 +29,23 @@ export default {
       PagesSize: 20,
       isClaimed: null, //是否已领取（0.否，1是）
       name: null,//用户名称
+      // 开始时间
+      startDate: '',
+      // 结束时间
+      endDate: '',
     }
   },
   created() {
     this.getdata(1)
   },
   methods: {
+    // 时间选择
+    HandelSelectDate(data) {
+      this.startDate = data.startDate
+      this.endDate = data.endDate
+      // 请求数据
+      this.getdata(1)
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
@@ -44,7 +55,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, isClaimed: this.isClaimed, name: this.name
+        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -66,7 +77,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, isClaimed: this.isClaimed, name: this.name })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
