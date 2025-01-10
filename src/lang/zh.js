@@ -65,7 +65,7 @@ export default {
     rewardrecord: "用户奖励记录",
     AgentDetail: '下级代理明细表',
     MemberBets: '会员投注表',
-    sysconfig: '系统配置',
+    config: '系统配置',
     scratchconfig: '刮刮乐配置',
     scratchmember: '刮刮乐用户信息表',
     scratchmemberrecord: '用户刮刮卡记录',

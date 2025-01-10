@@ -56,10 +56,10 @@ export const asyncRoutes = [
         meta: { title: 'rolemanage', icon: 'form' }
       },
       {
-        path: 'sysconfig',
-        name: 'sysconfig',
+        path: 'config',
+        name: 'config',
         component: () => import('@/views/systemmag/sysconfig/index'),
-        meta: { title: 'sysconfig', icon: 'form' }
+        meta: { title: 'config', icon: 'form' }
       }
     ]
   },
