@@ -1,37 +1,21 @@
 <template>
-  <el-dialog
-    :title="$t('Editingchannels')"
-    :visible.sync="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="$t('Editingchannels')" :visible.sync="dialogVisible" width="50%">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('Channelname')" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item :label="$t('Channeltype')" prop="type">
-        <el-select
-      v-model="ruleForm.type"
-      :placeholder="$t('Channeltype')"
-      style="width: 200px"
-    >
-      <el-option
-        v-for="(item, index) in typeArrList"
-        :key="index"
-        :value="item.index"
-        :label="item.title"
-      />
-    </el-select>
+        <el-select v-model="ruleForm.type" :placeholder="$t('Channeltype')" style="width: 200px">
+          <el-option v-for="(item, index) in typeArrList" :key="index" :value="item.index" :label="item.title" />
+        </el-select>
       </el-form-item>
       <el-form-item :label="$t('SelectCurrency')" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
-          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
+          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-checkbox>
         </el-checkbox-group>
+      </el-form-item>
+      <el-form-item :label="$t('icon')" prop="icon">
+        <UploadImage v-if="dialogVisible" :Fn="'rechargechannel'" :img="ruleForm.pictureUrl" @Upload="getImageURL" />
       </el-form-item>
       <!-- <el-form-item :label="$t('state')" prop="status">
         <el-switch
@@ -49,11 +33,13 @@
     </span>
   </el-dialog>
 </template>
-      
+
 <script>
+import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
+  components: { UploadImage },
   props: {
-    CurrencytPageData:{
+    CurrencytPageData: {
       type: Array,
       default: () => {
         return []
@@ -70,6 +56,7 @@ export default {
         status: 0,
         type: null,
         currency: [],
+        pictureUrl: ''
       },
       //游戏类型选项
       typeArrList: [
@@ -104,9 +91,10 @@ export default {
           status: 0,
           type: null,
           currency: [],
+          pictureUrl: ''
         };
       } else {
-        this.ruleForm = {...data};
+        this.ruleForm = { ...data };
         //回显
         this.ruleForm.currency = data.currency.split(',')
       }
@@ -128,8 +116,10 @@ export default {
         }
       });
     },
+    getImageURL(url) {
+      this.ruleForm.pictureUrl = url
+    },
   },
 };
 </script>
-    <style>
-</style>
+<style></style>

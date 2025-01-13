@@ -156,3 +156,12 @@ export function getGamerBalance(data) {
     data
   })
 }
+
+// 给会员修改三方支付商展示顺序信息
+export function editPayment(data) {
+  return request({
+    url: `/user/member/editPayment`,
+    method: 'post',
+    data
+  })
+}
