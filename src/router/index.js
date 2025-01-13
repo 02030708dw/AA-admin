@@ -56,10 +56,10 @@ export const asyncRoutes = [
         meta: { title: 'rolemanage', icon: 'form' }
       },
       {
-        path: 'sysconfig',
-        name: 'sysconfig',
+        path: 'config',
+        name: 'config',
         component: () => import('@/views/systemmag/sysconfig/index'),
-        meta: { title: 'sysconfig', icon: 'form' }
+        meta: { title: 'config', icon: 'form' }
       }
     ]
   },
@@ -427,6 +427,30 @@ export const asyncRoutes = [
         name: "vouchermember",
         component: () => import('@/views/activity/vouchermember/index'),
         meta: { title: 'vouchermember', icon: 'el-icon-s-flag' }
+      },
+      {//红包配置
+        path: "/redpacketconfig",
+        name: "redpacketconfig",
+        component: () => import('@/views/activity/redpacketconfig/index'),
+        meta: { title: 'redpacketconfig', icon: 'el-icon-s-flag' }
+      },
+      {//红包创建信息
+        path: "/redpacketcreate",
+        name: "redpacketcreate",
+        component: () => import('@/views/activity/redpacketcreate/index'),
+        meta: { title: 'redpacketcreate', icon: 'el-icon-s-flag' }
+      },
+      {//用户红包账户
+        path: "/redpacketmember",
+        name: "redpacketmember",
+        component: () => import('@/views/activity/redpacketmember/index'),
+        meta: { title: 'redpacketmember', icon: 'el-icon-s-flag' }
+      },
+      {//红包领取记录
+        path: "/redpacketrecord",
+        name: "redpacketrecord",
+        component: () => import('@/views/activity/redpacketrecord/index'),
+        meta: { title: 'redpacketrecord', icon: 'el-icon-s-flag' }
       }
     ]
   },
