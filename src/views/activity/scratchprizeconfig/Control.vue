@@ -1,6 +1,11 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button  type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-select clearable v-model="id" placeholder="配置id" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in WeightGroup" :key="index" :value="item.id" :label="item.name" />
+    </el-select>
+    <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
+      }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
       }}</el-button>
@@ -9,12 +14,20 @@
 </template>
 
 <script>
+import { getWeightGroup } from '@/api/activity/scratchweightgroup'
 export default {
   name: 'Control',
   data() {
     return {
       btnIcoType: true,
+      id: '',
+      WeightGroup: []
     }
+  },
+  created() {
+    getWeightGroup().then(res => {
+      this.WeightGroup = res.resultSet
+    })
   },
   methods: {
     getAdd() {
@@ -36,7 +49,7 @@ export default {
       this.btnIcoType = true
     },
     getquery() {
-      this.$emit('query')
+      this.$emit('query', { id: this.id })
     },
   }
 }
