@@ -4,6 +4,7 @@
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="name" label="权重组名称" />
       <el-table-column prop="description" :label="$t('describe')" />
+      <el-table-column prop="scratchConfigName" label="刮刮乐配置名称" />
       <el-table-column prop="creator" label="创建人" />
       <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
