@@ -12,7 +12,7 @@
     <!-- 会员详情 -->
     <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh" />
     <MemberUpdatebalanceview ref="MemberUpdatebalanceview" />
-    <MemberEditPayment ref="MemberEditPayment" />
+    <MemberEditPayment ref="MemberEditPayment" @Refresh="HandelRefresh"/>
   </el-card>
 </template>
 
@@ -68,8 +68,8 @@ export default {
     this.getAgentPage()
   },
   methods: {
-    HandelEditPayment(e) {
-      this.$refs.MemberEditPayment.HandelChangeShow(e)
+    HandelEditPayment(e,list) {
+      this.$refs.MemberEditPayment.HandelChangeShow(e,list)
     },
     HandelUpdatebalance(e) {
       this.$refs.MemberUpdatebalanceview.HandelChangeShow(e)

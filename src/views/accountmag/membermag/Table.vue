@@ -134,7 +134,7 @@ export default {
     },
     // 给会员修改三方支付商展示顺序信息
     MemberEditPayment(data) {
-      this.$emit('MemberEditPayment', data.id)
+      this.$emit('MemberEditPayment', data.id,data.paymentProviderOrders)
     },
   }
 }

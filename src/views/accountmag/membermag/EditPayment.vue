@@ -1,14 +1,13 @@
 <template>
-    <el-dialog :title="$t('Balanceadditionsubtraction')" :visible.sync="dialogVisible" width="30%">
+    <el-dialog :title="$t('Balanceadditionsubtraction')" @open="openDialog" :visible.sync="dialogVisible" width="50%">
         <el-form ref="FormData" :rules="rules" :model="FormData" label-width="110px">
-            <el-form-item :label="$t('sort')" prop="order">
-                <el-input v-model="FormData.order" />
-            </el-form-item>
-            <el-form-item label="三方充值" placeholder="请选择三方充值" prop="threePayId">
-                <el-select v-model="FormData.threePayId" :placeholder="$t('typesof')" style="width: 200px">
-                    <el-option v-for="(item, index) in thirdDropDownList" :key="index" :value="item.id"
-                        :label="item.threeName" />
-                </el-select>
+            <el-form-item label="三方排序" prop="paymentProviderOrders">
+                <el-transfer ref="transfer" v-model="groupModal" :data="groupModalList" :titles="['未排序', '已排序']"
+                    @change="transferList" :props="{
+                        key: 'threePayId',
+                        label: 'threePayName'
+                    }" target-order="push">
+                </el-transfer>
             </el-form-item>
 
         </el-form>
@@ -20,6 +19,7 @@
 </template>
 <script>
 import { editPayment } from '@/api/account/member'
+import Sortable from 'sortablejs';
 //三方充值配置下拉框列表
 import { thirdDropDown } from '@/api/thirdpartypayment/thirdpartypayment'
 export default {
@@ -27,15 +27,15 @@ export default {
         return {
             dialogVisible: false,
             FormData: {
-                order: '',
                 memberId: '',
-                threePayId: null
+                paymentProviderOrders: null
             },
             rules: {
-                order: [{ required: true, message: '请输入排序', trigger: 'blur' }],
-                threePayId: [{ required: true, message: '请选择三方支付商id', trigger: 'blur' }],
+                paymentProviderOrders: [{ required: true, message: '请选择三方支付商id', trigger: 'blur' }],
             },
-            thirdDropDownList: []
+            aiInfoConData: [1, 2, 3],
+            groupModal: [],
+            groupModalList: []
         }
     },
     mounted() {
@@ -45,21 +45,52 @@ export default {
         //三方充值配置下拉框列表
         getThirdDropDown() {
             thirdDropDown().then(res => {
-                this.thirdDropDownList = res.resultSet
+                const data = [];
+                for (let i = 0; i < res.resultSet.length; i++) {
+                    data.push({
+                        threePayId: res.resultSet[i].id,
+                        threePayName: res.resultSet[i].threeName,
+                    });
+                }
+                this.groupModalList = data
             })
         },
-        HandelChangeShow(id = null) {
+        transferList(e) {
+            this.$forceUpdate()
+        },
+        openDialog() {
+            this.$nextTick(() => {
+                const transfer = this.$refs.transfer.$el
+                const rightPanel = transfer.getElementsByClassName('el-transfer-panel')[1].getElementsByClassName('el-transfer-panel__body')[0]
+                const rightEl = rightPanel.getElementsByClassName('el-transfer-panel__list')[0]
+                Sortable.create(rightEl, {
+                    onEnd: evt => {
+                        const { oldIndex, newIndex } = evt
+                        console.log(oldIndex, newIndex)
+                        let _arr = this.groupModal.splice(oldIndex, 1)
+                        this.groupModal.splice(newIndex, 0, _arr[0])
+                        console.log(this.groupModal)
+                    }
+                })
+            })
+        },
+        HandelChangeShow(id = null, list) {
             this.dialogVisible = !this.dialogVisible
             if (this.dialogVisible) {
                 this.FormData.memberId = id
+                this.groupModal = list ? list.map(v => v.threePayId) : []
             } else {
                 this.FormData = {
-                    order: '',
-                    threePayId: '',
+                    memberId: '',
+                    paymentProviderOrders: '',
                 }
+                this.groupModal = []
             }
         },
         HandelUpdataBalance() {
+            this.FormData.paymentProviderOrders = this.groupModal.map((v, i) => {
+                return { threePayId: v, order: i }
+            })
             this.$refs.FormData.validate((valid) => {
                 if (!valid) {
                     this.$message({
@@ -69,6 +100,7 @@ export default {
                 } else {
                     editPayment(this.FormData).then(res => {
                         this.$message({ message: '操作成功!', type: 'success' })
+                        this.$emit('Refresh')
                     }).catch(() => {
                         this.$message.error('操作失败!')
                     })
@@ -79,4 +111,11 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.aiInfoCon {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 40px;
+}
+</style>
