@@ -14,20 +14,20 @@
 </template>
 
 <script>
-import { getWeightGroup } from '@/api/activity/scratchweightgroup'
+
 export default {
   name: 'Control',
+  props: {
+    WeightGroup: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       btnIcoType: true,
       id: '',
-      WeightGroup: []
     }
-  },
-  created() {
-    getWeightGroup().then(res => {
-      this.WeightGroup = res.resultSet
-    })
   },
   methods: {
     getAdd() {

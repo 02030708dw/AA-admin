@@ -4,7 +4,7 @@
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="weight" :label="$t('weight')"/>
       <el-table-column prop="prize" label="充值奖金" />
-      <el-table-column prop="scratchWeightGroupId" label="权重分组id" />
+      <el-table-column prop="scratchWeightGroupName" label="权重分组名称" />
       <el-table-column prop="creator" label="创建人" />
       <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
