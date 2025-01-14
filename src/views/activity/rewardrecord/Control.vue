@@ -10,7 +10,7 @@
     <el-date-picker v-model="value" style="margin-right: 10px;" type="daterange" align="right" unlink-panels
       :range-separator="$t('to')" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions"
       @change="heandlerTime" />
-    <el-button v-has="'noticemag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
+    <el-button  style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
       }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')

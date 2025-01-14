@@ -196,7 +196,8 @@ export default {
         name: data.name,
         status: data.status,
         type: data.type,
-        currency: data.currency
+        currency: data.currency,
+        pictureUrl: data.pictureUrl
       })
         .then((res) => {
           this.getchanneldata(this.pageNo)
