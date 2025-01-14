@@ -34,3 +34,12 @@ export function ServicePage(data) {
         data
     })
 }
+
+// 获取刮刮乐权重名称与id
+export function getWeightGroup(data) {
+    return request({
+        url: `/scratch/weightGroup/getName`,
+        method: 'post',
+        data
+    })
+}

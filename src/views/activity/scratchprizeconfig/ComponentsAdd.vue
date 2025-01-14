@@ -6,9 +6,12 @@
         <el-input v-model="ruleForm.prize" />
       </el-form-item>
       <el-form-item label="权重分组id" prop="scratchWeightGroupId">
-        <el-input v-model="ruleForm.scratchWeightGroupId" />
-       </el-form-item>
-      <el-form-item label="权重"  prop="weight">
+        <el-select clearable v-model="ruleForm.scratchWeightGroupId" placeholder="配置id"
+          style="width: 200px">
+          <el-option v-for="(item, index) in WeightGroup" :key="index" :value="item.id" :label="item.name" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="权重" prop="weight">
         <el-input v-model="ruleForm.weight" />
       </el-form-item>
     </el-form>
@@ -23,6 +26,12 @@
 
 <script>
 export default {
+  props: {
+    WeightGroup: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       // 弹窗状态

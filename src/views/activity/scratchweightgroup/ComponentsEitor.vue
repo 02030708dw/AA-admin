@@ -5,7 +5,9 @@
         <el-input v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item label="刮刮乐活动配置id" prop="scratchConfigId">
-        <el-input v-model="ruleForm.scratchConfigId" />
+        <el-select clearable v-model="ruleForm.scratchConfigId" placeholder="配置id" style="width: 200px">
+          <el-option v-for="(item, index) in configList" :key="index" :value="item.id" :label="item.name" />
+        </el-select>
       </el-form-item>
       <el-form-item :label="$t('describe')">
         <el-input v-model="ruleForm.description" />
@@ -22,6 +24,12 @@
 
 <script>
 export default {
+  props: {
+    configList: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       // 弹窗状态

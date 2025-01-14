@@ -1,12 +1,12 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
+    <Control :WeightGroup="WeightGroup" ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
-    <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
+    <ComponentsAdd :WeightGroup="WeightGroup" ref="ComponentsAdd" @confirm="getAdd" />
+    <ComponentsEitor :WeightGroup="WeightGroup" ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -22,6 +22,7 @@ import {
   ServiceDel,
   ServiceEdit
 } from '@/api/activity/scratchprizeconfig'
+import { getWeightGroup } from '@/api/activity/scratchweightgroup'
 export default {
   components: {
     Table,
@@ -38,10 +39,14 @@ export default {
       PagesSize: 20,
       name: null, //
       status: null,//
+      WeightGroup:[],
     }
   },
   created() {
     this.getdata(1)
+    getWeightGroup().then(res => {
+      this.WeightGroup = res.resultSet
+    })
   },
   methods: {
     HandelPagesChange(e) {
@@ -53,7 +58,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, 
+        pageNo: this.pageNo, pageSize: this.PagesSize, id:this.id
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -75,7 +80,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize,})
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, id:this.id})
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -85,9 +90,11 @@ export default {
         })
     },
     getquery(e) {
+      this.id = e.id
       this.getdata(1)
     },
     getresetting() {
+      this.id = null
       this.getdata(1)
     },
     // 显示添加弹窗

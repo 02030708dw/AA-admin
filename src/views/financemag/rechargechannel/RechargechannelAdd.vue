@@ -41,6 +41,9 @@
           :inactive-value="0"
         />
       </el-form-item>
+      <el-form-item :label="$t('icon')" >
+        <UploadImage v-if="dialogVisible" :Fn="'rechargechannel'" @Upload="getImageURL" />
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
@@ -52,7 +55,11 @@
 </template>
 
 <script>
+import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
+  components: {
+    UploadImage
+  },
   props: {
     CurrencytPageData:{
       type: Array,
@@ -71,6 +78,7 @@ export default {
         status: 0,
         type: null,
         currency: [],
+        pictureUrl:''
       },
       isIndeterminate:true,
       // 游戏类型选项
@@ -104,7 +112,8 @@ export default {
           name: '',
           status: 0,
           type: null,
-          currency: []
+          currency: [],
+          pictureUrl:''
         }
       }
       this.dialogVisible = !this.dialogVisible
@@ -125,7 +134,10 @@ export default {
           return false
         }
       })
-    }
+    },
+    getImageURL(url) {
+      this.ruleForm.pictureUrl = url
+    },
   }
 }
 </script>
