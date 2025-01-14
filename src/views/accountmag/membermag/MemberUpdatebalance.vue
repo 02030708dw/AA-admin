@@ -13,6 +13,7 @@
       </el-form-item>
       <el-form-item :label="$t('Operationtype')" prop="type">
         <el-radio-group v-model="FormData.type">
+          <el-radio-button :label="2">{{$t('充值')}}</el-radio-button>
           <el-radio-button :label="6">{{$t('Other')}}</el-radio-button>
           <el-radio-button :label="9">{{$t('Promotions')}}</el-radio-button>
         </el-radio-group>

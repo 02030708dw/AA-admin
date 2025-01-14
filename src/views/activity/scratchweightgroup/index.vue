@@ -5,8 +5,8 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
-    <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
-    <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
+    <ComponentsAdd :configList="configList" ref="ComponentsAdd" @confirm="getAdd" />
+    <ComponentsEitor :configList="configList" ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
 </template>
 
@@ -22,6 +22,7 @@ import {
   ServiceDel,
   ServiceEdit
 } from '@/api/activity/scratchweightgroup'
+import { ConfigList } from '@/api/activity/scratchconfig'
 export default {
   components: {
     Table,
@@ -37,12 +38,19 @@ export default {
       pageNo: 1,
       PagesSize: 20,
       name: null, //
+      configList: [] // 配置列表
     }
   },
   created() {
     this.getdata(1)
+    this.getConfigList()
   },
   methods: {
+    getConfigList() {
+      ConfigList().then((res) =>{
+        this.configList = res.resultSet
+      })
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
@@ -74,7 +82,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, name: this.name})
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, name: this.name })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -95,7 +103,7 @@ export default {
     getAddShow() {
       this.$refs.ComponentsAdd.getAddstatus()
     },
-  
+
     getAdd(e) {
       ServiceAdd(e)
         .then((res) => {

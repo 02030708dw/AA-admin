@@ -34,3 +34,11 @@ export function ServicePage(data) {
         data
     })
 }
+
+// 获取刮刮乐配置名称和id
+export function ConfigList() {
+    return request({
+        url: `/scratch/config/getName`,
+        method: 'get',
+    })
+}

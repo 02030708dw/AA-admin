@@ -5,13 +5,14 @@
     <!-- 表格 -->
     <Table ref="TableView" :gamer-balance-list="gamerBalanceList" :table-data="tableData" @updateStatus="getMemberUdateStatus"
       @Membershiptransfer="getMembershiptransfer" @Proxytransfer="getProxytransfer" @Info="HandelShowInfo"
-      @MemberresettingPwd="getMemberresettingPwd" @Updatebalance="HandelUpdatebalance" />
+      @MemberresettingPwd="getMemberresettingPwd" @Updatebalance="HandelUpdatebalance" @MemberEditPayment="HandelEditPayment" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer :agentIddata="agentIddata" ref="Proxytransfer" @confirm="getProxytransferok" />
     <!-- 会员详情 -->
     <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh" />
     <MemberUpdatebalanceview ref="MemberUpdatebalanceview" />
+    <MemberEditPayment ref="MemberEditPayment" @Refresh="HandelRefresh"/>
   </el-card>
 </template>
 
@@ -26,6 +27,7 @@ import Proxytransfer from './Proxytransfer.vue'
 // 会员详情
 import MamberInfo from './MemberInfo.vue'
 import MemberUpdatebalanceview from './MemberUpdatebalance.vue'
+import MemberEditPayment from './EditPayment.vue'
 import {
   MemberPage,
   MemberTransfer,
@@ -43,7 +45,8 @@ export default {
     Proxytransfer,
     Control,
     MamberInfo,
-    MemberUpdatebalanceview
+    MemberUpdatebalanceview,
+    MemberEditPayment
   },
   data() {
     return {
@@ -65,6 +68,9 @@ export default {
     this.getAgentPage()
   },
   methods: {
+    HandelEditPayment(e,list) {
+      this.$refs.MemberEditPayment.HandelChangeShow(e,list)
+    },
     HandelUpdatebalance(e) {
       this.$refs.MemberUpdatebalanceview.HandelChangeShow(e)
     },

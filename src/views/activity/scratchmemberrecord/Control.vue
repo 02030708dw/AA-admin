@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
+    <el-input v-model="memberName" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
     <el-select v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in [{ index: 0, title: '停用' }, { index: 1, title: '启用' }]" :key="index"
         :value="item.index" :label="item.title" />
