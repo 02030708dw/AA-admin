@@ -4,12 +4,12 @@
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="userName" :label="$t('username')" />
       <el-table-column prop="turnoverMultiple" label="流水倍数" />
-      <el-table-column prop="" :label="$t('status')">
+      <el-table-column prop="" :label="$t('state')">
         <template slot-scope="scope">
           {{ getStatus(scope.row.status) }}
         </template>
       </el-table-column>
-      <el-table-column prop="voucherConfigId" label="代金券配置ID" />
+      <el-table-column prop="voucherConfigName" label="代金券配置名称" />
       <el-table-column prop="useAt" label="使用时间" width="">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.useAt) }}
