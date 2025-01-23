@@ -25,7 +25,8 @@ export default {
             pageNo: 1,
             pageSize: 20,
             total: null,
-            id: ''
+            id: '',
+            day: '',
         }
     },
     methods: {
@@ -34,16 +35,17 @@ export default {
             this.PageSize = e
             this.getData(this.pageNo)
         },
-        HandelShow(id) {
+        HandelShow({agentId, day}) {
             this.dialogTableVisible = true
             this.loading = true
             this.tableData = []
-            this.agentId = id
+            this.agentId = agentId
+            this.day = day
             this.getData(1)
         },
         async getData(index = 1) {
             this.pageNo = index
-            const res = await getGamerInfo({ pageNo: this.pageNo, pageSize: this.pageSize, agentId: this.agentId })
+            const res = await getGamerInfo({ pageNo: this.pageNo, pageSize: this.pageSize, agentId: this.agentId, day: this.day })
             this.tableData = res.resultSet.data
             this.total = res.resultSet.total
             this.loading = false

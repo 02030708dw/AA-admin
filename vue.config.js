@@ -33,13 +33,14 @@ module.exports = {
   },
   configureWebpack: {
     name: name,
+    devtool: 'source-map',
     resolve: {
       alias: {
         '@': resolve('src')
       }
     }
   },
-  
+
   chainWebpack(config) {
     config.plugin('preload').tap(() => [
       {
@@ -83,7 +84,7 @@ module.exports = {
                   name: 'chunk-libs',
                   test: /[\\/]node_modules[\\/]/,
                   priority: 10,
-                  chunks: 'initial' 
+                  chunks: 'initial'
                 },
                 elementUI: {
                   name: 'chunk-elementUI', // split elementUI into a single package
