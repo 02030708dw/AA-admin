@@ -21,7 +21,7 @@
       <el-table-column prop="plantformAmount" :label="$t('Platformfees')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.plantformAmount }}</span>
-          <el-button @click="HandelPlantform(scope.row.agentId)" style="margin-left: 2px;padding: 5px;"
+          <el-button @click="HandelPlantform(scope.row)" style="margin-left: 2px;padding: 5px;"
             size="mini">详情</el-button>
         </template>
       </el-table-column>
@@ -51,8 +51,8 @@ export default {
     HandelActivity(id) {
       this.$emit('Activity', id)
     },
-    HandelPlantform(id) {
-      this.$emit('Plantform', id)
+    HandelPlantform(item) {
+      this.$emit('Plantform', item)
     },
   }
 }

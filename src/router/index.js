@@ -467,6 +467,31 @@ export const asyncRoutes = [
     ]
   },
   {
+    path:'/bonusgroup',
+    component: Layout,
+    meta: { title: 'bonusgroup', icon: 'el-icon-s-flag' },
+    children:[
+      {//代理奖金组方案
+        path: 'agentbonusgroup',
+        name: 'agentbonusgroup',
+        component: () => import('@/views/bonusgroup/agentbonusgroup/index'),
+        meta: { title: 'agentbonusgroup', icon: 'el-icon-s-flag' }
+      },
+      {//系统奖金组
+        path: 'sysbonusgroup',
+        name: 'sysbonusgroup',
+        component: () => import('@/views/bonusgroup/sysbonusgroup/index'),
+        meta: { title: 'sysbonusgroup', icon: 'el-icon-s-flag' }
+      },
+      {//代理平台游戏信息
+        path: 'gwgameinfo',
+        name: 'gwgameinfo',
+        component: () => import('@/views/bonusgroup/gwgameinfo/index'),
+        meta: { title: 'gwgameinfo', icon: 'el-icon-s-flag' }
+      }
+    ]
+  },
+  {
     path: '/IP',
     component: Layout,
     children: [

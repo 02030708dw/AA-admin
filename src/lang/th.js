@@ -65,6 +65,10 @@ export default {
       redpacketcreate: 'Red Packet Create',
       redpacketmember: 'Red Packet Member',
       redpacketrecord: 'Red Packet Record',
+      bonusgroup:"奖金组管理",
+      agentbonusgroup: "代理奖金组方案",
+      sysbonusgroup: "系统奖金组",
+      gwgameinfo: "代理平台游戏信息",
     },
     role: {
       permission: 'การอนุญาต'
