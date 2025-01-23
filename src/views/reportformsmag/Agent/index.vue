@@ -49,8 +49,8 @@ export default {
     HandelActivity(id) {
       this.$refs.ActivityDialog.HandelShow(id)
     },
-    HandelPlantform(id){
-      this.$refs.PlantformDialog.HandelShow(id)
+    HandelPlantform(item){
+      this.$refs.PlantformDialog.HandelShow(item)
     },
     // 初始化时间
     HandelInitializationTime() {
