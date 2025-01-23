@@ -44,3 +44,12 @@ export function bonusGroupPage(data) {
         data
     })
 }
+
+//编辑奖金组
+export function bonusGroupEdit(data) {
+    return request({
+        url: `/bonusGroup/edit`,
+        method: 'post',
+        data
+    })
+}

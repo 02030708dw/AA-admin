@@ -1,19 +1,13 @@
 <template>
   <el-card>
-    <Control
-      ref="ControlView"
-      @resetting="getresetting"
-      @query="getquery"
-      @Refresh="HandelRefresh"
-      @Add="getBonusAddShow"
-    />
-    <Table ref="TableView" :table-data="tableData" @delete="getDel" />
-    <Pagination
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="getdata"
-    />
+    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @Refresh="HandelRefresh"
+      @Add="getBonusAddShow" />
+    <Table ref="TableView" :table-data="tableData" @delete="getDel" @UdateStatus="getUdateStatus"
+      @EditorShow="getEitorShow" @BindShow="getBindShow" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsAdd ref="bonusAdd" @confirm="getBonusAdd" />
+    <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
+    <ComponentsBind :SysBonusGroup="SysBonusGroup" ref="ComponentsBind" @confirm="getBind" />
   </el-card>
 </template>
 
@@ -21,6 +15,8 @@
 import Table from "./Table.vue";
 import Control from "./Control";
 import ComponentsAdd from "./ComponentsAdd";
+import ComponentsEitor from './ComponentsEitor.vue'
+import ComponentsBind from './ComponentsBind.vue'
 import Pagination from "@/components/Pagination/Pagination.vue";
 import {
   bonusGroupAdd,
@@ -28,13 +24,17 @@ import {
   bonusGroupDel,
   bonusGroupInfo,
   bonusGroupPage,
+  bonusGroupEdit,
 } from "@/api/bonusgroup/sysbonusgroup";
+import { gameInfoGroup } from "@/api/bonusgroup/gwgameinfo";
 export default {
   components: {
     Table,
     Control,
     Pagination,
     ComponentsAdd,
+    ComponentsEitor,
+    ComponentsBind
   },
   data() {
     return {
@@ -42,9 +42,34 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
+      SysBonusGroup: [],
     };
   },
+
   methods: {
+    getSysBonusGroupInfo() {
+      gameInfoGroup().then(res => {
+        this.SysBonusGroup = res.resultSet
+      })
+    },
+    // 显示绑定弹窗
+    getBindShow(e) {
+      this.$refs.ComponentsBind.getAddstatus(e);
+    },
+    getBind(data) {
+      bonusGroupBind(data)
+        .then((res) => {
+          this.getdata(this.pageNo)
+          this.$message({
+            message: '编辑成功!',
+            type: 'success'
+          })
+        })
+        .catch((err) => {
+          this.$message.error('编辑失败!')
+          console.log(err)
+        })
+    },
     HandelPagesChange(e) {
       this.PagesSize = e;
       this.getdata(this.pageNo);
@@ -138,9 +163,43 @@ export default {
           this.$message.error("添加失败!");
         });
     },
+    // 显示编辑弹窗
+    getEitorShow(e) {
+      this.$refs.ComponentsEitor.getAddstatus(e)
+    },
+    getEitor(data) {
+      bonusGroupEdit(data)
+        .then((res) => {
+          this.getdata(this.pageNo)
+          this.$message({
+            message: '编辑成功!',
+            type: 'success'
+          })
+        })
+        .catch((err) => {
+          this.$message.error('编辑失败!')
+          console.log(err)
+        })
+    },
+    //修改状态
+    getUdateStatus(data) {
+      bonusGroupEdit(data)
+        .then((res) => {
+          this.$message({
+            message: '修改成功!',
+            type: 'success'
+          })
+          this.getdata(this.pageNo)
+        })
+        .catch((err) => {
+          this.$message.error('修改失败!')
+          console.log(err)
+        })
+    },
   },
   created() {
     this.getdata(1);
+    this.getSysBonusGroupInfo()
   },
 };
 </script>

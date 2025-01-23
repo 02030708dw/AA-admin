@@ -1,18 +1,9 @@
 <template>
   <el-card>
-    <Control
-      ref="ControlView"
-      @resetting="getresetting"
-      @query="getquery"
-      @Refresh="HandelRefresh"
-    />
-    <Table ref="TableView" :table-data="tableData" />
-    <Pagination
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="getdata"
-    />
-    <Info ref="InfoView" @Refresh="HandelRefresh"/>
+    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" @EditorShow="getInfoShow" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Info ref="InfoView" @Refresh="HandelRefresh" />
   </el-card>
 </template>
 
@@ -23,7 +14,6 @@ import Info from "./Info";
 import Pagination from "@/components/Pagination/Pagination.vue";
 import {
   agentBonusGroupPage,
-  agentBonusGroupInfo,
 } from "@/api/bonusgroup/agentbonusgroup";
 export default {
   components: {
@@ -41,6 +31,10 @@ export default {
     };
   },
   methods: {
+    // 显示详情弹窗
+    getInfoShow(e) {
+      this.$refs.InfoView.getAddstatus(e)
+    },
     HandelPagesChange(e) {
       this.PagesSize = e;
       this.getdata(this.pageNo);

@@ -1,12 +1,7 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column type="index" :label="$t('SerialNumber')" width="80" />
       <el-table-column prop="groupName" :label="$t('奖金组名称')" />
       <el-table-column prop="description" :label="$t('奖金组描述')" />
@@ -25,37 +20,20 @@
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch
-              v-has="'noticetypemag:status'"
-              v-model="scope.row.status"
-              :active-value="1"
-              :inactive-value="0"
-              active-color="#13ce66"
-              :active-text="$t('Enable')"
-              :inactive-text="$t('Deactivate')"
-              @change="getUdateStatus($event, scope.row.id)"
-            />
+            <el-switch v-has="'noticetypemag:status'" v-model="scope.row.status" :active-value="1" :inactive-value="0"
+              active-color="#13ce66" :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
+              @change="getUdateStatus($event, scope.row)" />
           </div>
         </template>
       </el-table-column>
       <el-table-column fixed="right" prop="" :label="$t('operate')" width="120">
         <template slot-scope="scope">
-          <el-button
-            v-has="'activity:edit'"
-            type="text"
-            style="color: #e6a23c"
-            @click="getEditor(scope.row)"
-            >{{ $t("详情") }}</el-button
-          >
-
-          <el-button
-            v-has="'Currency:del'"
-            slot="reference"
-            type="text"
-            style="color: red"
-            @click="getroledel(scope.row.id)"
-            >{{ $t("delete") }}</el-button
-          >
+          <el-button v-has="'activity:edit'" type="text" style="color: #e6a23c" @click="getBind(scope.row)">{{
+            $t("绑定") }}</el-button>
+          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
+            $t("edit") }}</el-button>
+          <el-button v-has="'Currency:del'" slot="reference" type="text" style="color: red"
+            @click="getroledel(scope.row.id)">{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -83,9 +61,13 @@ export default {
     HandelLoading(status) {
       this.loading = status;
     },
-    // 详情
+    // 编辑
     getEditor(item) {
       this.$emit("EditorShow", item);
+    },
+    // 绑定
+    getBind(item) {
+      this.$emit("BindShow", item);
     },
     // 删除
     getroledel(id) {
@@ -103,6 +85,12 @@ export default {
             message: "已取消删除",
           });
         });
+    },
+ 
+     // 修改状态
+     getUdateStatus(e, item) {
+      item.status = e
+      this.$emit('UdateStatus', item)
     },
     // 编辑
     geteroleEitor(item) {
