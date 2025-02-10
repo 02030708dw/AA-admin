@@ -6,7 +6,7 @@
       <el-table-column prop="amount" label="领取的金额" />
       <el-table-column prop="claimTime" label="领取时间">
         <template slot-scope="scope">
-          {{ getClaimTime(scope.row.claimTime) }}
+          {{ scope.row.claimTime }}
         </template>
       </el-table-column>
       <el-table-column prop="claimerId" label="领取用户ID" />
