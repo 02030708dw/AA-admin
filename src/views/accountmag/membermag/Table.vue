@@ -38,17 +38,17 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.parentName" v-has="'membermag:memberTransfer'" type="text"
+          <!-- <el-button v-if="scope.row.parentName" v-has="'membermag:memberTransfer'" type="text"
             @click="Membershiptransfer(scope.row)">{{
               $t("Membershiptransfer")
-            }}</el-button>
+            }}</el-button> -->
           <el-button type="text" @click="MemberEditPayment(scope.row)"> 支付商展示顺序 </el-button>
           <el-button v-has="'membermag:resetPwd'" type="text" @click="MemberresettingPwd(scope.row)">{{
             $t('resetpassword') }}</el-button>
           <el-button v-has="'membermag:changeBalance'" type="text" @click="MemberUpdatebalance(scope.row)">{{
             $t('Balanceadditionandsubtraction') }}</el-button>
-          <el-button v-if="scope.row.agenId" v-has="'membermag:agentTransfer'" type="text"
-            @click="Proxytransfer(scope.row)">{{
+          <el-button v-if="!scope.row.isAgent || scope.row.parentMemberId" v-has="'membermag:agentTransfer'"
+            type="text" @click="Proxytransfer(scope.row)">{{
               $t("Proxytransfer")
             }}</el-button>
         </template>
@@ -134,7 +134,7 @@ export default {
     },
     // 给会员修改三方支付商展示顺序信息
     MemberEditPayment(data) {
-      this.$emit('MemberEditPayment', data.id,data.paymentProviderOrders)
+      this.$emit('MemberEditPayment', data.id, data.paymentProviderOrders)
     },
   }
 }
