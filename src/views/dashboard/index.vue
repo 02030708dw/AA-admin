@@ -1,47 +1,50 @@
 <template>
   <el-card class="card_box">
     <div class="container_box">
+      <div class="item_box"></div>
       <div class="item_box">
-        <Agent />
+        <!-- <Gamer/> -->
       </div>
       <div class="item_box">
-        <Gamer/>
+        <!-- <Member/> -->
       </div>
       <div class="item_box">
-        <Member/>
+        <!-- <Platform/> -->
       </div>
-      <div class="item_box">
-        <Platform/>
-      </div>
-      <!-- <daily />
+      <!-- <daily /> -->
 
-      <Monthlyreport /> -->
-
+      <!-- <Monthlyreport /> -->
+      <GameMaker />
+      <!-- <Agent /> -->
+      <newAgent />
     </div>
-
   </el-card>
 </template>
 
 <script>
 // 平台日报
-import Agent from './Agent.vue'
-import Gamer from './Gamer.vue'
-import Member from './Member.vue'
-import Platform from './Platform.vue'
+import Agent from "./Agent.vue";
+import Gamer from "./Gamer.vue";
+import Member from "./Member.vue";
+import Platform from "./Platform.vue";
+import GameMaker from "./GameMaker.vue";
+import newAgent from "./newAgent.vue";
 export default {
   components: {
     Agent,
     Gamer,
     Member,
-    Platform
+    Platform,
+    GameMaker,
+    newAgent,
   },
   data() {
-    return {}
+    return {};
   },
-  created(){
-    this.$store.dispatch('user/currencySet')
-  }
-}
+  created() {
+    this.$store.dispatch("user/currencySet");
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -50,10 +53,10 @@ export default {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  .item_box{
+  .item_box {
     width: 49%;
   }
-  .item_box:nth-child(n+3){
+  .item_box:nth-child(n + 3) {
     margin-top: 20px;
   }
 }
