@@ -1,7 +1,7 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-input
-      v-model="groupName"
+      v-model="gameName"
       style="width: 200px; margin-left: 10px"
       :placeholder="$t('游戏名称')"
     />
@@ -44,7 +44,7 @@ export default {
   name: "Control",
   data() {
     return {
-      groupName: null, // 游戏名称
+      gameName: null, // 游戏名称
       gamePlayName: null, //游戏玩法名称
       gamePlayTypeName: null, //游戏类型名称
       btnIcoType: true,
@@ -58,14 +58,14 @@ export default {
     // 条件查询
     getquery() {
       this.$emit("query", {
-        groupName: this.groupName,
+        gameName: this.gameName,
         gamePlayName: this.gamePlayName,
         gamePlayTypeName: this.gamePlayTypeName,
       });
     },
     // 重置查询
     getresetting() {
-      this.groupName = null;
+      this.gameName = null;
       this.gamePlayName = null;
       this.gamePlayTypeName = null;
       this.$emit("resetting");
