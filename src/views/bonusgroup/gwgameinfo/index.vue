@@ -6,7 +6,7 @@
       @query="getquery"
       @Refresh="HandelRefresh"
     />
-    <Table ref="TableView" :table-data="tableData" @eitor="getEditShow" />
+    <Table ref="TableView" :table-data="tableData" @eitor="getEditShow" @UdateStatus="getGameEdit"/>
     <Pagination
       :total="total"
       @PageSizeChange="HandelPagesChange"
