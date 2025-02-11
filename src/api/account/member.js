@@ -18,13 +18,6 @@ export function MemberTransfer(data) {
     data
   })
 }
-export function agentTransfer(data) {
-  return request({
-    url: '/user/member/transferMemberForAgent',
-    method: 'post',
-    data
-  })
-}
 // 修改状态
 export function MemberUpdateStatus(data) {
   return request({
@@ -161,6 +154,15 @@ export function getGamerBalance(data) {
 export function editPayment(data) {
   return request({
     url: `/user/member/editPayment`,
+    method: 'post',
+    data
+  })
+}
+
+// 所属代理转移
+export function agentTransfer(data) {
+  return request({
+    url: `/user/member/agentTransfer`,
     method: 'post',
     data
   })

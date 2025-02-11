@@ -53,7 +53,7 @@ export default {
       gameInfoPage({
         pageNo: this.pageNo,
         pageSize: this.PagesSize,
-        groupName: this.groupName,
+        gameName: this.gameName,
         gamePlayName: this.gamePlayName,
         gamePlayTypeName: this.gamePlayTypeName,
       })
@@ -80,7 +80,7 @@ export default {
       gameInfoPage({
         pageNo: this.pageNo,
         pageSize: this.PagesSize,
-        groupName: this.groupName,
+        gameName: this.gameName,
         gamePlayName: this.gamePlayName,
         gamePlayTypeName: this.gamePlayTypeName,
       })
@@ -95,14 +95,14 @@ export default {
     // 条件查询
     getquery(e) {
       console.log(e);
-      this.groupName = e.groupName;
+      this.gameName = e.gameName;
       this.gamePlayName = e.gamePlayName;
       this.gamePlayTypeName = e.gamePlayTypeName;
       this.getdata(1);
     },
     // 重置查询
     getresetting() {
-      this.groupName = null;
+      this.gameName = null;
       this.gamePlayName = null;
       this.gamePlayTypeName = null;
       this.getdata(1);
