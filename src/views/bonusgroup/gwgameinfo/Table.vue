@@ -13,9 +13,19 @@
       <el-table-column prop="gamePlayTypeName" :label="$t('游戏类型名称')" />
       <el-table-column :label="$t('展示标识')">
         <template slot-scope="scope">
-          <div>
+          <!-- <div>
             {{ scope.row.sign | TypeF }}
-          </div>
+          </div> -->
+          <el-switch
+            v-has="'activity:status'"
+            v-model="scope.row.sign"
+            :active-value="1"
+            :inactive-value="0"
+            active-color="#13ce66"
+            :active-text="$t('展示')"
+            :inactive-text="$t('不展示')"
+            @change="getUdateStatus($event, scope.row)"
+          />
         </template>
       </el-table-column>
       <el-table-column prop="winAmount" :label="$t('单注中奖金额')" />
@@ -78,6 +88,11 @@ export default {
     // 编辑
     geteroleEitor(item) {
       this.$emit("eitor", item);
+    },
+    // 修改状态
+    getUdateStatus(e, item) {
+      item.status = e;
+      this.$emit("UdateStatus", item);
     },
   },
 };
