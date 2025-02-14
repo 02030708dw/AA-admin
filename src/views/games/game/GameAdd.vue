@@ -20,6 +20,7 @@
           filterable
           :placeholder="$t('SelectGameMerchant')"
           style="width: 200px; margin-left: 10px"
+          @change="handleSelectChange"
         >
           <el-option
             v-for="(item, index) in gameriddata"
@@ -69,7 +70,7 @@
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('Gamevendorimages')" prop="pictureInfos">
-        <UploadImage v-if="dialogVisible" fn="gamer" @Upload="getImageURL" />
+        <UploadImage v-if="dialogVisible" fn="gamer" :code="this.selectedTitle" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -97,6 +98,8 @@ export default {
   },
   data() {
     return {
+      // 用于保存选中的游戏名字，上传图片时使用
+      selectedTitle: '',
       // 弹窗状态
       dialogVisible: false,
       // 表单数据
@@ -142,6 +145,14 @@ export default {
     };
   },
   methods: {
+    // 根据选中的 value 找到对应的 item
+    handleSelectChange(value) {
+      const selectedItem = this.gameriddata.find(item => item.index === value);
+      if (selectedItem) {
+        this.selectedTitle = selectedItem.title;
+        console.log('Selected Title:', this.selectedTitle); // 打印选中的 title
+      }
+    },
     // 改变弹窗状态
     getAddstatus() {
       // 关闭时清空
