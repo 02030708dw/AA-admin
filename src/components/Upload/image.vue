@@ -91,7 +91,7 @@ export default {
             that.$set(that.imageFlag, index, true)
             if (that.fn == 'gamer') {
                 Fn = that.fn
-                Code = that.code + '/' + lang
+                Code = that.code + lang
             } else {
                 Fn = that.fn + lang
                 Code = lang
