@@ -50,7 +50,7 @@
             <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
             <el-button type="primary" @click="getconfirm()">{{
                 $t("determine")
-                }}</el-button>
+            }}</el-button>
         </span>
     </el-dialog>
 </template>
@@ -103,13 +103,14 @@ export default {
         },
         // 确定添加事件
         getconfirm() {
+            const bankName = JSON.parse(this.ruleForm.threePayIdsString).find(item => item.threeId == this.ruleForm.threePayId)?.code
             this.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     let ruleForm = {
                         amt: this.ruleForm.amount,
                         bankAccount: this.ruleForm.bankAccount,
                         bankCardNo: this.ruleForm.bankCardNo,
-                        bankName: this.ruleForm.bankName,
+                        bankName,
                         ifsc: this.ruleForm.ifsc ? this.ruleForm.ifsc : 'no',
                         orderNo: this.ruleForm.orderNo,
                         threePayId: this.ruleForm.threePayId,
