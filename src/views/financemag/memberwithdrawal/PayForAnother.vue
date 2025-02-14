@@ -50,7 +50,7 @@
             <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
             <el-button type="primary" @click="getconfirm()">{{
                 $t("determine")
-            }}</el-button>
+                }}</el-button>
         </span>
     </el-dialog>
 </template>
@@ -61,7 +61,7 @@ export default {
         return {
             dialogVisible: false,
             ruleForm: {
-                threePayIds:[],
+                threePayIds: [],
                 threePayId: '',
             },
             threePayList: [],
@@ -69,10 +69,19 @@ export default {
                 threePayId: [{ required: true, message: '请选择三方支付', trigger: 'blur' }],
             }
         }
-    }, 
+    },
     computed: {
         ThreePayfiletr() {
-            return this.ruleForm?.threePayIds?.length && this.threePayList.filter(item => this.ruleForm.threePayIds.includes(item.id))
+            let minbankCount = { bankCount: 99 }
+            const result = this.ruleForm?.threePayIds?.length && this.threePayList
+                .filter(item => {
+                    item.threeName = item.threeName.replace(/\(推荐\)/g, '');
+                    const flag = this.ruleForm.threePayIds.includes(item.id)
+                    if (flag && item.bankCount < minbankCount.bankCount) minbankCount = item
+                    return flag
+                })
+            minbankCount.threeName = minbankCount.threeName + '(推荐)'
+            return result
         }
     },
     created() {

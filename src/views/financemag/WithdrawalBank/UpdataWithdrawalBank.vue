@@ -26,6 +26,8 @@
                 </el-select>
             </el-form-item>
             <el-form-item v-for="v in ruleForm.amountRange" :label="v.threeName">
+                <el-input v-if="v.threeName != 'system'" style="margin-bottom: 10px" v-model="v.code"
+                    placeholder="请输入code"></el-input>
                 <el-input-number v-model="v.min" placeholder="最小值"></el-input-number> --
                 <el-input-number v-model="v.max" placeholder="最大值"></el-input-number>
             </el-form-item>
@@ -41,7 +43,7 @@
             <el-button @click="HandelChange()">{{ $t("cancellation") }}</el-button>
             <el-button type="primary" @click="getconfirm()">{{
                 $t("determine")
-            }}</el-button>
+                }}</el-button>
         </span>
 
     </el-dialog>
@@ -74,7 +76,7 @@ export default {
                 id: '', //ID
                 currency: '',
                 threePayIds: [],
-                amountRange: [{ id: 0, threeName: 'system', min: 0, max: 0 }],
+                amountRange: [{ id: 0, threeName: 'system', min: 0, max: 0, code: '' }],
             },
             rules: {
                 bankCode: [{ required: true, message: '请输入银行编码', trigger: 'blur' }],
@@ -94,7 +96,7 @@ export default {
     methods: {
         selectChange(v) {
             const list = this.threePayList.filter(item => v.includes(item.id));
-            this.ruleForm.amountRange = [{ id: 0, threeName: 'system', min: 0, max: 0 }, ...list]
+            this.ruleForm.amountRange = [{ id: 0, threeName: 'system', min: 0, max: 0, code: null }, ...list]
         },
         HandelClose() {
             this.dialogVisible = false
@@ -106,13 +108,14 @@ export default {
                 id: '', //ID
                 currency: '',
                 threePayIds: [],
-                amountRange: [{ id: 0, threeName: 'system', min: 0, max: 0 }],
+                amountRange: [{ id: 0, threeName: 'system', min: 0, max: 0, code: null }],
             }
         },
         // 改变弹窗状态
         HandelChange(data = null) {
             this.dialogVisible = !this.dialogVisible
             if (data != null) {
+                const [amountRange, threePayIds] = this.getInitData(data.amountRange, data.threePayIds)
                 // 填充数据
                 this.ruleForm = {
                     bankCode: data.bankCode,
@@ -121,8 +124,8 @@ export default {
                     status: data.status,
                     id: data.id,
                     currency: data.currency,
-                    threePayIds: +data.threePayIds == false ? [] : data.threePayIds.split(','),
-                    amountRange: data.amountRange == null ? [{ id: 0, threeName: 'system', min: 0, max: 0 }] : JSON.parse(data.amountRange),
+                    threePayIds,
+                    amountRange,
                 }
             }
             // 关闭时清空数据
@@ -170,11 +173,13 @@ export default {
         },
         // 确定事件
         getconfirm() {
-            this.ruleForm.amountRange = JSON.stringify(this.ruleForm.amountRange)
-            this.ruleForm.threePayIds = this.ruleForm.threePayIds.toString()
+            // this.ruleForm.amountRange = JSON.stringify(this.ruleForm.amountRange)
+            // this.ruleForm.threePayIds = this.ruleForm.threePayIds.toString()
+            const [amountRange, threePayIds] = this.submitInitData(this.ruleForm.amountRange)
+            console.log(amountRange, threePayIds);
             this.$refs.ruleForm.validate((valid) => {
                 if (valid) {
-                    this.$emit('upta', this.ruleForm)
+                    this.$emit('upta', { ...this.ruleForm, threePayIds, amountRange })
                     // 关闭弹窗
                     this.HandelChange()
                 } else {
@@ -185,6 +190,33 @@ export default {
                     return false
                 }
             })
+        },
+        getInitData(Range, Ids) {
+
+            Range = Range == null ? [{ id: 0, threeName: 'system', min: 0, max: 0, code: null }] : JSON.parse(Range)
+            Ids = Ids == false ? [] : JSON.parse(Ids)
+            let amountRange = []
+            let threePayIds = []
+            Range.map(v => {
+                if (!v.id) return
+                threePayIds.push(v.id)
+                Ids.length && Ids.map(i => {
+                    v.id == i.threeId ? amountRange.push({ ...v, code: i.code }) : ''
+                })
+            })
+
+            return [amountRange, threePayIds]
+        },
+        submitInitData(data) {
+            let amountRange = []
+            let threePayIds = []
+            data.map(v => {
+                if (!v.id) return // 系统默认的id不处理
+                const { code, ...rest } = v;
+                amountRange.push(rest);
+                threePayIds.push({ code: v.code, threeId: v.id });
+            });
+            return [JSON.stringify(amountRange), JSON.stringify(threePayIds)]
         }
     },
 }
