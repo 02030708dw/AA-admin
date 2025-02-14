@@ -192,9 +192,15 @@ export default {
             })
         },
         getInitData(Range, Ids) {
-
+            function safeJsonParse(data, defaultValue) {
+                try {
+                    return JSON.parse(data);
+                } catch (e) {
+                    return defaultValue;
+                }
+            }
             Range = Range == null ? [{ id: 0, threeName: 'system', min: 0, max: 0, code: null }] : JSON.parse(Range)
-            Ids = Ids == false ? [] : JSON.parse(Ids)
+            Ids = Ids == false ? [] : safeJsonParse(Ids, [])
             let amountRange = []
             let threePayIds = []
             Range.map(v => {
