@@ -30,6 +30,10 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item :label="$t('GameCode')" prop="code">
+        <el-input v-model="ruleForm.code" />
+      </el-form-item>
+
       <el-form-item :label="$t('ThirdpartyID')" prop="threeId">
         <el-input v-model="ruleForm.threeId" />
       </el-form-item>
@@ -103,7 +107,8 @@ export default {
         threeId: '',
         type: null,
         sort:0,
-        pictureInfos:''
+        pictureInfos:'',
+        code: '',
       },
       // 状态
       statusType: [
@@ -129,6 +134,7 @@ export default {
         threeId: [
           { required: true, message: '请输入第三方id', trigger: 'blur' }
         ],
+        code: [{ required: true, message: "请输入游戏code", trigger: "blur" }],
         gamerId: [{ required: true, message: '请输游戏商id', trigger: 'blur' }],
         type: [{ required: true, message: '请输游戏类型', trigger: 'blur' }],
         sort: [{ required: true, message: '请输入排序', trigger: 'blur' }]
