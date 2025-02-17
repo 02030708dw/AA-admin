@@ -1,89 +1,39 @@
 <template>
   <!-- 新增 修改 -->
-  <el-dialog
-    :title="
-      TypeIndex === 1 ? $t('Editwithdrawalbank') : $t('Addwithdrawalbank')
-    "
-    :visible.sync="dialogVisible"
-    width="40%"
-    @close="HandelClose"
-  >
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="TypeIndex === 1 ? $t('Editwithdrawalbank') : $t('Addwithdrawalbank')
+    " :visible.sync="dialogVisible" width="40%" @close="HandelClose">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('Bankcode')" prop="bankCode">
-        <el-input
-          v-model="ruleForm.bankCode"
-          :placeholder="$t('Pleaseenterbankcode')"
-        />
+        <el-input v-model="ruleForm.bankCode" :placeholder="$t('Pleaseenterbankcode')" />
       </el-form-item>
       <el-form-item :label="$t('BankName')" prop="bankName">
-        <el-input
-          v-model="ruleForm.bankName"
-          :placeholder="$t('Pleaseenterthebankname')"
-        />
+        <el-input v-model="ruleForm.bankName" :placeholder="$t('Pleaseenterthebankname')" />
       </el-form-item>
 
       <el-form-item :label="$t('SelectCurrency')" prop="currency">
-        <el-select
-          v-model="ruleForm.currency"
-          :placeholder="$t('SelectCurrency')"
-          style="width: 200px"
-        >
-          <el-option
-            v-for="(item, index) in CurrencytPageData"
-            :key="index"
-            :value="item.index"
-            :label="item.item"
-          />
+        <el-select v-model="ruleForm.currency" :placeholder="$t('SelectCurrency')" style="width: 200px">
+          <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
         </el-select>
       </el-form-item>
 
       <el-form-item :label="$t('Threepartypayment')">
-        <el-select
-          @change="selectChange"
-          multiple
-          v-model="ruleForm.threePayIds"
-          :placeholder="$t('Rechargetype')"
-          style="width: 300px"
-        >
-          <el-option
-            v-for="(item, index) in threePayList"
-            :key="index"
-            :value="item.id"
-            :label="item.threeName"
-          />
+        <el-select @change="selectChange" multiple v-model="ruleForm.threePayIds" :placeholder="$t('Rechargetype')"
+          style="width: 300px">
+          <el-option v-for="(item, index) in threePayList" :key="index" :value="item.id" :label="item.threeName" />
         </el-select>
       </el-form-item>
 
-      <el-form-item
-        v-for="(v, i) in ruleForm.amountRange"
-        :label="v.threeName"
-        :key="i"
-      >
-        <el-input
-          :disabled="v.threeName == 'system'"
-          style="margin-bottom: 10px"
-          v-model="v.code"
-          placeholder="请输入code"
-        ></el-input>
+      <el-form-item v-for="(v, i) in ruleForm.amountRange" :label="v.threeName" :key="i">
+        <el-input :disabled="v.threeName == 'system'" style="margin-bottom: 10px" v-model="v.code"
+          placeholder="请输入code"></el-input>
         <el-input-number v-model="v.min" placeholder="最小值"></el-input-number>
         --
         <el-input-number v-model="v.max" placeholder="最大值"></el-input-number>
       </el-form-item>
 
       <el-form-item :label="$t('icon')" prop="icon">
-        <el-upload
-          action="#"
-          class="avatar-uploader"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :on-error="uploadonerror"
-        >
+        <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
+          :on-error="uploadonerror">
           <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -271,8 +221,9 @@ export default {
       let amountRange = [];
       let threePayIds = [];
       Range.map((v) => {
-        // if (!v.id) return
-        threePayIds.push(v.id);
+        if (v.id) {
+          threePayIds.push(v.id);
+        }
         Ids.length &&
           Ids.map((i) => {
             v.id == i.threeId ? amountRange.push({ ...v, code: i.code }) : "";
