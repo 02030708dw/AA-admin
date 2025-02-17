@@ -113,7 +113,13 @@ export const asyncRoutes = [
         name: 'agent',
         component: () => import('@/views/accountmag/agentmag/index'),
         meta: { title: 'agentmanagement', icon: 'el-icon-news' },
-      }
+      },
+      {
+        path: 'video',
+        name: 'video',
+        component: () => import('@/views/agentmag/agentvideo/index'),
+        meta: { title: 'agentvideo', icon: 'el-icon-news' }
+      },
     ]
   },
   {
@@ -467,10 +473,10 @@ export const asyncRoutes = [
     ]
   },
   {
-    path:'/bonusgroup',
+    path: '/bonusgroup',
     component: Layout,
     meta: { title: 'bonusgroup', icon: 'el-icon-s-flag' },
-    children:[
+    children: [
       {//代理奖金组方案
         path: 'agentbonusgroup',
         name: 'agentbonusgroup',

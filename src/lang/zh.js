@@ -77,10 +77,11 @@ export default {
     redpacketcreate: "红包创建信息",
     redpacketmember: "用户红包账户",
     redpacketrecord: "红包领取记录",
-    bonusgroup:"奖金组管理",
+    bonusgroup: "奖金组管理",
     agentbonusgroup: "代理奖金组方案",
     sysbonusgroup: "系统奖金组",
     gwgameinfo: "代理平台游戏信息",
+    agentvideo: "视频管理",
   },
   role: {
     permission: "权限",
