@@ -3,6 +3,8 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="userName" :label="$t('username')" width="" />
+      <el-table-column prop="vipLevel" :label="$t('VIPlevel')" width="" />
+      <el-table-column prop="ip" :label="$t('IPAddress')" width="" />
 
       <!-- <el-table-column prop="password" :label="$t('password')" width="" /> -->
       <el-table-column prop="telPhone" :label="$t('phone')" width="" />
@@ -33,7 +35,7 @@
       <el-table-column prop="" :label="$t('Memberinformation')" width="">
         <template slot-scope="scope">
           <el-button v-has="'membermag:memberInfo'" type="text" @click="MemberInfo(scope.row)">{{ $t('MemberDetails')
-            }}</el-button>
+          }}</el-button>
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="200">
@@ -47,8 +49,8 @@
             $t('resetpassword') }}</el-button>
           <el-button v-has="'membermag:changeBalance'" type="text" @click="MemberUpdatebalance(scope.row)">{{
             $t('Balanceadditionandsubtraction') }}</el-button>
-          <el-button v-if="!scope.row.isAgent || scope.row.parentMemberId" v-has="'membermag:agentTransfer'"
-            type="text" @click="Proxytransfer(scope.row)">{{
+          <el-button v-if="!scope.row.isAgent || scope.row.parentMemberId" v-has="'membermag:agentTransfer'" type="text"
+            @click="Proxytransfer(scope.row)">{{
               $t("Proxytransfer")
             }}</el-button>
         </template>

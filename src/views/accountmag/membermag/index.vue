@@ -1,18 +1,19 @@
 <template>
   <el-card>
-    <Control ref="ControlView" :agentIddata='agentIddata' @Memquery="getMemquery" @resetting="getresetting"
-      @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" :agentIddata='agentIddata' @Memquery="getMemquery"
+      @resetting="getresetting" @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :gamer-balance-list="gamerBalanceList" :table-data="tableData" @updateStatus="getMemberUdateStatus"
-      @Membershiptransfer="getMembershiptransfer" @Proxytransfer="getProxytransfer" @Info="HandelShowInfo"
-      @MemberresettingPwd="getMemberresettingPwd" @Updatebalance="HandelUpdatebalance" @MemberEditPayment="HandelEditPayment" />
+    <Table ref="TableView" :gamer-balance-list="gamerBalanceList" :table-data="tableData"
+      @updateStatus="getMemberUdateStatus" @Membershiptransfer="getMembershiptransfer" @Proxytransfer="getProxytransfer"
+      @Info="HandelShowInfo" @MemberresettingPwd="getMemberresettingPwd" @Updatebalance="HandelUpdatebalance"
+      @MemberEditPayment="HandelEditPayment" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer :agentIddata="agentIddata" ref="Proxytransfer" @confirm="getProxytransferok" />
     <!-- 会员详情 -->
     <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh" />
     <MemberUpdatebalanceview ref="MemberUpdatebalanceview" />
-    <MemberEditPayment ref="MemberEditPayment" @Refresh="HandelRefresh"/>
+    <MemberEditPayment ref="MemberEditPayment" @Refresh="HandelRefresh" />
   </el-card>
 </template>
 
@@ -56,11 +57,15 @@ export default {
       pageNo: 1,
       tableData: [],
       agentIddata: [],
-      gamerBalanceList:[],
+      gamerBalanceList: [],
       agentId: null,
       userName: null,
       status: null,
-      PagesSize: 20
+      PagesSize: 20,
+      vipLevel: '',
+      registerDateEnd: '',
+      registerDateStart: '',
+      ip: ''
     }
   },
   created() {
@@ -68,8 +73,15 @@ export default {
     this.getAgentPage()
   },
   methods: {
-    HandelEditPayment(e,list) {
-      this.$refs.MemberEditPayment.HandelChangeShow(e,list)
+    // 时间选择
+    HandelSelectDate(data) {
+      this.registerDateStart = data.startDate
+      this.registerDateEnd = data.endDate
+      // 请求数据
+      this.getMemberPage(1)
+    },
+    HandelEditPayment(e, list) {
+      this.$refs.MemberEditPayment.HandelChangeShow(e, list)
     },
     HandelUpdatebalance(e) {
       this.$refs.MemberUpdatebalanceview.HandelChangeShow(e)
@@ -89,14 +101,16 @@ export default {
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      MemberPage({ pageNo: this.pageNo, pageSize: this.PagesSize, agentId: this.agentId, username: this.userName, status: this.status })
+      MemberPage({ pageNo: this.pageNo, pageSize: this.PagesSize, agentId: this.agentId, username: this.userName, status: this.status, vipLevel: this.vipLevel, registerDateStart: this.registerDateStart, registerDateEnd: this.registerDateEnd, ip: this.ip })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
           const userIds = this.tableData.map((item) => item.id)
-          getGamerBalance({ userIds }).then(res => {
-           this.gamerBalanceList = res.resultSet
-          })
+          if (userIds.length > 0) {
+            getGamerBalance({ userIds }).then(res => {
+              this.gamerBalanceList = res.resultSet
+            })
+          }
           setTimeout(() => {
             this.$refs.ControlView.HandelBtnStatus()
             this.$refs.TableView.HandelLoading(false)
@@ -153,14 +167,16 @@ export default {
     getMemberPage(index) {
       // 记录当前页码
       this.pageNo = index
-      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, userName: this.userName, status: this.status, userPhone: this.userPhone })
+      MemberPage({ pageNo: index, pageSize: this.PagesSize, agentId: this.agentId, userName: this.userName, status: this.status, userPhone: this.userPhone, vipLevel: this.vipLevel, registerDateStart: this.registerDateStart, registerDateEnd: this.registerDateEnd, ip: this.ip })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
           const userIds = this.tableData.map((item) => item.id)
-          getGamerBalance({ userIds }).then(res => {
-           this.gamerBalanceList = res.resultSet
-          })
+          if (userIds.length > 0) {
+            getGamerBalance({ userIds }).then(res => {
+              this.gamerBalanceList = res.resultSet
+            })
+          }
         })
         .catch((err) => {
           console.log(err)
@@ -172,12 +188,19 @@ export default {
       this.userName = e.userName
       this.status = e.status
       this.userPhone = e.userPhone
+      this.vipLevel = e.vipLevel
+      this.ip = e.ip
       this.getMemberPage(1)
     },
     getresetting() {
-      this.agentId = ''
-      this.userName = ''
+      this.agentId = null
+      this.userName = null
       this.status = null
+      this.userPhone = null
+      this.vipLevel = null
+      this.registerDateEnd = null
+      this.registerDateStart = null
+      this.ip = null
       this.getMemberPage(1)
     },
     getMemberUdateStatus(data) {
