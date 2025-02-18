@@ -18,7 +18,7 @@
       <el-table-column prop="" :label="$t('icon')" width="120">
         <template slot-scope="scope">
           <div class="image_box">
-            <img :src="toUrl(scope.row.image)" alt="">
+            <img :src="scope.row.image" alt="">
           </div>
         </template>
       </el-table-column>
@@ -86,12 +86,6 @@ export default {
     getUdateStatus(e, item) {
       item.status = e
       this.$emit('UdateStatus', item)
-    },
-    toUrl(url) {
-      //保留语言判断
-      if (url) {
-        return "https://gwstatic.mvkbnb.com/" + url
-      }
     },
   }
 }

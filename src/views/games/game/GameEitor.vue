@@ -154,6 +154,7 @@ export default {
           threeId: '',
           type: null,
           sort:0,
+          code: '',
         }
       } else {
         this.ruleForm = {...data}
