@@ -33,7 +33,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="orderNo" :label="$t('orderNo')" />
-      <el-table-column prop="amount" :label="$t('amountofmoney')" />
+      <el-table-column prop="" :label="this.resultSet.sumAmount ? '' + this.resultSet.sumAmount : '0'" width="">
+        <el-table-column prop="amount" :label="$t('amountofmoney')" />
+      </el-table-column>
       <el-table-column prop="threePayName" :label="$t('ThreePartyNames')" />
       <el-table-column :label="$t('Reviewstatus')" prop="aduitStatus">
         <template slot-scope="scope">
@@ -66,7 +68,7 @@
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
-            }}</el-button>
+          }}</el-button>
           <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
             v-if="scope.row.aduitStatus === 0" :title="$t('passthrough')" @onConfirm="getaudit(1, scope.row.id)">
             <el-button style="margin-right: 5px;" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
@@ -121,6 +123,12 @@ export default {
         return [];
       },
     },
+    resultSet: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
   },
   data() {
     return {
