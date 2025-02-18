@@ -21,7 +21,7 @@
         <el-input v-model="ruleForm.title" />
       </el-form-item>
       <el-form-item :label="$t('icon')">
-        <UploadImage v-if="dialogVisible" :img="ruleForm.image" :Fn="'agentvideo'" @Upload="getImageURL" />
+        <el-input v-model="ruleForm.image" />
       </el-form-item>
       <el-form-item :label="$t('state')">
         <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
