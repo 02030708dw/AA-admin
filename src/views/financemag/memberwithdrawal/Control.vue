@@ -1,20 +1,14 @@
 <template>
   <el-row style="padding-bottom: 10px">
+    <!-- 选择日期 -->
+    <el-date-picker v-model="value" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
+      start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" @change="heandlerTime" />
     <!-- <el-button type="primary" @click="getroleAdd()">新增</el-button> -->
     <el-input v-model="userName" style="width: 180px; margin-right: 10px" :placeholder="$t('username')" />
     <!-- 条件筛选框 -->
 
-    <el-select
-      v-model="aduitStatus"
-      :placeholder="$t('Reviewstatus')"
-      style="width: 200px"
-    >
-      <el-option
-        v-for="(item, index) in noticetype"
-        :key="index"
-        :value="item.index"
-        :label="item.title"
-      />
+    <el-select v-model="aduitStatus" :placeholder="$t('Reviewstatus')" style="width: 200px">
+      <el-option v-for="(item, index) in noticetype" :key="index" :value="item.index" :label="item.title" />
     </el-select>
     <el-input v-model="orderNo" style="width: 180px; margin-left: 10px" placeholder="请输入订单号" />
     <!-- <el-select
@@ -29,31 +23,20 @@
         :label="item.title"
       />
     </el-select> -->
-    <el-select
-      v-model="cashChannelId"
-      placeholder="选择提现渠道"
-      style="width: 200px;margin-left: 10px"
-    >
-      <el-option
-        v-for="(item, index) in channelData"
-        :key="index"
-        :value="item.index"
-        :label="item.title"
-      />
+    <el-select v-model="cashChannelId" placeholder="选择提现渠道" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in channelData" :key="index" :value="item.index" :label="item.title" />
     </el-select>
 
-    <el-button
-      v-has="'memberwithdrawal:page'"
-      style="margin-left: 10px"
-      type="primary"
-      @click="getquery()"
-    >{{ $t('query') }}</el-button>
+    <el-button v-has="'memberwithdrawal:page'" style="margin-left: 10px" type="primary" @click="getquery()">{{
+      $t('query') }}</el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
+    }}</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
     <!-- 开启自动刷新 -->
-    <el-button v-if="!this.$store.state.autorefresh.A_T_Recharge" type="info" icon="el-icon-refresh" @click="GetUpdataRefresh">开启自动刷新</el-button>
+    <el-button v-if="!this.$store.state.autorefresh.A_T_Recharge" type="info" icon="el-icon-refresh"
+      @click="GetUpdataRefresh">开启自动刷新</el-button>
     <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">关闭自动刷新</el-button>
   </el-row>
 </template>
@@ -70,7 +53,39 @@ export default {
       aduitStatus: null, // 审核状态
       orderNo: '', // 订单号
       cashChannelId: '', // 提现渠道id
-      userName:'', // 会员账号
+      userName: '', // 会员账号
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          }
+        ]
+      },
+      value: '',
       noticetype: [
         { title: this.$t('PendingReview'), index: 0 },
         { title: this.$t('Approve'), index: 1 },
@@ -87,6 +102,26 @@ export default {
     this.GetMemberPage()
   },
   methods: {
+    // 选择日期
+    heandlerTime() {
+      const timearr = []
+      for (let i = 0; i < this.value?.length; i++) {
+        const date = new Date(this.value[i])
+        const year = date.getFullYear()
+        const month =
+          date.getMonth() + 1 < 10
+            ? '0' + (date.getMonth() + 1)
+            : date.getMonth() + 1
+        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+        const formattedDate = year + '-' + month + '-' + day
+        timearr.push(formattedDate)
+      }
+      this.$emit('SelectDate', { startDate: timearr[0], endDate: timearr[1] })
+    },
+    // 日期回显
+    pagesDate(data) {
+      this.value = [data.startDate, data.endDate]
+    },
     GetChannelPage() {
       this.channelData = []
       channelPage({ pageNo: 1, pageSize: 10000 }).then(res => {
@@ -140,11 +175,11 @@ export default {
       this.orderNo = ''
       this.cashChannelId = ''
       this.userName = ''
+      this.value = null
       this.$emit('resetting')
     }
   }
 }
 </script>
 
-  <style scoped lang="scss"></style>
-
+<style scoped lang="scss"></style>
