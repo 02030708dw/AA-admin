@@ -25,3 +25,12 @@ export function gameInfoGroup() {
     method: "get",
   });
 }
+
+//新增代理平台游戏信息
+export function gameInfoDel(id) {
+  return request({
+    url: `/gameInfo/del/${id}`,
+    method: 'post',
+  })
+}
+

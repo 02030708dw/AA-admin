@@ -1,12 +1,7 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column type="index" :label="$t('SerialNumber')" width="80" />
       <el-table-column prop="gameName" :label="$t('游戏名称')" />
       <el-table-column prop="gamePlayName" :label="$t('玩法名称')" />
@@ -16,16 +11,9 @@
           <!-- <div>
             {{ scope.row.sign | TypeF }}
           </div> -->
-          <el-switch
-            v-has="'activity:status'"
-            v-model="scope.row.sign"
-            :active-value="1"
-            :inactive-value="0"
-            active-color="#13ce66"
-            :active-text="$t('展示')"
-            :inactive-text="$t('不展示')"
-            @change="getUdateStatus($event, scope.row)"
-          />
+          <el-switch v-has="'activity:status'" v-model="scope.row.sign" :active-value="1" :inactive-value="0"
+            active-color="#13ce66" :active-text="$t('展示')" :inactive-text="$t('不展示')"
+            @change="getUdateStatus($event, scope.row)" />
         </template>
       </el-table-column>
       <el-table-column prop="winAmount" :label="$t('单注中奖金额')" />
@@ -42,12 +30,9 @@
       <el-table-column prop="updater" :label="$t('更新人')" />
       <el-table-column fixed="right" prop="" :label="$t('operate')" width="120">
         <template slot-scope="scope">
-          <el-button
-            v-has="'Currency:edit'"
-            type="text"
-            @click="geteroleEitor(scope.row)"
-            >{{ $t("edit") }}</el-button
-          >
+          <el-button v-has="'Currency:edit'" type="text" @click="geteroleEitor(scope.row)">{{ $t("edit") }}</el-button>
+          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
+          }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -88,6 +73,23 @@ export default {
     // 编辑
     geteroleEitor(item) {
       this.$emit("eitor", item);
+    },
+    // 删除
+    getEdl(Id) {
+      this.$confirm('确定删除吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$emit('Edl', Id)
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
     // 修改状态
     getUdateStatus(e, item) {
