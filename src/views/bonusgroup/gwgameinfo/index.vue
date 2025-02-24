@@ -1,18 +1,10 @@
 <template>
   <el-card>
-    <Control
-      ref="ControlView"
-      @resetting="getresetting"
-      @query="getquery"
-      @Refresh="HandelRefresh"
-    />
-    <Table ref="TableView" :table-data="tableData" @eitor="getEditShow" @UdateStatus="getGameEdit"/>
-    <Pagination
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="getdata"
-    />
+    <Control ref="ControlView" @resetting="getresetting" @Add="getAddShow" @query="getquery" @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @eitor="getEditShow" @UdateStatus="getGameEdit" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsEdit ref="Edit" @confirm="getGameEdit" />
+    <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
   </el-card>
 </template>
 
@@ -20,11 +12,14 @@
 import Table from "./Table.vue";
 import Control from "./Control";
 import ComponentsEdit from "./ComponentsEdit.vue";
+import ComponentsAdd from "./ComponentsAdd.vue"
 import Pagination from "@/components/Pagination/Pagination.vue";
 import {
   gameInfoPage,
   agameInfoEdit,
   gameInfoGroup,
+  gameAddGroup,
+  gameInfoDel
 } from "@/api/bonusgroup/gwgameinfo";
 export default {
   components: {
@@ -32,6 +27,7 @@ export default {
     Control,
     Pagination,
     ComponentsEdit,
+    ComponentsAdd
   },
   data() {
     return {
@@ -39,9 +35,43 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
+      sign: null
     };
   },
   methods: {
+    // 删除
+    getDel(id) {
+      gameInfoDel(id)
+        .then((res) => {
+          this.getdata(this.pageNo)
+          this.$message({
+            message: '删除成功!',
+            type: 'success'
+          })
+        })
+        .catch((err) => {
+          this.$message.error('删除失败!')
+          console.log(err)
+        })
+    },
+    // 显示添加弹窗
+    getAddShow() {
+      this.$refs.ComponentsAdd.getAddstatus()
+    },
+    getAdd(e) {
+      gameAddGroup(e)
+        .then((res) => {
+          this.getdata(this.pageNo)
+          this.$message({
+            message: '添加成功!',
+            type: 'success'
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$message.error('添加失败!')
+        })
+    },
     HandelPagesChange(e) {
       this.PagesSize = e;
       this.getdata(this.pageNo);
@@ -56,6 +86,7 @@ export default {
         gameName: this.gameName,
         gamePlayName: this.gamePlayName,
         gamePlayTypeName: this.gamePlayTypeName,
+        sign: this.sign,
       })
         .then((res) => {
           this.total = res.resultSet.total;
@@ -83,6 +114,7 @@ export default {
         gameName: this.gameName,
         gamePlayName: this.gamePlayName,
         gamePlayTypeName: this.gamePlayTypeName,
+        sign: this.sign,
       })
         .then((res) => {
           this.total = res.resultSet.total;
@@ -98,6 +130,7 @@ export default {
       this.gameName = e.gameName;
       this.gamePlayName = e.gamePlayName;
       this.gamePlayTypeName = e.gamePlayTypeName;
+      this.sign = e.sign;
       this.getdata(1);
     },
     // 重置查询
@@ -105,6 +138,7 @@ export default {
       this.gameName = null;
       this.gamePlayName = null;
       this.gamePlayTypeName = null;
+      this.sign = null;
       this.getdata(1);
     },
     // 显示编辑弹窗

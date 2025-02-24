@@ -24,6 +24,7 @@
       <!-- <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" /> -->
       <!-- <el-table-column prop="bankName" :label="$t('BankName')" width="" /> -->
 
+      <el-table-column prop="tripartiteOrderNo" :label="$t('三方订单号')" width="" />
       <el-table-column prop="orderNo" :label="$t('orderNo')" width="" />
       <el-table-column prop="payee" :label="$t('payee')" width="" />
       <el-table-column prop="" :label="$t('Paymentinformation')">
@@ -104,7 +105,7 @@
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
-            }}</el-button>
+          }}</el-button>
           <el-button v-has="'memberrecharge:aduit'" v-if="scope.row.aduitStatus === 0" type="text"
             @click="HandelOption(scope.row.id, 1)">{{ $t("passthrough") }}</el-button>
           <el-button v-has="'memberrecharge:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: red"
