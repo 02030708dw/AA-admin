@@ -80,7 +80,7 @@ export default {
     bonusgroup: "奖金组管理",
     agentbonusgroup: "代理奖金组方案",
     sysbonusgroup: "系统奖金组",
-    gwgameinfo: "代理平台游戏信息",
+    gwgameinfo: "gw游戏信息",
     agentvideo: "视频管理",
     agentGameInfo: "代理奖金组奖金设定范围",
   },
