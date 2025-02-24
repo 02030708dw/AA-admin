@@ -70,6 +70,7 @@ export default {
     sysbonusgroup: "系统奖金组",
     gwgameinfo: "代理平台游戏信息",
     agentvideo: "视频管理",
+    agentGameInfo: "代理奖金组奖金设定",
   },
   role: {
     permission: 'การอนุญาต'

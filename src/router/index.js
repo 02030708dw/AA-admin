@@ -494,6 +494,12 @@ export const asyncRoutes = [
         name: 'gwgameinfo',
         component: () => import('@/views/bonusgroup/gwgameinfo/index'),
         meta: { title: 'gwgameinfo', icon: 'el-icon-s-flag' }
+      },
+      {//代理奖金组奖金设定
+        path: 'agentGameInfo',
+        name: 'agentGameInfo',
+        component: () => import('@/views/bonusgroup/agentGameInfo/index'),
+        meta: { title: 'agentGameInfo', icon: 'el-icon-s-flag' }
       }
     ]
   },
