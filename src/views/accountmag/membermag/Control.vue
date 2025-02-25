@@ -7,7 +7,7 @@
     <el-input v-model="ip" style="width: 200px;margin-right: 10px;" :placeholder="$t('IPAddress')" />
     <el-input v-model="userName" style="width: 200px;margin-right: 10px;" :placeholder="$t('username')" />
     <el-input v-model="userPhone" style="width: 200px;" :placeholder="$t('phone')" />
-    <el-select v-model="agentId" :placeholder="$t('SelectProxy')" style="width: 200px;margin-left: 10px">
+    <el-select v-model="agentId" filterable :placeholder="$t('SelectProxy')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in agentIddata" :key="index" :value="item.index" :label="item.title" />
     </el-select>
     <el-select v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
