@@ -8,6 +8,9 @@
       <el-table-column prop="" :label="this.resultSet.sumBetAmount ? '' + this.resultSet.sumBetAmount : '0'" width="">
         <el-table-column prop="betAmount" label="下级投注" width="" />
       </el-table-column>
+      <el-table-column prop="" :label="this.resultSet.sumAwardAmount ? '' + this.resultSet.sumAwardAmount : '0'" width="">
+        <el-table-column prop="awardAmount" label="下级派奖" width="" />
+      </el-table-column>
       <el-table-column prop="" :label="this.resultSet.sumPhaseAmount ? '' + this.resultSet.sumPhaseAmount : '0'"
         width="">
         <el-table-column prop="phaseAmount" label="下级盈亏" width="">
@@ -54,7 +57,8 @@ export default {
         return {
           sumBetAmount: '',
           sumAwardAmount: '',
-          sumPhaseAmount: ''
+          sumPhaseAmount: '',
+          sumAwardAmount: '',
         }
       }
     }
