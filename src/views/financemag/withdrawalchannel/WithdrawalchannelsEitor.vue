@@ -1,27 +1,13 @@
 <template>
-  <el-dialog
-    :title="$t('Addwithdrawalchannels')"
-    :visible.sync="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="$t('Addwithdrawalchannels')" :visible.sync="dialogVisible" width="50%">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('Channelname')" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item :label="$t('typesof')" prop="type">
         <el-select v-model="ruleForm.type" placeholder="请选择类型">
-          <el-option
-            v-for="(item, index) in gamertype"
-            :key="index"
-            :label="item.title"
-            :value="item.index"
-          ></el-option>
+          <el-option v-for="(item, index) in gamertype" :key="index" :label="item.title"
+            :value="item.index"></el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -31,8 +17,8 @@
     </span>
   </el-dialog>
 </template>
-      
-      <script>
+
+<script>
 export default {
   data() {
     return {
@@ -58,6 +44,8 @@ export default {
         { title: 'MAYA充值', index: 9 },
         { title: '网银', index: 10 },
         { title: '充值卡', index: 11 },
+        { title: 'GrabPay', index: 12 },
+        { title: 'QR2', index: 13 },
       ],
       rules: {
         name: [{ required: true, message: "请输入渠道名称", trigger: "blur" }],
@@ -99,5 +87,4 @@ export default {
   },
 };
 </script>
-    <style>
-</style>
+<style></style>

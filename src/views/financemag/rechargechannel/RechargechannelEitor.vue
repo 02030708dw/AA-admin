@@ -72,6 +72,8 @@ export default {
         { title: 'MAYA充值', index: 9 },
         { title: '网银', index: 10 },
         { title: '充值卡', index: 11 },
+        { title: 'GrabPay', index: 12 },
+        { title: 'QR2', index: 13 },
       ],
       rules: {
         name: [{ required: true, message: "请输入渠道名称", trigger: "blur" }],
