@@ -1,10 +1,13 @@
 <template>
   <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-      <el-form-item :label="$t('Rechargeconditions')">
+      <el-form-item :label="$t('VIPlevel')" prop="vipLevel">
+        <el-input v-model="ruleForm.vipLevel" />
+      </el-form-item>
+      <el-form-item :label="$t('Rechargeconditions')" prop="rechargeThreshold">
         <el-input v-model="ruleForm.rechargeThreshold" />
       </el-form-item>
-      <el-form-item :label="$t('Flowconditions')">
+      <el-form-item :label="$t('Flowconditions')" prop="turnoverThreshold">
         <el-input v-model="ruleForm.turnoverThreshold" />
       </el-form-item>
       <el-form-item :label="$t('describe')">
@@ -30,9 +33,12 @@ export default {
         "description": "",
         "rechargeThreshold": 0,
         "turnoverThreshold": 0,
+        "vipLevel": null
       },
       rules: {
-
+        vipLevel: [{ required: true, message: '请输入vip等级', trigger: 'blur' }],
+        rechargeThreshold: [{ required: true, message: '请输入充值条件', trigger: 'blur' }],
+        turnoverThreshold: [{ required: true, message: '请输入流水条件', trigger: 'blur' }],
       },
       loading: false
     };
@@ -45,6 +51,7 @@ export default {
           "description": "",
           "rechargeThreshold": null,
           "turnoverThreshold": null,
+          "vipLevel": null,
         };
       }
       this.dialogVisible = !this.dialogVisible;
