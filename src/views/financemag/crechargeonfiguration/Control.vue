@@ -1,40 +1,19 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-button v-has="'crechargeonfiguration:add'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
-    <el-select
-      v-model="type"
-      :placeholder="$t('typesof')"
-      style="width: 200px;margin-left: 10px"
-    >
-      <el-option
-        v-for="(item, index) in typeArrList"
-        :key="index"
-        :value="item.index"
-        :label="item.title"
-      />
+    <el-select v-model="type" :placeholder="$t('typesof')" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in typeArrList" :key="index" :value="item.index" :label="item.title" />
     </el-select>
-    <el-select
-      v-model="channelId"
-      placeholder="选择渠道"
-      style="width: 200px;margin-left: 10px"
-    >
-      <el-option
-        v-for="(item, index) in channelidList"
-        :key="index"
-        :value="item.index"
-        :label="item.title"
-      />
+    <el-select v-model="channelId" placeholder="选择渠道" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in channelidList" :key="index" :value="item.index" :label="item.title" />
     </el-select>
-    <el-button
-      v-has="'crechargeonfiguration:page'"
-      style="margin-left: 10px"
-      type="primary"
-      @click="getqueryT()"
-    > {{ $t('query') }} </el-button>
+    <el-button v-has="'crechargeonfiguration:page'" style="margin-left: 10px" type="primary" @click="getqueryT()"> {{
+      $t('query') }} </el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left"
+      @click="HandelRefresh">{{ $t('Refresh') }}</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
   </el-row>
 </template>
 
@@ -70,6 +49,8 @@ export default {
         { title: 'MAYA充值', index: 9 },
         { title: '网银', index: 10 },
         { title: '充值卡', index: 11 },
+        { title: 'GrabPay', index: 12 },
+        { title: 'QR2', index: 13 },
       ],
       // 渠道id
       channelIdList: [],
@@ -128,5 +109,4 @@ export default {
 }
 </script>
 
-          <style>
-</style>
+<style></style>
