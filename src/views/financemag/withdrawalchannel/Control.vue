@@ -6,53 +6,23 @@
       style="width: 200px; margin-left: 10px"
       :placeholder="$t('Channelname')"
     /> -->
-    <el-select
-      v-model="name"
-      :placeholder="$t('Channelname')"
-      style="width: 200px;margin-left: 10px"
-    >
-      <el-option
-        v-for="(item, index) in channelnamedata"
-        :key="index"
-        :value="item"
-        :label="item"
-      />
+    <el-select v-model="name" :placeholder="$t('Channelname')" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in channelnamedata" :key="index" :value="item" :label="item" />
     </el-select>
-    <el-select
-      v-model="status"
-      :placeholder="$t('state')"
-      style="width: 200px;margin-left: 10px"
-    >
-      <el-option
-        v-for="(item, index) in statusType"
-        :key="index"
-        :value="item.index"
-        :label="item.title"
-      />
+    <el-select v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
     </el-select>
-    <el-select
-      v-model="type"
-      :placeholder="$t('typesof')"
-      style="width: 200px;margin-left: 10px"
-    >
-      <el-option
-        v-for="(item, index) in typeArrList"
-        :key="index"
-        :value="item.index"
-        :label="item.title"
-      />
+    <el-select v-model="type" :placeholder="$t('typesof')" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in typeArrList" :key="index" :value="item.index" :label="item.title" />
     </el-select>
-    <el-button
-      v-has="'withdrawalchannel:page'"
-      style="margin-left: 10px"
-      type="primary"
-      @click="getquery()"
-    > {{ $t('query') }} </el-button>
+    <el-button v-has="'withdrawalchannel:page'" style="margin-left: 10px" type="primary" @click="getquery()"> {{
+      $t('query') }} </el-button>
     <!-- 重置按钮 -->
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left"
+      @click="HandelRefresh">{{ $t('Refresh') }}</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
   </el-row>
 </template>
 
@@ -85,6 +55,8 @@ export default {
         { title: 'MAYA充值', index: 9 },
         { title: '网银', index: 10 },
         { title: '充值卡', index: 11 },
+        { title: 'GrabPay', index: 12 },
+        { title: 'QR2', index: 13 },
       ],
       statusType: [
         { title: '停用', index: 0 },
@@ -121,5 +93,4 @@ export default {
 }
 </script>
 
-          <style>
-</style>
+<style></style>
