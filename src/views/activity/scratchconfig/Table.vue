@@ -7,11 +7,6 @@
       <el-table-column prop="rechargeCards" label="充值刮刮卡数量" />
       <el-table-column prop="registrationBonus" label="注册奖金" />
       <el-table-column prop="registrationCards" label="注册刮刮卡数量" />
-      <el-table-column prop="" :label="$t('Typeofclaim')">
-        <template slot-scope="scope">
-          {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
-        </template>
-      </el-table-column>
       <el-table-column prop="description" :label="$t('describe')" />
       <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
