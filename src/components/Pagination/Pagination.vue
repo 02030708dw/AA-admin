@@ -1,14 +1,8 @@
 <template>
   <!-- 分页组件 -->
   <el-row style="display: flex; justify-content: center">
-    <el-pagination
-      :current-page="pageNo"
-      :page-sizes="pageSizes"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total"
-      @size-change="handleSizeChange"
-      @current-change="handlePageChange"
-    />
+    <el-pagination :current-page="pageNo" :page-sizes="pageSizes" layout="total, sizes, prev, pager, next, jumper"
+      :total="+total" @size-change="handleSizeChange" @current-change="handlePageChange" />
   </el-row>
 </template>
 
@@ -18,7 +12,7 @@ export default {
   props: {
     // 总条数
     total: {
-      type: Number,
+      type: Number | String,
       default: 1,
     },
     // 页码
