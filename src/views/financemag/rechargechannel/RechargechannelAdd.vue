@@ -1,45 +1,25 @@
 <template>
   <!-- 新增角色弹窗 -->
-  <el-dialog
-    :title="$t('Addchannel')"
-    :visible.sync="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="$t('Addchannel')" :visible.sync="dialogVisible" width="50%">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('Channelname')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item :label="$t('Channeltype')" prop="type">
-        <el-select
-      v-model="ruleForm.type"
-      :placeholder="$t('Channeltype')"
-      style="width: 200px"
-    >
-      <el-option
-        v-for="(item, index) in typeArrList"
-        :key="index"
-        :value="item.index"
-        :label="item.title"
-      />
-    </el-select>
+        <el-select v-model="ruleForm.type" :placeholder="$t('Channeltype')" style="width: 200px">
+          <el-option v-for="(item, index) in typeArrList" :key="index" :value="item.index" :label="item.title" />
+        </el-select>
       </el-form-item>
       <el-form-item :label="$t('SelectCurrency')" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
-          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{v.item}}</el-checkbox>
+          <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          v-model="ruleForm.status"
-          :active-value="1"
-          :inactive-value="0"
-        />
+        <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
+      </el-form-item>
+      <el-form-item :label="$t('icon')">
+        <UploadImage v-if="dialogVisible" :Fn="'rechargechannel'" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -52,9 +32,13 @@
 </template>
 
 <script>
+import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
+  components: {
+    UploadImage
+  },
   props: {
-    CurrencytPageData:{
+    CurrencytPageData: {
       type: Array,
       default: () => {
         return []
@@ -71,8 +55,9 @@ export default {
         status: 0,
         type: null,
         currency: [],
+        pictureUrl: ''
       },
-      isIndeterminate:true,
+      isIndeterminate: true,
       // 游戏类型选项
       typeArrList: [
         { title: '银行卡', index: 0 },
@@ -86,6 +71,9 @@ export default {
         { title: 'usdt充值', index: 8 },
         { title: 'MAYA充值', index: 9 },
         { title: '网银', index: 10 },
+        { title: '充值卡', index: 11 },
+        { title: 'GrabPay', index: 12 },
+        { title: 'QR2', index: 13 },
       ],
       rules: {
         name: [{ required: true, message: '请输入渠道名称', trigger: 'blur' }],
@@ -103,7 +91,8 @@ export default {
           name: '',
           status: 0,
           type: null,
-          currency: []
+          currency: [],
+          pictureUrl: ''
         }
       }
       this.dialogVisible = !this.dialogVisible
@@ -124,9 +113,11 @@ export default {
           return false
         }
       })
-    }
+    },
+    getImageURL(url) {
+      this.ruleForm.pictureUrl = url
+    },
   }
 }
 </script>
-  <style>
-</style>
+<style></style>

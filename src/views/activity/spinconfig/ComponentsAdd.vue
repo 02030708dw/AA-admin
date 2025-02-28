@@ -15,7 +15,7 @@
       <el-form-item :label="$t('Rotarygridindex')">
         <el-input v-model="ruleForm.segmentIndex" />
       </el-form-item>
-      <el-form-item :label="$t('icon')" >
+      <el-form-item :label="$t('icon')">
         <UploadImage v-if="dialogVisible" :Fn="'spin'" @Upload="getImageURL" />
       </el-form-item>
     </el-form>

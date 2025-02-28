@@ -2,11 +2,11 @@ import request from '@/utils/request'
 // 会员管理
 
 // 分页数据
-export function MemberPage({ pageNo, pageSize, agentId, status, userName, userPhone}) {
+export function MemberPage(params) {
   return request({
     url: '/user/member/page',
     method: 'get',
-    params: { pageNo, pageSize, agentId, status, userName, userPhone}
+    params
   })
 }
 
@@ -14,13 +14,6 @@ export function MemberPage({ pageNo, pageSize, agentId, status, userName, userPh
 export function MemberTransfer(data) {
   return request({
     url: '/user/member/transferMemberForParent',
-    method: 'post',
-    data
-  })
-}
-export function agentTransfer(data) {
-  return request({
-    url: '/user/member/transferMemberForAgent',
     method: 'post',
     data
   })
@@ -145,5 +138,32 @@ export function financeCashBank(currency) {
   return request({
     url: `/finance/cashBank/${currency}`,
     method: 'get',
+  })
+}
+
+// 批量获取游戏商余额
+export function getGamerBalance(data) {
+  return request({
+    url: `/user/member/getGamerBalance`,
+    method: 'post',
+    data
+  })
+}
+
+// 给会员修改三方支付商展示顺序信息
+export function editPayment(data) {
+  return request({
+    url: `/user/member/editPayment`,
+    method: 'post',
+    data
+  })
+}
+
+// 所属代理转移
+export function agentTransfer(data) {
+  return request({
+    url: `/user/member/agentTransfer`,
+    method: 'post',
+    data
   })
 }

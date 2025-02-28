@@ -1,100 +1,41 @@
 <template>
-  <el-dialog
-    :title="$t('Editrechargeconfiguration')"
-    :visible.sync="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="150px"
-      class="demo-ruleForm"
-      :inline="true"
-    >
+  <el-dialog :title="$t('Editrechargeconfiguration')" :visible.sync="dialogVisible" width="50%">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm" :inline="true">
       <el-form-item :label="$t('Channelname')" prop="">
         <el-input v-model="ruleForm.channelName" disabled />
       </el-form-item>
       <!-- 渠道类型 -->
       <el-form-item :label="$t('Channeltype')" prop="type">
-        <el-select
-          v-model="ruleForm.type"
-          :placeholder="$t('typesof')"
-          style="width: 200px"
-        >
-          <el-option
-            v-for="(item, index) in TypeList"
-            :key="index"
-            :value="item.index"
-            :label="item.title"
-          />
+        <el-select v-model="ruleForm.type" :placeholder="$t('typesof')" style="width: 200px">
+          <el-option v-for="(item, index) in TypeList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
-      <el-form-item  :label="$t('Maximumrechargeamount')" prop="maxMoney">
+      <el-form-item :label="$t('Maximumrechargeamount')" prop="maxMoney">
         <el-input v-model="ruleForm.maxMoney" />
       </el-form-item>
-      <el-form-item  :label="$t('Minimumrechargeamount')" prop="minMoney">
+      <el-form-item :label="$t('Minimumrechargeamount')" prop="minMoney">
         <el-input v-model="ruleForm.minMoney" />
       </el-form-item>
-      <el-form-item
-        v-if="Channeltype > 3"
-        label="三方充值"
-        placeholder="请选择三方充值"
-        prop="threePayId"
-      >
-        <el-select
-          v-model="ruleForm.threePayId"
-          :placeholder="$t('typesof')"
-          style="width: 200px"
-          @change="threePayIdChange"
-        >
-          <el-option
-            v-for="(item, index) in thirdDropDownList"
-            :key="index"
-            :value="item.id"
-            :label="item.threeName"
-          />
+      <el-form-item v-if="Channeltype > 3" label="三方充值" placeholder="请选择三方充值" prop="threePayId">
+        <el-select v-model="ruleForm.threePayId" :placeholder="$t('typesof')" style="width: 200px"
+          @change="threePayIdChange">
+          <el-option v-for="(item, index) in thirdDropDownList" :key="index" :value="item.id" :label="item.threeName" />
         </el-select>
       </el-form-item>
-      <el-form-item
-        v-if="ruleForm.type === 0"
-        :label="$t('AccountName')"
-        prop="account"
-      >
+      <el-form-item v-if="ruleForm.type === 0" :label="$t('AccountName')" prop="account">
         <el-input v-model="ruleForm.account" />
       </el-form-item>
-      <el-form-item
-        v-if="ruleForm.type === 0"
-        :label="$t('BankName')"
-        prop="bankName"
-      >
-        <el-select
-          v-model="ruleForm.bankName"
-          :placeholder="$t('typesof')"
-          style="width: 200px"
-          @change="bankNameChange"
-        >
-          <el-option
-            v-for="(item, index) in bankCodeList"
-            :key="index"
-            :value="item.bankCode"
-            :label="item.bankCode"
-          />
+      <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
+        <el-select v-model="ruleForm.bankName" :placeholder="$t('typesof')" style="width: 200px"
+          @change="bankNameChange">
+          <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
         </el-select>
       </el-form-item>
-      <el-form-item
-        v-if="ruleForm.type === 1"
-        :label="$t('Alipayaccount')"
-        prop="alipay"
-      >
+      <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
         <el-input v-model="ruleForm.alipay" />
       </el-form-item>
 
-      <el-form-item
-        v-if="ruleForm.type === 0"
-        :label="$t('SelectCurrency')"
-        prop="bankCardNo"
-      >
+      <el-form-item v-if="ruleForm.type === 0" :label="$t('SelectCurrency')" prop="bankCardNo">
         <el-input v-model="ruleForm.currency" disabled />
         <!-- <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
           <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
@@ -116,28 +57,16 @@
           <el-radio v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item
-        v-if="ruleForm.type === 0"
-        :label="$t('Bankaccount')"
-        prop="bankCardNo"
-      >
+      <el-form-item v-if="ruleForm.type === 0" :label="$t('Bankaccount')" prop="bankCardNo">
         <el-input v-model="ruleForm.bankCardNo" />
       </el-form-item>
       <!-- <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
         <el-input v-model="ruleForm.bankName" />
       </el-form-item> -->
-      <el-form-item
-        v-if="ruleForm.type === 2"
-        :label="$t('WeChataccount')"
-        prop="wechat"
-      >
+      <el-form-item v-if="ruleForm.type === 2" :label="$t('WeChataccount')" prop="wechat">
         <el-input v-model="ruleForm.wechat" />
       </el-form-item>
-      <el-form-item
-        v-if="ruleForm.type === 3"
-        :label="$t('Virtualcoinaddress')"
-        prop="coin"
-      >
+      <el-form-item v-if="ruleForm.type === 3" :label="$t('Virtualcoinaddress')" prop="coin">
         <el-input v-model="ruleForm.coin" />
       </el-form-item>
       <!-- <el-form-item :label="$t('state')" prop="status">
@@ -148,13 +77,8 @@
         />
       </el-form-item> -->
       <el-form-item :label="$t('icon')" prop="icon">
-        <el-upload
-          action="#"
-          class="avatar-uploader"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :on-error="uploadonerror"
-        >
+        <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
+          :on-error="uploadonerror">
           <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -226,6 +150,9 @@ export default {
         { title: "usdt充值", index: 8 },
         { title: "MAYA充值", index: 9 },
         { title: "网银", index: 10 },
+        { title: '充值卡', index: 11 },
+        { title: 'GrabPay', index: 12 },
+        { title: 'QR2', index: 13 },
       ],
       // 表单数据
       ruleForm: {
@@ -242,8 +169,8 @@ export default {
         currency: "",
         bankCode: "",
         threePayId: "",
-        maxMoney:'',
-        minMoney:''
+        maxMoney: '',
+        minMoney: ''
       },
       rules: {
         account: [{ required: true, message: "请输入户名", trigger: "blur" }],
@@ -318,8 +245,8 @@ export default {
           icon: "",
           bankCode: "",
           threePayId: "",
-          maxMoney:'',
-          minMoney:'',
+          maxMoney: '',
+          minMoney: '',
         };
       } else {
         this.ruleForm = { ...data };

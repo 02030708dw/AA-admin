@@ -1,21 +1,33 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
-      <el-table-column prop="day" :label="$t('Date')" width="" />
-      <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
-      <el-table-column prop="betAmount" :label="$t('Totalbettingamount')" width="" />
-      <el-table-column prop="betUserNum" :label="$t('Numberofnonrepeatedbets')" width="" />
-      <el-table-column prop="phaseAmount" :label="$t('Totalprofitandloss')" width="" />
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="" :label="$t('total')" width="">
+        <el-table-column prop="day" :label="$t('Date')" width="" />
+        <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
+      </el-table-column>
       <el-table-column prop="rate" :label="$t('Drawproportion')" width="" />
-      <el-table-column prop="rateAmount" :label="$t('Commissionamount')" width="" />
-      <el-table-column prop="realBetAmount" :label="$t('Effectivebettingamount')" width="" />
-      <el-table-column prop="winAmount" :label="$t('Totalwinningamount')" width="" />
+      <el-table-column prop="" :label="this.resultSet.sumBetAmount ? '' + this.resultSet.sumBetAmount : '0'" width="">
+        <el-table-column prop="betAmount" :label="$t('Totalbettingamount')" width="" />
+      </el-table-column>
+      <el-table-column prop="" :label="this.resultSet.sumBetUserNum ? '' + this.resultSet.sumBetUserNum : '0'" width="">
+        <el-table-column prop="betUserNum" :label="$t('Numberofnonrepeatedbets')" width="" />
+      </el-table-column>
+
+      <el-table-column prop="" :label="this.resultSet.sumRateAmount ? '' + this.resultSet.sumRateAmount : '0'" width="">
+        <el-table-column prop="rateAmount" :label="$t('Commissionamount')" width="" />
+      </el-table-column>
+      <el-table-column prop="" :label="this.resultSet.sumRealBetAmount ? '' + this.resultSet.sumRealBetAmount : '0'"
+        width="">
+        <el-table-column prop="realBetAmount" :label="$t('Effectivebettingamount')" width="" />
+      </el-table-column>
+      <el-table-column prop="" :label="this.resultSet.sumWinAmount ? '' + this.resultSet.sumWinAmount : '0'" width="">
+        <el-table-column prop="winAmount" :label="$t('Totalwinningamount')" width="" />
+      </el-table-column>
+      <el-table-column prop="" :label="this.resultSet.sumPhaseAmount ? '' + this.resultSet.sumPhaseAmount : '0'"
+        width="">
+        <el-table-column prop="phaseAmount" :label="$t('Totalprofitandloss')" width="" />
+      </el-table-column>
     </el-table>
   </el-card>
 </template>
@@ -26,6 +38,12 @@ export default {
       type: Array,
       default: () => {
         return []
+      }
+    },
+    resultSet: {
+      type: Object,
+      default: () => {
+        return {}
       }
     }
   },
@@ -40,7 +58,4 @@ export default {
   }
 }
 </script>
-  <style lang="scss" scoped>
-
-  </style>
-
+<style lang="scss" scoped></style>

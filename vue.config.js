@@ -23,9 +23,9 @@ module.exports = {
     },
     proxy: {
       '/': {
-        // target: 'http://192.168.124.5:8000', //zarek
+        // target: 'http://192.168.124.6:8000', //zarek
         // target: 'http://192.168.124.34:8000',//yang
-        target: 'http://192.168.124.16:8000',//zzby
+        target: 'http://192.168.124.13:8000',//zzby
         changeOrigin: true
       }
     }
@@ -33,13 +33,14 @@ module.exports = {
   },
   configureWebpack: {
     name: name,
+    devtool: 'source-map',
     resolve: {
       alias: {
         '@': resolve('src')
       }
     }
   },
-  
+
   chainWebpack(config) {
     config.plugin('preload').tap(() => [
       {
@@ -83,7 +84,7 @@ module.exports = {
                   name: 'chunk-libs',
                   test: /[\\/]node_modules[\\/]/,
                   priority: 10,
-                  chunks: 'initial' 
+                  chunks: 'initial'
                 },
                 elementUI: {
                   name: 'chunk-elementUI', // split elementUI into a single package

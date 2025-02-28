@@ -59,3 +59,12 @@ export function TargetAgentList(agentId) {
     method: 'get',
   })
 }
+
+// 修改代理
+export function EditAgent(params) {
+  return request({
+    url: `/user/agent/update`,
+    method: 'get',
+    params
+  })
+}

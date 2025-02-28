@@ -1,12 +1,7 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="" :label="$t('Membername')" width="">
         <template slot-scope="scope">
           <div class="MemberName_box">
@@ -24,9 +19,12 @@
           {{ scope.row.channelName }}
         </template>
       </el-table-column>
+      <el-table-column prop="threePayName" :label="$t('ThreePartyNames')" width="" />
+
       <!-- <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" /> -->
       <!-- <el-table-column prop="bankName" :label="$t('BankName')" width="" /> -->
 
+      <el-table-column prop="tripartiteOrderNo" :label="$t('三方订单号')" width="" />
       <el-table-column prop="orderNo" :label="$t('orderNo')" width="" />
       <el-table-column prop="payee" :label="$t('payee')" width="" />
       <el-table-column prop="" :label="$t('Paymentinformation')">
@@ -48,16 +46,16 @@
         <template slot-scope="scope">
           <div>
             <div v-if="scope.row.memberAccount">
-              入款账户名称:{{ scope.row.memberAccount }}
+              {{ $t("UserAccountName") }}:{{ scope.row.memberAccount }}
             </div>
             <div v-if="scope.row.memberAlipay">
               入款支付宝账号:{{ scope.row.memberAlipay }}
             </div>
             <div v-if="scope.row.memberBankCardNo">
-              入款银行卡号:{{ scope.row.memberBankCardNo }}
+              {{ $t("UserBankCardNumber") }}:{{ scope.row.memberBankCardNo }}
             </div>
             <div v-if="scope.row.memberBankName">
-              入款银行名称:{{ scope.row.memberBankName }}
+              {{ $t("UserBankName") }}:{{ scope.row.memberBankName }}
             </div>
             <div v-if="scope.row.memberCoin">
               入款虚拟币地址:{{ scope.row.memberCoin }}
@@ -81,11 +79,7 @@
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column
-        prop="updater"
-        :label="$t('Updatedby')"
-        width=""
-      ></el-table-column>
+      <el-table-column prop="updater" :label="$t('Updatedby')" width=""></el-table-column>
       <el-table-column :label="$t('Reviewstatus')" prop="aduitStatus">
         <template slot-scope="scope">
           <div class="status_box">
@@ -110,36 +104,15 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button
-            v-if="scope.row.aduitStatus != 0"
-            type="text"
-            @click="HandelInfo(scope.row)"
-            >{{ $t("Detail") }}</el-button
-          >
-          <el-button
-            v-has="'memberrecharge:aduit'"
-            v-if="scope.row.aduitStatus === 0"
-            type="text"
-            @click="HandelOption(scope.row.id, 1)"
-            >{{ $t("passthrough") }}</el-button
-          >
-          <el-button
-            v-has="'memberrecharge:aduit'"
-            v-if="scope.row.aduitStatus === 0"
-            type="text"
-            style="color: red"
-            @click="HandelOption(scope.row.id, 2)"
-            >{{ $t("reject") }}</el-button
-          >
-          <el-button
-            v-has="'memberrecharge:aduit'"
-            v-if="scope.row.aduitStatus === 0"
-            type="text"
-            style="color: black"
-            @click="HandelOption(scope.row.id, 3)"
-          >
-            {{ $t("cancellation") }}</el-button
-          >
+          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
+          }}</el-button>
+          <el-button v-has="'memberrecharge:aduit'" v-if="scope.row.aduitStatus === 0" type="text"
+            @click="HandelOption(scope.row.id, 1)">{{ $t("passthrough") }}</el-button>
+          <el-button v-has="'memberrecharge:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: red"
+            @click="HandelOption(scope.row.id, 2)">{{ $t("reject") }}</el-button>
+          <el-button v-has="'memberrecharge:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: black"
+            @click="HandelOption(scope.row.id, 3)">
+            {{ $t("cancellation") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -179,7 +152,7 @@ export default {
       loading: false,
     };
   },
-  created() {},
+  created() { },
   methods: {
     FaduitStatus(value) {
       switch (value) {

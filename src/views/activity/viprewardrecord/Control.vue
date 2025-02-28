@@ -1,17 +1,16 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <!-- <el-button  type="primary" @click="getAdd()">{{ $t("increase") }}</el-button> -->
-    <el-input v-model="vipRewardId" style="width: 200px; margin:0 5px" :placeholder="$t('VIPrewardID')" />
-    <el-select clearable v-model="memberId" :placeholder="$t('SelectMembers')" style="width: 200px; margin:0 5px">
-      <el-option v-for="(item, index) in MemberData" :key="index" :value="item.index" :label="item.title" />
-    </el-select>
-    <!-- 选择日期 -->
-    <el-date-picker v-model="value" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
-      :start-placeholder="$t('Startdate')" :end-placeholder="$t('EndDate')" :picker-options="pickerOptions" @blur="heandlerTime" />
-    <el-select clearable v-model="isClaimed" :placeholder="$t('Typeofclaim')" style="width: 200px;margin-left: 10px">
+    <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
+  
+    <el-select clearable v-model="isClaimed" :placeholder="$t('Hasitbeencollected')"
+      style="width: 200px;margin:0 5px">
       <el-option v-for="(item, index) in [{ index: 1, title: '是' }, { index: 0, title: '否' }]" :key="index"
         :value="item.index" :label="item.title" />
     </el-select>
+      <!-- 选择日期 -->
+      <el-date-picker v-model="value" style="margin-right: 10px;" type="daterange" align="right" unlink-panels
+      :range-separator="$t('to')" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions"
+      @change="heandlerTime" />
     <el-button v-has="'noticemag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
       }}</el-button>
     <!-- 刷新按钮 -->
@@ -58,18 +57,16 @@ export default {
         ]
       },
       value: '',
+      name: '',
       isClaimed: '',
-      vipRewardId: '',
-      memberId:'',
       btnIcoType: true,
-      MemberData: []
     }
   },
   methods: {
     // 选择日期
     heandlerTime() {
       const timearr = []
-      for (let i = 0; i < this.value.length; i++) {
+      for (let i = 0; i < this.value?.length; i++) {
         const date = new Date(this.value[i])
         const year = date.getFullYear()
         const month =
@@ -82,13 +79,19 @@ export default {
       }
       this.$emit('SelectDate', { startDate: timearr[0], endDate: timearr[1] })
     },
+    // 日期回显
+    pagesDate(data) {
+      this.value = [data.startDate, data.endDate]
+    },
     getAdd() {
       console.log(1);
       this.$emit('ControlAdd')
     },
     // 重置查询
     getresetting() {
-      this.status = null
+      this.name = null
+      this.isClaimed = null
+      this.value = null
       this.$emit('resetting')
     },
     // 刷新
@@ -101,7 +104,7 @@ export default {
       this.btnIcoType = true
     },
     getquery() {
-      this.$emit('query', { memberId: this.memberId, isClaimed: this.isClaimed, vipRewardId: this.vipRewardId })
+      this.$emit('query', { name: this.name, isClaimed: this.isClaimed })
     },
   }
 }

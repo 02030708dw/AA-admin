@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @resetting="getresetting" @query="getquery" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @query="getquery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
@@ -26,12 +26,24 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
+      name:'',
+      // 开始时间
+      startDate: '',
+      // 结束时间
+      endDate: '',
     }
   },
   created() {
     this.getdata(1)
   },
   methods: {
+    // 时间选择
+    HandelSelectDate(data) {
+      this.startDate = data.startDate
+      this.endDate = data.endDate
+      // 请求数据
+      this.getdata(1)
+    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
@@ -41,7 +53,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize
+        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate,name:this.name
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -63,7 +75,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate,name:this.name })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -73,12 +85,13 @@ export default {
         })
     },
     getquery(e) {
+      this.name = e.name
       this.getdata(1)
     },
     getresetting() {
+      this.name = ''
       this.getdata(1)
     },
-
   }
 }
 </script>

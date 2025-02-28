@@ -1,8 +1,9 @@
 <template>
   <!-- 代理报表 -->
   <el-card>
-    <Control ref="ControlView" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" @query="Handelquery" @resetting="Handelresetting" />
-    <Table ref="TableView" :table-data="tableData" />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" @query="Handelquery"
+      @resetting="Handelresetting" />
+    <Table ref="TableView" :result-set=resultSet :table-data="tableData" />
     <Pagination :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
   </el-card>
 </template>
@@ -32,7 +33,8 @@ export default {
       // 页数
       PagesSize: 20,
       // 代理id
-      gamerId: ''
+      gamerId: '',
+      resultSet: {},
     }
   },
   mounted() {
@@ -49,7 +51,7 @@ export default {
       date.setDate(date.getDate() - 30) // 将日期设置为前30天
       getMonth = date.getMonth() >= 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
       getDate = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
-      const startDate = date.getFullYear() + '-' + getMonth + '-' + getDate; 
+      const startDate = date.getFullYear() + '-' + getMonth + '-' + getDate;
       this.startDate = startDate
       this.endDate = endDate
       // 请求数据
@@ -61,6 +63,7 @@ export default {
       this.pageNo = index
       getGamerPages({ pageNo: index, pageSize: this.PagesSize, gamerId: this.gamerId, endDay: this.endDate, startDay: this.startDate }).then(res => {
         this.tableData = res.resultSet.data
+        this.resultSet = res.resultSet
         this.total = res.resultSet.total
       }).catch(err => {
         console.log(err)
@@ -83,6 +86,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       getGamerPages({ pageNo: this.pageNo, pageSize: this.PagesSize, gamerId: this.gamerId, endDay: this.endDate, startDay: this.startDate }).then(res => {
         this.tableData = res.resultSet.data
+        this.resultSet = res.resultSet
         this.total = res.resultSet.total
         setTimeout(() => {
           this.$refs.ControlView.HandelBtnStatus()
@@ -110,7 +114,4 @@ export default {
   }
 }
 </script>
-  <style lang="scss" scoped>
-
-  </style>
-
+<style lang="scss" scoped></style>

@@ -179,6 +179,7 @@ export default {
       gamerRatetype: [
         { label: 'all', value: 'all' },
         { label: '真人', value: '真人' },
+        { label: '斗鸡', value: '斗鸡' },
       ],
     };
   },

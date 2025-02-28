@@ -54,6 +54,12 @@ export const asyncRoutes = [
         name: 'role',
         component: () => import('@/views/systemmag/role/index'),
         meta: { title: 'rolemanage', icon: 'form' }
+      },
+      {
+        path: 'config',
+        name: 'config',
+        component: () => import('@/views/systemmag/sysconfig/index'),
+        meta: { title: 'config', icon: 'form' }
       }
     ]
   },
@@ -107,7 +113,13 @@ export const asyncRoutes = [
         name: 'agent',
         component: () => import('@/views/accountmag/agentmag/index'),
         meta: { title: 'agentmanagement', icon: 'el-icon-news' },
-      }
+      },
+      {
+        path: 'video',
+        name: 'video',
+        component: () => import('@/views/agentmag/agentvideo/index'),
+        meta: { title: 'agentvideo', icon: 'el-icon-news' }
+      },
     ]
   },
   {
@@ -380,6 +392,72 @@ export const asyncRoutes = [
         component: () => import('@/views/activity/rewardrecord/index'),
         meta: { title: 'rewardrecord', icon: 'el-icon-s-flag' }
       },
+      {//刮刮乐配置
+        path: "/scratchconfig",
+        name: "scratchconfig",
+        component: () => import('@/views/activity/scratchconfig/index'),
+        meta: { title: 'scratchconfig', icon: 'el-icon-s-flag' }
+      },
+      {//刮刮乐用户信息表
+        path: "/scratchmember",
+        name: "scratchmember",
+        component: () => import('@/views/activity/scratchmember/index'),
+        meta: { title: 'scratchmember', icon: 'el-icon-s-flag' }
+      },
+      {//用户刮刮卡记录
+        path: "/scratchmemberrecord",
+        name: "scratchmemberrecord",
+        component: () => import('@/views/activity/scratchmemberrecord/index'),
+        meta: { title: 'scratchmemberrecord', icon: 'el-icon-s-flag' }
+      },
+      {//刮刮乐奖金配置
+        path: "/scratchprizeconfig",
+        name: "scratchprizeconfig",
+        component: () => import('@/views/activity/scratchprizeconfig/index'),
+        meta: { title: 'scratchprizeconfig', icon: 'el-icon-s-flag' }
+      },
+      {//刮刮乐权重分组
+        path: "/scratchweightgroup",
+        name: "scratchweightgroup",
+        component: () => import('@/views/activity/scratchweightgroup/index'),
+        meta: { title: 'scratchweightgroup', icon: 'el-icon-s-flag' }
+      },
+      {//代金券配置
+        path: "/voucherconfig",
+        name: "voucherconfig",
+        component: () => import('@/views/activity/voucherconfig/index'),
+        meta: { title: 'voucherconfig', icon: 'el-icon-s-flag' }
+      },
+      {//用户代金券
+        path: "/vouchermember",
+        name: "vouchermember",
+        component: () => import('@/views/activity/vouchermember/index'),
+        meta: { title: 'vouchermember', icon: 'el-icon-s-flag' }
+      },
+      {//红包配置
+        path: "/redpacketconfig",
+        name: "redpacketconfig",
+        component: () => import('@/views/activity/redpacketconfig/index'),
+        meta: { title: 'redpacketconfig', icon: 'el-icon-s-flag' }
+      },
+      {//红包创建信息
+        path: "/redpacketcreate",
+        name: "redpacketcreate",
+        component: () => import('@/views/activity/redpacketcreate/index'),
+        meta: { title: 'redpacketcreate', icon: 'el-icon-s-flag' }
+      },
+      {//用户红包账户
+        path: "/redpacketmember",
+        name: "redpacketmember",
+        component: () => import('@/views/activity/redpacketmember/index'),
+        meta: { title: 'redpacketmember', icon: 'el-icon-s-flag' }
+      },
+      {//红包领取记录
+        path: "/redpacketrecord",
+        name: "redpacketrecord",
+        component: () => import('@/views/activity/redpacketrecord/index'),
+        meta: { title: 'redpacketrecord', icon: 'el-icon-s-flag' }
+      }
     ]
   },
   {
@@ -391,6 +469,37 @@ export const asyncRoutes = [
         name: 'Currency',
         component: () => import('@/views/Currency/index'),
         meta: { title: 'Currencymanagement', icon: 'el-icon-bank-card' }
+      }
+    ]
+  },
+  {
+    path: '/bonusgroup',
+    component: Layout,
+    meta: { title: 'bonusgroup', icon: 'el-icon-s-flag' },
+    children: [
+      {//代理奖金组方案
+        path: 'agentbonusgroup',
+        name: 'agentbonusgroup',
+        component: () => import('@/views/bonusgroup/agentbonusgroup/index'),
+        meta: { title: 'agentbonusgroup', icon: 'el-icon-s-flag' }
+      },
+      {//系统奖金组
+        path: 'sysbonusgroup',
+        name: 'sysbonusgroup',
+        component: () => import('@/views/bonusgroup/sysbonusgroup/index'),
+        meta: { title: 'sysbonusgroup', icon: 'el-icon-s-flag' }
+      },
+      {//代理平台游戏信息
+        path: 'gwgameinfo',
+        name: 'gwgameinfo',
+        component: () => import('@/views/bonusgroup/gwgameinfo/index'),
+        meta: { title: 'gwgameinfo', icon: 'el-icon-s-flag' }
+      },
+      {//代理奖金组奖金设定
+        path: 'agentGameInfo',
+        name: 'agentGameInfo',
+        component: () => import('@/views/bonusgroup/agentGameInfo/index'),
+        meta: { title: 'agentGameInfo', icon: 'el-icon-s-flag' }
       }
     ]
   },

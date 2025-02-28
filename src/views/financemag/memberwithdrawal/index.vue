@@ -1,11 +1,13 @@
 <template>
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
-    <Control ref="ControlView" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
-    <Table ref="TableView" :table-data="tableData" @info="Handelinfo"  @pay="Handelpay" @operate="Handeloperate" />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @query="getquery" @resetting="getresetting"
+      @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" :result-set="resultSet" @info="Handelinfo" @pay="Handelpay"
+      @operate="Handeloperate" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemWitdata" />
     <InfoView ref="infoview" />
-    <PayForAnother ref="PayForAnother" @pay="HandelpayConfirmPay"/>
+    <PayForAnother ref="PayForAnother" @pay="HandelpayConfirmPay" />
   </el-card>
 </template>
 
@@ -35,7 +37,11 @@ export default {
       aduitStatus: null,
       orderNo: '',
       cashChannelId: '',
-      PagesSize: 20
+      userName: '',
+      PagesSize: 20,
+      resultSet: {},
+      startDate: '',
+      endDate: ''
     }
   },
 
@@ -52,8 +58,9 @@ export default {
           if (this.$store.state.autorefresh.A_T_Recharge) {
             MemberwithdrawalPage({ pageNo: _that.pageNo, pageSize: this.PagesSize, aduitStatus: _that.aduitStatus, orderNo: _that.orderNo, cashChannelId: _that.cashChannelId })
               .then((res) => {
-                _that.total = res.resultSet.total
-                _that.tableData = res.resultSet.data
+                _that.total = +res.resultSet.total
+                _that.tableData = res.resultSet.date
+                _that.resultSet = res.resultSet
               })
               .catch((err) => {
                 console.log(err)
@@ -70,6 +77,13 @@ export default {
     this.getMemWitdata(1)
   },
   methods: {
+    // 时间选择
+    HandelSelectDate(data) {
+      this.startDate = data.startDate
+      this.endDate = data.endDate
+      // 请求数据
+      this.getMemWitdata(1)
+    },
     Handeloperate() {
       this.getMemWitdata(this.pageNo)
     },
@@ -79,20 +93,21 @@ export default {
     Handelpay(e) {
       this.$refs.PayForAnother.getAddstatus(e)
     },
-    HandelpayConfirmPay(e){
-      console.log(e,'--------e');
-      PayFor(e).then(res=>{
-        
+    HandelpayConfirmPay(e) {
+      console.log(e, '--------e');
+      PayFor(e).then(res => {
+
         this.HandelRefresh()
       })
     },
     // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      MemberwithdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId })
+      MemberwithdrawalPage({ pageNo: this.pageNo, pageSize: 10, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId, userName: this.userName, startDate: this.startDate, endDate: this.endDate })
         .then((res) => {
-          this.total = res.resultSet.total
-          this.tableData = res.resultSet.data
+          this.total = +res.resultSet.total
+          this.tableData = res.resultSet.date
+          this.resultSet = res.resultSet
           setTimeout(() => {
             this.$refs.ControlView.HandelBtnStatus()
             this.$refs.TableView.HandelLoading(false)
@@ -114,10 +129,11 @@ export default {
     getMemWitdata(index) {
       // 记录当前页码
       this.pageNo = index
-      MemberwithdrawalPage({ pageNo: index, pageSize: this.PagesSize, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId })
+      MemberwithdrawalPage({ pageNo: index, pageSize: this.PagesSize, aduitStatus: this.aduitStatus, orderNo: this.orderNo, cashChannelId: this.cashChannelId, userName: this.userName, startDate: this.startDate, endDate: this.endDate })
         .then((res) => {
-          this.total = res.resultSet.total
-          this.tableData = res.resultSet.data
+          this.total = +res.resultSet.total
+          this.tableData = res.resultSet.date
+          this.resultSet = res.resultSet
         })
         .catch((err) => {
           console.log(err)
@@ -128,6 +144,7 @@ export default {
       this.aduitStatus = e.aduitStatus
       this.orderNo = e.orderNo
       this.cashChannelId = e.cashChannelId
+      this.userName = e.userName
       this.getMemWitdata(1)
     },
     // 恢复默认查询
@@ -135,11 +152,13 @@ export default {
       this.aduitStatus = null
       this.orderNo = ''
       this.cashChannelId = ''
+      this.userName = ''
+      this.startDate = ''
+      this.endDate = ''
       this.getMemWitdata(1)
     }
   }
 }
 </script>
 
-<style>
-</style>
+<style></style>

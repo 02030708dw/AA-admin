@@ -85,6 +85,7 @@ export default {
           // 个人资料
           this.$refs.PersonalDetails.UserInfo = {
             memberId: this.MemberInfo.id,
+            realName: this.MemberInfo.realName,
             telPhone: this.MemberInfo.telPhone,
             userName: this.MemberInfo.userName,
             bankCardNoList: this.MemberInfo.bankCardNoList || [{ bankCardNo: '', memberCashId: '' }],

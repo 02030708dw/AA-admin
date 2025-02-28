@@ -13,6 +13,9 @@ export function formatDate(dateString) {
 }
 
 export function creationTime(dateString) {
+  if (!dateString) {
+    return '';
+  }
   var date = new Date(dateString)
   var year = date.getFullYear()
   var month = ('0' + (date.getMonth() + 1)).slice(-2)

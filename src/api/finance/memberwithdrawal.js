@@ -2,11 +2,11 @@
 import request from '@/utils/request'
 
 // 分页数据
-export function MemberwithdrawalPage({ pageNo, pageSize, aduitStatus, cashChannelId, orderNo }) {
+export function MemberwithdrawalPage(params) {
   return request({
     url: '/finance/memberCashRecord/page',
     method: 'get',
-    params: { pageNo, pageSize, aduitStatus, cashChannelId, orderNo }
+    params
   })
 }
 
@@ -23,7 +23,7 @@ export function Audit(data) {
 export function ThreePayList() {
   return request({
     url: '/finance/memberCashRecord/threePayList',
-    method: 'GET', 
+    method: 'GET',
   })
 }
 
@@ -31,7 +31,7 @@ export function ThreePayList() {
 export function PayFor(data) {
   return request({
     url: '/finance/memberCashRecord/fo',
-    method: 'POST', 
+    method: 'POST',
     data
   })
 }
@@ -40,6 +40,6 @@ export function PayFor(data) {
 export function toBeReviewed() {
   return request({
     url: '/finance/memberCashRecord/toBeReviewed',
-    method: 'get', 
+    method: 'get',
   })
 }
