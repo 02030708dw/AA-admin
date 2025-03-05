@@ -8,7 +8,8 @@
           {{ scope.row.type == 1 ? '游客' : '正式用户' }}
         </template>
       </el-table-column>
-      <el-table-column prop="parentMemberId" label="注册绑定上级会员ID" />
+      <el-table-column prop="registerMemberName" label="注册会员名称" />
+      <el-table-column prop="registerMemberId" label="注册会员ID" />
       <el-table-column prop="prizeAmount" label="中奖金额" />
       <el-table-column prop="scratchName" label="刮刮卡名称" />
       <el-table-column prop="status" label="是否刮开">

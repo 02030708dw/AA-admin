@@ -6,10 +6,11 @@
     <Table ref="TableView" :gamer-balance-list="gamerBalanceList" :table-data="tableData"
       @updateStatus="getMemberUdateStatus" @Membershiptransfer="getMembershiptransfer" @Proxytransfer="getProxytransfer"
       @Info="HandelShowInfo" @MemberresettingPwd="getMemberresettingPwd" @Updatebalance="HandelUpdatebalance"
-      @MemberEditPayment="HandelEditPayment" />
+      @MemberEditPayment="HandelEditPayment" @CreateAnAgent="getCreateAnAgent" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer :agentIddata="agentIddata" ref="Proxytransfer" @confirm="getProxytransferok" />
+    <CreateAnAgent ref="CreateAnAgent" @confirm="getCreateAnAgentok" />
     <!-- 会员详情 -->
     <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh" />
     <MemberUpdatebalanceview ref="MemberUpdatebalanceview" />
@@ -29,6 +30,7 @@ import Proxytransfer from './Proxytransfer.vue'
 import MamberInfo from './MemberInfo.vue'
 import MemberUpdatebalanceview from './MemberUpdatebalance.vue'
 import MemberEditPayment from './EditPayment.vue'
+import CreateAnAgent from './CreateAnAgent.vue'
 import {
   MemberPage,
   MemberTransfer,
@@ -37,7 +39,7 @@ import {
   MemberresettingPwd,
   getGamerBalance
 } from '@/api/account/member'
-import { AgentPage } from '@/api/account/agent'
+import { AgentPage, CreateAgent } from '@/api/account/agent'
 export default {
   components: {
     Table,
@@ -47,7 +49,8 @@ export default {
     Control,
     MamberInfo,
     MemberUpdatebalanceview,
-    MemberEditPayment
+    MemberEditPayment,
+    CreateAnAgent
   },
   data() {
     return {
@@ -143,6 +146,23 @@ export default {
         })
         .catch((err) => {
           this.$message.error('代理转移失败!')
+          console.log(err)
+        })
+    },
+    getCreateAnAgent(data) {
+      this.$refs.CreateAnAgent.getAddstatus(data)
+    },
+    getCreateAnAgentok(data) {
+      CreateAgent(data)
+        .then((res) => {
+          this.getMemberPage(this.pageNo)
+          this.$message({
+            message: '代理创建成功!',
+            type: 'success'
+          })
+        })
+        .catch((err) => {
+          this.$message.error('代理创建失败!')
           console.log(err)
         })
     },

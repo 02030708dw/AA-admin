@@ -68,3 +68,12 @@ export function EditAgent(params) {
     params
   })
 }
+
+// 直接创建代理
+export function CreateAgent(data) {
+  return request({
+    url: `/user/agent/application/create`,
+    method: 'POST',
+    data
+  })
+}

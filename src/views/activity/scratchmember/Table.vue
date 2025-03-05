@@ -8,6 +8,9 @@
           {{ scope.row.isAgent == 0 ? '普通用户' : '代理' }}
         </template>
       </el-table-column>
+      <el-table-column prop="bonusCards" label="获得奖励刮刮卡数量" />
+      <el-table-column prop="recharged" label="已充值用户数量" />
+      <el-table-column prop="registered" label="已注册用户数量" />
       <el-table-column prop="increment" label="刮刮卡增量" />
       <el-table-column prop="pendingCards" label="待领取的刮刮卡数量" />
       <el-table-column prop="shareCards" label="可分享刮刮卡数量" />
