@@ -120,6 +120,12 @@ export const asyncRoutes = [
         component: () => import('@/views/agentmag/agentvideo/index'),
         meta: { title: 'agentvideo', icon: 'el-icon-news' }
       },
+      {
+        path: 'agentrebatesetting',
+        name: 'agentrebatesetting',
+        component: () => import('@/views/agentmag/agentrebatesetting/index'),
+        meta: { title: 'agentrebatesetting', icon: 'el-icon-news' }
+      },
     ]
   },
   {

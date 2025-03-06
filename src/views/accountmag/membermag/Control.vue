@@ -15,6 +15,7 @@
     </el-select>
     <el-button v-has="'membermag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
     }}</el-button>
+    <el-button style="margin-left:10px;" type="primary" @click="geteditpaymentall()">一键排序支付商</el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
@@ -132,6 +133,9 @@ export default {
         ip: this.ip,
         status: this.status
       })
+    },
+    geteditpaymentall() {
+      this.$emit('EditPaymentAll')
     },
     getresetting() {
       this.agentId = ''

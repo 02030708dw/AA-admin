@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @SelectDate="HandelSelectDate" :agentIddata='agentIddata' @Memquery="getMemquery"
-      @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" :agentIddata='agentIddata'
+      @EditPaymentAll="getEditPaymentAll" @Memquery="getMemquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :gamer-balance-list="gamerBalanceList" :table-data="tableData"
       @updateStatus="getMemberUdateStatus" @Membershiptransfer="getMembershiptransfer" @Proxytransfer="getProxytransfer"
@@ -85,6 +85,9 @@ export default {
     },
     HandelEditPayment(e, list) {
       this.$refs.MemberEditPayment.HandelChangeShow(e, list)
+    },
+    getEditPaymentAll() {
+      this.$refs.MemberEditPayment.HandelChangeShow('', '', 'all')
     },
     HandelUpdatebalance(e) {
       this.$refs.MemberUpdatebalanceview.HandelChangeShow(e)
