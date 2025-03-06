@@ -71,6 +71,7 @@ export default {
     gwgameinfo: "代理平台游戏信息",
     agentvideo: "视频管理",
     agentGameInfo: "代理奖金组奖金设定",
+    agentrebatesetting: "代理反水设定",
   },
   role: {
     permission: 'การอนุญาต'
