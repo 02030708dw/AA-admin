@@ -167,3 +167,12 @@ export function agentTransfer(data) {
     data
   })
 }
+
+//一键修改所有会员三方支付商展示顺序信息
+export function editPaymentAll(data) {
+  return request({
+    url: `/user/member/editPayment/all`,
+    method: 'post',
+    data
+  })
+}
