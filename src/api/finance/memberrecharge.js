@@ -1,6 +1,6 @@
 // 会员充值管理
 import request from '@/utils/request'
-
+import axios from 'axios'
 // 分页列表
 export function MemberrechargelPage({ pageNo, pageSize, amount, auditStatus, cardNo, channelId, date, userName }) {
   return request({
@@ -16,5 +16,15 @@ export function MemberrechargelToexamine(data) {
     url: '/finance/incomeRecord/audit',
     method: 'post',
     data
+  })
+}
+
+// 导出excel
+export function incomeRecordOutput(params) {
+  return axios({
+    url: process.env.VUE_APP_BASE_API + '/finance/incomeRecord/output',
+    method: 'GET',
+    params,
+    responseType: 'blob'
   })
 }

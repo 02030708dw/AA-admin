@@ -19,32 +19,13 @@ import '@/permission' // permission control
 import hasPermissionbtn from '@/utils/hasPermissionbtn'
 Vue.use(hasPermissionbtn)
 
-import echarts from 'echarts'
-Vue.prototype.$echarts = echarts
+// 全局方法
+import GlobalMethods from '@/utils/globalMethods';
+Vue.use(GlobalMethods);
 
-import { creationTime,toYMDHMSTime } from '@/utils/formattime'
-Vue.prototype.$creationTime = creationTime
-Vue.prototype.$YMDHMS = toYMDHMSTime
-/**
- * If you don't want to use mock-server
- * you want to use MockJs for mock api
- * you can execute: mockXHR()
- *
- * Currently MockJs will be used in the production environment,
- * please remove it before going online ! ! !
- */
-// if (process.env.NODE_ENV === 'production') {
-//   const { mockXHR } = require('../mock')
-//   mockXHR()
-// }
-
-// set ElementUI lang to EN
 Vue.use(ElementUI, {
-  // locale,
   i18n: (key, value) => i18n.t(key, value)
 })
-// 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
