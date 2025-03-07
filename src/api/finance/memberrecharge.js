@@ -22,7 +22,7 @@ export function MemberrechargelToexamine(data) {
 // 导出excel
 export function incomeRecordOutput(params) {
   return axios({
-    url: '/finance/incomeRecord/output',
+    url: process.env.VUE_APP_BASE_API + '/finance/incomeRecord/output',
     method: 'GET',
     params,
     responseType: 'blob'
