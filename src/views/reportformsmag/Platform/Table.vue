@@ -1,12 +1,7 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="day" :label="$t('Date')" width="" />
       <el-table-column prop="registerNum" :label="$t('Enrollment')" width="" />
       <el-table-column prop="cashNum" :label="$t('Numberofwithdrawals')" width="" />
@@ -19,6 +14,8 @@
       <el-table-column prop="memberRateAmount" :label="$t('Memberrebateamount')" width="" />
       <el-table-column prop="betAmount" :label="$t('Totalbettingamount')" width="" />
       <el-table-column prop="awardAmount" :label="$t('Awardamount')" width="" />
+      <el-table-column prop="gamerBalance" label="游戏商总余额" width="" />
+      <el-table-column prop="memberWalletBalance" label="用户总余额" width="" />
       <el-table-column prop="phaseAmount" :label="$t('Totalprofitandloss')" width="" />
       <el-table-column prop="betUserNum" :label="$t('Numberofnonrepeatedbets')" width="" />
     </el-table>
@@ -45,7 +42,4 @@ export default {
   }
 }
 </script>
-    <style lang="scss" scoped>
-
-    </style>
-
+<style lang="scss" scoped></style>
