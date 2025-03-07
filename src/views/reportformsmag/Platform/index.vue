@@ -1,13 +1,13 @@
 <template>
   <!-- 代理报表 -->
   <el-card>
-    <Control ref="ControlView" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @getExcel="getExcel" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" />
     <Pagination :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
   </el-card>
 </template>
 <script>
-import { getPlatformPages } from '../../../api/reportforms/reportforms'
+import { getPlatformPages,reportOutput } from '../../../api/reportforms/reportforms'
 import Table from './Table.vue'
 import Control from './Control.vue'
 // 分页组件
@@ -97,6 +97,33 @@ export default {
         })
         this.$message.error('刷新失败!')
       })
+    },
+      // 导出excel
+      async getExcel() {
+      try {
+        this.$refs.TableView.HandelLoading(true);
+        const res = await reportOutput({
+          pageNo: this.pageNo, pageSize: this.PagesSize, endDay: this.endDate, startDay: this.startDate
+        });
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `Platform.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        this.$refs.TableView.HandelLoading(false);
+        this.$refs.ControlView.HandelExcelStatus();
+      } catch (error) {
+        Message({
+          message: '导出Excel失败',
+          type: "error",
+          duration: 5 * 1000,
+        });
+        this.$refs.TableView.HandelLoading(false);
+        this.$refs.ControlView.HandelExcelStatus();
+      }
     }
   }
 }
