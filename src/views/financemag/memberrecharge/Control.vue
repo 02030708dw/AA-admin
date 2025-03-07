@@ -17,14 +17,19 @@
     <el-select v-model="auditStatus" :placeholder="$t('Reviewstatus')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in auditStatusList" :key="index" :value="item.index" :label="item.title" />
     </el-select>
-    <el-button v-has="'memberrecharge:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
+    <el-button v-has="'memberrecharge:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
+    }}</el-button>
+    <el-button :disabled="excelStatus" style="margin-left:10px;" type="primary" @click="getExcel()">导出数据</el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
+    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
+    }}</el-button>
+    <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
     <!-- 开启自动刷新 -->
-    <el-button v-if="!this.$store.state.autorefresh.M_Recharge" type="info" icon="el-icon-refresh" @click="GetUpdataRefresh"> {{ $t('Enableautomaticrefresh') }} </el-button>
-    <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">{{ $t('Turnoffautomaticrefresh') }}</el-button>
+    <el-button v-if="!this.$store.state.autorefresh.M_Recharge" type="info" icon="el-icon-refresh"
+      @click="GetUpdataRefresh"> {{ $t('Enableautomaticrefresh') }} </el-button>
+    <el-button v-else type="primary" icon="el-icon-loading" @click="GetUpdataRefresh">{{ $t('Turnoffautomaticrefresh')
+    }}</el-button>
   </el-row>
 </template>
 
@@ -56,7 +61,8 @@ export default {
       ],
       btnIcoType: true,
       ChannelIdData: [],
-      UserId: []
+      UserId: [],
+      excelStatus: false
     }
   },
   computed: {
@@ -128,10 +134,17 @@ export default {
       // this.date = ''
       this.userName = ''
       this.$emit('resetting')
+    },
+    // 导出
+    getExcel() {
+      this.$emit('getExcel')
+      this.excelStatus = true
+    },
+    HandelExcelStatus() {
+      this.excelStatus = false
     }
   }
 }
 </script>
 
 <style></style>
-

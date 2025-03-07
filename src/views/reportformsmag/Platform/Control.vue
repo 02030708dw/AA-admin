@@ -14,6 +14,7 @@
       @change="heandlerTime"
     />
     <!-- 刷新 -->
+    <el-button :disabled="excelStatus" style="margin-left:10px;" type="primary" @click="getExcel()">导出数据</el-button>
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{$t('Refresh')}}</el-button>
     <el-button v-else type="success" icon="el-icon-loading" disabled>{{$t('Refresh')}}</el-button>
   </el-row>
@@ -55,7 +56,8 @@ export default {
       },
       value: '',
       // 按钮状态
-      btnIcoType: true
+      btnIcoType: true,
+      excelStatus: false
     }
   },
   methods: {
@@ -87,11 +89,16 @@ export default {
     // 改变按钮状态
     HandelBtnStatus() {
       this.btnIcoType = true
+    },
+      // 导出
+      getExcel() {
+      this.$emit('getExcel')
+      this.excelStatus = true
+    },
+    HandelExcelStatus() {
+      this.excelStatus = false
     }
   }
 }
 </script>
-    <style lang="scss" scoped>
-
-    </style>
 

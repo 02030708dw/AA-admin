@@ -2,23 +2,10 @@
   <!-- 会员充值管理 -->
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
-    <Control
-      ref="ControlView"
-      @Refresh="HandelRefresh"
-      @Gamequery="getgetquery"
-      @resetting="getresetting"
-    />
-    <Table
-      ref="TableView"
-      :table-data="tableData"
-      @option="getoption"
-      @info="Handelinfo"
-    />
-    <Pagination
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="memberrechargedata"
-    />
+    <Control ref="ControlView" @Refresh="HandelRefresh" @getExcel="getExcel" @Gamequery="getgetquery"
+      @resetting="getresetting" />
+    <Table ref="TableView" :table-data="tableData" @option="getoption" @info="Handelinfo" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="memberrechargedata" />
     <Dialog ref="DialogView" @toexamine="gettoexamine" />
     <InfoView ref="infoview"></InfoView>
   </el-card>
@@ -28,7 +15,9 @@
 import {
   MemberrechargelPage,
   MemberrechargelToexamine,
+  incomeRecordOutput
 } from "../../../api/finance/memberrecharge";
+import { Message } from "element-ui";
 import Table from "./Table.vue";
 import Control from "./Control.vue";
 import Pagination from "@/components/Pagination/Pagination.vue";
@@ -204,6 +193,40 @@ export default {
           this.$message.error("操作失败!");
         });
     },
+    // 导出excel
+    async getExcel() {
+      try {
+        this.$refs.TableView.HandelLoading(true);
+        const res = await incomeRecordOutput({
+          pageNo: this.pageNo,
+          pageSize: this.PagesSize,
+          amount: this.amount,
+          auditStatus: this.auditStatus,
+          cardNo: this.cardNo,
+          channelId: this.channelId,
+          date: this.date,
+          userName: this.userName,
+        });
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `memberrecharge.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        this.$refs.TableView.HandelLoading(false);
+        this.$refs.ControlView.HandelExcelStatus();
+      } catch (error) {
+        Message({
+          message: '导出Excel失败',
+          type: "error",
+          duration: 5 * 1000,
+        });
+        this.$refs.TableView.HandelLoading(false);
+        this.$refs.ControlView.HandelExcelStatus();
+      }
+    }
   },
 };
 </script>
