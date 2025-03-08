@@ -45,13 +45,13 @@
           </template>
         </el-autocomplete>
       </el-form-item>
-      <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
+      <!-- <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
         <el-select v-model="ruleForm.bankName" :placeholder="$t('typesof')" style="width: 200px"
           @change="bankNameChange">
           <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
         </el-select>
-      </el-form-item>
-      <el-form-item v-if="ruleForm.type > 3" :label="$t('BankName')" prop="bankName">
+      </el-form-item> -->
+      <el-form-item  :label="$t('BankName')" prop="bankName">
         <el-input v-model="ruleForm.bankName" />
       </el-form-item>
       <el-form-item v-if="ruleForm.type > 3" :label="$t('SelectCurrency')" prop="currency">
@@ -60,10 +60,10 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 0" :label="$t('SelectCurrency')">
-        <el-input v-model="ruleForm.currency" disabled />
-        <!-- <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
-          <el-option v-for="(item, index) in CurrencytPageData" :key="index" :value="item.index" :label="item.item" />
-        </el-select> -->
+        <!-- <el-input v-model="ruleForm.currency" disabled /> -->
+        <el-select v-model="ruleForm.currency" placeholder="选择币种" style="width: 200px">
+          <el-option v-for="(v, index) in CurrencytPageData" :key="index" :value="v.item" :label="v.item" />
+        </el-select>
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 2" :label="$t('WeChataccount')" prop="wechat">
         <el-input v-model="ruleForm.wechat" />
@@ -164,7 +164,7 @@ export default {
         icon: "", //图标
         currency: "",
         bankCode: "",
-        threePayId: "",
+        threePayId: 0,
         maxMoney: '',
         minMoney: ''
       },
@@ -240,7 +240,7 @@ export default {
           wechat: "",
           icon: "",
           bankCode: "",
-          threePayId: "",
+          threePayId: 0,
           maxMoney: '',
           minMoney: '',
         };

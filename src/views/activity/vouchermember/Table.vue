@@ -53,6 +53,8 @@ export default {
           return '已过期'
         case 3:
           return '未使用'
+        case 4:
+          return '使用中'
       }
     },
     // 改变loading
