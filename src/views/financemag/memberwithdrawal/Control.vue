@@ -1,7 +1,7 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <!-- 选择日期 -->
-    <el-date-picker v-model="value" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
+    <el-date-picker style="margin-right: 10px" v-model="value" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
       start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" @change="heandlerTime" />
     <!-- <el-button type="primary" @click="getroleAdd()">新增</el-button> -->
     <el-input v-model="userName" style="width: 180px; margin-right: 10px" :placeholder="$t('username')" />

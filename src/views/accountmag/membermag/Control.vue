@@ -1,114 +1,178 @@
 <template>
-  <el-row style="padding-bottom: 10px">
-    <!-- 选择日期 -->
-    <el-date-picker v-model="value" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
-      start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" @change="heandlerTime" />
-    <el-input v-model="vipLevel" style="width: 200px;margin-right: 10px;" :placeholder="$t('VIPlevel')" />
-    <el-input v-model="ip" style="width: 200px;margin-right: 10px;" :placeholder="$t('IPAddress')" />
-    <el-input v-model="userName" style="width: 200px;margin-right: 10px;" :placeholder="$t('username')" />
-    <el-input v-model="userPhone" style="width: 200px;" :placeholder="$t('phone')" />
-    <el-select v-model="agentId" filterable :placeholder="$t('SelectProxy')" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in agentIddata" :key="index" :value="item.index" :label="item.title" />
-    </el-select>
-    <el-select v-model="status" :placeholder="$t('state')" style="width: 200px;margin-left: 10px">
-      <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
-    </el-select>
-    <el-button v-has="'membermag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
-    }}</el-button>
-    <el-button style="margin-left:10px;" type="primary" @click="geteditpaymentall()">一键排序支付商</el-button>
-    <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
-    <!-- 刷新按钮 -->
-    <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
-    }}</el-button>
-    <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
-  </el-row>
+  <div>
+    <el-row :gutter="10">
+      <!-- 选择日期 -->
+      <el-col :xs="24" :sm="12" :md="6">
+        <el-date-picker
+          style="width: 100%"
+          v-model="value"
+          type="daterange"
+          align="right"
+          unlink-panels
+          :range-separator="$t('to')"
+          :start-placeholder="$t('Startdate')"
+          :end-placeholder="$t('EndDate')"
+          :picker-options="pickerOptions"
+          @change="heandlerTime"
+        />
+      </el-col>
+
+      <el-col :xs="24" :sm="12" :md="3">
+        <el-input v-model="vipLevel" :placeholder="$t('VIPlevel')" />
+      </el-col>
+
+      <el-col :xs="24" :sm="12" :md="3">
+        <el-input v-model="ip" :placeholder="$t('IPAddress')" />
+      </el-col>
+
+      <el-col :xs="24" :sm="12" :md="3">
+        <el-input v-model="userName" :placeholder="$t('username')" />
+      </el-col>
+
+      <el-col :xs="24" :sm="12" :md="3">
+        <el-input v-model="userPhone" :placeholder="$t('phone')" />
+      </el-col>
+
+      <el-col :xs="24" :sm="12" :md="3">
+        <el-select
+          style="width: 100%"
+          v-model="agentId"
+          filterable
+          :placeholder="$t('SelectProxy')"
+        >
+          <el-option
+            v-for="(item, index) in agentIddata"
+            :key="index"
+            :value="item.index"
+            :label="item.title"
+          />
+        </el-select>
+      </el-col>
+
+      <el-col :xs="24" :sm="12" :md="3">
+        <el-select
+          style="width: 100%"
+          v-model="status"
+          :placeholder="$t('state')"
+        >
+          <el-option
+            v-for="(item, index) in statusType"
+            :key="index"
+            :value="item.index"
+            :label="item.title"
+          />
+        </el-select>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="20">
+      <el-button v-has="'membermag:page'" type="primary" @click="getquery()">{{
+        $t("query")
+      }}</el-button>
+      <el-button type="primary" @click="geteditpaymentall()"
+        >{{ $t('一键排序支付商') }}</el-button
+      >
+      <el-button type="info" plain @click="getresetting()">{{
+        $t("resetting")
+      }}</el-button>
+      <!-- 刷新按钮 -->
+      <el-button
+        v-if="btnIcoType"
+        type="success"
+        icon="el-icon-refresh-left"
+        @click="HandelRefresh"
+        >{{ $t("Refresh") }}</el-button
+      >
+      <el-button v-else type="success" icon="el-icon-loading" disabled>{{
+        $t("Refresh")
+      }}</el-button>
+    </el-row>
+  </div>
 </template>
 
 <script>
 // 获取代理id
 // import { AgentPage } from '@/api/account/agent'
 export default {
-  name: 'Control',
+  name: "Control",
   props: {
     agentIddata: {
       type: Array,
       default: () => {
-        return []
-      }
-    }
+        return [];
+      },
+    },
   },
   data() {
     return {
-      agentId: '',
-      userPhone: '',
-      userName: '',
+      agentId: "",
+      userPhone: "",
+      userName: "",
       status: null,
       statusType: [
-        { title: '停用', index: 0 },
-        { title: '启用', index: 1 }
+        { title: "停用", index: 0 },
+        { title: "启用", index: 1 },
       ],
       btnIcoType: true,
-      vipLevel: '',
+      vipLevel: "",
       ip: "",
       pickerOptions: {
         shortcuts: [
           {
-            text: '最近一周',
+            text: this.$t("最近一周"),
             onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', [start, end])
-            }
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            },
           },
           {
-            text: '最近一个月',
+            text: this.$t("最近一个月"),
             onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-              picker.$emit('pick', [start, end])
-            }
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            },
           },
           {
-            text: '最近三个月',
+            text: this.$t("最近三个月"),
             onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-              picker.$emit('pick', [start, end])
-            }
-          }
-        ]
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            },
+          },
+        ],
       },
-      value: '',
+      value: "",
 
       // agentIddata: []
-    }
+    };
   },
-  created() {
-
-  },
+  created() {},
   methods: {
     // 选择日期
     heandlerTime() {
-      const timearr = []
+      const timearr = [];
       for (let i = 0; i < this.value?.length; i++) {
-        const date = new Date(this.value[i])
-        const year = date.getFullYear()
+        const date = new Date(this.value[i]);
+        const year = date.getFullYear();
         const month =
           date.getMonth() + 1 < 10
-            ? '0' + (date.getMonth() + 1)
-            : date.getMonth() + 1
-        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-        const formattedDate = year + '-' + month + '-' + day
-        timearr.push(formattedDate)
+            ? "0" + (date.getMonth() + 1)
+            : date.getMonth() + 1;
+        const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+        const formattedDate = year + "-" + month + "-" + day;
+        timearr.push(formattedDate);
       }
-      this.$emit('SelectDate', { startDate: timearr[0], endDate: timearr[1] })
+      this.$emit("SelectDate", { startDate: timearr[0], endDate: timearr[1] });
     },
     // 日期回显
     pagesDate(data) {
-      this.value = [data.startDate, data.endDate]
+      this.value = [data.startDate, data.endDate];
     },
     // // 获取代理id
     // getAgentPage() {
@@ -125,38 +189,45 @@ export default {
     //   })
     // },
     getquery() {
-      this.$emit('Memquery', {
+      this.$emit("Memquery", {
         agentId: this.agentId,
         userName: this.userName,
         userPhone: this.userPhone,
         vipLevel: this.vipLevel,
         ip: this.ip,
-        status: this.status
-      })
+        status: this.status,
+      });
     },
     geteditpaymentall() {
-      this.$emit('EditPaymentAll')
+      this.$emit("EditPaymentAll");
     },
     getresetting() {
-      this.agentId = ''
-      this.userName = ''
-      this.status = null
-      this.value = null
-      this.vipLevel = null
-      this.ip = null
-      this.$emit('resetting')
+      this.agentId = "";
+      this.userName = "";
+      this.status = null;
+      this.value = null;
+      this.vipLevel = null;
+      this.ip = null;
+      this.$emit("resetting");
     },
     // 刷新
     HandelRefresh() {
-      this.$emit('Refresh')
-      this.btnIcoType = false
+      this.$emit("Refresh");
+      this.btnIcoType = false;
     },
     // 改变按钮状态
     HandelBtnStatus() {
-      this.btnIcoType = true
-    }
-  }
-}
+      this.btnIcoType = true;
+    },
+  },
+};
 </script>
 
-<style></style>
+<style lang="scss">
+.el-row {
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 10px;
+  }
+}
+</style>
