@@ -3,7 +3,7 @@
     <div slot="header" class="clearfix">
       <el-row :gutter="5">
         <el-col :span="6">
-          <span class="header-title">游戏商报表</span>
+          <span class="header-title">{{ $t('route.GameMerchantReport') }}</span>
         </el-col>
         <el-col :span="10">
           <el-date-picker
@@ -11,7 +11,7 @@
             type="daterange"
             align="right"
             unlink-panels
-            range-separator="至"
+            range-separator="-"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             :picker-options="pickerOptions"
@@ -25,7 +25,7 @@
             v-model="GameMakerValue"
             filterable
             clearable
-            placeholder="选择游戏商"
+            :placeholder="$t('SelectGameMerchant')"
             @change="handleGameMakerChange"
           >
             <el-option
@@ -72,18 +72,18 @@ export default {
       GameMakerOptions: [], // 游戏商选项
       TypeValue: "phaseAmount", // 类型，默认盈亏
       TypeOptions: [
-        { value: "phaseAmount", label: "盈亏" },
-        { value: "betAmount", label: "投注总额" },
-        { value: "winAmount", label: "中奖总额" },
-        { value: "rate", label: "抽成比例" },
-        { value: "rateAmount", label: "抽成金额" },
-        { value: "realBetAmount", label: "有效投注金额" },
-        { value: "betUserNum", label: "投注人数" },
+        { value: "phaseAmount", label: this.$t("盈亏") },
+        { value: "betAmount", label: this.$t("投注总额") },
+        { value: "winAmount", label: this.$t("中奖总额") },
+        { value: "rate", label: this.$t("抽成比例") },
+        { value: "rateAmount", label: this.$t("抽成金额") },
+        { value: "realBetAmount", label: this.$t("有效投注金额") },
+        { value: "betUserNum", label: this.$t("投注人数") },
       ],
       pickerOptions: {
         shortcuts: [
           {
-            text: "最近一周",
+            text: this.$t("最近一周"),
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -92,7 +92,7 @@ export default {
             },
           },
           {
-            text: "最近一个月",
+            text: this.$t("最近一个月"),
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -101,7 +101,7 @@ export default {
             },
           },
           {
-            text: "最近三个月",
+            text: this.$t("最近三个月"),
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -132,9 +132,10 @@ export default {
 
     // 初始化图表
     async initChart() {
+      console.log(this.$t);
       const chartDom = document.getElementById("main");
       this.myChart = echarts.init(chartDom);
-      await this.loadChartData("盈亏");
+      await this.loadChartData(this.$t("盈亏"));
     },
 
     // 加载图表数据

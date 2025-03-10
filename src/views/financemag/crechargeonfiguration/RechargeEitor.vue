@@ -25,11 +25,14 @@
       <el-form-item v-if="ruleForm.type === 0" :label="$t('AccountName')" prop="account">
         <el-input v-model="ruleForm.account" />
       </el-form-item>
-      <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
+      <!-- <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
         <el-select v-model="ruleForm.bankName" :placeholder="$t('typesof')" style="width: 200px"
           @change="bankNameChange">
           <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
         </el-select>
+      </el-form-item> -->
+      <el-form-item  :label="$t('BankName')" prop="bankName">
+        <el-input v-model="ruleForm.bankName" />
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
         <el-input v-model="ruleForm.alipay" />

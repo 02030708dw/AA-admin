@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="$t('审核')" :visible.sync="dialogVisible" width="50%">
     <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
-      <el-form-item :label="$t('审核状态')" prop="status">
+      <el-form-item :label="$t('Reviewstatus')" prop="status">
         <el-select v-model="ruleForm.status" :placeholder="$t('state')" style="width: 200px">
           <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
         </el-select>
