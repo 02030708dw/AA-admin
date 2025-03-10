@@ -12,7 +12,7 @@
           v-for="(item, index) in statusType"
           :key="index"
           :value="item.index"
-          :label="item.title"
+          :label="$t(item.title)"
         />
       </el-select>
       <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
@@ -35,7 +35,7 @@
         <el-table-column prop="afterBalance" :label="$t('Balanceafterchange')" width="" />
         <el-table-column prop="" :label="$t('Changetype')" width="">
           <template slot-scope="scope">
-            {{ scope.row.type | typeF }}
+            {{  typeF(scope.row.type) }}
           </template>
         </el-table-column>
         <el-table-column prop="remark" :label="$t('describe')" width="" />
@@ -59,36 +59,6 @@ import Pagination from '@/components/Pagination/Pagination.vue'
 export default {
   components: {
     Pagination
-  },
-  filters: {
-    typeF(value) {
-      switch (value) {
-        case 1:
-          return '提现成功'
-        case 2:
-          return '充值'
-        case 3:
-          return '转出到游戏商'
-        case 4:
-          return '从游戏商转入'
-        case 5:
-          return '下级会员投注返点'
-        case 6:
-          return '平台加扣款'
-        case 7:
-          return '冻结金额,'
-        case 8:
-          return '解冻金额'    
-        case 9:
-          return '活动金额'
-        case 10:
-          return '提现取消'
-        case 11:
-          return '提现驳回'    
-        case 12:
-          return '提现发起'
-      }
-    }
   },
   data() {
     return {
@@ -172,6 +142,34 @@ export default {
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getMemberFlowingWater(this.pageNo)
+    },
+    typeF(value) {
+      switch (value) {
+        case 1:
+          return this.$t('提现成功')
+        case 2:
+          return this.$t('充值')
+        case 3:
+          return this.$t('转出到游戏商')
+        case 4:
+          return this.$t('从游戏商转入')
+        case 5:
+          return this.$t('下级会员投注返点')
+        case 6:
+          return this.$t('平台加扣款')
+        case 7:
+          return this.$t('冻结金额')
+        case 8:
+          return this.$t('解冻金额')    
+        case 9:
+          return this.$t('活动金额')
+        case 10:
+          return this.$t('提现取消')
+        case 11:
+          return this.$t('提现驳回')    
+        case 12:
+          return this.$t('提现发起')
+      }
     }
   }
 }

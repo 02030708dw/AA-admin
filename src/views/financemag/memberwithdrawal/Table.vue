@@ -1,9 +1,18 @@
 <template>
   <!-- 会员提现表格 -->
   <el-card>
-    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="memberName" :label="$t('Membername')" width=""></el-table-column>
+    <el-table
+      v-loading="loading"
+      :data="tableData"
+      :border="true"
+      :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }"
+    >
+      <el-table-column
+        prop="memberName"
+        :label="$t('Membername')"
+        width=""
+      ></el-table-column>
       <el-table-column prop="" :label="$t('Withdrawalinformation')" width="">
         <template slot-scope="scope">
           <div class="info_box">
@@ -33,8 +42,20 @@
         </template>
       </el-table-column>
       <el-table-column prop="orderNo" :label="$t('orderNo')" />
-      <el-table-column prop="" :label="this.resultSet.sumAmount ? '' + this.resultSet.sumAmount : '0'" width="">
-        <el-table-column prop="amount" :label="$t('amountofmoney')" />
+      <el-table-column
+        prop=""
+        :label="
+          this.resultSet.sumAmount
+            ? '' + $formatNumber(this.resultSet.sumAmount)
+            : '0'
+        "
+        width=""
+      >
+        <el-table-column
+          prop="amount"
+          :label="$t('amountofmoney')"
+          :formatter="formatMoney"
+        />
       </el-table-column>
       <el-table-column prop="threePayName" :label="$t('ThreePartyNames')" />
       <el-table-column :label="$t('Reviewstatus')" prop="aduitStatus">
@@ -53,49 +74,123 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
+
+      <el-table-column :label="$t('总充值/总提款次数')">
+        <template slot-scope="scope">
+          <div>{{ $t("总充值次数") }} : {{ scope.row.incomeNum }}</div>
+          <div>{{ $t("总提款次数") }} : {{ scope.row.cashNum }}</div>
+        </template>
+      </el-table-column>
+
+      <el-table-column :label="$t('充提/输赢差')">
+        <template slot-scope="scope">
+          <div>{{ $t("充提差") }} : {{ scope.row.incomeCashMargin }}</div>
+          <div>{{ $t("输赢差") }} : {{ scope.row.winLossMargin }}</div>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        prop="balance"
+        :label="$t('balance')"
+        :formatter="formatMoney"
+      />
+      <el-table-column :label="$t('Registrationtime')">
+        <template slot-scope="scope">
+          {{ $creationTime(scope.row?.registerDate) }}
+        </template>
+      </el-table-column>
+
+      <el-table-column :label="$t('Creationtime')" width="">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('Audittime')" width="">
+
+      <el-table-column :label="$t('Audittime')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.aduitTime | timeF }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('Updatedby')" width=""></el-table-column>
+
+      <el-table-column
+        prop="updater"
+        :label="$t('Updatedby')"
+        width=""
+      ></el-table-column>
       <!-- 操作 -->
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
-          }}</el-button>
-          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
-            v-if="scope.row.aduitStatus === 0" :title="$t('passthrough')" @onConfirm="getaudit(1, scope.row.id)">
-            <el-button style="margin-right: 5px;" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
+          <el-button
+            v-if="scope.row.aduitStatus != 0"
+            type="text"
+            @click="HandelInfo(scope.row)"
+            >{{ $t("Detail") }}</el-button
+          >
+          <el-popconfirm
+            :confirm-button-text="$t('determine')"
+            :cancel-button-text="$t('cancellation')"
+            v-if="scope.row.aduitStatus === 0"
+            :title="$t('passthrough')"
+            @onConfirm="getaudit(1, scope.row.id)"
+          >
+            <el-button
+              style="margin-right: 5px"
+              slot="reference"
+              v-has="'memberwithdrawal:aduit'"
+              type="text"
+            >
               {{ $t("passthrough") }}
             </el-button>
           </el-popconfirm>
-          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: red"
-            @click="getaudit(2, scope.row.id)">
+          <el-button
+            v-has="'memberwithdrawal:aduit'"
+            v-if="scope.row.aduitStatus === 0"
+            type="text"
+            style="color: red"
+            @click="getaudit(2, scope.row.id)"
+          >
             {{ $t("reject") }}
           </el-button>
-          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
-            v-if="scope.row.aduitStatus === 0" :title="$t('cancellation')" @onConfirm="getaudit(3, scope.row.id)">
-            <el-button slot="reference" v-has="'memberwithdrawal:aduit'" type="text"
-              style="margin-left: 5px; color: #a4a4a4">
+          <el-popconfirm
+            :confirm-button-text="$t('determine')"
+            :cancel-button-text="$t('cancellation')"
+            v-if="scope.row.aduitStatus === 0"
+            :title="$t('cancellation')"
+            @onConfirm="getaudit(3, scope.row.id)"
+          >
+            <el-button
+              slot="reference"
+              v-has="'memberwithdrawal:aduit'"
+              type="text"
+              style="margin-left: 5px; color: #a4a4a4"
+            >
               {{ $t("cancellation") }}
             </el-button>
           </el-popconfirm>
-          <el-button v-has="'memberwithdrawal:fo'" v-if="scope.row.aduitStatus === 0" type="text"
-            @click="Handelpay(scope.row)">{{ $t("Paymentonbehalf") }}</el-button>
+          <el-button
+            v-has="'memberwithdrawal:fo'"
+            v-if="scope.row.aduitStatus === 0"
+            type="text"
+            @click="Handelpay(scope.row)"
+            >{{ $t("Paymentonbehalf") }}</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
     <!-- 驳回原因弹窗 -->
-    <el-dialog :title="$t('Reasonforrejection')" :visible.sync="dialogVisible" width="30%">
+    <el-dialog
+      :title="$t('Reasonforrejection')"
+      :visible.sync="dialogVisible"
+      width="30%"
+    >
       <span>{{ $t("Pleaseenterthereasonforrejection") }}</span>
-      <el-input v-model="reason" style="margin-top: 10px" type="textarea" :rows="4"
-        :placeholder="$t('Pleaseenterthereasonforrejection')" />
+      <el-input
+        v-model="reason"
+        style="margin-top: 10px"
+        type="textarea"
+        :rows="4"
+        :placeholder="$t('Pleaseenterthereasonforrejection')"
+      />
       <span slot="footer" class="dialog-footer">
         <el-button @click="getaudit(2)">{{ $t("skip") }}</el-button>
         <el-button type="primary" @click="getaudit(2)">{{
@@ -126,9 +221,9 @@ export default {
     resultSet: {
       type: Object,
       default: () => {
-        return {}
-      }
-    }
+        return {};
+      },
+    },
   },
   data() {
     return {
@@ -157,12 +252,18 @@ export default {
     },
     getStatusType(status) {
       switch (status) {
-        case 0: return 'primary';      // 待审核 - 蓝色
-        case 1: return 'success';   // 审核通过 - 绿色
-        case 2: return 'danger';    // 驳回 - 红色
-        case 3: return 'info';   // 已取消 - 橙色
-        case 4: return 'warning';   // 进行中 - 黄色
-        default: return 'default';  // 默认灰色
+        case 0:
+          return "primary"; // 待审核 - 蓝色
+        case 1:
+          return "success"; // 审核通过 - 绿色
+        case 2:
+          return "danger"; // 驳回 - 红色
+        case 3:
+          return "info"; // 已取消 - 橙色
+        case 4:
+          return "warning"; // 进行中 - 黄色
+        default:
+          return "default"; // 默认灰色
       }
     },
     // 改变loading
@@ -236,6 +337,10 @@ export default {
             });
           break;
       }
+    },
+    // 格式化金额
+    formatMoney(row, column, cellValue) {
+      return this.$formatNumber(cellValue);
     },
   },
 };
