@@ -12,8 +12,7 @@
       </el-form-item>
       <el-form-item :label="$t('state')">
         <el-select v-model="ruleForm.status" placeholder="选择状态" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 0, title: '未使用' }, { index: 3, title: '未刮开' }]" :key="index"
-            :value="item.index" :label="item.title" />
+          <el-option v-for="(item, index) in statusList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -27,6 +26,8 @@
 </template>
 
 <script>
+import { status } from 'nprogress';
+
 export default {
   props: {
     voucherConfigIdList: {
@@ -48,6 +49,13 @@ export default {
       rules: {
         expireAt: [{ required: true, message: '请选择过期时间', trigger: 'blur' }],
       },
+      statusList: [
+        { index: 0, title: '未使用' },
+        { index: 1, title: '已使用' },
+        { index: 2, title: '已过期' },
+        { index: 3, title: '未使用' },
+        { index: 4, title: '使用中' }
+      ]
     }
   },
   methods: {
@@ -73,6 +81,8 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          this.ruleForm.expireAt = this.$YMDHMS(this.ruleForm.expireAt)
+          this.ruleForm.useAt = this.$YMDHMS(this.ruleForm.useAt)
           this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
           this.dialogVisible = false

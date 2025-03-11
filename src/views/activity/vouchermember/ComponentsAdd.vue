@@ -83,6 +83,7 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           console.log(this.ruleForm, 'this.ruleForm');
+          this.ruleForm.expireAt = this.$YMDHMS(this.ruleForm.expireAt)
           this.$emit("confirm", this.ruleForm);
           // 关闭弹窗
           this.dialogVisible = false;

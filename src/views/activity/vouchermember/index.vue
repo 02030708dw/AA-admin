@@ -3,7 +3,7 @@
     <Control ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @EditorShow="getEitorShow" />
+    <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsAdd ref="ComponentsAdd" :voucherConfigIdList="voucherConfigIdList" @confirm="getAdd" />
     <ComponentsEitor ref="ComponentsEitor" :voucherConfigIdList="voucherConfigIdList" @confirm="getEitor" />
