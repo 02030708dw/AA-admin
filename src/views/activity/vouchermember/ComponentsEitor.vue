@@ -50,7 +50,7 @@ export default {
         expireAt: [{ required: true, message: '请选择过期时间', trigger: 'blur' }],
       },
       statusList: [
-        { index: 0, title: '未使用' },
+        { index: 0, title: '未刮开' },
         { index: 1, title: '已使用' },
         { index: 2, title: '已过期' },
         { index: 3, title: '未使用' },
