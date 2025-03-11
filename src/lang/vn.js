@@ -586,5 +586,9 @@ export default {
   总提款次数: "Tổng số lần rút tiền",
   '充提/输赢差': "Chênh lệch nạp/rút với lãi/lỗ",
   充提差: "Chênh lệch nạp/rút",
-  输赢差: "Chênh lệch lãi/lỗ"
+  输赢差: "Chênh lệch lãi/lỗ",
+  复制: "Sao chép",
+  基本信息: "Thông tin cơ bản",
+  复制成功: "Sao chép thành công",
+  复制失败: "Sao chép thất bại",
 };

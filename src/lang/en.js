@@ -580,5 +580,9 @@ export default {
   总提款次数: "Total Withdrawal Count",
   '充提/输赢差': "Deposit/Withdrawal vs Profit/Loss Difference",
   充提差: "Deposit/Withdrawal Difference",
-  输赢差: "Profit/Loss Difference"
+  输赢差: "Profit/Loss Difference",
+  复制: "Copy",
+  基本信息: "Basic Information",
+  复制成功: "Copy Success",
+  复制失败: "Copy Failed",
 };
