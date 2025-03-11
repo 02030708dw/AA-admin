@@ -19,7 +19,7 @@
       </el-form-item>
       <el-form-item :label="$t('state')">
         <el-select v-model="ruleForm.status" placeholder="选择状态" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 0, title: '未使用' }, { index: 3, title: '未刮开' }]" :key="index"
+          <el-option v-for="(item, index) in [{ index: 0, title: '未刮开' }, { index: 3, title: '未使用' }]" :key="index"
             :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
