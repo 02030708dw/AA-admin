@@ -13,7 +13,7 @@
         :label="$t('Membername')"
         width=""
       ></el-table-column>
-      <el-table-column prop="" :label="$t('Withdrawalinformation')" width="">
+      <el-table-column prop="" :label="$t('Withdrawalinformation')" width="250">
         <template slot-scope="scope">
           <div class="info_box">
             <div v-if="scope.row.bankName" class="item_box">
@@ -75,28 +75,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('总充值/总提款次数')">
+      <el-table-column :label="$t('基本信息')" width="280">
         <template slot-scope="scope">
-          <div>{{ $t("总充值次数") }} : {{ scope.row.incomeNum }}</div>
-          <div>{{ $t("总提款次数") }} : {{ scope.row.cashNum }}</div>
-        </template>
-      </el-table-column>
-
-      <el-table-column :label="$t('充提/输赢差')">
-        <template slot-scope="scope">
-          <div>{{ $t("充提差") }} : {{ scope.row.incomeCashMargin }}</div>
-          <div>{{ $t("输赢差") }} : {{ scope.row.winLossMargin }}</div>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        prop="balance"
-        :label="$t('balance')"
-        :formatter="formatMoney"
-      />
-      <el-table-column :label="$t('Registrationtime')">
-        <template slot-scope="scope">
-          {{ $creationTime(scope.row?.registerDate) }}
+          <div class="Information">
+            <div>{{ $t("总充值次数") }} : {{ scope.row.incomeNum }}</div>
+            <div>{{ $t("总提款次数") }} : {{ scope.row.cashNum }}</div>
+            <div>{{ $t("充提差") }} : {{ scope.row.incomeCashMargin }}</div>
+            <div>{{ $t("输赢差") }} : {{ scope.row.winLossMargin }}</div>
+            <div>{{ $t("balance") }} : {{ scope.row.balance }}</div>
+            <div>
+              {{ $t("Registrationtime") }} :
+              {{ $creationTime(scope.row?.registerDate) }}
+            </div>
+          </div>
         </template>
       </el-table-column>
 
@@ -118,62 +109,71 @@
         width=""
       ></el-table-column>
       <!-- 操作 -->
-      <el-table-column prop="" :label="$t('operate')" width="">
+      <el-table-column :label="$t('operate')">
         <template slot-scope="scope">
           <el-button
             v-if="scope.row.aduitStatus != 0"
             type="text"
             @click="HandelInfo(scope.row)"
-            >{{ $t("Detail") }}</el-button
-          >
-          <el-popconfirm
-            :confirm-button-text="$t('determine')"
-            :cancel-button-text="$t('cancellation')"
-            v-if="scope.row.aduitStatus === 0"
-            :title="$t('passthrough')"
-            @onConfirm="getaudit(1, scope.row.id)"
-          >
-            <el-button
-              style="margin-right: 5px"
-              slot="reference"
-              v-has="'memberwithdrawal:aduit'"
-              type="text"
-            >
-              {{ $t("passthrough") }}
-            </el-button>
-          </el-popconfirm>
-          <el-button
-            v-has="'memberwithdrawal:aduit'"
-            v-if="scope.row.aduitStatus === 0"
-            type="text"
-            style="color: red"
-            @click="getaudit(2, scope.row.id)"
-          >
-            {{ $t("reject") }}
+            >{{ $t("Detail") }}
           </el-button>
-          <el-popconfirm
-            :confirm-button-text="$t('determine')"
-            :cancel-button-text="$t('cancellation')"
-            v-if="scope.row.aduitStatus === 0"
-            :title="$t('cancellation')"
-            @onConfirm="getaudit(3, scope.row.id)"
-          >
+
+          <template v-if="scope.row.aduitStatus === 0">
+            <el-popconfirm
+              :confirm-button-text="$t('determine')"
+              :cancel-button-text="$t('cancellation')"
+              :title="$t('passthrough')"
+              @onConfirm="getaudit(1, scope.row.id)"
+            >
+              <el-button
+                style="margin-right: 5px"
+                slot="reference"
+                v-has="'memberwithdrawal:aduit'"
+                type="text"
+              >
+                {{ $t("passthrough") }}
+              </el-button>
+            </el-popconfirm>
+
             <el-button
-              slot="reference"
               v-has="'memberwithdrawal:aduit'"
               type="text"
-              style="margin-left: 5px; color: #a4a4a4"
+              style="color: red"
+              @click="getaudit(2, scope.row.id)"
             >
-              {{ $t("cancellation") }}
+              {{ $t("reject") }}
             </el-button>
-          </el-popconfirm>
+
+            <el-popconfirm
+              :confirm-button-text="$t('determine')"
+              :cancel-button-text="$t('cancellation')"
+              :title="$t('cancellation')"
+              @onConfirm="getaudit(3, scope.row.id)"
+            >
+              <el-button
+                slot="reference"
+                v-has="'memberwithdrawal:aduit'"
+                type="text"
+                style="margin-left: 5px; color: #a4a4a4"
+              >
+                {{ $t("cancellation") }}
+              </el-button>
+            </el-popconfirm>
+
+            <el-button
+              v-has="'memberwithdrawal:fo'"
+              type="text"
+              @click="Handelpay(scope.row)"
+              >{{ $t("Paymentonbehalf") }}</el-button
+            >
+          </template>
+
           <el-button
-            v-has="'memberwithdrawal:fo'"
-            v-if="scope.row.aduitStatus === 0"
             type="text"
-            @click="Handelpay(scope.row)"
-            >{{ $t("Paymentonbehalf") }}</el-button
-          >
+            @click="CopyInfo(scope.row)"
+            >{{ $t("复制") }}
+          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -342,6 +342,25 @@ export default {
     formatMoney(row, column, cellValue) {
       return this.$formatNumber(cellValue);
     },
+    // 复制表格信息
+    CopyInfo(v) {
+      const info = `
+${this.$t('Membername')}：${v.memberName}
+${this.$t('Withdrawalinformation')}：${v.bankName ? v.bankName + '-' + v.bankCardNo : v.alipay || v.wechat || v.coin || ''}
+${this.$t('orderNo')}：${v.orderNo}
+${this.$t('amountofmoney')}：${v.amount}
+${this.$t('ThreePartyNames')}：${v.threePayName || ''}
+${this.$t('总充值次数')}：${v.incomeNum}
+${this.$t('总提款次数')}：${v.cashNum}
+${this.$t('充提差')}：${v.incomeCashMargin}
+${this.$t('输赢差')}：${v.winLossMargin}
+${this.$t('balance')}：${v.balance}
+${this.$t('Registrationtime')}：${this.$creationTime(v.registerDate) || ''}`.trim();
+
+      navigator.clipboard.writeText(info)
+        .then(() => this.$message.success(this.$t('复制成功')))
+        .catch(() => this.$message.error(this.$t('复制失败')));
+    }
   },
 };
 </script>
@@ -369,5 +388,11 @@ export default {
       text-align: left;
     }
   }
+}
+
+.Information {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 </style>
