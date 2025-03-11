@@ -81,8 +81,8 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.ruleForm.expireAt = this.$YMDHMS(this.ruleForm.expireAt)
-          this.ruleForm.useAt = this.$YMDHMS(this.ruleForm.useAt)
+          this.ruleForm.expireAt = this.ruleForm.expireAt ? this.$YMDHMS(this.ruleForm.expireAt) : null
+          this.ruleForm.useAt = this.ruleForm.useAt ? this.$YMDHMS(this.ruleForm.useAt) : null
           this.$emit('confirm', this.ruleForm)
           // 关闭弹窗
           this.dialogVisible = false
