@@ -1,6 +1,6 @@
 <template>
     <el-card shadow="never" style="border: 0px;display: flex;justify-content: center;">
-        <el-form label-width="100px" ref="ruleForm" :model="UserInfo" :rules="rules" style="margin-right: 100px;"
+        <el-form label-width="150px" ref="ruleForm" :model="UserInfo" :rules="rules" style="margin-right: 100px;"
             class="demo-ruleForm">
             <el-form-item :label="$t('name')" prop="userName">
                 <el-input v-model="UserInfo.userName" style="width: 300px" :placeholder="$t('name')" />
@@ -10,6 +10,9 @@
             </el-form-item>
             <el-form-item :label="$t('realName')" prop="realName">
                 <el-input v-model="UserInfo.realName" style="width: 300px" :placeholder="$t('realName')" />
+            </el-form-item>
+            <el-form-item :label="$t('中转页联系链结')" prop="email">
+                <el-input v-model="UserInfo.email" style="width: 300px" :placeholder="$t('中转页联系链结')" />
             </el-form-item>
             <el-form-item v-for="(v, i) in UserInfo.bankCardNoList" :key="i" :label="$t('Bankaccount') + (i + 1)">
                 <el-input v-model="v.bankCardNo" style="width: 300px;margin-right: 10px;"
@@ -41,6 +44,7 @@ export default {
                 realName: '', // 真实姓名
                 telPhone: '', // 电话
                 userName: '', // 名称
+                email: '', // 邮箱
                 bankCardNoList: [], // 银行卡
             },
             rules: {

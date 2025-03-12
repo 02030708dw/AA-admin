@@ -585,4 +585,6 @@ export default {
   基本信息: "Basic Information",
   复制成功: "Copy Success",
   复制失败: "Copy Failed",
+  邮箱: "Email",
+  中转页联系链结: "Intermediate Page Contact Link",
 };
