@@ -23,7 +23,7 @@ export function creationTime(dateString) {
   var hour = ('0' + date.getHours()).slice(-2)
   var minute = ('0' + date.getMinutes()).slice(-2)
   var second = ('0' + date.getSeconds()).slice(-2)
-  return year + '-' + month + '-' + day + '\n' + hour + ':' + minute + ':' + second
+  return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
 }
 
 export function toYMDHMSTime(dateString) {

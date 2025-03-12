@@ -349,7 +349,6 @@ ${this.$t('Membername')}：${v.memberName}
 ${this.$t('Withdrawalinformation')}：${v.bankName ? v.bankName + '-' + v.bankCardNo : v.alipay || v.wechat || v.coin || ''}
 ${this.$t('orderNo')}：${v.orderNo}
 ${this.$t('amountofmoney')}：${v.amount}
-${this.$t('ThreePartyNames')}：${v.threePayName || ''}
 ${this.$t('总充值次数')}：${v.incomeNum}
 ${this.$t('总提款次数')}：${v.cashNum}
 ${this.$t('充提差')}：${v.incomeCashMargin}
