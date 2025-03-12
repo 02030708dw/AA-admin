@@ -591,4 +591,6 @@ export default {
   基本信息: "Thông tin cơ bản",
   复制成功: "Sao chép thành công",
   复制失败: "Sao chép thất bại",
+  邮箱: "Email",
+  中转页联系链结: "Liên kết liên hệ trang trung chuyển",
 };
