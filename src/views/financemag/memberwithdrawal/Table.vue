@@ -80,9 +80,9 @@
           <div class="Information">
             <div>{{ $t("总充值次数") }} : {{ scope.row.incomeNum }}</div>
             <div>{{ $t("总提款次数") }} : {{ scope.row.cashNum }}</div>
-            <div>{{ $t("充提差") }} : {{ scope.row.incomeCashMargin }}</div>
-            <div>{{ $t("输赢差") }} : {{ scope.row.winLossMargin }}</div>
-            <div>{{ $t("balance") }} : {{ scope.row.balance }}</div>
+            <div>{{ $t("充提差") }} : {{ $formatNumber(scope.row.incomeCashMargin) }}</div>
+            <div>{{ $t("输赢差") }} : {{ $formatNumber(scope.row.winLossMargin) }}</div>
+            <div>{{ $t("balance") }} : {{ $formatNumber(scope.row.balance) }}</div>
             <div>
               {{ $t("Registrationtime") }} :
               {{ $creationTime(scope.row?.registerDate) }}
@@ -348,12 +348,12 @@ export default {
 ${this.$t('Membername')}：${v.memberName}
 ${this.$t('Withdrawalinformation')}：${v.bankName ? v.bankName + '-' + v.bankCardNo : v.alipay || v.wechat || v.coin || ''}
 ${this.$t('orderNo')}：${v.orderNo}
-${this.$t('amountofmoney')}：${v.amount}
+${this.$t('amountofmoney')}：${this.$formatNumber(v.amount)}
 ${this.$t('总充值次数')}：${v.incomeNum}
 ${this.$t('总提款次数')}：${v.cashNum}
-${this.$t('充提差')}：${v.incomeCashMargin}
-${this.$t('输赢差')}：${v.winLossMargin}
-${this.$t('balance')}：${v.balance}
+${this.$t('充提差')}：${this.$formatNumber(v.incomeCashMargin)}
+${this.$t('输赢差')}：${this.$formatNumber(v.winLossMargin)}
+${this.$t('balance')}：${this.$formatNumber(v.balance)}
 ${this.$t('Registrationtime')}：${this.$creationTime(v.registerDate) || ''}`.trim();
 
       navigator.clipboard.writeText(info)
