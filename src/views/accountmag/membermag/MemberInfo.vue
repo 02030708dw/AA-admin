@@ -88,6 +88,7 @@ export default {
             realName: this.MemberInfo.realName,
             telPhone: this.MemberInfo.telPhone,
             userName: this.MemberInfo.userName,
+            email: this.MemberInfo.email,
             bankCardNoList: this.MemberInfo.bankCardNoList || [{ bankCardNo: '', memberCashId: '' }],
           }
           this.$refs.PersonalDetails.getfinanceCashBank(this.MemberInfo.currency)
