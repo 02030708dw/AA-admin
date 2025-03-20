@@ -588,4 +588,5 @@ export default {
   复制失败: "Copy Failed",
   邮箱: "Email",
   中转页联系链结: "Intermediate Page Contact Link",
+  应用程序时间: "Application time",
 };
