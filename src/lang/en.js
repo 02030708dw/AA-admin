@@ -81,6 +81,7 @@ export default {
     agentvideo: "Video Management",
     agentGameInfo: "Agent Game Info",
     agentrebatesetting: "Agent Rebate Setting",
+    agentrebaterecord: "Agent Rebate Record",
   },
   role: {
     permission: "Permission",
