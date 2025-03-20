@@ -595,4 +595,5 @@ export default {
   复制失败: "Sao chép thất bại",
   邮箱: "Email",
   中转页联系链结: "Liên kết liên hệ trang trung chuyển",
+  应用程序时间:"Thời gian áp dụng"
 };

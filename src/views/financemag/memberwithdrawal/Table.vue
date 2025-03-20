@@ -354,6 +354,7 @@ ${this.$t('总提款次数')}：${v.cashNum}
 ${this.$t('充提差')}：${this.$formatNumber(v.incomeCashMargin)}
 ${this.$t('输赢差')}：${this.$formatNumber(v.winLossMargin)}
 ${this.$t('balance')}：${this.$formatNumber(v.balance)}
+${this.$t('应用程序时间')}：${this.$creationTime(v.createdAt)}
 ${this.$t('Registrationtime')}：${this.$creationTime(v.registerDate) || ''}`.trim();
 
       navigator.clipboard.writeText(info)
