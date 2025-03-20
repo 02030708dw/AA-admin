@@ -85,6 +85,7 @@ export default {
     agentGameInfo: "代理奖金组奖金设定范围",
     agentrebatesetting: "代理反水设定",
     agentrebaterecord: "代理反水记录",
+    reportincomecash: "存提报表",
   },
   role: {
     permission: "权限",

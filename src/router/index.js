@@ -237,6 +237,12 @@ export const asyncRoutes = [
         component: () => import('@/views/reportformsmag/Memberbet/index.vue'),
         meta: { title: 'MemberBets', icon: 'el-icon-pie-chart' }
       },
+      {
+        path: '/Reportincomecash',
+        name: 'reportincomecash',
+        component: () => import('@/views/reportformsmag/reportincomecash/index.vue'),
+        meta: { title: 'reportincomecash', icon: 'el-icon-pie-chart' }
+      },
     ]
   },
   {

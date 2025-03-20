@@ -82,6 +82,7 @@ export default {
     agentGameInfo: "Agent Game Info",
     agentrebatesetting: "Agent Rebate Setting",
     agentrebaterecord: "Agent Rebate Record",
+    reportincomecash: "Income Cash Report",
   },
   role: {
     permission: "Permission",
