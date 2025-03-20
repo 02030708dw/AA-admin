@@ -55,26 +55,43 @@
         :cell-style="{ 'text-align': 'center' }"
       >
         <!-- <el-table-column prop="id" label="会员钱包ID" width="" /> -->
-        <el-table-column :label="$t('Membername')" width="">
-          <el-table-column prop="memberName" label="总计" width="" />
+        <el-table-column :label="$t('total')" width="">
+          <el-table-column
+            prop="memberName"
+            :label="$t('Membername')"
+            width=""
+          />
         </el-table-column>
 
-        <el-table-column :label="$t('Bettingamount')" width="">
+        <el-table-column :label="$formatNumber(this.resultSet.betAmoutSum)">
           <el-table-column
             prop="betAmout"
-            :label="'' + this.resultSet.betAmoutSum"
+            :label="$t('Bettingamount')"
+            :formatter="formatMoney"
           />
         </el-table-column>
 
-        <el-table-column :label="$t('Awardamount')" width="">
+        <el-table-column :label="''">
           <el-table-column
-            prop="awardAmount"
-            :label="'' + this.resultSet.awardAmountSum"
+            prop="validBetAmount"
+            :label="$t('有效投注')"
+            :formatter="formatMoney"
           />
         </el-table-column>
+
+        <el-table-column :label="$formatNumber(this.resultSet.awardAmountSum)">
+          <el-table-column
+            prop="awardAmount"
+            :label="$t('Awardamount')"
+            :formatter="formatMoney"
+          />
+        </el-table-column>
+
         <el-table-column :label="$t('state')" width="">
           <template slot-scope="scope">
-            {{ scope.row.status | typeS }}
+            <el-tag :type="getTagType(scope.row.status)">
+              {{ typeS(scope.row.status) }}
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column
@@ -87,8 +104,63 @@
             {{ $creationTime(scope.row.createdAt) }}
           </template>
         </el-table-column>
+
+        <el-table-column>
+          <template slot-scope="scope">
+            <el-button @click="getDetails(scope.row)">{{
+              $t("Detail")
+            }}</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-card>
+
+    <el-dialog
+      :visible.sync="innerVisible"
+      append-to-body
+      :modal="false"
+      top="10%"
+      @close="onClose"
+    >
+      <el-descriptions border :title="$t('投注详情')">
+        <el-descriptions-item label="accountingDate">{{
+          this.gamerBetDetail.accountingDate
+        }}</el-descriptions-item>
+        <el-descriptions-item label="betStatus">{{
+          this.gamerBetDetail.betStatus
+        }}</el-descriptions-item>
+        <el-descriptions-item label="commission">{{
+          this.gamerBetDetail.commission
+        }}</el-descriptions-item>
+        <el-descriptions-item label="currency">{{
+          this.gamerBetDetail.currency
+        }}</el-descriptions-item>
+        <el-descriptions-item label="gameCode">{{
+          this.gamerBetDetail.gameCode
+        }}</el-descriptions-item>
+        <el-descriptions-item label="gameName">{{
+          this.gamerBetDetail.gameName
+        }}</el-descriptions-item>
+        <el-descriptions-item label="payout">{{
+          this.gamerBetDetail.payout
+        }}</el-descriptions-item>
+        <el-descriptions-item label="payoutStatus">{{
+          this.gamerBetDetail.payoutStatus
+        }}</el-descriptions-item>
+        <el-descriptions-item label="productId">{{
+          this.gamerBetDetail.productId
+        }}</el-descriptions-item>
+        <el-descriptions-item label="stake">{{
+          this.gamerBetDetail.stake
+        }}</el-descriptions-item>
+        <el-descriptions-item label="updatedDate">{{
+          this.gamerBetDetail.updatedDate
+        }}</el-descriptions-item>
+        <el-descriptions-item label="username">{{
+          this.gamerBetDetail.username
+        }}</el-descriptions-item>
+      </el-descriptions>
+    </el-dialog>
 
     <!-- 分页 -->
     <Pagination
@@ -106,58 +178,6 @@ import Pagination from "@/components/Pagination/Pagination.vue";
 export default {
   components: {
     Pagination,
-  },
-  filters: {
-    typeF(value) {
-      switch (value) {
-        case 1:
-          return "提现成功";
-        case 2:
-          return "充值";
-        case 3:
-          return "转出到游戏商";
-        case 4:
-          return "从游戏商转入";
-        case 5:
-          return "下级会员投注返点";
-        case 6:
-          return "平台加扣款";
-        case 7:
-          return "冻结金额,";
-        case 8:
-          return "解冻金额";
-        case 9:
-          return "活动金额";
-        case 10:
-          return "提现取消";
-        case 11:
-          return "提现驳回";
-        case 12:
-          return "提现发起";
-      }
-    },
-    typeS(value) {
-      switch (value) {
-        case 0:
-          return "待开奖";
-        case 1:
-          return "中奖";
-        case 2:
-          return "未中奖";
-        case 3:
-          return "撤单";
-        case 4:
-          return "作废";
-        case 5:
-          return "退款";
-        case 6:
-          return "和局";
-        case 7:
-          return "半赢";
-        case 8:
-          return "半输";
-      }
-    },
   },
   data() {
     return {
@@ -179,6 +199,8 @@ export default {
         betAmoutSum: "",
         awardAmountSum: "",
       },
+      gamerBetDetail: {},
+      innerVisible: false,
     };
   },
   created() {
@@ -271,6 +293,62 @@ export default {
     HandelPagesChange(e) {
       this.PagesSize = e;
       this.getMemberFlowingWater(this.pageNo);
+    },
+
+    getDetails(e) {
+      if (!e.gamerBetDetail) {
+        this.$message.warning(this.$t("暂无数据"));
+        return;
+      }
+      this.gamerBetDetail = {}; // 先清空数据，确保数据更新
+      this.$nextTick(() => {
+        this.gamerBetDetail = JSON.parse(e.gamerBetDetail);
+        this.innerVisible = true;
+      });
+    },
+
+    onClose() {
+      this.innerVisible = false;
+      this.gamerBetDetail = Object.assign({}, {}); // 触发 Vue 监听
+      console.log(this.gamerBetDetail);
+    },
+
+    // 格式化金额
+    formatMoney(row, column, cellValue) {
+      return this.$formatNumber(cellValue);
+    },
+
+    typeS(value) {
+      switch (value) {
+        case 0:
+          return this.$t("待开奖");
+        case 1:
+          return this.$t("中奖");
+        case 2:
+          return this.$t("未中奖");
+        case 3:
+          return this.$t("撤单");
+        case 4:
+          return this.$t("作废");
+        case 5:
+          return this.$t("退款");
+        case 6:
+          return this.$t("和局");
+        case 7:
+          return this.$t("半赢");
+        case 8:
+          return this.$t("半输");
+      }
+    },
+
+    getTagType(value) {
+      if (value === 1) {
+        return "success";
+      } else if (value === 0) {
+        return ""; // 默认颜色
+      } else {
+        return "info";
+      }
     },
   },
 };
