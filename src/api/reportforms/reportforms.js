@@ -81,3 +81,12 @@ export function reportOutput(params) {
     responseType: 'blob'
   })
 }
+
+//存提报表
+export function getReportIncomeCash(data) {
+  return request({
+    url: '/report/incomeCash',
+    method: 'POST',
+    data
+  })
+}
