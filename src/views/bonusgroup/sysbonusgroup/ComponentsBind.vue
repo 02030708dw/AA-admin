@@ -9,9 +9,9 @@
             </el-form-item>
             <el-form-item label="奖金组">
                 <div style="height: 300px;overflow-y: scroll;overflow-x: hidden">
-                    <el-tree ref="tree" style="margin-top: 5px;" :default-expanded-keys="defaultExpandedKeys"
+                    <el-tree draggable ref="tree" style="margin-top: 5px;" :default-expanded-keys="defaultExpandedKeys"
                         show-checkbox :default-checked-keys="bonusGroup" node-key="gameInfoId" :data="treeData"
-                        accordion>
+                        accordion :allow-drag="allowDrag" :allow-drop="allowDrop" @node-drop="handleNodeDrop">
                     </el-tree>
                 </div>
             </el-form-item>
@@ -21,7 +21,7 @@
             <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
             <el-button type="primary" @click="getconfirm()">{{
                 $t("determine")
-                }}</el-button>
+            }}</el-button>
         </div>
     </el-dialog>
 </template>
@@ -42,6 +42,7 @@ export default {
             bonusGroup: [], //初始选中的奖金组
             info: {},
             loading: false,
+            sortedSysBonusGroup: [],
             defaultExpandedKeys: [],
         };
     },
@@ -50,8 +51,7 @@ export default {
         async getAddstatus(data) {
             this.dialogVisible = !this.dialogVisible
             if (!this.dialogVisible) {
-                this.bonusGroup = []
-                this.defaultExpandedKeys = [];
+                this.close()
             } else {
                 this.loading = true
                 const res = await bonusGroupInfo({ id: data.id })
@@ -66,37 +66,73 @@ export default {
         },
         getconfirm() {
             const selectedItems = this.$refs.tree.getCheckedNodes(true).map(item => item.gameInfoId)
-            this.$emit('confirm', { gameInfoIdList: selectedItems, bonusGroupId: this.info.id })
+            console.log(selectedItems);
+            const gameInfoSort = selectedItems.reduce((acc, curr, index) => {
+                acc[curr] = index;
+                return acc;
+            }, {});
+            this.$emit('confirm', { gameInfoSort, gameInfoIdList: selectedItems, bonusGroupId: this.info.id })
             this.dialogVisible = false;
-        },
-        getGameInfoIdList(list = []) {
-            const newIDList = [];
-            list.map(gwGameInfo => {
-                gwGameInfo.gamePlayAndTypeListRespList.map(gamePlayAndType => {
-                    gamePlayAndType.gamePlayList.map(gamePlay => {
-                        newIDList.push(gamePlay.gameInfoId)
-                    })
-                })
-            })
-            return newIDList
         },
         mapTreeData(list) {
             this.bonusGroup = []
             this.defaultExpandedKeys = [];
-            list.map(gwGameInfo => {
-                gwGameInfo.gamePlayAndTypeListRespList.map(gamePlayAndType => {
-                    gamePlayAndType.gamePlayList.map(gamePlay => {
-                        this.defaultExpandedKeys.push(gamePlay.gameInfoId)
-                        this.bonusGroup.push(gamePlay.gameInfoId)
+            // 提取 gameInfoId -> sort 映射表
+            const sortMap = {};
+            list.forEach(gwGameInfo => {
+                gwGameInfo.gamePlayAndTypeListRespList.forEach(gamePlayAndType => {
+                    gamePlayAndType.gamePlayList.forEach(gamePlay => {
+                        sortMap[gamePlay.gameInfoId] = gamePlay.sort;
+                        this.defaultExpandedKeys.push(gamePlay.gameInfoId);
+                        this.bonusGroup.push(gamePlay.gameInfoId);
+                    });
+                });
+            });
+
+            // 重新构建 sortedSysBonusGroup（保证所有数据存在，并按 sort 排序）
+            this.sortedSysBonusGroup = this.SysBonusGroup.map(gwGameInfo => {
+                return {
+                    ...gwGameInfo,
+                    gamePlayAndTypeListRespList: gwGameInfo.gamePlayAndTypeListRespList.map(gamePlayAndType => {
+                        return {
+                            ...gamePlayAndType,
+                            gamePlayList: gamePlayAndType.gamePlayList
+                                .sort((a, b) => {
+                                    const sortA = sortMap[a.gameInfoId] ?? a.sort ?? Number.MAX_SAFE_INTEGER;
+                                    const sortB = sortMap[b.gameInfoId] ?? b.sort ?? Number.MAX_SAFE_INTEGER;
+                                    return sortA - sortB;
+                                })
+                        };
                     })
-                })
-            })
+                };
+            });
         },
+        // 允许拖动（仅允许最后一级拖动）
+        allowDrag(node) {
+            return !node.childNodes || node.childNodes.length === 0;
+        },
+        // 允许放置（只允许同级拖动）
+        allowDrop(draggingNode, dropNode, type) {
+            if (draggingNode.parent !== dropNode.parent) {
+                return false; // 只能在相同父级下拖动
+            }
+            return type === 'prev' || type === 'next'; // 允许放在当前层的前后，不允许放到内部
+        },
+        // 处理拖动结束后，保持选中和展开状态
+        handleNodeDrop(draggingNode, dropNode, type, event) {
+            // 1. 记录选中的节点和展开的节点
+            const selectedNodes = this.$refs.tree.getCheckedNodes();
+            this.$nextTick(() => { //拖动后节点取消选中问题
+                if (draggingNode.checked) { //选中就添加
+                    selectedNodes.push(draggingNode.data);
+                    this.$refs.tree.setCheckedNodes(selectedNodes);
+                }
+            });
+        }
     },
     computed: {
         treeData() {
-            console.log(this.bonusGroup, this.defaultExpandedKeys);//别动
-            return this.SysBonusGroup.map(gwGameInfo => {
+            return this.sortedSysBonusGroup.map(gwGameInfo => {
                 return {
                     label: gwGameInfo.gameName,
                     children: gwGameInfo.gamePlayAndTypeListRespList.map(gamePlayAndType => {
@@ -106,16 +142,13 @@ export default {
                                 return {
                                     label: gamePlay.gamePlayName,
                                     gameInfoId: gamePlay.gameInfoId,
-                                    gamePlayId: gamePlay.gamePlayId,
-                                    winAmount: gamePlay.winAmount,
-                                    sign: gamePlay.sign,
                                 };
                             })
                         };
                     })
                 };
             });
-        },
+        }
     }
 };
 </script>
