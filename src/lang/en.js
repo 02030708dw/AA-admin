@@ -602,4 +602,5 @@ export default {
   半赢: "Half Won",
   半输: "Half Lost",
   暂无数据: "No Data",
+  提款总额: "Total Withdrawal Amount",
 };
