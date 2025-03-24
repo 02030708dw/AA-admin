@@ -71,7 +71,7 @@
           />
         </el-table-column>
 
-        <el-table-column :label="''">
+        <el-table-column :label="$formatNumber(this.resultSet.validBetAmountSum)">
           <el-table-column
             prop="validBetAmount"
             :label="$t('有效投注')"
