@@ -2,16 +2,18 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="threePayName" :label="$t('ThreePartyNames')" />
+
       <el-table-column :label="$formatNumber(this.resultSet.incomeAmountSum)">
-        <el-table-column prop="incomeAmount" label="充值总额" :formatter="formatMoney" />
+        <el-table-column prop="incomeAmount" :label="$t('Totalamountofactivities')" :formatter="formatMoney" />
       </el-table-column>
       
       <el-table-column :label="$formatNumber(this.resultSet.cashAmountSum)">
-        <el-table-column prop="cashAmount" label="提款总额" :formatter="formatMoney" />
+        <el-table-column prop="cashAmount" :label="$t('提款总额')" :formatter="formatMoney" />
       </el-table-column>
 
       <el-table-column :label="$formatNumber(this.resultSet.incomeCashMarginSum)">
-        <el-table-column prop="incomeCashMargin" label="充提差" :formatter="formatMoney" />
+        <el-table-column prop="incomeCashMargin" :label="$t('充提差')" :formatter="formatMoney" />
       </el-table-column>
       <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">

@@ -608,4 +608,5 @@ export default {
   半赢: "Thắng nửa",
   半输: "Thua nửa",
   暂无数据: "Không có dữ liệu",
+  提款总额: "Tổng số tiền rút",
 };
