@@ -122,43 +122,14 @@
       top="10%"
       @close="onClose"
     >
-      <el-descriptions border :title="$t('投注详情')">
-        <el-descriptions-item label="accountingDate">{{
-          this.gamerBetDetail.accountingDate
-        }}</el-descriptions-item>
-        <el-descriptions-item label="betStatus">{{
-          this.gamerBetDetail.betStatus
-        }}</el-descriptions-item>
-        <el-descriptions-item label="commission">{{
-          this.gamerBetDetail.commission
-        }}</el-descriptions-item>
-        <el-descriptions-item label="currency">{{
-          this.gamerBetDetail.currency
-        }}</el-descriptions-item>
-        <el-descriptions-item label="gameCode">{{
-          this.gamerBetDetail.gameCode
-        }}</el-descriptions-item>
-        <el-descriptions-item label="gameName">{{
-          this.gamerBetDetail.gameName
-        }}</el-descriptions-item>
-        <el-descriptions-item label="payout">{{
-          this.gamerBetDetail.payout
-        }}</el-descriptions-item>
-        <el-descriptions-item label="payoutStatus">{{
-          this.gamerBetDetail.payoutStatus
-        }}</el-descriptions-item>
-        <el-descriptions-item label="productId">{{
-          this.gamerBetDetail.productId
-        }}</el-descriptions-item>
-        <el-descriptions-item label="stake">{{
-          this.gamerBetDetail.stake
-        }}</el-descriptions-item>
-        <el-descriptions-item label="updatedDate">{{
-          this.gamerBetDetail.updatedDate
-        }}</el-descriptions-item>
-        <el-descriptions-item label="username">{{
-          this.gamerBetDetail.username
-        }}</el-descriptions-item>
+      <el-descriptions size="small" border :title="$t('投注详情')">
+        <el-descriptions-item
+          v-for="(value, key) in gamerBetDetail"
+          :key="key"
+          :label="key"
+        >
+          {{ value }}
+        </el-descriptions-item>
       </el-descriptions>
     </el-dialog>
 
