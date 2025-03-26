@@ -147,12 +147,6 @@ export const asyncRoutes = [
         meta: { title: 'memberrecharge', icon: 'el-icon-s-finance' }
       },
       {
-        path: 'agentwithdrawal',
-        name: 'agentwithdrawal',
-        component: () => import('@/views/financemag/agentwithdrawal/index'),
-        meta: { title: 'agentwithdrawal', icon: 'el-icon-s-cooperation' }
-      },
-      {
         path: 'memberwithdrawal',
         name: 'memberwithdrawal',
         component: () => import('@/views/financemag/memberwithdrawal/index'),
@@ -181,6 +175,12 @@ export const asyncRoutes = [
         name: 'WithdrawalBank',
         component: () => import('@/views/financemag/WithdrawalBank/index'),
         meta: { title: 'WithdrawalBankManagement', icon: 'el-icon-s-operation' }
+      },
+      {
+        path: 'agentwithdrawal',
+        name: 'agentwithdrawal',
+        component: () => import('@/views/financemag/agentwithdrawal/index'),
+        meta: { title: 'agentwithdrawal', icon: 'el-icon-s-cooperation' }
       }
     ]
   },

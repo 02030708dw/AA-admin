@@ -6,7 +6,7 @@
         <el-date-picker
           style="width: 100%"
           v-model="timeArr"
-          type="daterange"
+          type="datetimerange"
           align="right"
           unlink-panels
           :range-separator="$t('to')"
@@ -14,7 +14,7 @@
           :end-placeholder="$t('EndDate')"
           :picker-options="pickerOptions"
           @change="heandlerTime"
-          value-format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd HH:mm:ss"
         />
       </el-col>
 
@@ -63,18 +63,18 @@
 
     <el-row :gutter="20">
       <el-button
-        v-has="'memberrecharge:page'"
-        style="margin-left: 10px"
-        type="primary"
-        @click="getquery()"
-        >{{ $t("query") }}</el-button
-      >
-      <el-button
         :disabled="excelStatus"
         style="margin-left: 10px"
         type="primary"
         @click="getExcel()"
         >导出数据</el-button
+      >
+      <el-button
+        v-has="'memberrecharge:page'"
+        style="margin-left: 10px"
+        type="primary"
+        @click="getquery()"
+        >{{ $t("query") }}</el-button
       >
       <el-button
         type="info"
