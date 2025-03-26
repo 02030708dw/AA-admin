@@ -47,7 +47,7 @@ export function toBeReviewed() {
 // 导出excel
 export function memberCashRecordOutput(params) {
   return axios({
-    url:  '/finance/memberCashRecord/output',
+    url: process.env.VUE_APP_BASE_API + '/finance/memberCashRecord/output',
     method: 'GET',
     params,
     responseType: 'blob'
