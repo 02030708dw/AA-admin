@@ -223,11 +223,6 @@ export default {
     },
     // 导出excel
     async getExcel() {
-      const today = new Date();
-      const yesterday = new Date();
-      yesterday.setDate(today.getDate() - 1);
-      const startDate = yesterday.toISOString().split("T")[0];
-      const endDate = today.toISOString().split("T")[0];
       try {
         this.$refs.TableView.HandelLoading(true);
         const res = await incomeRecordOutput({
@@ -239,8 +234,8 @@ export default {
           channelId: this.channelId,
           date: this.date,
           userName: this.userName,
-          startTime: this.startTime || startDate,
-          endTime: this.endTime || endDate,
+          startTime: this.startTime ,
+          endTime: this.endTime ,
         });
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement("a");
