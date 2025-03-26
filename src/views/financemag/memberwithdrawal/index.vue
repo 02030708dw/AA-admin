@@ -1,8 +1,8 @@
 <template>
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
-    <Control ref="ControlView" @SelectDate="HandelSelectDate" @query="getquery" @resetting="getresetting"
-      @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @getExcel="getExcel" @query="getquery"
+      @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" :result-set="resultSet" @info="Handelinfo" @pay="Handelpay"
       @operate="Handeloperate" />
     <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemWitdata" />
@@ -16,9 +16,10 @@ import Table from './Table.vue'
 import Control from './Control.vue'
 import InfoView from './InfoView.vue'
 import PayForAnother from './PayForAnother.vue'
+import { Message } from "element-ui";
 // 分页
 import Pagination from '@/components/Pagination/Pagination.vue'
-import { MemberwithdrawalPage, PayFor } from '@/api/finance/memberwithdrawal'
+import { MemberwithdrawalPage, PayFor, memberCashRecordOutput } from '@/api/finance/memberwithdrawal'
 export default {
   components: {
     Table,
@@ -156,6 +157,47 @@ export default {
       this.startDate = ''
       this.endDate = ''
       this.getMemWitdata(1)
+    },
+    // 导出excel
+    async getExcel() {
+      try {
+        const today = new Date();
+        const yesterday = new Date();
+        yesterday.setDate(today.getDate() - 1);
+        const startDate = yesterday.toISOString().split('T')[0];
+        const endDate = today.toISOString().split('T')[0];
+        this.$refs.TableView.HandelLoading(true);
+        const res = await memberCashRecordOutput({
+          pageNo: this.pageNo,
+          pageSize: 10,
+          aduitStatus: this.aduitStatus,
+          orderNo: this.orderNo,
+          cashChannelId: this.cashChannelId,
+          userName: this.userName,
+          startDate: this.startDate || startDate,
+          endDate: this.endDate || endDate
+        });
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `memberwithdrawal.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        this.$refs.TableView.HandelLoading(false);
+        this.$refs.ControlView.HandelExcelStatus();
+      } catch (error) {
+        console.log(error);
+
+        Message({
+          message: '导出Excel失败',
+          type: "error",
+          duration: 5 * 1000,
+        });
+        this.$refs.TableView.HandelLoading(false);
+        this.$refs.ControlView.HandelExcelStatus();
+      }
     }
   }
 }

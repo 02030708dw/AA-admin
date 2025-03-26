@@ -1,8 +1,9 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <!-- 选择日期 -->
-    <el-date-picker style="margin-right: 10px" v-model="value" type="daterange" align="right" unlink-panels :range-separator="$t('to')"
-      start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" @change="heandlerTime" />
+    <el-date-picker style="margin-right: 10px" v-model="value" type="daterange" align="right" unlink-panels
+      :range-separator="$t('to')" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions"
+      @change="heandlerTime" />
     <!-- <el-button type="primary" @click="getroleAdd()">新增</el-button> -->
     <el-input v-model="userName" style="width: 180px; margin-right: 10px" :placeholder="$t('username')" />
     <!-- 条件筛选框 -->
@@ -29,6 +30,7 @@
 
     <el-button v-has="'memberwithdrawal:page'" style="margin-left: 10px" type="primary" @click="getquery()">{{
       $t('query') }}</el-button>
+    <el-button :disabled="excelStatus" style="margin-left:10px;" type="primary" @click="getExcel()">导出数据</el-button>
     <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t('resetting') }}</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
@@ -94,7 +96,8 @@ export default {
       ],
       btnIcoType: true,
       channelData: [],
-      MemberData: []
+      MemberData: [],
+      excelStatus: false
     }
   },
   created() {
@@ -177,6 +180,14 @@ export default {
       this.userName = ''
       this.value = null
       this.$emit('resetting')
+    },
+    // 导出
+    getExcel() {
+      this.$emit('getExcel')
+      this.excelStatus = true
+    },
+    HandelExcelStatus() {
+      this.excelStatus = false
     }
   }
 }
