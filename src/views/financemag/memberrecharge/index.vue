@@ -2,10 +2,25 @@
   <!-- 会员充值管理 -->
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
-    <Control ref="ControlView" @Refresh="HandelRefresh" @getExcel="getExcel" @Gamequery="getgetquery"
-      @resetting="getresetting" />
-    <Table ref="TableView" :table-data="tableData" @option="getoption" @info="Handelinfo" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="memberrechargedata" />
+    <Control
+      ref="ControlView"
+      @Refresh="HandelRefresh"
+      @getExcel="getExcel"
+      @Gamequery="getgetquery"
+      @resetting="getresetting"
+      @SelectDate="HandelSelectDate"
+    />
+    <Table
+      ref="TableView"
+      :table-data="tableData"
+      @option="getoption"
+      @info="Handelinfo"
+    />
+    <Pagination
+      :total="total"
+      @PageSizeChange="HandelPagesChange"
+      @PageChange="memberrechargedata"
+    />
     <Dialog ref="DialogView" @toexamine="gettoexamine" />
     <InfoView ref="infoview"></InfoView>
   </el-card>
@@ -15,7 +30,7 @@
 import {
   MemberrechargelPage,
   MemberrechargelToexamine,
-  incomeRecordOutput
+  incomeRecordOutput,
 } from "../../../api/finance/memberrecharge";
 import { Message } from "element-ui";
 import Table from "./Table.vue";
@@ -45,6 +60,8 @@ export default {
       date: "",
       userName: "",
       PagesSize: 20,
+      startTime: "",
+      endTime: "",
     };
   },
   computed: {
@@ -90,6 +107,13 @@ export default {
     this.memberrechargedata(1);
   },
   methods: {
+    // 时间选择
+    HandelSelectDate(data) {
+      this.startTime = data.startDate;
+      this.endTime = data.endDate;
+      // 请求数据
+      this.memberrechargedata(1);
+    },
     Handelinfo(e) {
       this.$refs.infoview.getAddstatus(e);
     },
@@ -136,6 +160,8 @@ export default {
         channelId: this.channelId,
         date: this.date,
         userName: this.userName,
+        startTime: this.startTime,
+        endTime: this.endTime,
       })
         .then((res) => {
           this.total = res.resultSet.total;
@@ -168,6 +194,8 @@ export default {
       this.channelId = "";
       this.date = "";
       this.userName = "";
+      this.startTime = "";
+      this.endTime = "";
       this.memberrechargedata(1);
     },
     // 操作
@@ -195,6 +223,11 @@ export default {
     },
     // 导出excel
     async getExcel() {
+      const today = new Date();
+      const yesterday = new Date();
+      yesterday.setDate(today.getDate() - 1);
+      const startDate = yesterday.toISOString().split("T")[0];
+      const endDate = today.toISOString().split("T")[0];
       try {
         this.$refs.TableView.HandelLoading(true);
         const res = await incomeRecordOutput({
@@ -206,11 +239,13 @@ export default {
           channelId: this.channelId,
           date: this.date,
           userName: this.userName,
+          startTime: this.startTime || startDate,
+          endTime: this.endTime || endDate,
         });
         const url = window.URL.createObjectURL(new Blob([res.data]));
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = url;
-        link.setAttribute('download', `memberrecharge.xlsx`);
+        link.setAttribute("download", `memberrecharge.xlsx`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -219,14 +254,14 @@ export default {
         this.$refs.ControlView.HandelExcelStatus();
       } catch (error) {
         Message({
-          message: '导出Excel失败',
+          message: "导出Excel失败",
           type: "error",
           duration: 5 * 1000,
         });
         this.$refs.TableView.HandelLoading(false);
         this.$refs.ControlView.HandelExcelStatus();
       }
-    }
+    },
   },
 };
 </script>
