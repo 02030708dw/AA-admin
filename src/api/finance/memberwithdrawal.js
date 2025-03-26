@@ -1,6 +1,6 @@
 // 会员提现管理
 import request from '@/utils/request'
-
+import axios from 'axios'
 // 分页数据
 export function MemberwithdrawalPage(params) {
   return request({
@@ -41,5 +41,15 @@ export function toBeReviewed() {
   return request({
     url: '/finance/memberCashRecord/toBeReviewed',
     method: 'get',
+  })
+}
+
+// 导出excel
+export function memberCashRecordOutput(params) {
+  return axios({
+    url:  '/finance/memberCashRecord/output',
+    method: 'GET',
+    params,
+    responseType: 'blob'
   })
 }

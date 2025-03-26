@@ -17,11 +17,11 @@
       </el-select>
       <el-date-picker
         v-model="timeArr"
-        type="daterange"
+        type="datetimerange"
         range-separator="至"
         start-placeholder="开始日期"
         end-placeholder="结束日期"
-        value-format="yyyy-MM-dd"
+        value-format="yyyy-MM-dd HH:mm:ss"
       >
       </el-date-picker>
       <el-button style="margin-left: 10px" type="primary" @click="getquery()">{{
@@ -87,6 +87,14 @@
           />
         </el-table-column>
 
+        <el-table-column :label="$formatNumber(this.resultSet.phaseAmountSum)">
+          <el-table-column
+            prop="phaseAmount"
+            :label="$t('盈亏')"
+            :formatter="formatMoney"
+          />
+        </el-table-column>
+
         <el-table-column :label="$t('state')" width="">
           <template slot-scope="scope">
             <el-tag :type="getTagType(scope.row.status)">
@@ -99,6 +107,13 @@
           :label="$t('GameMerchantName')"
           width=""
         />
+
+        <el-table-column
+          prop="gameName"
+          :label="$t('gamename')"
+          width=""
+        />
+
         <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
           <template slot-scope="scope">
             {{ $creationTime(scope.row.createdAt) }}
@@ -120,6 +135,7 @@
       append-to-body
       :modal="false"
       top="10%"
+      width="70%"
       @close="onClose"
     >
       <el-descriptions size="small" border :title="$t('投注详情')">
