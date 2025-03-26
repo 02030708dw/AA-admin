@@ -1,27 +1,11 @@
 <template>
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
-    <Control
-      ref="ControlView"
-      @SelectDate="HandelSelectDate"
-      @getExcel="getExcel"
-      @query="getquery"
-      @resetting="getresetting"
-      @Refresh="HandelRefresh"
-    />
-    <Table
-      ref="TableView"
-      :table-data="tableData"
-      :result-set="resultSet"
-      @info="Handelinfo"
-      @pay="Handelpay"
-      @operate="Handeloperate"
-    />
-    <Pagination
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="getMemWitdata"
-    />
+    <Control ref="ControlView" @SelectDate="HandelSelectDate" @getExcel="getExcel" @query="getquery"
+      @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" :result-set="resultSet" @info="Handelinfo" @pay="Handelpay"
+      @operate="Handeloperate" />
+    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemWitdata" />
     <InfoView ref="infoview" />
     <PayForAnother ref="PayForAnother" @pay="HandelpayConfirmPay" />
   </el-card>
@@ -204,11 +188,6 @@ export default {
     // 导出excel
     async getExcel() {
       try {
-        const today = new Date();
-        const yesterday = new Date();
-        yesterday.setDate(today.getDate() - 1);
-        const startDate = yesterday.toISOString().split("T")[0];
-        const endDate = today.toISOString().split("T")[0];
         this.$refs.TableView.HandelLoading(true);
         const res = await memberCashRecordOutput({
           pageNo: this.pageNo,
@@ -217,8 +196,8 @@ export default {
           orderNo: this.orderNo,
           cashChannelId: this.cashChannelId,
           userName: this.userName,
-          startDate: this.startDate || startDate,
-          endDate: this.endDate || endDate,
+          startDate: this.startDate,
+          endDate: this.endDate,
         });
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement("a");
