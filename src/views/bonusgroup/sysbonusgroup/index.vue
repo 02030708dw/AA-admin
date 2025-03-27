@@ -4,7 +4,7 @@
       @Add="getBonusAddShow" />
     <Table ref="TableView" :table-data="tableData" @delete="getDel" @UdateStatus="getUdateStatus"
       @EditorShow="getEitorShow" @BindShow="getBindShow" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsAdd ref="bonusAdd" @confirm="getBonusAdd" />
     <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
     <ComponentsBind :SysBonusGroup="SysBonusGroup" ref="ComponentsBind" @confirm="getBind" />

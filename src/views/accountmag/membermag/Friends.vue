@@ -32,7 +32,7 @@
     </el-card>
 
     <!-- 分页 -->
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getFriends" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getFriends" />
   </el-card>
 </template>
 <script>

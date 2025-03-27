@@ -3,7 +3,7 @@
   <el-card>
     <Control ref="ControlView" @getExcel="getExcel" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" />
-    <Pagination :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
   </el-card>
 </template>
 <script>

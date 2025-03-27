@@ -4,7 +4,7 @@
         </Control>
         <Table ref="TableView" :tableData="tableData" @Eitor="GetEitor" @delete="getdelete"
             @updateStatus="getupdateStatus"></Table>
-        <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="GetPagesData"></Pagination>
+        <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="GetPagesData"></Pagination>
         <UpdataWithdrawalBank @upta="HandelUpta" :TypeIndex="TypeIndex" ref="updatabank"
             :CurrencytPageData="CurrencytPageData"></UpdataWithdrawalBank>
     </el-card>

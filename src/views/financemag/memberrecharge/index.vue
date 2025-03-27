@@ -2,25 +2,10 @@
   <!-- 会员充值管理 -->
   <el-card>
     <!-- @Refresh="HandelRefresh" -->
-    <Control
-      ref="ControlView"
-      @Refresh="HandelRefresh"
-      @getExcel="getExcel"
-      @Gamequery="getgetquery"
-      @resetting="getresetting"
-      @SelectDate="HandelSelectDate"
-    />
-    <Table
-      ref="TableView"
-      :table-data="tableData"
-      @option="getoption"
-      @info="Handelinfo"
-    />
-    <Pagination
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="memberrechargedata"
-    />
+    <Control ref="ControlView" @Refresh="HandelRefresh" @getExcel="getExcel" @Gamequery="getgetquery"
+      @resetting="getresetting" @SelectDate="HandelSelectDate" />
+    <Table ref="TableView" :table-data="tableData" @option="getoption" @info="Handelinfo" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="memberrechargedata" />
     <Dialog ref="DialogView" @toexamine="gettoexamine" />
     <InfoView ref="infoview"></InfoView>
   </el-card>
@@ -234,8 +219,8 @@ export default {
           channelId: this.channelId,
           date: this.date,
           userName: this.userName,
-          startTime: this.startTime ,
-          endTime: this.endTime ,
+          startTime: this.startTime,
+          endTime: this.endTime,
         });
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement("a");

@@ -3,7 +3,7 @@
     <!-- @Refresh="HandelRefresh" -->
     <Control ref="ControlView" @Refresh="HandelRefresh" @query="getquery" @resetting="getresetting" />
     <Table ref="TableView" @option="getoption" :table-data="tableData" @info="Handelinfo" />
-    <Pagination
+    <Pagination  :pageNo="pageNo"
       :total="total"
       @PageSizeChange="HandelPagesChange"
       @PageChange="getAgentWtihdrawaldata"

@@ -4,7 +4,7 @@
     <Control ref="ControlView" @SelectDate="HandelSelectDate" @Refresh="HandelRefresh" @query="Handelquery"
       @resetting="Handelresetting" />
     <Table ref="TableView" :table-data="tableData" @Activity="HandelActivity" @Plantform="HandelPlantform" />
-    <Pagination :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
     <Activity ref="ActivityDialog" />
     <Plantform ref="PlantformDialog" />
   </el-card>

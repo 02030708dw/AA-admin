@@ -2,7 +2,7 @@
   <el-card>
     <Control ref="ControlView" @resetting="getresetting" @Add="getAddShow" @query="getquery" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @eitor="getEditShow" @UdateStatus="getGameEdit" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsEdit ref="Edit" @confirm="getGameEdit" />
     <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
   </el-card>

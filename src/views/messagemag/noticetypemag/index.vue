@@ -8,7 +8,7 @@
       @EditorShow="getnottypeeditorshow"
       @UdateStatus="getUdateStatus"
     />
-    <Pagination
+    <Pagination  :pageNo="pageNo"
       :total="total"
       @PageSizeChange="HandelPagesChange"
       @PageChange="getnoticetypedata"

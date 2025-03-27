@@ -2,97 +2,46 @@
   <el-card shadow="never" style="border: 0px">
     <!-- 顶部查询栏 -->
     <el-row style="margin-bottom: 10px">
-      <el-select
-        v-model="gammerId"
-        filterable
-        :placeholder="$t('SelectGameMerchant')"
-        style="width: 200px; margin-right: 10px"
-      >
-        <el-option
-          v-for="(item, index) in gamerPagesList"
-          :key="index"
-          :value="item.index"
-          :label="item.title"
-        />
+      <el-select v-model="gammerId" filterable :placeholder="$t('SelectGameMerchant')"
+        style="width: 200px; margin-right: 10px">
+        <el-option v-for="(item, index) in gamerPagesList" :key="index" :value="item.index" :label="item.title" />
       </el-select>
-      <el-date-picker
-        v-model="timeArr"
-        type="datetimerange"
-        range-separator="至"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-        value-format="yyyy-MM-dd HH:mm:ss"
-      >
+      <el-date-picker v-model="timeArr" type="datetimerange" range-separator="至" start-placeholder="开始日期"
+        end-placeholder="结束日期" value-format="yyyy-MM-dd HH:mm:ss">
       </el-date-picker>
       <el-button style="margin-left: 10px" type="primary" @click="getquery()">{{
         $t("query")
       }}</el-button>
-      <el-button
-        type="info"
-        style="margin-left: 10px"
-        plain
-        @click="getresetting()"
-        >{{ $t("resetting") }}</el-button
-      >
-      <el-button
-        v-if="btnIcoType"
-        type="success"
-        icon="el-icon-refresh-left"
-        @click="HandelRefresh"
-        >{{ $t("Refresh") }}</el-button
-      >
+      <el-button type="info" style="margin-left: 10px" plain @click="getresetting()">{{ $t("resetting") }}</el-button>
+      <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t("Refresh")
+        }}</el-button>
       <el-button v-else type="success" icon="el-icon-loading" disabled>{{
         $t("Refresh")
       }}</el-button>
     </el-row>
     <!-- 表格 -->
     <el-card shadow="never">
-      <el-table
-        v-loading="loading"
-        :data="tableData"
-        :border="true"
-        :header-cell-style="{ 'text-align': 'center' }"
-        :cell-style="{ 'text-align': 'center' }"
-      >
+      <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+        :cell-style="{ 'text-align': 'center' }">
         <!-- <el-table-column prop="id" label="会员钱包ID" width="" /> -->
         <el-table-column :label="$t('total')" width="">
-          <el-table-column
-            prop="memberName"
-            :label="$t('Membername')"
-            width=""
-          />
+          <el-table-column prop="memberName" :label="$t('Membername')" width="" />
         </el-table-column>
 
         <el-table-column :label="$formatNumber(this.resultSet.betAmoutSum)">
-          <el-table-column
-            prop="betAmout"
-            :label="$t('Bettingamount')"
-            :formatter="formatMoney"
-          />
+          <el-table-column prop="betAmout" :label="$t('Bettingamount')" :formatter="formatMoney" />
         </el-table-column>
 
         <el-table-column :label="$formatNumber(this.resultSet.validBetAmountSum)">
-          <el-table-column
-            prop="validBetAmount"
-            :label="$t('有效投注')"
-            :formatter="formatMoney"
-          />
+          <el-table-column prop="validBetAmount" :label="$t('有效投注')" :formatter="formatMoney" />
         </el-table-column>
 
         <el-table-column :label="$formatNumber(this.resultSet.awardAmountSum)">
-          <el-table-column
-            prop="awardAmount"
-            :label="$t('Awardamount')"
-            :formatter="formatMoney"
-          />
+          <el-table-column prop="awardAmount" :label="$t('Awardamount')" :formatter="formatMoney" />
         </el-table-column>
 
         <el-table-column :label="$formatNumber(this.resultSet.phaseAmountSum)">
-          <el-table-column
-            prop="phaseAmount"
-            :label="$t('盈亏')"
-            :formatter="formatMoney"
-          />
+          <el-table-column prop="phaseAmount" :label="$t('盈亏')" :formatter="formatMoney" />
         </el-table-column>
 
         <el-table-column :label="$t('state')" width="">
@@ -102,17 +51,9 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="gamerName"
-          :label="$t('GameMerchantName')"
-          width=""
-        />
+        <el-table-column prop="gamerName" :label="$t('GameMerchantName')" width="" />
 
-        <el-table-column
-          prop="gameName"
-          :label="$t('gamename')"
-          width=""
-        />
+        <el-table-column prop="gameName" :label="$t('gamename')" width="" />
 
         <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
           <template slot-scope="scope">
@@ -130,31 +71,17 @@
       </el-table>
     </el-card>
 
-    <el-dialog
-      :visible.sync="innerVisible"
-      append-to-body
-      :modal="false"
-      top="10%"
-      width="70%"
-      @close="onClose"
-    >
+    <el-dialog :visible.sync="innerVisible" append-to-body :modal="false" top="10%" width="70%" @close="onClose">
       <el-descriptions size="small" border :title="$t('投注详情')">
-        <el-descriptions-item
-          v-for="(value, key) in gamerBetDetail"
-          :key="key"
-          :label="key"
-        >
+        <el-descriptions-item v-for="(value, key) in gamerBetDetail" :key="key" :label="key">
           {{ value }}
         </el-descriptions-item>
       </el-descriptions>
     </el-dialog>
 
     <!-- 分页 -->
-    <Pagination
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="getMemberFlowingWater"
-    />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange"
+      @PageChange="getMemberFlowingWater" />
   </el-card>
 </template>
 <script>

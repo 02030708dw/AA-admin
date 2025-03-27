@@ -32,7 +32,7 @@
     </el-card>
 
     <!-- 分页 -->
-    <!-- <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberBalanceList" /> -->
+    <!-- <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberBalanceList" /> -->
   </el-card>
 </template>
 <script>

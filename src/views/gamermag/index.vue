@@ -9,7 +9,7 @@
       @updateStatus="getGamerupdateStatus"
       @bind="getbindShow"
     />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
     <GamerAdd ref="GamerAdd" @confirm="getGamerAdd"  :CurrencytPageData="CurrencytPageData"/>
     <GamerEitor ref="GamerEitor" @confirm="getGamerEitor"  :CurrencytPageData="CurrencytPageData"/>
     <BindGamer ref="BindGamer" @confirm="getBind" />
