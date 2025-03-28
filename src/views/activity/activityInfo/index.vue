@@ -4,7 +4,7 @@
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getactivitydata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getactivitydata" />
     <ActivityAdd :gamer-id-data="GamerIdData" ref="ActivityAdd" @confirm="getactivityAdd" />
     <ActivityEitor :gamer-id-data="GamerIdData" ref="ActivityEitor" @confirm="getactivityEitor" />
   </el-card>
@@ -38,7 +38,7 @@ export default {
       pageNo: 1,
       status: null, // 状态
       PagesSize: 20,
-      GamerIdData:[]
+      GamerIdData: []
     }
   },
   created() {
@@ -156,9 +156,9 @@ export default {
         gamerId: data.gamerId,
         giftAmount: data.giftAmount,
         rechargeAmount: data.rechargeAmount,
-        flowRate:data.flowRate,
+        flowRate: data.flowRate,
         startTime: data.startTime,
-        endTime:  data.endTime,
+        endTime: data.endTime,
       })
         .then((res) => {
           this.getactivitydata(this.pageNo)

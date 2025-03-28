@@ -5,7 +5,7 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @UdateStatus="getUdateStatus"
       @EditorShow="getEitorShow" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
     <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>

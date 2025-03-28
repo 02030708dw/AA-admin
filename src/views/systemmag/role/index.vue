@@ -4,7 +4,7 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @updateStatus="getupdateStatus" @roledel="getroledel" @roleEditor="getEditordialog" @roleAuthority="getroleAuthority" />
     <!-- 分页组件 -->
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
     <!-- 添加组件 -->
     <RoleAdd ref="roleadd" @confirm="getadd" />
     <!-- 编辑组件 -->

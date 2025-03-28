@@ -5,7 +5,7 @@
       @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" :result-set="resultSet" @info="Handelinfo" @pay="Handelpay"
       @operate="Handeloperate" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemWitdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemWitdata" />
     <InfoView ref="infoview" />
     <PayForAnother ref="PayForAnother" @pay="HandelpayConfirmPay" />
   </el-card>

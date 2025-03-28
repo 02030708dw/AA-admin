@@ -7,7 +7,7 @@
             <el-table-column prop="phaseAmount" :label="$t('Totalprofitandloss')"></el-table-column>
             <el-table-column prop="amount" :label="$t('amountofmoney')"></el-table-column>
         </el-table>
-        <Pagination :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
+        <Pagination  :pageNo="pageNo" :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
     </el-dialog>
 </template>
 <script>

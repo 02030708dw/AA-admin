@@ -4,7 +4,7 @@
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" @UdateStatus="getStatus" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <businessAdd ref="businessAdd" @confirm="getAdd" />
     <businessEitor ref="businessEitor" @confirm="getEitor" />
   </el-card>

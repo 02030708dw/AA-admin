@@ -2,7 +2,7 @@
   <el-card>
     <Control ref="ControlView" @CurrencyAdd="getCurrencyAddShow" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" @delete="getDel" @eitor="getCurrencyEditShow" @UdateStatus="getCurrencyEdit"/>
-    <Pagination
+    <Pagination  :pageNo="pageNo"
       :total="total"
       @PageSizeChange="HandelPagesChange"
       @PageChange="getCurrencydata"

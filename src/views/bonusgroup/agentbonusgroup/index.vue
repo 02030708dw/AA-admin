@@ -2,7 +2,7 @@
   <el-card>
     <Control ref="ControlView" @resetting="getresetting" @query="getquery" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" @EditorShow="getInfoShow" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <Info ref="InfoView" @Refresh="HandelRefresh" />
   </el-card>
 </template>
