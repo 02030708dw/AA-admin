@@ -1,6 +1,10 @@
 import axios from "axios";
 import { MessageBox, Message } from "element-ui";
 import store from "@/store";
+import { domain } from "@/utils/domain";
+const currentDomain = document.domain;
+console.log("🚀 ~ currentDomain:", currentDomain);
+const selectedBaseURL = domain[currentDomain] || process.env.VUE_APP_BASE_API;
 import {
   getToken,
   getTokenPrefix,
@@ -12,7 +16,7 @@ import router, { resetRouter } from "@/router/index";
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: selectedBaseURL,
   // baseURL: '/',
   timeout: 60000, // request timeout
 });
