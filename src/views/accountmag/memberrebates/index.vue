@@ -2,7 +2,7 @@
   <el-card>
     <Control ref="ControlView" :member-data="MemberData" :gamer-id-data="GamerIdData" @Add="HandelAdd" @resetting="HandelResetting" @Refresh="HandelRefresh" @query="HandelQuery" />
     <Table ref="TableView" :table-data="tableData" @del="Handeldel" @Eitor="HandelEitor" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="GetMemBerrebatesPages" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="GetMemBerrebatesPages" />
     <AddMem ref="addmemberrebates" :member-data="MemberData" :gamer-id-data="GamerIdData" @confirm="HandelConfirm" />
     <EitorMem ref="eitorMemberrebates" :member-data="MemberData" :gamer-id-data="GamerIdData" @confirm="Eitorconfirm" />
   </el-card>

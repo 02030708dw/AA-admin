@@ -1,26 +1,12 @@
 <template>
   <el-card>
     <!-- 顶部操作 -->
-    <Control
-      ref="ControlView"
-      @Refresh="HandelRefresh"
-      @userAdd="getUserAddShow"
-      @userquery="getuserquery"
-      @resetting="getresetting"
-    />
+    <Control ref="ControlView" @Refresh="HandelRefresh" @userAdd="getUserAddShow" @userquery="getuserquery"
+      @resetting="getresetting" />
     <!-- 表格 -->
-    <Table
-      ref="TableView"
-      :table-data="tableData"
-      @usereitor="getUserEitorShow"
-      @updateStatus="getUserupdateStatus"
-      @userdel="getUserDel"
-    />
-    <Pagination
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="getuserdata"
-    />
+    <Table ref="TableView" :table-data="tableData" @usereitor="getUserEitorShow" @updateStatus="getUserupdateStatus"
+      @userdel="getUserDel" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getuserdata" />
     <UserAdd ref="UserAdd" @confirm="getUserAdd" />
     <UserEitor ref="UserEitor" @confirm="getUserEitor" />
   </el-card>

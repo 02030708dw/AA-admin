@@ -6,7 +6,7 @@
             <el-table-column prop="remark" label="项目"></el-table-column>
             <el-table-column prop="amount" :label="$t('amountofmoney')"></el-table-column>
         </el-table>
-        <Pagination :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
+        <Pagination  :pageNo="pageNo" :total="total" @PageChange="getData" @PageSizeChange="HandelPagesChange" />
     </el-dialog>
 </template>
 <script>

@@ -23,7 +23,7 @@
         </el-card>
 
         <!-- 分页 -->
-        <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getList" />
+        <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getList" />
     </el-card>
 </template>
 <script>

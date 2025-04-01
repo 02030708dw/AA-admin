@@ -12,7 +12,7 @@
       @updateStatus="getAuthorityUdateStatus"
       @eitor="getAuthorityEitorShow"
     />
-    <Pagination
+    <Pagination  :pageNo="pageNo"
       :total="total"
       @PageSizeChange="HandelPagesChange"
       @PageChange="getAuthoritydata"

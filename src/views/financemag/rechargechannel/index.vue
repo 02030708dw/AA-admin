@@ -9,7 +9,7 @@
       @delete="getChannelDelete"
       @eitor="getChannelEitorShow"
     />
-    <Pagination
+    <Pagination  :pageNo="pageNo"
       :total="total"
       @PageSizeChange="HandelPagesChange"
       @PageChange="getchanneldata"

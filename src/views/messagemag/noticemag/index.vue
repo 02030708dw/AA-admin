@@ -10,7 +10,7 @@
       @NoticeUpdateStatus="getNoticeUpdateStatus"
       @NoticeEitor="getNotcieEitorShow"
     />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange"  @PageChange="getnoticedata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange"  @PageChange="getnoticedata" />
     <noticeAdd ref="noticeAdd" :noticetype-page="noticetypePage" @confirm="getNoticeAdd" />
     <noticeEitor ref="noticeEitor" :noticetype-page="noticetypePage" @confirm="getNoticeEitor" />
   </el-card>

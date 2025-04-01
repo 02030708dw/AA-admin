@@ -7,7 +7,7 @@
       @updateStatus="getMemberUdateStatus" @Membershiptransfer="getMembershiptransfer" @Proxytransfer="getProxytransfer"
       @Info="HandelShowInfo" @MemberresettingPwd="getMemberresettingPwd" @Updatebalance="HandelUpdatebalance"
       @MemberEditPayment="HandelEditPayment" @CreateAnAgent="getCreateAnAgent" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer :agentIddata="agentIddata" ref="Proxytransfer" @confirm="getProxytransferok" />
     <CreateAnAgent ref="CreateAnAgent" @confirm="getCreateAnAgentok" />
