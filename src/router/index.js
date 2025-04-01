@@ -181,6 +181,12 @@ export const asyncRoutes = [
         name: 'agentwithdrawal',
         component: () => import('@/views/financemag/agentwithdrawal/index'),
         meta: { title: 'agentwithdrawal', icon: 'el-icon-s-cooperation' }
+      },
+      {//会员提现配置管理
+        path: 'financemembercashmanage',
+        name: 'financemembercashmanage',
+        component: () => import('@/views/financemag/membercashmanage/index'),
+        meta: { title: 'membercashmanage', icon: 'el-icon-s-cooperation' }
       }
     ]
   },

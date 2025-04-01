@@ -76,7 +76,8 @@ export default {
     reportincomecash: "Income Cash Report",
     gwticketconfig: 'GW Ticket Config',
     gwticketmember: 'GW Ticket Member',
-    gwticketrecord: 'GW Ticket Record'
+    gwticketrecord: 'GW Ticket Record',
+    membercashmanage:'Member Cash Manage',
   },
   role: {
     permission: "quyền hạn",
