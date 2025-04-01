@@ -9,7 +9,7 @@
       @updateStatus="getGameupdateStatus"
       @getisHot="getisHot"
     />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getgamedata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getgamedata" />
     <GameAdd ref="GameAdd" :gameriddata="GamerIdData" @confirm="getGameAdd" />
     <GameEitor ref="GameEitor" :gameriddata="GamerIdData" @confirm="getGameEitor" />
   </el-card>

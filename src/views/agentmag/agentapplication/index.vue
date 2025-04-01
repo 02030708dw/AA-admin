@@ -4,7 +4,7 @@
       @query="getquery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @EditorShow="getExamineShow" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsExamine ref="ComponentsExamine" @confirm="getExamine" />
   </el-card>
 </template>

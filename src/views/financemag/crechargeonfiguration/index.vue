@@ -17,7 +17,7 @@
       @eitor="getRechargeEitorShow"
       @updateStatus="getRechargeUdateStatus"
     />
-    <Pagination
+    <Pagination  :pageNo="pageNo"
       :total="total"
       @PageSizeChange="HandelPagesChange"
       @PageChange="getRechargedata"

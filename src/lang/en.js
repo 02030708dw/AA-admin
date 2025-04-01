@@ -83,6 +83,9 @@ export default {
     agentrebatesetting: "Agent Rebate Setting",
     agentrebaterecord: "Agent Rebate Record",
     reportincomecash: "Income Cash Report",
+    gwticketconfig: 'GW Ticket Config',
+    gwticketmember: 'GW Ticket Member',
+    gwticketrecord: 'GW Ticket Record'
   },
   role: {
     permission: "Permission",

@@ -86,6 +86,9 @@ export default {
     agentrebatesetting: "代理反水设定",
     agentrebaterecord: "代理反水记录",
     reportincomecash: "存提报表",
+    gwticketconfig: 'GW彩票配置表',
+    gwticketmember: 'GW用户彩票信息表',
+    gwticketrecord: 'GW红包领取记录表'
   },
   role: {
     permission: "权限",

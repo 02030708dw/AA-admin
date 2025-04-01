@@ -8,7 +8,7 @@
       @eitor="getWithdrawalchannelsEitorShow"
       @updateStatus="getWithdrawalchannelsUdateStatus"
     />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange"
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange"
     @PageChange="getWithdrawalchannelsdata"/>
     <withdrawalchannelsAdd
       ref="withdrawalchannelsAdd"

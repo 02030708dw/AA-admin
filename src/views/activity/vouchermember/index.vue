@@ -4,7 +4,7 @@
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsAdd ref="ComponentsAdd" :voucherConfigIdList="voucherConfigIdList" @confirm="getAdd" />
     <ComponentsEitor ref="ComponentsEitor" :voucherConfigIdList="voucherConfigIdList" @confirm="getEitor" />
   </el-card>
