@@ -8,6 +8,9 @@ export const domain = {
   // thb
   "aiadmin.nakith.xyz": "https://thbadmina.nakith.xyz",
   "aiadmin_thb.nakibet.com": "https://thbadminb.nakibet.com",
+  //vnd
+  "aiadmin.nakivn.xyz": "https://vndadmina.nakivn.xyz",
+  "aiadmin_vnd.nakibet.com": "https://vndadminb.nakibet.com",
 };
 
 

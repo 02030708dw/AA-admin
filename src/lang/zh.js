@@ -88,7 +88,8 @@ export default {
     reportincomecash: "存提报表",
     gwticketconfig: 'GW彩票配置表',
     gwticketmember: 'GW用户彩票信息表',
-    gwticketrecord: 'GW红包领取记录表'
+    gwticketrecord: 'GW红包领取记录表',
+    membercashmanage: '会员提现配置管理',
   },
   role: {
     permission: "权限",
