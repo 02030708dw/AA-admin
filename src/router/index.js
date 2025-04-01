@@ -475,6 +475,24 @@ export const asyncRoutes = [
         name: "redpacketrecord",
         component: () => import('@/views/activity/redpacketrecord/index'),
         meta: { title: 'redpacketrecord', icon: 'el-icon-s-flag' }
+      },
+      {//GW彩票配置表
+        path: "/gwticketconfig",
+        name: "gwticketconfig",
+        component: () => import('@/views/activity/gwticketconfig/index'),
+        meta: { title: 'gwticketconfig', icon: 'el-icon-s-flag' }
+      },
+      {//GW用户彩票信息表
+        path: "/gwticketmember",
+        name: "gwticketmember",
+        component: () => import('@/views/activity/gwticketmember/index'),
+        meta: { title: 'gwticketmember', icon: 'el-icon-s-flag' }
+      },
+      {//GW红包领取记录表
+        path: "/gwticketrecord",
+        name: "gwticketrecord",
+        component: () => import('@/views/activity/gwticketrecord/index'),
+        meta: { title: 'gwticketrecord', icon: 'el-icon-s-flag' }
       }
     ]
   },
