@@ -2,13 +2,11 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="gwTicketMemberId " label="gw彩票用户信息ID" />
-      <el-table-column prop="memberId " label="试玩用户ID" />
+      <el-table-column prop="gwTicketMemberId" label="gw彩票用户信息ID" />
+      <el-table-column prop="memberId" label="试玩用户ID" />
       <el-table-column prop="memberName" label="试玩用户名称" />
-
-      <el-table-column prop="registerMemberId " label="注册会员ID" />
-      <el-table-column prop="registerMemberName " label="注册会员名称" />
-
+      <el-table-column prop="registerMemberId" label="注册会员ID" />
+      <el-table-column prop="registerMemberName" label="注册会员名称" />
       <el-table-column prop="sort" :label="$t('Creationtime')">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
@@ -35,18 +33,6 @@ export default {
     }
   },
   methods: {
-    getRepeatableType(v) {
-      switch (v) {
-        case 1:
-          return '领一次'
-        case 2:
-          return '每天领取'
-        case 3:
-          return '每月领取'
-        case 4:
-          return '每年领取'
-      }
-    },
     // 改变loading
     HandelLoading(status) {
       this.loading = status

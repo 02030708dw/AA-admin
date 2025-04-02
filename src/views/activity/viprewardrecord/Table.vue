@@ -6,6 +6,12 @@
       <el-table-column prop="vipLevel" :label="$t('VIPlevel')" />
       <el-table-column prop="description" :label="$t('describe')" />
       <el-table-column prop="rebateAmount" :label="$t('Rebateamount')" />
+      <el-table-column prop="rewardValue" :label="$t('Rewardvalue')" />
+      <el-table-column prop="" :label="$t('RewardType')">
+        <template slot-scope="scope">
+          {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('Hasitbeencollected')">
         <template slot-scope="scope">
           {{ scope.row.isClaimed == 1 ? $t('correct') : $t('deny') }}

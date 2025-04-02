@@ -4,7 +4,7 @@
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
   </el-card>
 </template>
 
@@ -33,6 +33,8 @@ export default {
       startDate: '',
       // 结束时间
       endDate: '',
+      rewardType: null,
+      vipLevel: null,
     }
   },
   created() {
@@ -55,7 +57,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name
+        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, vipLevel: this.vipLevel, rewardType: this.rewardType
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -77,7 +79,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, vipLevel: this.vipLevel, rewardType: this.rewardType })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -89,11 +91,15 @@ export default {
     getquery(e) {
       this.isClaimed = e.isClaimed
       this.name = e.name
+      this.vipLevel = e.vipLevel
+      this.rewardType = e.rewardType
       this.getdata(1)
     },
     getresetting() {
       this.isClaimed = null
       this.name = null
+      this.vipLevel = null
+      this.rewardType = null
       this.getdata(1)
     },
     // 删除
