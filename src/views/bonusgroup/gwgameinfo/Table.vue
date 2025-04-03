@@ -6,7 +6,7 @@
       <el-table-column prop="gameName" :label="$t('游戏名称')" />
       <el-table-column prop="gamePlayName" :label="$t('玩法名称')" />
       <el-table-column prop="gamePlayTypeName" :label="$t('游戏类型名称')" />
-      <el-table-column :label="$t('展示标识')">
+      <el-table-column :label="$t('展示标识')" width="160">
         <template slot-scope="scope">
           <!-- <div>
             {{ scope.row.sign | TypeF }}
@@ -16,6 +16,7 @@
             @change="getUdateStatus($event, scope.row)" />
         </template>
       </el-table-column>
+      <el-table-column prop="fullAmount" :label="$t('单倍满水金额')" />
       <el-table-column prop="winAmount" :label="$t('单注中奖金额')" />
       <el-table-column prop="createdAt" :label="$t('Creationtime')">
         <template slot-scope="scope">

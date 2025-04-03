@@ -2,7 +2,7 @@
   <el-card>
     <Control ref="ControlView" @resetting="getresetting" @Add="getAddShow" @query="getquery" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @eitor="getEditShow" @UdateStatus="getGameEdit" />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsEdit ref="Edit" @confirm="getGameEdit" />
     <ComponentsAdd ref="ComponentsAdd" @confirm="getAdd" />
   </el-card>
@@ -18,7 +18,7 @@ import {
   gameInfoPage,
   agameInfoEdit,
   gameInfoGroup,
-  gameAddGroup,
+  gameInfoAdd,
   gameInfoDel
 } from "@/api/bonusgroup/gwgameinfo";
 export default {
@@ -59,7 +59,7 @@ export default {
       this.$refs.ComponentsAdd.getAddstatus()
     },
     getAdd(e) {
-      gameAddGroup(e)
+      gameInfoAdd(e)
         .then((res) => {
           this.getdata(this.pageNo)
           this.$message({
@@ -147,7 +147,7 @@ export default {
     },
     // 编辑币种
     getGameEdit(e) {
-      agameInfoEdit({ id: e.id, sign: e.sign, winAmount: e.winAmount })
+      agameInfoEdit({ id: e.id, sign: e.sign, winAmount: e.winAmount, fullAmount: e.fullAmount })
         .then((res) => {
           this.getdata(this.pageNo);
           this.$message({
