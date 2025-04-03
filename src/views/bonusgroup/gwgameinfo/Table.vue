@@ -16,6 +16,7 @@
             @change="getUdateStatus($event, scope.row)" />
         </template>
       </el-table-column>
+      <el-table-column prop="fullAmount" :label="$t('单倍满水金额')" />
       <el-table-column prop="winAmount" :label="$t('单注中奖金额')" />
       <el-table-column prop="createdAt" :label="$t('Creationtime')">
         <template slot-scope="scope">
