@@ -26,11 +26,21 @@ export function gameInfoGroup() {
   });
 }
 
-//新增代理平台游戏信息
+//删除代理平台游戏信息
 export function gameInfoDel(id) {
   return request({
     url: `/gameInfo/del/${id}`,
     method: 'post',
   })
 }
+
+//新增代理平台游戏信息
+export function gameInfoAdd(data) {
+  return request({
+    url: `/gameInfo/add`,
+    method: 'post',
+    data
+  })
+}
+
 

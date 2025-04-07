@@ -1,13 +1,15 @@
 <template>
   <el-card>
     <Control ref="ControlView" @SelectDate="HandelSelectDate" :agentIddata='agentIddata'
-      @EditPaymentAll="getEditPaymentAll" @Memquery="getMemquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+      @EditPaymentAll="getEditPaymentAll" @EditWithdrawCount="getEditWithdrawCountAll" @Memquery="getMemquery"
+      @resetting="getresetting" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :gamer-balance-list="gamerBalanceList" :table-data="tableData"
       @updateStatus="getMemberUdateStatus" @Membershiptransfer="getMembershiptransfer" @Proxytransfer="getProxytransfer"
       @Info="HandelShowInfo" @MemberresettingPwd="getMemberresettingPwd" @Updatebalance="HandelUpdatebalance"
-      @MemberEditPayment="HandelEditPayment" @CreateAnAgent="getCreateAnAgent" />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
+      @MemberEditPayment="HandelEditPayment" @MemberEditWithdrawCount="HandelEditWithdrawCount"
+      @CreateAnAgent="getCreateAnAgent" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemberPage" />
     <Membershiptransfer ref="Membershiptransfer" @confirm="getMembershiptransferok" />
     <Proxytransfer :agentIddata="agentIddata" ref="Proxytransfer" @confirm="getProxytransferok" />
     <CreateAnAgent ref="CreateAnAgent" @confirm="getCreateAnAgentok" />
@@ -15,6 +17,7 @@
     <MamberInfo ref="MamberInfoView" @Refresh="HandelRefresh" />
     <MemberUpdatebalanceview ref="MemberUpdatebalanceview" />
     <MemberEditPayment ref="MemberEditPayment" @Refresh="HandelRefresh" />
+    <MemberEditWithdrawCount ref="MemberEditWithdrawCount" @Refresh="HandelRefresh" />
   </el-card>
 </template>
 
@@ -30,6 +33,7 @@ import Proxytransfer from './Proxytransfer.vue'
 import MamberInfo from './MemberInfo.vue'
 import MemberUpdatebalanceview from './MemberUpdatebalance.vue'
 import MemberEditPayment from './EditPayment.vue'
+import MemberEditWithdrawCount from './EditWithdrawCount.vue'
 import CreateAnAgent from './CreateAnAgent.vue'
 import {
   MemberPage,
@@ -50,7 +54,8 @@ export default {
     MamberInfo,
     MemberUpdatebalanceview,
     MemberEditPayment,
-    CreateAnAgent
+    CreateAnAgent,
+    MemberEditWithdrawCount
   },
   data() {
     return {
@@ -88,6 +93,12 @@ export default {
     },
     getEditPaymentAll() {
       this.$refs.MemberEditPayment.HandelChangeShow('', '', 'all')
+    },
+    HandelEditWithdrawCount(e) {
+      this.$refs.MemberEditWithdrawCount.HandelChangeShow(e)
+    },
+    getEditWithdrawCountAll() {
+      this.$refs.MemberEditWithdrawCount.HandelChangeShow('all')
     },
     HandelUpdatebalance(e) {
       this.$refs.MemberUpdatebalanceview.HandelChangeShow(e)
