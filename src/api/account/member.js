@@ -176,3 +176,21 @@ export function editPaymentAll(data) {
     data
   })
 }
+
+//修改提款次数
+export function editWithdrawCount(data) {
+  return request({
+    url: `/user/member/editWithdrawCount`,
+    method: 'post',
+    data
+  })
+}
+
+//一键修改提款次数
+export function editWithdrawCountAll(data) {
+  return request({
+    url: `/user/member/editWithdrawCount/all`,
+    method: 'post',
+    data
+  })
+}

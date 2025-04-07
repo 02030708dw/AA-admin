@@ -3,18 +3,9 @@
     <el-row :gutter="10">
       <!-- 选择日期 -->
       <el-col :xs="24" :sm="12" :md="6">
-        <el-date-picker
-          style="width: 100%"
-          v-model="value"
-          type="daterange"
-          align="right"
-          unlink-panels
-          :range-separator="$t('to')"
-          :start-placeholder="$t('Startdate')"
-          :end-placeholder="$t('EndDate')"
-          :picker-options="pickerOptions"
-          @change="heandlerTime"
-        />
+        <el-date-picker style="width: 100%" v-model="value" type="daterange" align="right" unlink-panels
+          :range-separator="$t('to')" :start-placeholder="$t('Startdate')" :end-placeholder="$t('EndDate')"
+          :picker-options="pickerOptions" @change="heandlerTime" />
       </el-col>
 
       <el-col :xs="24" :sm="12" :md="3">
@@ -34,33 +25,14 @@
       </el-col>
 
       <el-col :xs="24" :sm="12" :md="3">
-        <el-select
-          style="width: 100%"
-          v-model="agentId"
-          filterable
-          :placeholder="$t('SelectProxy')"
-        >
-          <el-option
-            v-for="(item, index) in agentIddata"
-            :key="index"
-            :value="item.index"
-            :label="item.title"
-          />
+        <el-select style="width: 100%" v-model="agentId" filterable :placeholder="$t('SelectProxy')">
+          <el-option v-for="(item, index) in agentIddata" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-col>
 
       <el-col :xs="24" :sm="12" :md="3">
-        <el-select
-          style="width: 100%"
-          v-model="status"
-          :placeholder="$t('state')"
-        >
-          <el-option
-            v-for="(item, index) in statusType"
-            :key="index"
-            :value="item.index"
-            :label="item.title"
-          />
+        <el-select style="width: 100%" v-model="status" :placeholder="$t('state')">
+          <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-col>
     </el-row>
@@ -69,20 +41,14 @@
       <el-button v-has="'membermag:page'" type="primary" @click="getquery()">{{
         $t("query")
       }}</el-button>
-      <el-button type="primary" @click="geteditpaymentall()"
-        >{{ $t('一键排序支付商') }}</el-button
-      >
+      <el-button type="primary" @click="geteditpaymentall()">{{ $t('一键排序支付商') }}</el-button>
+      <el-button type="primary" @click="geteditwithdrawcount()">一键修改提款次数</el-button>
       <el-button type="info" plain @click="getresetting()">{{
         $t("resetting")
       }}</el-button>
       <!-- 刷新按钮 -->
-      <el-button
-        v-if="btnIcoType"
-        type="success"
-        icon="el-icon-refresh-left"
-        @click="HandelRefresh"
-        >{{ $t("Refresh") }}</el-button
-      >
+      <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t("Refresh")
+      }}</el-button>
       <el-button v-else type="success" icon="el-icon-loading" disabled>{{
         $t("Refresh")
       }}</el-button>
@@ -152,7 +118,7 @@ export default {
       // agentIddata: []
     };
   },
-  created() {},
+  created() { },
   methods: {
     // 选择日期
     heandlerTime() {
@@ -201,6 +167,9 @@ export default {
     geteditpaymentall() {
       this.$emit("EditPaymentAll");
     },
+    geteditwithdrawcount() {
+      this.$emit("EditWithdrawCount");
+    },
     getresetting() {
       this.agentId = "";
       this.userName = "";
@@ -226,6 +195,7 @@ export default {
 <style lang="scss">
 .el-row {
   margin-bottom: 20px;
+
   &:last-child {
     margin-bottom: 10px;
   }
