@@ -19,15 +19,22 @@
         <el-table-column prop="userName" :label="$t('username')" width="" />
         <!-- <el-table-column prop="parentMemberId" label="上级会员ID" width="" /> -->
         <el-table-column prop="realName" :label="$t('Realname')" width="" />
-        <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" />
         <el-table-column prop="" :label="$t('state')" width="">
           <template slot-scope="scope">
-            {{ scope.row.status | typeF }}
+            <el-tag :type="getTagType(scope.row.status)">
+              {{ scope.row.status | typeF }}
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="telPhone" :label="$t('cellphonenumber')" width="" />
+        <el-table-column :label="$t('账号来源')" width="" >
+          <template slot-scope="scope">
+            {{  typeSource(scope.row.fromTo) }}
+          </template>
+        </el-table-column>
         <el-table-column prop="friendNum" :label="$t('Numberoffriends')" width="" />
-        <el-table-column prop="gammerBlanace" :label="$t('Totalbalanceofgamemerchants')" width="" />
+        <!-- <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" /> -->
+        <!-- <el-table-column prop="gammerBlanace" :label="$t('Totalbalanceofgamemerchants')" width="" /> -->
       </el-table>
     </el-card>
 
@@ -69,6 +76,35 @@ export default {
     }
   },
   methods: {
+    //会员类型来源
+    typeSource(value){
+      switch (value) {
+        case 0:
+          return '正常注册'
+        case 1:
+          return '推荐码注册'
+        case 2:
+          return '刮刮乐分享注册'
+        case 3:
+          return '红包分享注册'
+        case 4:
+          return 'gw彩票分享注册'
+        case 5:
+          return '直接开户'
+        case 6:
+          return '链接开户'
+      }
+    },
+    getTagType(value) {
+      if (value === 1) {
+        return "success";
+      } else if (value === 0) {
+        return ""; // 默认颜色
+      } else {
+        return "info";
+      }
+    },
+
     // 获取分页数据
     getFriends(index) {
       this.pageNo = index
