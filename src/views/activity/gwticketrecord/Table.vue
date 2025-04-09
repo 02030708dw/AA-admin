@@ -2,6 +2,7 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="gwTicketMemberName" label="上级名称" />
       <el-table-column prop="gwTicketMemberId" label="gw彩票用户信息ID" />
       <el-table-column prop="memberId" label="试玩用户ID" />
       <el-table-column prop="memberName" label="试玩用户名称" />
