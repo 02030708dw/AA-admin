@@ -32,6 +32,11 @@
             {{  typeSource(scope.row.fromTo) }}
           </template>
         </el-table-column>
+        <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
+          <template slot-scope="scope">
+            {{ $creationTime(scope.row.createdAt) }}
+          </template>
+        </el-table-column>
         <el-table-column prop="friendNum" :label="$t('Numberoffriends')" width="" />
         <!-- <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" /> -->
         <!-- <el-table-column prop="gammerBlanace" :label="$t('Totalbalanceofgamemerchants')" width="" /> -->
