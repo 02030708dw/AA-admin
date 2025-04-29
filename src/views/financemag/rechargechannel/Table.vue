@@ -1,13 +1,8 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
-      <el-table-column type="index" :label="$t('SerialNumber')" width="150" />
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="sort" :label="$t('sort')" width="150" />
       <el-table-column prop="name" :label="$t('Channelname')" width="" />
       <el-table-column prop="" :label="$t('Channeltype')" width="">
         <template slot-scope="scope">
@@ -26,16 +21,9 @@
       <el-table-column prop="" :label="$t('state')" width="">
         <template slot-scope="scope">
           <div>
-            <el-switch
-              v-has="'rechargechannel:status'"
-              v-model="scope.row.status"
-              active-color="#13ce66"
-              :active-value="1"
-              :inactive-value="0"
-              :active-text="$t('Enable')"
-              :inactive-text="$t('Deactivate')"
-              @change="getupdateStatus($event, scope.row.id)"
-            />
+            <el-switch v-has="'rechargechannel:status'" v-model="scope.row.status" active-color="#13ce66"
+              :active-value="1" :inactive-value="0" :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
+              @change="getupdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
@@ -46,21 +34,11 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button
-            v-has="'rechargechannel:edit'"
-            type="text"
-            @click="geteroleEitor(scope.row)"
-            >{{ $t("edit") }}</el-button
-          >
+          <el-button v-has="'rechargechannel:edit'" type="text" @click="geteroleEitor(scope.row)">{{ $t("edit")
+          }}</el-button>
 
-          <el-button
-            v-has="'rechargechannel:del'"
-            slot="reference"
-            type="text"
-            style="color: red"
-            @click="getroledel(scope.row.id)"
-            >{{ $t("delete") }}</el-button
-          >
+          <el-button v-has="'rechargechannel:del'" slot="reference" type="text" style="color: red"
+            @click="getroledel(scope.row.id)">{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -141,6 +119,7 @@ export default {
   overflow: hidden;
   margin: 0 auto;
 }
+
 .image_box img {
   width: 100%;
   height: 100%;

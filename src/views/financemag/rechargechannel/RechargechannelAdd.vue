@@ -10,6 +10,9 @@
           <el-option v-for="(item, index) in typeArrList" :key="index" :value="item.index" :label="item.title" />
         </el-select>
       </el-form-item>
+      <el-form-item :label="$t('sort')" prop="sort">
+        <el-input style="width: 200px" type='number' v-model="ruleForm.sort" />
+      </el-form-item>
       <el-form-item :label="$t('SelectCurrency')" prop="currency">
         <el-checkbox-group v-model="ruleForm.currency">
           <el-checkbox v-for="v in CurrencytPageData" :label="v.item" :key="v.index">{{ v.item }}</el-checkbox>
@@ -55,7 +58,8 @@ export default {
         status: 0,
         type: null,
         currency: [],
-        pictureUrl: ''
+        pictureUrl: '',
+        sort: null
       },
       isIndeterminate: true,
       // 游戏类型选项
@@ -78,7 +82,8 @@ export default {
       rules: {
         name: [{ required: true, message: '请输入渠道名称', trigger: 'blur' }],
         type: [{ required: true, message: '请输入渠道类型', trigger: 'blur' }],
-        currency: [{ required: true, message: '请选择币种类型', trigger: 'blur' }]
+        currency: [{ required: true, message: '请选择币种类型', trigger: 'blur' }],
+        sort: [{ required: true, message: '请输入排序', trigger: 'blur' }]
       }
     }
   },
