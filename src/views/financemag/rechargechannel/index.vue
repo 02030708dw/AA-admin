@@ -1,29 +1,14 @@
 <template>
   <el-card>
     <!-- 充值渠道管理 -->
-    <Control ref="ControlView" :channelnamedata="ChannelnameData" @RechargeannelAdd="getChannelAddShow" @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
-    <Table
-      ref="TableView"
-      :table-data="tableData"
-      @updateStatus="getChannelUpdateStatus"
-      @delete="getChannelDelete"
-      @eitor="getChannelEitorShow"
-    />
-    <Pagination  :pageNo="pageNo"
-      :total="total"
-      @PageSizeChange="HandelPagesChange"
-      @PageChange="getchanneldata"
-    />
-    <RechargechannelAdd
-      :CurrencytPageData="CurrencytPageData"
-      ref="RechargechannelAdd"
-      @confirm="getChannelAdd"
-    />
-    <RechargechannelEitor
-      :CurrencytPageData="CurrencytPageData"
-      ref="RechargechannelEitor"
-      @confirm="getChannelEitor"
-    />
+    <Control ref="ControlView" :channelnamedata="ChannelnameData" @RechargeannelAdd="getChannelAddShow"
+      @query="getquery" @resetting="getresetting" @Refresh="HandelRefresh" />
+    <Table ref="TableView" :table-data="tableData" @updateStatus="getChannelUpdateStatus" @delete="getChannelDelete"
+      @eitor="getChannelEitorShow" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getchanneldata" />
+    <RechargechannelAdd :CurrencytPageData="CurrencytPageData" ref="RechargechannelAdd" @confirm="getChannelAdd" />
+    <RechargechannelEitor :CurrencytPageData="CurrencytPageData" ref="RechargechannelEitor"
+      @confirm="getChannelEitor" />
   </el-card>
 </template>
 
@@ -64,7 +49,7 @@ export default {
       // 渠道名称
       ChannelnameData: [],
       //获取币种
-      CurrencytPageData:[],
+      CurrencytPageData: [],
       // 条件查询
       name: '',
       status: null,
@@ -80,14 +65,14 @@ export default {
   methods: {
     // 获取币种
     getCurrencytPage() {
-     let res = this.$store.state.user.currency
-     this.CurrencytPageData = []
-       for(let i = 0; i < res.length ;i++){
-         this.CurrencytPageData.push({
-           item:res[i].currency,
-           index:res[i].id
-         })
-       }
+      let res = this.$store.state.user.currency
+      this.CurrencytPageData = []
+      for (let i = 0; i < res.length; i++) {
+        this.CurrencytPageData.push({
+          item: res[i].currency,
+          index: res[i].id
+        })
+      }
     },
     HandelPagesChange(e) {
       this.PagesSize = e
@@ -197,7 +182,8 @@ export default {
         status: data.status,
         type: data.type,
         currency: data.currency,
-        pictureUrl: data.pictureUrl
+        pictureUrl: data.pictureUrl,
+        sort: data.sort,
       })
         .then((res) => {
           this.getchanneldata(this.pageNo)
@@ -234,5 +220,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>
