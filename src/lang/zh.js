@@ -457,6 +457,7 @@ export default {
   VietnameseDongGameMerchantRidingThousand: "越南盾游戏商乘千",
   correct: "是",
   deny: "否",
+  expiredDeleted: "过期/删除",
   Gamedevelopersdrawapercentage: "游戏商抽成百分比",
   GameType: "游戏类型",
   Pleaseselect: "请选择",

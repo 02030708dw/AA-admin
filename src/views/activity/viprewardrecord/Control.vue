@@ -5,9 +5,13 @@
     <el-select clearable v-model="vipLevel" :placeholder="$t('VIPlevel')" style="width: 200px;margin:0 5px">
       <el-option v-for="(item, index) in vipList" :key="index" :value="item.id" :label="item.description" />
     </el-select>
+    <el-select clearable v-model="repeatableType" :placeholder="$t('Typeofclaim')" style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in TypeCollection" :key="index"
+        :value="item.index" :label="$t(item.title)" />
+    </el-select>
     <el-select clearable v-model="rewardType" :placeholder="$t('RewardType')" style="width: 200px;margin:0 5px">
-      <el-option v-for="(item, index) in [{ index: 1, title: $t('bonus') }, { index: 2, title: $t('defect') }]"
-        :key="index" :value="item.index" :label="item.title" />
+      <el-option v-for="(item, index) in [{ index: 1, title: 'bonus' }, { index: 2, title: 'defect' }]"
+        :key="index" :value="item.index" :label="$t(item.title)" />
     </el-select>
     <el-select clearable v-model="isClaimed" :placeholder="$t('Hasitbeencollected')" style="width: 200px;margin:0 5px">
       <el-option v-for="(item, index) in [{ index: 1, title: $t('correct') }, { index: 0, title: $t('deny') }]"
@@ -71,7 +75,14 @@ export default {
       btnIcoType: true,
       vipLevel: '',
       vipList: [],
-      rewardType: ''
+      rewardType: '',
+      repeatableType: '',
+      TypeCollection:[
+        { index: 1, title: "Takeonce" },
+        { index: 2, title: "Receiveddaily" },
+        { index: 3, title: "MonthlyPayment" },
+        { index: 4, title: "ReceiveAnnually" },
+      ]
     }
   },
   created() {
@@ -126,7 +137,7 @@ export default {
       this.btnIcoType = true
     },
     getquery() {
-      this.$emit('query', { name: this.name, isClaimed: this.isClaimed, vipLevel: this.vipLevel, rewardType: this.rewardType })
+      this.$emit('query', { name: this.name, isClaimed: this.isClaimed, vipLevel: this.vipLevel, rewardType: this.rewardType,repeatableType: this.repeatableType })
     },
   }
 }

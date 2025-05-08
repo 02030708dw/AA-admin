@@ -9,7 +9,7 @@
           {{ getRepeatableType(scope.row.repeatableType) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('Typeofclaim')">
+      <el-table-column prop="" :label="$t('RewardType')">
         <template slot-scope="scope">
           {{ scope.row.rewardType == 1 ? $t('bonus') : $t('defect') }}
         </template>

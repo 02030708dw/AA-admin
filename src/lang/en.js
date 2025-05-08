@@ -458,6 +458,7 @@ export default {
     "Vietnamese Dong Game Merchant Riding Thousand",
   correct: "correct",
   deny: "deny",
+  expiredDeleted: "expired/deleted",
   Gamedevelopersdrawapercentage: "Game developers draw a percentage",
   GameType: "Game Type",
   Pleaseselect: "Please select",

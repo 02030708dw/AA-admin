@@ -3,8 +3,8 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('Typeofclaim')">
         <el-select v-model="ruleForm.repeatableType" :placeholder="$t('Typeofclaim')" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 1, title: 'Takeonce' }, { index: 2, title: 'Receiveddaily' }]" :key="index"
-            :value="item.index" :label="item.title" />
+          <el-option v-for="(item, index) in TypeCollection" :key="index"
+            :value="item.index" :label="$t(item.title)" />
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('RewardType')">
@@ -57,7 +57,13 @@ export default {
       },
       rules: {
 
-      }
+      },
+      TypeCollection:[
+        { index: 1, title: "Takeonce" },
+        { index: 2, title: "Receiveddaily" },
+        { index: 3, title: "MonthlyPayment" },
+        { index: 4, title: "ReceiveAnnually" },
+      ]
     }
   },
   methods: {

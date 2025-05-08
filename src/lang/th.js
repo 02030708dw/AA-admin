@@ -448,6 +448,7 @@ export default {
   VietnameseDongGameMerchantRidingThousand: "VND ผู้เล่นเกมโดยพัน",
   correct: "ใช่",
   deny: "ไม่",
+  expiredDeleted: "หมดอายุ / ลบ",
   Gamedevelopersdrawapercentage: "เกมเมอร์วาดเป็นเปอร์เซ็นต์",
   GameType: "ประเภทของเกม",
   Pleaseselect: "กรุณาเลือก",

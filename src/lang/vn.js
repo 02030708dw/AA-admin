@@ -459,6 +459,7 @@ export default {
     "Các nhà cung cấp trò chơi Đồng Việt Nam tăng hàng nghìn",
   correct: "Đúng",
   deny: "Không",
+  expiredDeleted: "Hết hạn/xóa",
   Gamedevelopersdrawapercentage: "Tỷ lệ trừ phần của nhà phát triển trò chơi",
   GameType: "Loại trò chơi",
   Pleaseselect: "Vui lòng chọn",

@@ -79,7 +79,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, vipLevel: this.vipLevel, rewardType: this.rewardType })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, vipLevel: this.vipLevel, rewardType: this.rewardType, repeatableType: this.repeatableType })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -93,6 +93,7 @@ export default {
       this.name = e.name
       this.vipLevel = e.vipLevel
       this.rewardType = e.rewardType
+      this.repeatableType = e.repeatableType
       this.getdata(1)
     },
     getresetting() {
@@ -100,6 +101,7 @@ export default {
       this.name = null
       this.vipLevel = null
       this.rewardType = null
+      this.repeatableType = null
       this.getdata(1)
     },
     // 删除
