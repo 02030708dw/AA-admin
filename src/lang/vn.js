@@ -534,6 +534,8 @@ export default {
   VIPrewardID: "ID thưởng VIP",
   Takeonce: "Nhận một lần",
   Receiveddaily: "Nhận hàng ngày",
+  MonthlyPayment: "Thanh toán hàng tháng",
+  ReceiveAnnually: "Nhận hàng năm",
   Statistictype: "Loại thống kê",
   thesameday: "Cùng ngày",
   total: "Tổng cộng",

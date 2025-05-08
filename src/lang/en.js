@@ -531,6 +531,8 @@ export default {
   Takeonce: "Take once",
   Receiveddaily: "Received daily",
   Statistictype: "Statistic type",
+  MonthlyPayment: "Monthly Payment",
+  ReceiveAnnually: "Receive Annually",
   thesameday: "the same day",
   Quantityofredenvelopes: "Quantity of red envelopes",
   Maximumvalueofrandomredenvelope: "Maximum value of random red envelope",

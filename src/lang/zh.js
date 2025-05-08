@@ -530,6 +530,8 @@ export default {
   VIPrewardID: "VIP奖励ID",
   Takeonce: "领一次",
   Receiveddaily: "每天领取",
+  MonthlyPayment: "每月领取",
+  ReceiveAnnually: "每年领取",
   Statistictype: "统计类型",
   thesameday: "当天",
   total: "总计",

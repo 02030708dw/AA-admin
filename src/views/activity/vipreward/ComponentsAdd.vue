@@ -1,21 +1,55 @@
 <template>
   <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+    <el-form
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="150px"
+      class="demo-ruleForm"
+    >
       <el-form-item :label="$t('Typeofclaim')">
-        <el-select v-model="ruleForm.repeatableType" :placeholder="$t('Typeofclaim')" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 1, title: 'Takeonce' }, { index: 2, title: 'Receiveddaily' }]" :key="index"
-            :value="item.index" :label="$t(item.title)" />
+        <el-select
+          v-model="ruleForm.repeatableType"
+          :placeholder="$t('Typeofclaim')"
+          style="width: 200px"
+        >
+          <el-option
+            v-for="(item, index) in TypeCollection"
+            :key="index"
+            :value="item.index"
+            :label="$t(item.title)"
+          />
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('RewardType')">
-        <el-select v-model="ruleForm.rewardType" :placeholder="$t('RewardType')" style="width: 200px">
-          <el-option v-for="(item, index) in [{ index: 1, title: 'bonus' }, { index: 2, title: 'defect' }]" :key="index"
-            :value="item.index" :label="$t(item.title)" />
+        <el-select
+          v-model="ruleForm.rewardType"
+          :placeholder="$t('RewardType')"
+          style="width: 200px"
+        >
+          <el-option
+            v-for="(item, index) in [
+              { index: 1, title: 'bonus' },
+              { index: 2, title: 'defect' },
+            ]"
+            :key="index"
+            :value="item.index"
+            :label="$t(item.title)"
+          />
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('VIPlevel')">
-        <el-select v-model="ruleForm.vipConfigId" :placeholder="$t('VIPlevel')" style="width: 200px">
-          <el-option v-for="(item, index) in vipLevelList" :key="index" :value="item.index" :label="item.title" />
+        <el-select
+          v-model="ruleForm.vipConfigId"
+          :placeholder="$t('VIPlevel')"
+          style="width: 200px"
+        >
+          <el-option
+            v-for="(item, index) in vipLevelList"
+            :key="index"
+            :value="item.index"
+            :label="item.title"
+          />
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('Rewardvalue')">
@@ -40,25 +74,29 @@ export default {
     vipLevelList: {
       type: Array,
       default: () => {
-        return []
-      }
-    }
+        return [];
+      },
+    },
   },
   data() {
     return {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
-        "description": "",
-        "repeatableType": 0,
-        "rewardType": 0,
-        "rewardValue": 0,
-        "vipConfigId": 0
+        description: "",
+        repeatableType: 0,
+        rewardType: 0,
+        rewardValue: 0,
+        vipConfigId: 0,
       },
-      rules: {
-
-      },
-      loading: false
+      rules: {},
+      loading: false,
+      TypeCollection:[
+        { index: 1, title: "Takeonce" },
+        { index: 2, title: "Receiveddaily" },
+        { index: 3, title: "MonthlyPayment" },
+        { index: 4, title: "ReceiveAnnually" },
+      ]
     };
   },
   methods: {
@@ -66,11 +104,11 @@ export default {
     getAddstatus() {
       if (!this.dialogVisible) {
         this.ruleForm = {
-          "description": "",
-          "repeatableType": null,
-          "rewardType": null,
-          "rewardValue": null,
-          "vipConfigId": null
+          description: "",
+          repeatableType: null,
+          rewardType: null,
+          rewardValue: null,
+          vipConfigId: null,
         };
       }
       this.dialogVisible = !this.dialogVisible;
@@ -79,7 +117,7 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          console.log(this.ruleForm, 'this.ruleForm');
+          console.log(this.ruleForm, "this.ruleForm");
           this.$emit("confirm", this.ruleForm);
           // 关闭弹窗
           this.dialogVisible = false;

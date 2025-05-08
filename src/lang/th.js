@@ -521,6 +521,8 @@ export default {
   VIPrewardID: "IDรางวัล VIP",
   Takeonce: "รับครั้งเดียว",
   Receiveddaily: "รับทุกวัน",
+  MonthlyPayment: "รับทุกเดือน",
+  ReceiveAnnually: "รับทุกปี",
   Statistictype: "ประเภทสถิติ",
   thesameday: "ในวันเดียวกัน",
   total: "รวม",
