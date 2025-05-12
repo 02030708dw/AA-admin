@@ -8,29 +8,32 @@
             <el-table-column prop="" :label="$t('icon')" width="120">
                 <template slot-scope="scope">
                     <div class="image_box">
-                        <img :src="scope.row.icon" alt="">
+                        <img :src="toUrl(scope.row.icon)" alt="" />
                     </div>
                 </template>
             </el-table-column>
             <el-table-column prop="status" :label="$t('state')" width="">
                 <template slot-scope="scope">
                     <div>
-                        <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
-                            :active-text="$t('Enable')" :inactive-text="$t('Deactivate')" @change="getupdateStatus($event, scope.row)" />
+                        <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1"
+                            :inactive-value="0" :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
+                            @change="getupdateStatus($event, scope.row)" />
                     </div>
                 </template>
             </el-table-column>
             <el-table-column prop="threePayNames" :label="$t('Bankssupportthirdpartyconfiguration')" width="" />
-            <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+            <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
                 <template slot-scope="scope">
                     {{ $creationTime(scope.row.createdAt) }}
                 </template>
             </el-table-column>
             <el-table-column prop="" :label="$t('operate')" width="">
                 <template slot-scope="scope">
-                    <el-button v-has="'WithdrawalBank:edit'" type="text" @click="geteroleEitor(scope.row)">{{ $t("edit") }}</el-button>
-                    <el-button v-has="'WithdrawalBank:del'" slot="reference" type="text" style="color: red" @click="getroledel(scope.row.id)">{{
-                        $t("delete") }}</el-button>
+                    <el-button v-has="'WithdrawalBank:edit'" type="text" @click="geteroleEitor(scope.row)">{{ $t("edit")
+                        }}</el-button>
+                    <el-button v-has="'WithdrawalBank:del'" slot="reference" type="text" style="color: red"
+                        @click="getroledel(scope.row.id)">{{
+                            $t("delete") }}</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -80,10 +83,13 @@ export default {
             this.$emit('Eitor', item)
         },
         // 状态修改
-        getupdateStatus(status, item) { 
+        getupdateStatus(status, item) {
             console.log(item);
-            this.$emit('updateStatus', {...item,status:status})
-        }
+            this.$emit('updateStatus', { ...item, status: status })
+        },
+        toUrl(v) {
+            return "https://gwstatic.mvkbnb.com/" + v;
+        },
     },
 }
 </script>

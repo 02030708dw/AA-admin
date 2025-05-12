@@ -1,16 +1,11 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :border="true"
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="channelName" :label="$t('Channelname')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
       <el-table-column prop="currency" :label="$t('Currency')" width="" />
-      <el-table-column  :label="$t('Rechargeinformation')" width="500">
+      <el-table-column :label="$t('Rechargeinformation')" width="500">
         <template slot-scope="scope">
           <div class="info_box">
             <div v-if="scope.row.alipay" class="item_box">
@@ -40,7 +35,7 @@
       <el-table-column prop="" :label="$t('icon')" width="120">
         <template slot-scope="scope">
           <div class="image_box" v-if="scope.row.icon">
-            <img :src="scope.row.icon" alt="">
+            <img :src="toUrl(scope.row.icon)" alt="" />
           </div>
         </template>
       </el-table-column>
@@ -54,21 +49,15 @@
       <el-table-column prop="" :label="$t('state')" width="200">
         <template slot-scope="scope">
           <div>
-            <el-switch
-              v-has="'crechargeonfiguration:status'"
-              v-model="scope.row.status"
-              active-color="#13ce66"
-              :active-value="1"
-              :inactive-value="0"
-              :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
-              @change="getupdateStatus($event, scope.row.id)"
-            />
+            <el-switch v-has="'crechargeonfiguration:status'" v-model="scope.row.status" active-color="#13ce66"
+              :active-value="1" :inactive-value="0" :active-text="$t('Enable')" :inactive-text="$t('Deactivate')"
+              @change="getupdateStatus($event, scope.row.id)" />
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="" >
+      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
         <template slot-scope="scope">
-            {{ $creationTime(scope.row.createdAt) }}
+          {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
@@ -77,13 +66,8 @@
             $t("edit")
           }}</el-button>
 
-          <el-button
-            v-has="'crechargeonfiguration:del'"
-            slot="reference"
-            type="text"
-            style="color: red"
-            @click="getroledel(scope.row.id)"
-          >{{ $t("delete") }}</el-button>
+          <el-button v-has="'crechargeonfiguration:del'" slot="reference" type="text" style="color: red"
+            @click="getroledel(scope.row.id)">{{ $t("delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -135,7 +119,10 @@ export default {
     // 状态修改
     getupdateStatus(e, Id) {
       this.$emit('updateStatus', { status: e, id: Id })
-    }
+    },
+    toUrl(v) {
+      return "https://gwstatic.mvkbnb.com/" + v;
+    },
   },
   filters: {
     TypeF(value) {
@@ -154,40 +141,45 @@ export default {
 }
 </script>
 
-    <style lang="scss" scoped>
-    .image_box{
-      width: 100px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      img{
-        width: 100%;
-        height: 100%;
-      }
+<style lang="scss" scoped>
+.image_box {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.info_box {
+  margin: 0 auto;
+  width: 400px;
+
+  .item_box {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .item_title {
+      font-size: 16px;
+      font-weight: 520;
+      width: 150px;
+      text-align: right;
+      //text-align: justify;
+      //text-align-last: justify;
     }
-    .info_box{
-      margin: 0 auto;
-      width: 400px;
-      .item_box{
-        margin-top: 8px;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        .item_title{
-          font-size: 16px;
-          font-weight: 520;
-          width: 150px;
-          text-align: right;
-          //text-align: justify;
-          //text-align-last: justify;
-        }
-        .item_conent{
-          margin-left: 5px;
-          font-size: 18px;
-          font-weight: 520;
-          text-align: left;
-        }
-      }
+
+    .item_conent {
+      margin-left: 5px;
+      font-size: 18px;
+      font-weight: 520;
+      text-align: left;
     }
+  }
+}
 </style>
