@@ -31,7 +31,7 @@
           <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
         </el-select>
       </el-form-item> -->
-      <el-form-item  :label="$t('BankName')" prop="bankName">
+      <el-form-item :label="$t('BankName')" prop="bankName">
         <el-input v-model="ruleForm.bankName" />
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
@@ -80,11 +80,7 @@
         />
       </el-form-item> -->
       <el-form-item :label="$t('icon')" prop="icon">
-        <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
-          :on-error="uploadonerror">
-          <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        <UploadImage v-if="dialogVisible" :Fn="'incomeSetting'" :img="ruleForm.icon" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -98,7 +94,11 @@
 
 <script>
 import { cashBankList } from "@/api/finance/WithdrawalBank";
+import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
+  components: {
+    UploadImage
+  },
   props: {
     channelidList: {
       type: Array,
@@ -316,6 +316,9 @@ export default {
           resolve(imgResult);
         };
       });
+    },
+    getImageURL(url) {
+      this.ruleForm.icon = url
     },
   },
 };

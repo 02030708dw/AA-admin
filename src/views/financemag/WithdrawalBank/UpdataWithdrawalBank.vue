@@ -32,11 +32,12 @@
       </el-form-item>
 
       <el-form-item :label="$t('icon')" prop="icon">
-        <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
+        <!-- <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
           :on-error="uploadonerror">
           <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        </el-upload> -->
+        <UploadImage v-if="dialogVisible" :Fn="'withdrawalBank'" :img="ruleForm.icon" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -49,7 +50,11 @@
 </template>
 <script>
 import { ThreePayList } from "@/api/finance/memberwithdrawal";
+import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
+  components: {
+    UploadImage
+  },
   props: {
     // 0 添加 1 修改
     TypeIndex: {
@@ -243,6 +248,9 @@ export default {
         threePayIds.push({ code: v.code, threeId: v.id });
       });
       return [JSON.stringify(amountRange), JSON.stringify(threePayIds)];
+    },
+    getImageURL(url) {
+      this.ruleForm.icon = url
     },
   },
 };
