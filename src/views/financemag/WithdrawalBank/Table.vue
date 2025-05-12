@@ -88,7 +88,7 @@ export default {
             this.$emit('updateStatus', { ...item, status: status })
         },
         toUrl(v) {
-            return "https://gwstatic.mvkbnb.com/" + v;
+            return "https://static.44dog.cc/" + v;
         },
     },
 }
