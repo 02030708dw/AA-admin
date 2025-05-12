@@ -19,7 +19,7 @@
       </el-table-column>
       <el-table-column prop="" :label="$t('Hasitbeencollected')">
         <template slot-scope="scope">
-          {{ scope.row.isClaimed == 1 ? $t('correct') :scope.row.isClaimed == 2 ? $t('expiredOrDeleted') :  $t('deny')}}
+          {{ scope.row.isClaimed == 1 ? $t('correct') :scope.row.isClaimed == 2 ? $t('expiredDeleted') :  $t('deny')}}
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('Collectiontime')">
