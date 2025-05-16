@@ -12,6 +12,9 @@
       <el-form-item :label="$t('Minimumrechargeamount')" prop="minMoney">
         <el-input v-model="ruleForm.minMoney" />
       </el-form-item>
+      <el-form-item :label="$t('sort')" prop="sort">
+        <el-input style="width: 200px" type='number' v-model="ruleForm.sort" />
+      </el-form-item>
       <el-form-item style="width: 350px" :label="$t('state')" prop="status">
         <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
@@ -86,6 +89,7 @@
 </template>
 
 <script>
+import { cashBankList } from "@/api/finance/WithdrawalBank";
 import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
   components: {
@@ -165,7 +169,8 @@ export default {
         bankCode: "",
         threePayId: 0,
         maxMoney: '',
-        minMoney: ''
+        minMoney: '',
+        sort: null
       },
       rules: {
         account: [{ required: true, message: "请输入户名", trigger: "blur" }],
@@ -202,6 +207,7 @@ export default {
         minMoney: [
           { required: true, message: "请输入最小金额", trigger: "blur" },
         ],
+        sort: [{ required: true, message: '请输入排序', trigger: 'blur' }],
       },
       loading: false,
       bankCodeList: [],
@@ -242,6 +248,7 @@ export default {
           threePayId: 0,
           maxMoney: '',
           minMoney: '',
+          sort: null
         };
       }
       this.dialogVisible = !this.dialogVisible;
