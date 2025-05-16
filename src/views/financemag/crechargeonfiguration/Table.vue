@@ -2,6 +2,7 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="sort" :label="$t('sort')" width="150" />
       <el-table-column prop="channelName" :label="$t('Channelname')" width="" />
       <el-table-column prop="account" :label="$t('AccountName')" width="" />
       <el-table-column prop="currency" :label="$t('Currency')" width="" />
