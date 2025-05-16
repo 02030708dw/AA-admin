@@ -16,6 +16,9 @@
       <el-form-item :label="$t('Minimumrechargeamount')" prop="minMoney">
         <el-input v-model="ruleForm.minMoney" />
       </el-form-item>
+      <el-form-item :label="$t('sort')" prop="sort">
+        <el-input style="width: 200px" type='number' v-model="ruleForm.sort" />
+      </el-form-item>
       <el-form-item v-if="Channeltype > 3" label="三方充值" placeholder="请选择三方充值" prop="threePayId">
         <el-select v-model="ruleForm.threePayId" :placeholder="$t('typesof')" style="width: 200px"
           @change="threePayIdChange">
@@ -173,7 +176,8 @@ export default {
         bankCode: "",
         threePayId: "",
         maxMoney: '',
-        minMoney: ''
+        minMoney: '',
+        sort: '',
       },
       rules: {
         account: [{ required: true, message: "请输入户名", trigger: "blur" }],
@@ -211,6 +215,7 @@ export default {
         minMoney: [
           { required: true, message: "请输入最小金额", trigger: "blur" },
         ],
+        sort: [{ required: true, message: '请输入排序', trigger: 'blur' }],
       },
       bankCodeList: [],
     };
@@ -250,6 +255,7 @@ export default {
           threePayId: "",
           maxMoney: '',
           minMoney: '',
+          sort:'',
         };
       } else {
         this.ruleForm = { ...data };

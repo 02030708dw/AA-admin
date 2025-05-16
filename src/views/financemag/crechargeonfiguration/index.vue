@@ -243,6 +243,7 @@ export default {
         threePayId:data.threePayId,
         maxMoney:data.maxMoney,
         minMoney:data.minMoney,
+        sort: data.sort,
       })
         .then((res) => {
           this.getRechargedata(this.pageNo)
