@@ -63,6 +63,8 @@ export default {
         { title: '提现取消', index: 10 },
         { title: '提现驳回', index: 11 },
         { title: '提现发起', index: 12 },
+        { title: '创建红包', index: 13 },
+        { title: '下级会员充值返点', index: 14 },
       ],
       loading: false,
       tableData: [],
@@ -157,6 +159,10 @@ export default {
           return this.$t('提现驳回')
         case 12:
           return this.$t('提现发起')
+        case 13:
+          return this.$t('创建红包')
+        case 14:
+          return this.$t('下级会员充值返点')
       }
     }
   }

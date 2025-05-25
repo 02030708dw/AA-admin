@@ -581,6 +581,8 @@ export default {
   提现取消: "Withdrawal Cancelled",
   提现驳回: "Withdrawal Rejected",
   提现发起: "Withdrawal Submitted",
+  创建红包: "Creating a red envelope",
+  下级会员充值返点: "Junior members recharge rebate points",
   一键排序支付商: "Sort by Payment Provider",
   支付商展示顺序: "Payment Provider Display Order",
   创建代理: "Create Agent",
