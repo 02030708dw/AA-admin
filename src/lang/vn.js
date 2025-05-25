@@ -587,6 +587,8 @@ export default {
   提现取消: "Hủy rút tiền",
   提现驳回: "Từ chối rút tiền",
   提现发起: "Gửi yêu cầu rút tiền",
+  创建红包: "Tạo một phong bì màu đỏ",
+  下级会员充值返点: "Nạp tiền cho các thành viên cấp dưới",
   一键排序支付商: "Sắp xếp theo nhà cung cấp thanh toán",
   支付商展示顺序: "Thứ tự hiển thị nhà cung cấp thanh toán",
   创建代理: "Tạo đại lý",
