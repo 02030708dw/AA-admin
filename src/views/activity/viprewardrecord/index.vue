@@ -1,9 +1,10 @@
 <template>
   <el-card>
     <Control ref="ControlView" @SelectDate="HandelSelectDate" @resetting="getresetting" @query="getquery"
-      @Refresh="HandelRefresh" />
+      @statistics="getStatisticsShow" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" />
+    <Statistics ref="Statistics" @confirm="getStatistics" />
     <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
   </el-card>
 </template>
@@ -11,15 +12,18 @@
 <script>
 import Table from './Table.vue'
 import Control from './Control'
+import Statistics from './Statistics'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import {
   ServicePage,
+  SetStatistics
 } from '@/api/activity/viprewardrecord'
 export default {
   components: {
     Table,
     Control,
     Pagination,
+    Statistics
   },
   data() {
     return {
@@ -95,6 +99,24 @@ export default {
       this.rewardType = e.rewardType
       this.repeatableType = e.repeatableType
       this.getdata(1)
+    },
+    // 显示弹窗
+    getStatisticsShow() {
+      this.$refs.Statistics.getstatus()
+    },
+    getStatistics(e) {
+      SetStatistics(e)
+        .then((res) => {
+          this.getdata(this.pageNo)
+          this.$message({
+            message: '设置成功!',
+            type: 'success'
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$message.error('设置失败!')
+        })
     },
     getresetting() {
       this.isClaimed = null
