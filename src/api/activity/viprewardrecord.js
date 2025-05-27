@@ -34,3 +34,12 @@ export function ServicePage(data) {
         data
     })
 }
+
+//更新会员vip反水
+export function SetStatistics(data) {
+    return request({
+        url: `/vip/reward_record/statistics`,
+        method: 'post',
+        data
+    })
+}
