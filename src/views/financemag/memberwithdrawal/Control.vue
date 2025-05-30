@@ -170,6 +170,7 @@ export default {
         { title: this.$t("Approve"), index: 1 },
         { title: this.$t("reject"), index: 2 },
         { title: this.$t("Cancelled"), index: 3 },
+        { title: this.$t("InProgress"), index: 4 },
       ],
       btnIcoType: true,
       channelData: [],

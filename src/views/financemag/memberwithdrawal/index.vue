@@ -4,7 +4,7 @@
     <Control ref="ControlView" @SelectDate="HandelSelectDate" @getExcel="getExcel" @query="getquery"
       @resetting="getresetting" @Refresh="HandelRefresh" />
     <Table ref="TableView" :table-data="tableData" :result-set="resultSet" @info="Handelinfo" @pay="Handelpay"
-      @operate="Handeloperate" />
+      @operate="Handeloperate" @through="Handelthrough"/>
     <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getMemWitdata" />
     <InfoView ref="infoview" />
     <PayForAnother ref="PayForAnother" @pay="HandelpayConfirmPay" />
@@ -23,6 +23,7 @@ import {
   MemberwithdrawalPage,
   PayFor,
   memberCashRecordOutput,
+  forcePass
 } from "@/api/finance/memberwithdrawal";
 export default {
   components: {
@@ -107,6 +108,11 @@ export default {
     HandelpayConfirmPay(e) {
       console.log(e, "--------e");
       PayFor(e).then((res) => {
+        this.HandelRefresh();
+      });
+    },
+    Handelthrough(e) {
+      forcePass(e.id).then(() => {
         this.HandelRefresh();
       });
     },

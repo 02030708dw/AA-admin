@@ -1,59 +1,30 @@
 <template>
-  <el-dialog
-    :title="$t('Newannouncement')"
-    :visible.sync="dialogVisible"
-    width="60%"
-  >
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="100px"
-      class="demo-ruleForm"
-    >
+  <el-dialog :title="$t('Newannouncement')" :visible.sync="dialogVisible" width="60%">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
       <!-- 标题 -->
       <el-form-item :label="$t('AnnouncementTitle')" prop="title">
         <el-input v-model="ruleForm.title" />
       </el-form-item>
       <!-- 内容 -->
       <el-form-item :label="$t('Announcementcontent')" prop="content">
-        <Toolbar
-          style="border: 1px solid #ccc; border-bottom: 0px"
-          :editor="editor"
-          :default-config="toolbarConfig"
-          :mode="mode"
-        />
-        <Editor
-          v-model="ruleForm.content"
-          style="height: 350px; overflow-y: hidden; border: 1px solid #ccc"
-          :default-config="editorConfig"
-          :mode="mode"
-          @onCreated="onCreated"
-        />
+        <Tinymce v-model="ruleForm.content"></Tinymce>
+        <!-- <Toolbar style="border: 1px solid #ccc; border-bottom: 0px" :editor="editor" :default-config="toolbarConfig"
+          :mode="mode" />
+        <Editor v-model="ruleForm.content" style="height: 350px; overflow-y: hidden; border: 1px solid #ccc"
+          :default-config="editorConfig" :mode="mode" @onCreated="onCreated" /> -->
+
       </el-form-item>
 
       <!-- 公告类型 -->
       <el-form-item :label="$t('typesof')" prop="noteTypeId">
-        <el-select
-          v-model="ruleForm.noteTypeId"
-          :placeholder="$t('Pleaseselecttheannouncementtype')"
-          style="width: 30%"
-        >
-          <el-option
-            v-for="(item, index) in noticetypePage"
-            :key="index"
-            :value="item.id"
-            :label="item.name"
-          />
+        <el-select v-model="ruleForm.noteTypeId" :placeholder="$t('Pleaseselecttheannouncementtype')"
+          style="width: 30%">
+          <el-option v-for="(item, index) in noticetypePage" :key="index" :value="item.id" :label="item.name" />
         </el-select>
       </el-form-item>
       <!-- 公告状态 -->
       <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          v-model="ruleForm.status"
-          :active-value="1"
-          :inactive-value="0"
-        />
+        <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
     </el-form>
 
@@ -68,8 +39,9 @@
 
 <script>
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import Tinymce from '@/components/Editor/index.vue'
 export default {
-  components: { Editor, Toolbar },
+  components: { Editor, Toolbar, Tinymce },
   props: {
     noticetypePage: {
       type: Array,
@@ -148,5 +120,4 @@ export default {
 }
 </script>
 <style src="@wangeditor/editor/dist/css/style.css"></style>
-<style>
-</style>
+<style></style>

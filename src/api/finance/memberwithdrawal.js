@@ -53,3 +53,11 @@ export function memberCashRecordOutput(params) {
     responseType: 'blob'
   })
 }
+
+// 待审核数量
+export function forcePass(id) {
+  return request({
+    url: `/finance/memberCashRecord/forcePass/${id}`,
+    method: 'get',
+  })
+}
