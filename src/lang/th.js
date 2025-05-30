@@ -396,6 +396,7 @@ export default {
   Approve: "การตรวจสอบผ่าน",
   Rejected: "ปฏิเสธแล้ว",
   InProgress: "กำลังทำอยู่",
+  ForceThrough: "บังคับให้ผ่าน",
   currency: "สกุลเงิน",
   Memberbalance: "ยอดคงเหลือของสมาชิก",
   Gamemerchantbalance: "ยอดคงเหลือของผู้ให้บริการเกม",

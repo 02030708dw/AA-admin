@@ -404,6 +404,7 @@ export default {
   Approve: "Đã duyệt",
   Rejected: "Đã từ chối",
   InProgress: "Đang xử lý",
+  ForceThrough: "Bắt buộc phải đi qua",
   currency: "Tiền tệ",
   Memberbalance: "Số dư thành viên",
   Gamemerchantbalance: "Số dư nhà cung cấp trò chơi",
