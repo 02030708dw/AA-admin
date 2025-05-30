@@ -117,6 +117,8 @@
               }}</el-button>
           </template>
 
+          <el-button v-if="scope.row.aduitStatus === 3 || scope.row.aduitStatus === 4" type="text" @click="Through(scope.row)">{{ $t('ForceThrough') }}</el-button>
+
           <el-button type="text" @click="CopyInfo(scope.row)">{{ $t("复制") }}
           </el-button>
 
@@ -297,6 +299,9 @@ ${this.$t('Registrationtime')}：${this.$creationTime(v.registerDate) || ''}`.tr
       navigator.clipboard.writeText(info)
         .then(() => this.$message.success(this.$t('复制成功')))
         .catch(() => this.$message.error(this.$t('复制失败')));
+    },
+    Through(item){
+      this.$emit('through', item)
     }
   },
 };
