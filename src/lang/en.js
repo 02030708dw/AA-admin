@@ -403,6 +403,7 @@ export default {
   Approve: "Approve",
   Rejected: "Rejected",
   InProgress: "InProgress",
+  ForceThrough: "ForceThrough",
   currency: "currency",
   Memberbalance: " Member balance",
   Gamemerchantbalance: "Game merchant balance",
