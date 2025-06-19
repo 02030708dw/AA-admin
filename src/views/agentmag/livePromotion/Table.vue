@@ -23,7 +23,8 @@
       </el-table-column>
       <el-table-column label="操作" fixed="right" width="150">
         <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="$emit('examine', scope.row.id)">
+          <el-button type="text" v-if="scope.row.status == 1" style="color: #e6a23c"
+            @click="$emit('examine', scope.row.id)">
             {{ $t('toexamine') }}
           </el-button>
           <el-button type="text" @click="$emit('detail', scope.row.livePromotionId)">
