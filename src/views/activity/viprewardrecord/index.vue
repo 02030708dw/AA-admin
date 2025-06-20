@@ -1,25 +1,29 @@
 <template>
   <el-card>
     <Control ref="ControlView" @SelectDate="HandelSelectDate" @resetting="getresetting" @query="getquery"
-      @Refresh="HandelRefresh" />
+      @statistics="getStatisticsShow" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Statistics ref="Statistics" @confirm="getStatistics" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
   </el-card>
 </template>
 
 <script>
 import Table from './Table.vue'
 import Control from './Control'
+import Statistics from './Statistics'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import {
   ServicePage,
+  SetStatistics
 } from '@/api/activity/viprewardrecord'
 export default {
   components: {
     Table,
     Control,
     Pagination,
+    Statistics
   },
   data() {
     return {
@@ -33,6 +37,8 @@ export default {
       startDate: '',
       // 结束时间
       endDate: '',
+      rewardType: null,
+      vipLevel: null,
     }
   },
   created() {
@@ -55,7 +61,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name
+        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, vipLevel: this.vipLevel, rewardType: this.rewardType
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -77,7 +83,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate, isClaimed: this.isClaimed, name: this.name, vipLevel: this.vipLevel, rewardType: this.rewardType, repeatableType: this.repeatableType })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -89,11 +95,35 @@ export default {
     getquery(e) {
       this.isClaimed = e.isClaimed
       this.name = e.name
+      this.vipLevel = e.vipLevel
+      this.rewardType = e.rewardType
+      this.repeatableType = e.repeatableType
       this.getdata(1)
+    },
+    // 显示弹窗
+    getStatisticsShow() {
+      this.$refs.Statistics.getstatus()
+    },
+    getStatistics(e) {
+      SetStatistics(e)
+        .then((res) => {
+          this.getdata(this.pageNo)
+          this.$message({
+            message: '设置成功!',
+            type: 'success'
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$message.error('设置失败!')
+        })
     },
     getresetting() {
       this.isClaimed = null
       this.name = null
+      this.vipLevel = null
+      this.rewardType = null
+      this.repeatableType = null
       this.getdata(1)
     },
     // 删除

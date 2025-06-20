@@ -4,7 +4,7 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="memberName" :label="$t('Membername')" width=""></el-table-column>
-      <el-table-column prop="" :label="$t('Withdrawalinformation')" width="">
+      <el-table-column prop="" :label="$t('Withdrawalinformation')" width="250">
         <template slot-scope="scope">
           <div class="info_box">
             <div v-if="scope.row.bankName" class="item_box">
@@ -33,8 +33,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="orderNo" :label="$t('orderNo')" />
-      <el-table-column prop="" :label="this.resultSet.sumAmount ? '' + this.resultSet.sumAmount : '0'" width="">
-        <el-table-column prop="amount" :label="$t('amountofmoney')" />
+      <el-table-column prop="" :label="this.resultSet.sumAmount
+          ? '' + $formatNumber(this.resultSet.sumAmount)
+          : '0'
+        " width="">
+        <el-table-column prop="amount" :label="$t('amountofmoney')" :formatter="formatMoney" />
       </el-table-column>
       <el-table-column prop="threePayName" :label="$t('ThreePartyNames')" />
       <el-table-column :label="$t('Reviewstatus')" prop="aduitStatus">
@@ -53,41 +56,72 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
+
+      <el-table-column :label="$t('基本信息')" width="280">
+        <template slot-scope="scope">
+          <div class="Information">
+            <div>{{ $t("总充值次数") }} : {{ scope.row.incomeNum }}</div>
+            <div>{{ $t("总提款次数") }} : {{ scope.row.cashNum }}</div>
+            <div>{{ $t("充提差") }} : {{ $formatNumber(scope.row.incomeCashMargin) }}</div>
+            <div>{{ $t("输赢差") }} : {{ $formatNumber(scope.row.winLossMargin) }}</div>
+            <div>{{ $t("balance") }} : {{ $formatNumber(scope.row.balance) }}</div>
+            <div>
+              {{ $t("Registrationtime") }} :
+              {{ $creationTime(scope.row?.registerDate) }}
+            </div>
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column :label="$t('Creationtime')" width="">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('Audittime')" width="">
+
+      <el-table-column :label="$t('Audittime')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.aduitTime | timeF }}</span>
         </template>
       </el-table-column>
+
       <el-table-column prop="updater" :label="$t('Updatedby')" width=""></el-table-column>
       <!-- 操作 -->
-      <el-table-column prop="" :label="$t('operate')" width="">
+      <el-table-column :label="$t('operate')">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
-          }}</el-button>
-          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
-            v-if="scope.row.aduitStatus === 0" :title="$t('passthrough')" @onConfirm="getaudit(1, scope.row.id)">
-            <el-button style="margin-right: 5px;" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
-              {{ $t("passthrough") }}
-            </el-button>
-          </el-popconfirm>
-          <el-button v-has="'memberwithdrawal:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: red"
-            @click="getaudit(2, scope.row.id)">
-            {{ $t("reject") }}
+          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail") }}
           </el-button>
-          <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
-            v-if="scope.row.aduitStatus === 0" :title="$t('cancellation')" @onConfirm="getaudit(3, scope.row.id)">
-            <el-button slot="reference" v-has="'memberwithdrawal:aduit'" type="text"
-              style="margin-left: 5px; color: #a4a4a4">
-              {{ $t("cancellation") }}
+
+          <template v-if="scope.row.aduitStatus === 0">
+            <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
+              :title="$t('passthrough')" @confirm="getaudit(1, scope.row.id)">
+              <el-button style="margin-right: 5px" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
+                {{ $t("passthrough") }}
+              </el-button>
+            </el-popconfirm>
+
+            <el-button v-has="'memberwithdrawal:aduit'" type="text" style="color: red"
+              @click="getaudit(2, scope.row.id)">
+              {{ $t("reject") }}
             </el-button>
-          </el-popconfirm>
-          <el-button v-has="'memberwithdrawal:fo'" v-if="scope.row.aduitStatus === 0" type="text"
-            @click="Handelpay(scope.row)">{{ $t("Paymentonbehalf") }}</el-button>
+
+            <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
+              :title="$t('cancellation')" @onConfirm="getaudit(3, scope.row.id)">
+              <el-button slot="reference" v-has="'memberwithdrawal:aduit'" type="text"
+                style="margin-left: 5px; color: #a4a4a4">
+                {{ $t("cancellation") }}
+              </el-button>
+            </el-popconfirm>
+
+            <el-button v-has="'memberwithdrawal:fo'" type="text" @click="Handelpay(scope.row)">{{ $t("Paymentonbehalf")
+              }}</el-button>
+          </template>
+
+          <el-button v-if="scope.row.aduitStatus === 3 || scope.row.aduitStatus === 4" type="text" @click="Through(scope.row)">{{ $t('ForceThrough') }}</el-button>
+
+          <el-button type="text" @click="CopyInfo(scope.row)">{{ $t("复制") }}
+          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -126,9 +160,9 @@ export default {
     resultSet: {
       type: Object,
       default: () => {
-        return {}
-      }
-    }
+        return {};
+      },
+    },
   },
   data() {
     return {
@@ -157,12 +191,18 @@ export default {
     },
     getStatusType(status) {
       switch (status) {
-        case 0: return 'primary';      // 待审核 - 蓝色
-        case 1: return 'success';   // 审核通过 - 绿色
-        case 2: return 'danger';    // 驳回 - 红色
-        case 3: return 'info';   // 已取消 - 橙色
-        case 4: return 'warning';   // 进行中 - 黄色
-        default: return 'default';  // 默认灰色
+        case 0:
+          return "primary"; // 待审核 - 蓝色
+        case 1:
+          return "success"; // 审核通过 - 绿色
+        case 2:
+          return "danger"; // 驳回 - 红色
+        case 3:
+          return "info"; // 已取消 - 橙色
+        case 4:
+          return "warning"; // 进行中 - 黄色
+        default:
+          return "default"; // 默认灰色
       }
     },
     // 改变loading
@@ -237,6 +277,32 @@ export default {
           break;
       }
     },
+    // 格式化金额
+    formatMoney(row, column, cellValue) {
+      return this.$formatNumber(cellValue);
+    },
+    // 复制表格信息
+    CopyInfo(v) {
+      const info = `
+${this.$t('Membername')}：${v.memberName}
+${this.$t('Withdrawalinformation')}：${v.bankName ? v.bankName + '-' + v.bankCardNo : v.alipay || v.wechat || v.coin || ''}
+${this.$t('orderNo')}：${v.orderNo}
+${this.$t('amountofmoney')}：${this.$formatNumber(v.amount)}
+${this.$t('总充值次数')}：${v.incomeNum}
+${this.$t('总提款次数')}：${v.cashNum}
+${this.$t('充提差')}：${this.$formatNumber(v.incomeCashMargin)}
+${this.$t('输赢差')}：${this.$formatNumber(v.winLossMargin)}
+${this.$t('balance')}：${this.$formatNumber(v.balance)}
+${this.$t('应用程序时间')}：${this.$creationTime(v.createdAt)}
+${this.$t('Registrationtime')}：${this.$creationTime(v.registerDate) || ''}`.trim();
+
+      navigator.clipboard.writeText(info)
+        .then(() => this.$message.success(this.$t('复制成功')))
+        .catch(() => this.$message.error(this.$t('复制失败')));
+    },
+    Through(item){
+      this.$emit('through', item)
+    }
   },
 };
 </script>
@@ -264,5 +330,11 @@ export default {
       text-align: left;
     }
   }
+}
+
+.Information {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 </style>

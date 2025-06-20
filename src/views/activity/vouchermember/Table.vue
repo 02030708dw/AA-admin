@@ -22,6 +22,14 @@
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
+      <el-table-column prop="" :label="$t('operate')" width="">
+        <template slot-scope="scope">
+          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
+            $t("edit") }}</el-button>
+          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
+          }}</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </el-card>
 </template>
@@ -53,6 +61,8 @@ export default {
           return '已过期'
         case 3:
           return '未使用'
+        case 4:
+          return '使用中'
       }
     },
     // 改变loading

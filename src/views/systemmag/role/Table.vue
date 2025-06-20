@@ -5,7 +5,7 @@
       <el-table-column type="index" :label="$t('SerialNumber')" width="120" />
       <el-table-column prop="roleName" :label="$t('RoleName')" width="" />
       <el-table-column prop="code" :label="$t('RoleCode')" width="" />
-      <el-table-column prop="" :label="$t('state')" width="" v-has="'role:status'">
+      <el-table-column prop="" :label="$t('state')" width="200" v-has="'role:status'">
         <template slot-scope="scope">
           <div>
             <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"

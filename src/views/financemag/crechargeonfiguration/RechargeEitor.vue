@@ -16,6 +16,9 @@
       <el-form-item :label="$t('Minimumrechargeamount')" prop="minMoney">
         <el-input v-model="ruleForm.minMoney" />
       </el-form-item>
+      <el-form-item :label="$t('sort')" prop="sort">
+        <el-input style="width: 200px" type='number' v-model="ruleForm.sort" />
+      </el-form-item>
       <el-form-item v-if="Channeltype > 3" label="三方充值" placeholder="请选择三方充值" prop="threePayId">
         <el-select v-model="ruleForm.threePayId" :placeholder="$t('typesof')" style="width: 200px"
           @change="threePayIdChange">
@@ -25,11 +28,14 @@
       <el-form-item v-if="ruleForm.type === 0" :label="$t('AccountName')" prop="account">
         <el-input v-model="ruleForm.account" />
       </el-form-item>
-      <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
+      <!-- <el-form-item v-if="ruleForm.type === 0" :label="$t('BankName')" prop="bankName">
         <el-select v-model="ruleForm.bankName" :placeholder="$t('typesof')" style="width: 200px"
           @change="bankNameChange">
           <el-option v-for="(item, index) in bankCodeList" :key="index" :value="item.bankCode" :label="item.bankCode" />
         </el-select>
+      </el-form-item> -->
+      <el-form-item :label="$t('BankName')" prop="bankName">
+        <el-input v-model="ruleForm.bankName" />
       </el-form-item>
       <el-form-item v-if="ruleForm.type === 1" :label="$t('Alipayaccount')" prop="alipay">
         <el-input v-model="ruleForm.alipay" />
@@ -77,11 +83,7 @@
         />
       </el-form-item> -->
       <el-form-item :label="$t('icon')" prop="icon">
-        <el-upload action="#" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
-          :on-error="uploadonerror">
-          <img v-if="ruleForm.icon" :src="ruleForm.icon" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        <UploadImage v-if="dialogVisible" :Fn="'incomeSetting'" :img="ruleForm.icon" @Upload="getImageURL" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -95,7 +97,11 @@
 
 <script>
 import { cashBankList } from "@/api/finance/WithdrawalBank";
+import UploadImage from '@/components/Upload/imageDemo.vue'
 export default {
+  components: {
+    UploadImage
+  },
   props: {
     channelidList: {
       type: Array,
@@ -170,7 +176,8 @@ export default {
         bankCode: "",
         threePayId: "",
         maxMoney: '',
-        minMoney: ''
+        minMoney: '',
+        sort: '',
       },
       rules: {
         account: [{ required: true, message: "请输入户名", trigger: "blur" }],
@@ -208,6 +215,7 @@ export default {
         minMoney: [
           { required: true, message: "请输入最小金额", trigger: "blur" },
         ],
+        sort: [{ required: true, message: '请输入排序', trigger: 'blur' }],
       },
       bankCodeList: [],
     };
@@ -247,6 +255,7 @@ export default {
           threePayId: "",
           maxMoney: '',
           minMoney: '',
+          sort:'',
         };
       } else {
         this.ruleForm = { ...data };
@@ -313,6 +322,9 @@ export default {
           resolve(imgResult);
         };
       });
+    },
+    getImageURL(url) {
+      this.ruleForm.icon = url
     },
   },
 };

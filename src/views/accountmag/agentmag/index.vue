@@ -1,10 +1,11 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @Refresh="HandelRefresh"   @AgentAdd="getAgentAddShow" @Agequery="getAgequery"
+    <Control ref="ControlView" @Refresh="HandelRefresh" @AgentAdd="getAgentAddShow" @Agequery="getAgequery"
       @resetting="getresetting" />
     <!-- 表格 -->
-    <Table ref="TableView" :table-data="tableData" @Edit="getAgentEditShow" @transfer="getTransferShow" @updateStatus="getAgentUdateStatus" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getAgentdata" />
+    <Table ref="TableView" :table-data="tableData" @Edit="getAgentEditShow" @transfer="getTransferShow"
+      @updateStatus="getAgentUdateStatus" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getAgentdata" />
     <AgentAdd ref="AgentAdd" @confirm="getAgentAdd" />
     <AgentEdit ref="AgentEdit" @confirm="getAgentEdit" />
     <AgentTransfer ref="AgentTransfer" @confirm="getTransferConfirm" />
@@ -22,12 +23,12 @@ import AgentTransfer from './AgentTransfer.vue'
 import {
   AgentPage,
   AgentUpdateStatus,
-  AddAgent, 
+  AddAgent,
   EditAgent,
   TransferAgent
 } from '@/api/account/agent'
 export default {
-  components: { Table, Pagination, Control, AgentAdd, AgentTransfer,AgentEdit },
+  components: { Table, Pagination, Control, AgentAdd, AgentTransfer, AgentEdit },
   data() {
     return {
       // 总条数

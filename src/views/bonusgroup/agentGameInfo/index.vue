@@ -3,7 +3,7 @@
     <Control ref="ControlView" @resetting="getresetting" @query="getquery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @EditorShow="getEitorShow" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsEitor ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
 </template>

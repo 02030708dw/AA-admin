@@ -1,26 +1,39 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
-  
-    <el-select clearable v-model="isClaimed" :placeholder="$t('Hasitbeencollected')"
-      style="width: 200px;margin:0 5px">
-      <el-option v-for="(item, index) in [{ index: 1, title: '是' }, { index: 0, title: '否' }]" :key="index"
-        :value="item.index" :label="item.title" />
+
+    <el-select clearable v-model="vipLevel" :placeholder="$t('VIPlevel')" style="width: 200px;margin:0 5px">
+      <el-option v-for="(item, index) in vipList" :key="index" :value="item.id" :label="item.description" />
     </el-select>
-      <!-- 选择日期 -->
-      <el-date-picker v-model="value" style="margin-right: 10px;" type="daterange" align="right" unlink-panels
+    <el-select clearable v-model="repeatableType" :placeholder="$t('Typeofclaim')"
+      style="width: 200px;margin-left: 10px">
+      <el-option v-for="(item, index) in TypeCollection" :key="index" :value="item.index" :label="$t(item.title)" />
+    </el-select>
+    <el-select clearable v-model="rewardType" :placeholder="$t('RewardType')" style="width: 200px;margin:0 5px">
+      <el-option v-for="(item, index) in [{ index: 1, title: 'bonus' }, { index: 2, title: 'defect' }]" :key="index"
+        :value="item.index" :label="$t(item.title)" />
+    </el-select>
+    <el-select clearable v-model="isClaimed" :placeholder="$t('Hasitbeencollected')" style="width: 200px;margin:0 5px">
+      <el-option v-for="(item, index) in [{ index: 1, title: $t('correct') }, { index: 0, title: $t('deny') }]"
+        :key="index" :value="item.index" :label="item.title" />
+    </el-select>
+    <!-- 选择日期 -->
+    <el-date-picker v-model="value" style="margin-right: 10px;" type="daterange" align="right" unlink-panels
       :range-separator="$t('to')" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions"
       @change="heandlerTime" />
-    <el-button v-has="'noticemag:page'" style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query')
-      }}</el-button>
+    <el-button style="margin-left:10px;" type="primary" @click="getquery()">{{ $t('query') }}</el-button>
+    <el-button style="margin-left:10px;" type="primary" @click="getstatistics()">手动更新反水</el-button>
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
-      }}</el-button>
+    }}</el-button>
     <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
   </el-row>
 </template>
 
 <script>
+import {
+  ServicePage as vipList
+} from '@/api/activity/vipconfig'
 export default {
   name: 'Control',
   data() {
@@ -60,9 +73,27 @@ export default {
       name: '',
       isClaimed: '',
       btnIcoType: true,
+      vipLevel: '',
+      vipList: [],
+      rewardType: '',
+      repeatableType: '',
+      TypeCollection: [
+        { index: 1, title: "Takeonce" },
+        { index: 2, title: "Receiveddaily" },
+        { index: 3, title: "MonthlyPayment" },
+        { index: 4, title: "ReceiveAnnually" },
+      ]
     }
   },
+  created() {
+    this.getVipList()
+  },
   methods: {
+    getVipList() {
+      vipList({ pageSize: 20 }).then(res => {
+        this.vipList = res.resultSet.data
+      })
+    },
     // 选择日期
     heandlerTime() {
       const timearr = []
@@ -92,6 +123,8 @@ export default {
       this.name = null
       this.isClaimed = null
       this.value = null
+      this.vipLevel = null
+      this.rewardType = null
       this.$emit('resetting')
     },
     // 刷新
@@ -104,8 +137,11 @@ export default {
       this.btnIcoType = true
     },
     getquery() {
-      this.$emit('query', { name: this.name, isClaimed: this.isClaimed })
+      this.$emit('query', { name: this.name, isClaimed: this.isClaimed, vipLevel: this.vipLevel, rewardType: this.rewardType, repeatableType: this.repeatableType })
     },
+    getstatistics() {
+      this.$emit('statistics')
+    }
   }
 }
 </script>

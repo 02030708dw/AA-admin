@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="$t('Balanceadditionsubtraction')" @open="openDialog" :visible.sync="dialogVisible" width="50%">
+    <el-dialog title="支付商展示顺序" @open="openDialog" :visible.sync="dialogVisible" width="50%">
         <el-form ref="FormData" :rules="rules" :model="FormData" label-width="110px">
             <el-form-item label="三方排序" prop="paymentProviderOrders">
                 <el-transfer ref="transfer" v-model="groupModal" :data="groupModalList" :titles="['未排序', '已排序']"
@@ -18,7 +18,7 @@
     </el-dialog>
 </template>
 <script>
-import { editPayment } from '@/api/account/member'
+import { editPayment, editPaymentAll } from '@/api/account/member'
 import Sortable from 'sortablejs';
 //三方充值配置下拉框列表
 import { thirdDropDown } from '@/api/thirdpartypayment/thirdpartypayment'
@@ -35,7 +35,8 @@ export default {
             },
             aiInfoConData: [1, 2, 3],
             groupModal: [],
-            groupModalList: []
+            groupModalList: [],
+            type: 'edit',//判断是否一键排序
         }
     },
     mounted() {
@@ -74,8 +75,11 @@ export default {
                 })
             })
         },
-        HandelChangeShow(id = null, list) {
+        HandelChangeShow(id = null, list, type = 'edit') {
             this.dialogVisible = !this.dialogVisible
+            this.type = type
+            console.log(id, list, type);
+
             if (this.dialogVisible) {
                 this.FormData.memberId = id
                 this.groupModal = list ? list.map(v => v.threePayId) : []
@@ -98,12 +102,21 @@ export default {
                         type: 'warning'
                     })
                 } else {
-                    editPayment(this.FormData).then(res => {
-                        this.$message({ message: '操作成功!', type: 'success' })
-                        this.$emit('Refresh')
-                    }).catch(() => {
-                        this.$message.error('操作失败!')
-                    })
+                    if (this.type == 'all') {
+                        editPaymentAll(this.FormData.paymentProviderOrders).then(res => {
+                            this.$message({ message: '操作成功!', type: 'success' })
+                            this.$emit('Refresh')
+                        }).catch(() => {
+                            this.$message.error('操作失败!')
+                        })
+                    } else {
+                        editPayment(this.FormData).then(res => {
+                            this.$message({ message: '操作成功!', type: 'success' })
+                            this.$emit('Refresh')
+                        }).catch(() => {
+                            this.$message.error('操作失败!')
+                        })
+                    }
                     this.HandelChangeShow()
                 }
             })

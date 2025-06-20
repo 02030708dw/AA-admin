@@ -1,6 +1,6 @@
 <template>
   <!-- 显示会员详情 -->
-  <el-dialog title="会员详情" :visible.sync="dialogVisible" width="60%" @close="Handelclose">
+  <el-dialog :title="$t('MemberDetails')" :visible.sync="dialogVisible" width="80%" @close="Handelclose">
     <el-tabs v-model="tabsValue" type="border-card" @tab-click="HandelTab">
       <el-tab-pane name="0" v-has="'membermag:flow'" :label="$t('Memberfundflow')">
         <FlowingWater ref="flowingwaterView" />
@@ -88,6 +88,7 @@ export default {
             realName: this.MemberInfo.realName,
             telPhone: this.MemberInfo.telPhone,
             userName: this.MemberInfo.userName,
+            email: this.MemberInfo.email,
             bankCardNoList: this.MemberInfo.bankCardNoList || [{ bankCardNo: '', memberCashId: '' }],
           }
           this.$refs.PersonalDetails.getfinanceCashBank(this.MemberInfo.currency)

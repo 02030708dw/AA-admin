@@ -120,6 +120,24 @@ export const asyncRoutes = [
         component: () => import('@/views/agentmag/agentvideo/index'),
         meta: { title: 'agentvideo', icon: 'el-icon-news' }
       },
+      {
+        path: 'agentrebatesetting',
+        name: 'agentrebatesetting',
+        component: () => import('@/views/agentmag/agentrebatesetting/index'),
+        meta: { title: 'agentrebatesetting', icon: 'el-icon-news' }
+      },
+      {
+        path: 'agentrebaterecord',
+        name: 'agentrebaterecord',
+        component: () => import('@/views/agentmag/agentrebaterecord/index'),
+        meta: { title: 'agentrebaterecord', icon: 'el-icon-news' }
+      },
+      {
+        path: 'livePromotionBenefitRecord',
+        name: 'livePromotionBenefitRecord',
+        component: () => import('@/views/agentmag/livePromotion/index'),
+        meta: { title: 'LivePromotionBonusRecord', icon: 'el-icon-news' }
+      },
     ]
   },
   {
@@ -133,12 +151,6 @@ export const asyncRoutes = [
         name: 'memberrecharge',
         component: () => import('@/views/financemag/memberrecharge/index'),
         meta: { title: 'memberrecharge', icon: 'el-icon-s-finance' }
-      },
-      {
-        path: 'agentwithdrawal',
-        name: 'agentwithdrawal',
-        component: () => import('@/views/financemag/agentwithdrawal/index'),
-        meta: { title: 'agentwithdrawal', icon: 'el-icon-s-cooperation' }
       },
       {
         path: 'memberwithdrawal',
@@ -169,6 +181,18 @@ export const asyncRoutes = [
         name: 'WithdrawalBank',
         component: () => import('@/views/financemag/WithdrawalBank/index'),
         meta: { title: 'WithdrawalBankManagement', icon: 'el-icon-s-operation' }
+      },
+      {
+        path: 'agentwithdrawal',
+        name: 'agentwithdrawal',
+        component: () => import('@/views/financemag/agentwithdrawal/index'),
+        meta: { title: 'agentwithdrawal', icon: 'el-icon-s-cooperation' }
+      },
+      {//会员提现配置管理
+        path: 'financemembercashmanage',
+        name: 'financemembercashmanage',
+        component: () => import('@/views/financemag/membercashmanage/index'),
+        meta: { title: 'membercashmanage', icon: 'el-icon-s-cooperation' }
       }
     ]
   },
@@ -224,6 +248,12 @@ export const asyncRoutes = [
         name: 'reportmemberbetform',
         component: () => import('@/views/reportformsmag/Memberbet/index.vue'),
         meta: { title: 'MemberBets', icon: 'el-icon-pie-chart' }
+      },
+      {
+        path: '/Reportincomecash',
+        name: 'reportincomecash',
+        component: () => import('@/views/reportformsmag/reportincomecash/index.vue'),
+        meta: { title: 'reportincomecash', icon: 'el-icon-pie-chart' }
       },
     ]
   },
@@ -457,6 +487,24 @@ export const asyncRoutes = [
         name: "redpacketrecord",
         component: () => import('@/views/activity/redpacketrecord/index'),
         meta: { title: 'redpacketrecord', icon: 'el-icon-s-flag' }
+      },
+      {//GW彩票配置表
+        path: "/gwticketconfig",
+        name: "gwticketconfig",
+        component: () => import('@/views/activity/gwticketconfig/index'),
+        meta: { title: 'gwticketconfig', icon: 'el-icon-s-flag' }
+      },
+      {//GW用户彩票信息表
+        path: "/gwticketmember",
+        name: "gwticketmember",
+        component: () => import('@/views/activity/gwticketmember/index'),
+        meta: { title: 'gwticketmember', icon: 'el-icon-s-flag' }
+      },
+      {//GW红包领取记录表
+        path: "/gwticketrecord",
+        name: "gwticketrecord",
+        component: () => import('@/views/activity/gwticketrecord/index'),
+        meta: { title: 'gwticketrecord', icon: 'el-icon-s-flag' }
       }
     ]
   },

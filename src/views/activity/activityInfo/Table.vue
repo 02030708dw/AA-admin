@@ -115,8 +115,8 @@ export default {
       this.$emit('UdateStatus', { status: e, id: id })
     },
     toUrl(list) {
+      if(!list) return ''
       let url = list ? JSON.parse(list) : []
-
       //保留语言判断
       return "https://static.44dog.cc/" + url[0].pictureUrl
     },

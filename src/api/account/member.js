@@ -167,3 +167,30 @@ export function agentTransfer(data) {
     data
   })
 }
+
+//一键修改所有会员三方支付商展示顺序信息
+export function editPaymentAll(data) {
+  return request({
+    url: `/user/member/editPayment/all`,
+    method: 'post',
+    data
+  })
+}
+
+//修改提款次数
+export function editWithdrawCount(data) {
+  return request({
+    url: `/user/member/editWithdrawCount`,
+    method: 'post',
+    data
+  })
+}
+
+//一键修改提款次数
+export function editWithdrawCountAll(data) {
+  return request({
+    url: `/user/member/editWithdrawCount/all`,
+    method: 'post',
+    data
+  })
+}

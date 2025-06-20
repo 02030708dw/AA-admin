@@ -12,7 +12,7 @@
       @getdel="getThirdDel"
       @getEitor="getThirdEitorShow"
     />
-    <Pagination :total="total" @PageChange="getThirdData" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageChange="getThirdData" />
     <ThirdAdd ref="ThirdAdd" @confirm="getThirdAdd" />
     <ThirdEitor ref="ThirdEitor" @confirm="getThirdEitor" />
   </el-card>

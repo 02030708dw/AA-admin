@@ -23,6 +23,9 @@
       <el-form-item :label="$t('单注中奖金额')" prop="winAmount">
         <el-input v-model="ruleForm.winAmount" />
       </el-form-item>
+      <el-form-item :label="$t('单倍满水金额')" prop="fullAmount">
+        <el-input v-model="ruleForm.fullAmount" />
+      </el-form-item>
       <el-form-item :label="$t('展示标识')">
         <el-select clearable v-model="ruleForm.sign" :placeholder="$t('是否展示')" style="width: 200px;margin:0 5px">
           <el-option v-for="(item, index) in [{ index: 1, title: '展示' }, { index: 0, title: '不展示' }]" :key="index"
@@ -52,7 +55,8 @@ export default {
         "gamePlayTypeId": null,
         "gamePlayTypeName": null,
         "sign": null,
-        "winAmount": null
+        "winAmount": null,
+        "fullAmount": null
       },
       rules: {
         gameId: [{ required: true, message: "请输入游戏ID", trigger: "blur" }],
@@ -62,6 +66,7 @@ export default {
         gamePlayTypeId: [{ required: true, message: "请输入游戏类型ID", trigger: "blur" }],
         gamePlayTypeName: [{ required: true, message: "请输入游戏类型名称", trigger: "blur" }],
         winAmount: [{ required: true, message: "请输入单注中奖金额", trigger: "blur" }],
+        fullAmount: [{ required: true, message: "请输入单倍满水金额", trigger: "blur" }],
 
       },
     };
@@ -79,7 +84,8 @@ export default {
           "gamePlayTypeId": null,
           "gamePlayTypeName": null,
           "sign": null,
-          "winAmount": null
+          "winAmount": null,
+          "fullAmount": null
         };
       } else {
         this.ruleForm = { ...data };

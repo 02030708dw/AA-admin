@@ -18,6 +18,8 @@
       <el-table-column prop="realName" :label="$t('Realname')" width="" />
       <el-table-column prop="parentName" :label="$t('Superiormembername')" width="" />
       <el-table-column prop="cashFlow" :label="$t('Withdrawalrequiredtransactionflow')" width="" />
+      <el-table-column prop="remainingWithdrawCount" label="剩余提款次数" width="" />
+      <el-table-column prop="dailyWithdrawCount" label="每日提款次数" width="" />
       <!-- <el-table-column prop="plugUrl" :label="$t('plugUrl')" width="" /> -->
       <el-table-column prop="createdAt" :label="$t('Registrationtime')" width="">
         <template slot-scope="scope">
@@ -32,19 +34,22 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('Memberinformation')" width="">
+      <el-table-column prop="" :label="$t('Memberinformation')">
         <template slot-scope="scope">
           <el-button v-has="'membermag:memberInfo'" type="text" @click="MemberInfo(scope.row)">{{ $t('MemberDetails')
           }}</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('operate')" width="200">
+      <el-table-column prop="" :label="$t('operate')" width="280">
         <template slot-scope="scope">
           <!-- <el-button v-if="scope.row.parentName" v-has="'membermag:memberTransfer'" type="text"
             @click="Membershiptransfer(scope.row)">{{
               $t("Membershiptransfer")
             }}</el-button> -->
-          <el-button type="text" @click="MemberEditPayment(scope.row)"> 支付商展示顺序 </el-button>
+          <el-button type="text" @click="MemberEditPayment(scope.row)"> {{ $t('支付商展示顺序') }} </el-button>
+          <el-button type="text" @click="MemberEditWithdrawCount(scope.row)">修改提款次数</el-button>
+          <el-button v-if="!scope.row.isAgent" type="text" @click="CreateAgent(scope.row)"> {{ $t('创建代理') }}
+          </el-button>
           <el-button v-has="'membermag:resetPwd'" type="text" @click="MemberresettingPwd(scope.row)">{{
             $t('resetpassword') }}</el-button>
           <el-button v-has="'membermag:changeBalance'" type="text" @click="MemberUpdatebalance(scope.row)">{{
@@ -137,6 +142,14 @@ export default {
     // 给会员修改三方支付商展示顺序信息
     MemberEditPayment(data) {
       this.$emit('MemberEditPayment', data.id, data.paymentProviderOrders)
+    },
+    // 修改提款次数
+    MemberEditWithdrawCount(data) {
+      this.$emit('MemberEditWithdrawCount', data.id)
+    },
+    // 直接创建代理
+    CreateAgent(data) {
+      this.$emit('CreateAnAgent', data.id)
     },
   }
 }

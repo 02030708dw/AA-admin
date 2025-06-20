@@ -17,7 +17,7 @@
       @eitor="getRechargeEitorShow"
       @updateStatus="getRechargeUdateStatus"
     />
-    <Pagination
+    <Pagination  :pageNo="pageNo"
       :total="total"
       @PageSizeChange="HandelPagesChange"
       @PageChange="getRechargedata"
@@ -243,6 +243,7 @@ export default {
         threePayId:data.threePayId,
         maxMoney:data.maxMoney,
         minMoney:data.minMoney,
+        sort: data.sort,
       })
         .then((res) => {
           this.getRechargedata(this.pageNo)

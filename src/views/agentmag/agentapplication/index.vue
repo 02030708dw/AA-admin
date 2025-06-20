@@ -1,9 +1,10 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @ApplicationDate="ApplicationDate" @ReviewDate="ReviewDate" @resetting="getresetting" @query="getquery" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @ApplicationDate="ApplicationDate" @ReviewDate="ReviewDate" @resetting="getresetting"
+      @query="getquery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @EditorShow="getExamineShow" />
-    <Pagination :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsExamine ref="ComponentsExamine" @confirm="getExamine" />
   </el-card>
 </template>
@@ -122,13 +123,7 @@ export default {
       this.$refs.ComponentsExamine.getAddstatus(e)
     },
     getExamine(data) {
-      ServiceExamine({
-        id: data.id,
-        remarks: data.remarks,
-        status: data.status,
-        firstLevelDailyRate: data.firstLevelDailyRate,
-        secondLevelDailyRate: data.secondLevelDailyRate,
-      })
+      ServiceExamine(data)
         .then((res) => {
           this.getdata(this.pageNo)
           this.$message({

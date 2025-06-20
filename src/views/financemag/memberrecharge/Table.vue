@@ -1,7 +1,12 @@
 <template>
   <el-card>
-    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }">
+    <el-table
+      v-loading="loading"
+      :data="tableData"
+      :border="true"
+      :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }"
+    >
       <el-table-column prop="" :label="$t('Membername')" width="">
         <template slot-scope="scope">
           <div class="MemberName_box">
@@ -10,21 +15,43 @@
             <div v-if="scope.row.isFrist" class="isFrist_box">
               {{ $t("Firstrecharge") }}
             </div>
+            <!-- 使用优惠 -->
+            <div v-if="scope.row.voucherMemberId" class="isFrist_box">
+              {{ $t("使用优惠") }}
+            </div>
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="amount" :label="$t('amountofmoney')" width="" />
+      <el-table-column prop="amount" :label="$t('amountofmoney')" width="">
+        <template slot-scope="scope">
+          <div class="MemberName_box">
+            <div class="title_box">{{ scope.row.amount }}</div>
+            <!-- 赠送 -->
+            <div v-if="scope.row.voucherMemberId" class="isFrist_box">
+              {{ $t("赠送") + " : " + scope.row.voucherAmount }}
+            </div>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="" :label="$t('RechargeChannels')" width="">
         <template slot-scope="scope">
           {{ scope.row.channelName }}
         </template>
       </el-table-column>
-      <el-table-column prop="threePayName" :label="$t('ThreePartyNames')" width="" />
+      <el-table-column
+        prop="threePayName"
+        :label="$t('ThreePartyNames')"
+        width=""
+      />
 
       <!-- <el-table-column prop="cardNo" :label="$t('PaymentCardNumber')" width="" /> -->
       <!-- <el-table-column prop="bankName" :label="$t('BankName')" width="" /> -->
 
-      <el-table-column prop="tripartiteOrderNo" :label="$t('三方订单号')" width="" />
+      <el-table-column
+        prop="tripartiteOrderNo"
+        :label="$t('三方订单号')"
+        width=""
+      />
       <el-table-column prop="orderNo" :label="$t('orderNo')" width="" />
       <el-table-column prop="payee" :label="$t('payee')" width="" />
       <el-table-column prop="" :label="$t('Paymentinformation')">
@@ -79,7 +106,11 @@
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('Updatedby')" width=""></el-table-column>
+      <el-table-column
+        prop="updater"
+        :label="$t('Updatedby')"
+        width=""
+      ></el-table-column>
       <el-table-column :label="$t('Reviewstatus')" prop="aduitStatus">
         <template slot-scope="scope">
           <div class="status_box">
@@ -98,21 +129,42 @@
       </el-table-column>
       <el-table-column prop="aduitTime" :label="$t('Audittime')" width="">
         <template slot-scope="scope">
-          <div> {{ scope.row.aduitTime | timeF }} </div>
+          <div>{{ scope.row.aduitTime | timeF }}</div>
           <!-- <div>{{ $creationTime(scope.row.aduitTime) }}</div> -->
         </template>
       </el-table-column>
       <el-table-column prop="" :label="$t('operate')" width="">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail")
-          }}</el-button>
-          <el-button v-has="'memberrecharge:aduit'" v-if="scope.row.aduitStatus === 0" type="text"
-            @click="HandelOption(scope.row.id, 1)">{{ $t("passthrough") }}</el-button>
-          <el-button v-has="'memberrecharge:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: red"
-            @click="HandelOption(scope.row.id, 2)">{{ $t("reject") }}</el-button>
-          <el-button v-has="'memberrecharge:aduit'" v-if="scope.row.aduitStatus === 0" type="text" style="color: black"
-            @click="HandelOption(scope.row.id, 3)">
-            {{ $t("cancellation") }}</el-button>
+          <el-button
+            v-if="scope.row.aduitStatus != 0"
+            type="text"
+            @click="HandelInfo(scope.row)"
+            >{{ $t("Detail") }}</el-button
+          >
+          <el-button
+            v-has="'memberrecharge:aduit'"
+            v-if="scope.row.aduitStatus === 0"
+            type="text"
+            @click="HandelOption(scope.row.id, 1)"
+            >{{ $t("passthrough") }}</el-button
+          >
+          <el-button
+            v-has="'memberrecharge:aduit'"
+            v-if="scope.row.aduitStatus === 0"
+            type="text"
+            style="color: red"
+            @click="HandelOption(scope.row.id, 2)"
+            >{{ $t("reject") }}</el-button
+          >
+          <el-button
+            v-has="'memberrecharge:aduit'"
+            v-if="scope.row.aduitStatus === 0"
+            type="text"
+            style="color: black"
+            @click="HandelOption(scope.row.id, 3)"
+          >
+            {{ $t("cancellation") }}</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -152,7 +204,7 @@ export default {
       loading: false,
     };
   },
-  created() { },
+  created() {},
   methods: {
     FaduitStatus(value) {
       switch (value) {
@@ -172,12 +224,18 @@ export default {
     },
     getStatusType(status) {
       switch (status) {
-        case 0: return 'primary';      // 待审核 - 蓝色
-        case 1: return 'success';   // 审核通过 - 绿色
-        case 2: return 'danger';    // 驳回 - 红色
-        case 3: return 'info';   // 已取消 - 橙色
-        case 4: return 'warning';   // 进行中 - 黄色
-        default: return 'default';  // 默认灰色
+        case 0:
+          return "primary"; // 待审核 - 蓝色
+        case 1:
+          return "success"; // 审核通过 - 绿色
+        case 2:
+          return "danger"; // 驳回 - 红色
+        case 3:
+          return "info"; // 已取消 - 橙色
+        case 4:
+          return "warning"; // 进行中 - 黄色
+        default:
+          return "default"; // 默认灰色
       }
     },
     // 操作

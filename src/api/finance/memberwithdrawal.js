@@ -1,6 +1,6 @@
 // 会员提现管理
 import request from '@/utils/request'
-
+import axios from 'axios'
 // 分页数据
 export function MemberwithdrawalPage(params) {
   return request({
@@ -40,6 +40,24 @@ export function PayFor(data) {
 export function toBeReviewed() {
   return request({
     url: '/finance/memberCashRecord/toBeReviewed',
+    method: 'get',
+  })
+}
+
+// 导出excel
+export function memberCashRecordOutput(params) {
+  return axios({
+    url: process.env.VUE_APP_BASE_API + '/finance/memberCashRecord/output',
+    method: 'GET',
+    params,
+    responseType: 'blob'
+  })
+}
+
+// 待审核数量
+export function forcePass(id) {
+  return request({
+    url: `/finance/memberCashRecord/forcePass/${id}`,
     method: 'get',
   })
 }
