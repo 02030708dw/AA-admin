@@ -90,6 +90,7 @@ export default {
     gwticketmember: 'GW彩票用户信息',
     gwticketrecord: 'GW彩票投注记录',
     membercashmanage: '会员提现配置管理',
+    LivePromotionBonusRecord: "直播追加福利记录",
   },
   role: {
     permission: "权限",

@@ -77,7 +77,8 @@ export default {
     gwticketconfig: 'GW Ticket Config',
     gwticketmember: 'GW Ticket Member',
     gwticketrecord: 'GW Ticket Record',
-    membercashmanage:'Member Cash Manage',
+    membercashmanage: 'Member Cash Manage',
+    LivePromotionBonusRecord: "Live Promotion Bonus Record",
   },
   role: {
     permission: "การอนุญาต",
