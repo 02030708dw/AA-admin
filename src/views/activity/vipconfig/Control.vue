@@ -1,10 +1,10 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button v-has="'demogame:create'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
 
     <!-- 刷新按钮 -->
     <el-button v-if="btnIcoType" type="success" icon="el-icon-refresh-left" @click="HandelRefresh">{{ $t('Refresh')
-      }}</el-button>
+    }}</el-button>
     <el-button v-else type="success" icon="el-icon-loading" disabled>{{ $t('Refresh') }}</el-button>
   </el-row>
 </template>
