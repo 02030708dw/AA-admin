@@ -132,6 +132,12 @@ export const asyncRoutes = [
         component: () => import('@/views/agentmag/agentrebaterecord/index'),
         meta: { title: 'agentrebaterecord', icon: 'el-icon-news' }
       },
+      {
+        path: 'livePromotionBenefitRecord',
+        name: 'livePromotionBenefitRecord',
+        component: () => import('@/views/agentmag/livePromotion/index'),
+        meta: { title: 'LivePromotionBonusRecord', icon: 'el-icon-news' }
+      },
     ]
   },
   {

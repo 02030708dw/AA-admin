@@ -16,7 +16,8 @@
     "build:vndUat": "vue-cli-service build --mode test",
     "build-php": "vue-cli-service build --mode prodphp",
     "build-thb": "vue-cli-service build --mode prodthb",
-    "build-vnd": "vue-cli-service build --mode prodvnd"
+    "build-vnd": "vue-cli-service build --mode prodvnd",
+    "build-idr": "vue-cli-service build --mode prodidr"
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^3.0.1",

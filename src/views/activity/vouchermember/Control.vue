@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding-bottom: 10px">
-    <el-button v-has="'demogame:create'" type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
+    <el-button type="primary" @click="getAdd()">{{ $t("increase") }}</el-button>
     <el-input v-model="name" style="width: 200px; margin:0 5px" :placeholder="$t('username')" />
     <el-select clearable v-model="status" :placeholder="$t('customertype')" style="width: 200px;margin-left: 10px">
       <el-option v-for="(item, index) in statusType" :key="index" :value="item.index" :label="item.title" />
