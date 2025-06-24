@@ -79,6 +79,7 @@ export default {
     gwticketrecord: 'GW Ticket Record',
     membercashmanage: 'Member Cash Manage',
     LivePromotionBonusRecord: "Live Promotion Bonus Record",
+    websitePromotion: "Website Promotion",
   },
   role: {
     permission: "quyền hạn",
