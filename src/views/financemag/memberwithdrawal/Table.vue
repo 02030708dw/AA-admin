@@ -34,8 +34,8 @@
       </el-table-column>
       <el-table-column prop="orderNo" :label="$t('orderNo')" />
       <el-table-column prop="" :label="this.resultSet.sumAmount
-          ? '' + $formatNumber(this.resultSet.sumAmount)
-          : '0'
+        ? '' + $formatNumber(this.resultSet.sumAmount)
+        : '0'
         " width="">
         <el-table-column prop="amount" :label="$t('amountofmoney')" :formatter="formatMoney" />
       </el-table-column>
@@ -69,6 +69,7 @@
               {{ $t("Registrationtime") }} :
               {{ $creationTime(scope.row?.registerDate) }}
             </div>
+            <div>累计活动金额 : {{ $formatNumber(scope.row.totalActivityAmount) }}</div>
           </div>
         </template>
       </el-table-column>
@@ -114,10 +115,11 @@
             </el-popconfirm>
 
             <el-button v-has="'memberwithdrawal:fo'" type="text" @click="Handelpay(scope.row)">{{ $t("Paymentonbehalf")
-              }}</el-button>
+            }}</el-button>
           </template>
 
-          <el-button v-if="scope.row.aduitStatus === 3 || scope.row.aduitStatus === 4" type="text" @click="Through(scope.row)">{{ $t('ForceThrough') }}</el-button>
+          <el-button v-if="scope.row.aduitStatus === 3 || scope.row.aduitStatus === 4" type="text"
+            @click="Through(scope.row)">{{ $t('ForceThrough') }}</el-button>
 
           <el-button type="text" @click="CopyInfo(scope.row)">{{ $t("复制") }}
           </el-button>
@@ -293,6 +295,7 @@ ${this.$t('总提款次数')}：${v.cashNum}
 ${this.$t('充提差')}：${this.$formatNumber(v.incomeCashMargin)}
 ${this.$t('输赢差')}：${this.$formatNumber(v.winLossMargin)}
 ${this.$t('balance')}：${this.$formatNumber(v.balance)}
+${this.$t('累计活动金额')}：${this.$formatNumber(v.totalActivityAmount)}
 ${this.$t('应用程序时间')}：${this.$creationTime(v.createdAt)}
 ${this.$t('Registrationtime')}：${this.$creationTime(v.registerDate) || ''}`.trim();
 
@@ -300,7 +303,7 @@ ${this.$t('Registrationtime')}：${this.$creationTime(v.registerDate) || ''}`.tr
         .then(() => this.$message.success(this.$t('复制成功')))
         .catch(() => this.$message.error(this.$t('复制失败')));
     },
-    Through(item){
+    Through(item) {
       this.$emit('through', item)
     }
   },

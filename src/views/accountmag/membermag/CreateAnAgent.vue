@@ -1,8 +1,23 @@
 <template>
-    <el-dialog v-if="dialogVisible" :title="$t('Proxytransfer')" :visible.sync="dialogVisible" width="50%">
+    <el-dialog v-if="dialogVisible" :title="$t('创建代理')" :visible.sync="dialogVisible" width="50%">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
             <el-form-item :label="$t('Applicantsemail')">
                 <el-input v-model="ruleForm.email" />
+            </el-form-item>
+            <el-form-item label="社交媒体渠道">
+                <el-select v-model="ruleForm.socialSoftware" multiple collapse-tags placeholder="请选择社交媒体渠道"
+                    style="width: 100%">
+                    <el-option v-for="item in options" :key="item.value" :label="item.text" :value="item.value" />
+                </el-select>
+            </el-form-item>
+
+            <!-- 渲染每个已选平台的标题与链接 -->
+            <el-form-item v-for="platform in ruleForm.socialSoftware" :key="platform" :label="getLabel(platform)"
+                required>
+                <div style="display: flex; gap: 10px; width: 100%">
+                    <el-input v-model="getSoftwareObj(platform).transferTitle" placeholder="请输入标题" style="flex: 1" />
+                    <el-input v-model="getSoftwareObj(platform).link" placeholder="请输入链接" style="flex: 2" />
+                </div>
             </el-form-item>
             <el-form-item label="一级反水率" prop="firstLevelRate">
                 <el-input-number :controls="false" style="width: 100px;" :min="0" :max="100"
@@ -45,13 +60,11 @@
 export default {
     data() {
         return {
-            // 弹窗状态
             dialogVisible: false,
-            //表单数据
             ruleForm: {
                 email: "",
                 firstLevelRate: null,
-                id: 0,
+                id: null,
                 settingData: [
                     {
                         gameType: 0,
@@ -167,32 +180,52 @@ export default {
                 },
             ],
             gamertype: ["未分类", "电子", "棋牌", "彩票", "体育", "真人", "小游戏", "热门", "捕鱼", "斗鸡",],
-            max: 100
+            max: 100,
+            options: [
+                { text: 'Facebook', value: 'facebook' },
+                { text: 'Telegram', value: 'telegram' },
+                { text: 'LINE', value: 'line' },
+                { text: 'Instagram', value: 'instagram' },
+                { text: 'YouTube', value: 'youtube' },
+                { text: 'TikTok', value: 'tiktok' }
+            ],
+            socialSoftwareData: []
         };
     },
     methods: {
-        // 改变弹窗状态
         getAddstatus(data) {
             this.dialogVisible = !this.dialogVisible;
             const settingData = this.settingData.map(item => ({ ...item }));
             this.ruleForm = {
                 email: "",
                 firstLevelRate: undefined,
-                id: 0,
+                id: null,
                 settingData,
                 rechargeRate: undefined,
                 threeLevelRate: undefined,
-                twoLevelRate: undefined
+                twoLevelRate: undefined,
+                socialSoftware: []
             };
-            // 关闭时清空
-            if (!this.dialogVisible) {
-
-            } else {
-                this.ruleForm.settingData = settingData
-                this.ruleForm.id = data
+            this.socialSoftwareData = [];
+            if (this.dialogVisible) {
+                this.ruleForm.settingData = settingData;
+                this.ruleForm.id = data;
             }
         },
-        // 确定添加事件
+        getLabel(val) {
+            const item = this.options.find(opt => opt.value === val);
+            return item ? item.text : val;
+        },
+        getSoftwareObj(name) {
+            const found = this.socialSoftwareData?.find(i => i.name === name);
+            if (!found) {
+                const obj = { name, transferTitle: '', link: '' };
+                this.socialSoftwareData.push(obj);
+                return obj;
+            }
+            return found;
+        },
+
         getconfirm() {
             this.$refs.ruleForm.validate((valid) => {
                 const isValid = this.ruleForm.settingData.every(item => item.ratio !== null);
@@ -204,6 +237,7 @@ export default {
                     this.ruleForm.threeLevelRate = this.ruleForm.threeLevelRate / 100
                     this.ruleForm.twoLevelRate = this.ruleForm.twoLevelRate / 100
                     this.ruleForm.firstLevelRate = this.ruleForm.firstLevelRate / 100
+                    this.ruleForm.socialSoftware = this.socialSoftwareData;
                     this.$emit("confirm", this.ruleForm);
                     // 关闭弹窗
                     this.dialogVisible = false;
@@ -215,8 +249,8 @@ export default {
                     return false;
                 }
             });
-        },
-    },
+        }
+    }
 };
 </script>
 <style lang="scss">

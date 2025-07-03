@@ -10,6 +10,13 @@
       <el-table-column prop="firstLevelDailyRate" :label="$t('一级日盈利率')" width="" />
       <el-table-column prop="secondLevelDailyRate" :label="$t('二级日盈利率')" width="" />
       <el-table-column prop="email" :label="$t('邮箱')" width="" />
+      <el-table-column prop="socialSoftware" :label="$t('Socialmediaaccounts')" width="200">
+        <template #default="{ row }">
+          <div v-for="(item, index) in parseSocialJson(row.socialSoftware)" :key="index">
+            {{ item.name }}: {{ item.transferTitle || '-' }} / {{ item.link || '-' }}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="parentId" :label="$t('parentId')" width="" />
       <el-table-column v-has="'agent:status'" prop="" :label="$t('state')" width="200">
         <template slot-scope="scope">
@@ -118,6 +125,13 @@ export default {
     },
     getEitor(item) {
       this.$emit('Edit', item)
+    },
+    parseSocialJson(str) {
+      try {
+        return Array.isArray(str) ? str : JSON.parse(str);
+      } catch {
+        return [];
+      }
     }
   }
 }

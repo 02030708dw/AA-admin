@@ -5,7 +5,7 @@
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edit="getAgentEditShow" @transfer="getTransferShow"
       @updateStatus="getAgentUdateStatus" />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getAgentdata" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getAgentdata" />
     <AgentAdd ref="AgentAdd" @confirm="getAgentAdd" />
     <AgentEdit ref="AgentEdit" @confirm="getAgentEdit" />
     <AgentTransfer ref="AgentTransfer" @confirm="getTransferConfirm" />
@@ -138,7 +138,7 @@ export default {
       TransferAgent({
         agentS: data.agentS,
         oldAgentId: data.oldAgentId,
-        targetAgentId: data.targetAgentId
+        targetAgentId: data.targetAgentId,
       })
         .then((res) => {
           this.getAgentdata(this.pageNo)
@@ -157,7 +157,7 @@ export default {
     },
     // 编辑
     getAgentEdit(e) {
-      EditAgent({ id: e.id, firstLevelDailyRate: e.firstLevelDailyRate, secondLevelDailyRate: e.secondLevelDailyRate, email: e.email }).then(res => {
+      EditAgent({ id: e.id, firstLevelDailyRate: e.firstLevelDailyRate, secondLevelDailyRate: e.secondLevelDailyRate, email: e.email, socialSoftware: e.socialSoftware }).then(res => {
         this.getAgentdata(this.pageNo)
         this.$message({
           message: '编辑成功!',
