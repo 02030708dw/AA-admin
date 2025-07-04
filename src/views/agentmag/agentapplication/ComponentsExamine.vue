@@ -206,9 +206,17 @@ export default {
     },
     // 确定添加事件
     getconfirm() {
+      // 如果是“拒绝”，直接提交，不校验
+      if (this.ruleForm.status === 3) {
+        this.$emit("confirm", this.ruleForm);
+        this.dialogVisible = false;
+        return;
+      }
+
+      // 否则正常校验
       this.$refs.ruleForm.validate((valid) => {
         const isValid = this.ruleForm.settingData.every(item => item.ratio !== null);
-        if (valid & isValid) {
+        if (valid && isValid) {
           this.ruleForm.settingData.forEach(item => {
             item.ratio /= 100;
           });
@@ -217,17 +225,17 @@ export default {
           this.ruleForm.twoLevelRate = this.ruleForm.twoLevelRate / 100
           this.ruleForm.firstLevelRate = this.ruleForm.firstLevelRate / 100
           this.$emit("confirm", this.ruleForm);
-          // 关闭弹窗
           this.dialogVisible = false;
         } else {
           this.$message({
             message: '请填写完整信息!',
             type: 'warning'
-          })
-          return false
+          });
+          return false;
         }
-      })
-    },
+      });
+    }
+
   }
 }
 </script>
