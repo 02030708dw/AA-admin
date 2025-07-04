@@ -138,6 +138,12 @@ export const asyncRoutes = [
         component: () => import('@/views/agentmag/livePromotion/index'),
         meta: { title: 'LivePromotionBonusRecord', icon: 'el-icon-news' }
       },
+      {
+        path: 'websitepromotion',
+        name: 'websitepromotion',
+        component: () => import('@/views/agentmag/websitePromotion/index'),
+        meta: { title: 'websitePromotion', icon: 'el-icon-news' }
+      },
     ]
   },
   {
