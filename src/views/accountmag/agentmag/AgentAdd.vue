@@ -1,12 +1,6 @@
 <template>
   <el-dialog :title="$t('AddProxy')" :visible.sync="dialogVisible" width="50%">
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="150px"
-      class="demo-ruleForm"
-    >
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="150px" class="demo-ruleForm">
       <el-form-item :label="$t('Allocablerebates')" prop="assiRate">
         <el-input v-model="ruleForm.assiRate" />
       </el-form-item>
@@ -14,11 +8,7 @@
         <el-input v-model="ruleForm.realName" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
-        <el-switch
-          v-model="ruleForm.status"
-          :active-value="1"
-          :inactive-value="0"
-        />
+        <el-switch v-model="ruleForm.status" :active-value="1" :inactive-value="0" />
       </el-form-item>
       <el-form-item :label="$t('phone')" prop="telPhone">
         <el-input v-model="ruleForm.telPhone" />
@@ -109,6 +99,4 @@ export default {
   }
 }
 </script>
-    <style>
-  </style>
-
+<style></style>

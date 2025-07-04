@@ -61,11 +61,11 @@ export function TargetAgentList(agentId) {
 }
 
 // 修改代理
-export function EditAgent(params) {
+export function EditAgent(data) {
   return request({
     url: `/user/agent/update`,
-    method: 'get',
-    params
+    method: 'post',
+    data
   })
 }
 

@@ -8,13 +8,19 @@
       <el-table-column prop="updater" :label="$t('reviewer')" />
       <el-table-column prop="reviewDate" :label="$t('Audittime')" />
       <el-table-column prop="remarks" :label="$t('Reviewremarksreasonsforrejection')" />
-      <el-table-column prop="socialSoftware" :label="$t('Socialmediaaccounts')" />
-      <el-table-column prop="transferUrl" label="$t('Transferpagedomainname')" />
+      <el-table-column prop="socialSoftware" :label="$t('Socialmediaaccounts')" width="200">
+        <template #default="{ row }">
+          <div v-for="(item, index) in parseSocialJson(row.socialSoftware)" :key="index">
+            {{ item.name }}: {{ item.transferTitle || '-' }}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="transferUrl" :label="$t('Transferpagedomainname')" />
       <el-table-column prop="status" :label="$t('applicationstatus')">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.status == 1" type="info">{{ $t('PendingReview') }}</el-tag>
-          <el-tag v-if="scope.row.status == 2" type="success">{{$t('passthrough')}}</el-tag>
-          <el-tag v-if="scope.row.status == 3" type="danger">{{$t('refuse')}}</el-tag>
+          <el-tag v-if="scope.row.status == 2" type="success">{{ $t('passthrough') }}</el-tag>
+          <el-tag v-if="scope.row.status == 3" type="danger">{{ $t('refuse') }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" :label="$t('Creationtime')" width="">
@@ -62,6 +68,13 @@ export default {
     getUdateStatus(e, id) {
       this.$emit('UdateStatus', { status: e, id: id })
     },
+    parseSocialJson(str) {
+      try {
+        return Array.isArray(str) ? str : JSON.parse(str);
+      } catch {
+        return [];
+      }
+    }
   }
 }
 </script>
