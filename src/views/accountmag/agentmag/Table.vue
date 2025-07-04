@@ -13,7 +13,7 @@
       <el-table-column prop="socialSoftware" :label="$t('Socialmediaaccounts')" width="200">
         <template #default="{ row }">
           <div v-for="(item, index) in parseSocialJson(row.socialSoftware)" :key="index">
-            {{ item.name }}: {{ item.transferTitle || '-' }} / {{ item.link || '-' }}
+            {{ item.name }}: {{ item.transferTitle || '-' }}
           </div>
         </template>
       </el-table-column>

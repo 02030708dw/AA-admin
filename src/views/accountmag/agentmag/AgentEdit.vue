@@ -21,8 +21,8 @@
       <!-- 动态渲染平台输入 -->
       <el-form-item v-for="platform in selectedPlatforms" :key="platform" :label="getLabel(platform)" required>
         <div style="display: flex; gap: 10px; width: 100%">
-          <el-input v-model="getSoftwareObj(platform).transferTitle" placeholder="请输入标题" style="flex: 1" />
-          <el-input v-model="getSoftwareObj(platform).link" placeholder="请输入链接" style="flex: 2" />
+          <el-input v-model="getSoftwareObj(platform).transferTitle" placeholder="请输入账号" style="flex: 1" />
+          <!-- <el-input v-model="getSoftwareObj(platform).link" placeholder="请输入链接" style="flex: 2" /> -->
         </div>
       </el-form-item>
     </el-form>
