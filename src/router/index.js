@@ -511,6 +511,46 @@ export const asyncRoutes = [
         name: "gwticketrecord",
         component: () => import('@/views/activity/gwticketrecord/index'),
         meta: { title: 'gwticketrecord', icon: 'el-icon-s-flag' }
+      },
+      {//GW红包领取记录表
+        path: "/gwticketrecord",
+        name: "gwticketrecord",
+        component: () => import('@/views/activity/gwticketrecord/index'),
+        meta: { title: 'gwticketrecord', icon: 'el-icon-s-flag' }
+      },// 宾果配置
+      {
+        path: "/bingoconfig",
+        name: "bingoconfig",
+        component: () => import('@/views/activity/bingoconfig/index'),
+        meta: { title: 'bingoconfig', icon: 'el-icon-s-flag' }
+      },
+      // 宾果奖金配置
+      {
+        path: "/bingoprizeconfig",
+        name: "bingoprizeconfig",
+        component: () => import('@/views/activity/bingoprizeconfig/index'),
+        meta: { title: 'bingoprizeconfig', icon: 'el-icon-s-flag' }
+      },
+      // 宾果权重分组
+      {
+        path: "/bingoweight",
+        name: "bingoweight",
+        component: () => import('@/views/activity/bingoweight/index'),
+        meta: { title: 'bingoweight', icon: 'el-icon-s-flag' }
+      },
+      // 用户宾果信息
+      {
+        path: "/bingomember",
+        name: "bingomember",
+        component: () => import('@/views/activity/bingomember/index'),
+        meta: { title: 'bingomember', icon: 'el-icon-s-flag' }
+      },
+      // 用户宾果记录
+      {
+        path: "/bingomemberrecord",
+        name: "bingomemberrecord",
+        component: () => import('@/views/activity/bingomemberrecord/index'),
+        meta: { title: 'bingomemberrecord', icon: 'el-icon-s-flag' }
       }
     ]
   },
