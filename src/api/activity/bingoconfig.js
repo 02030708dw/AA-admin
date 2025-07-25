@@ -35,3 +35,12 @@ export function ServicePage(data) {
         data
     })
 }
+
+// 宾果配置id与名称
+export function getConfigIdList(data) {
+    return request({
+        url: `/bingo/config/getConfigId`,
+        method: 'get',
+        data
+    })
+}

@@ -2,28 +2,34 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-
-      <el-table-column prop="userName" :label="$t('username')" />
-      <el-table-column prop="amount" :label="$t('Rewardamount')" />
-      <el-table-column prop="description" :label="$t('describe')" />
-      <el-table-column prop="spinTime" :label="$t('Turntabletime')" />
-      <el-table-column prop="sort" :label="$t('Creationtime')">
+      <el-table-column prop="name" label="名称" />
+      <el-table-column prop="description" label="描述" />
+      <el-table-column prop="dailyCardsLimit" label="每日刮刮卡初始数量" />
+      <el-table-column prop="deductAmount" label="代理扣除金额" />
+      <el-table-column prop="rechargeBonus" label="充值用户奖励奖金" />
+      <el-table-column prop="registrationBonus" label="注册用户奖励奖金" />
+      <el-table-column prop="createdAt" label="创建时间">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('Updatedby')" />
-      <!-- <el-table-column prop="" :label="$t('operate')" width="">
+      <el-table-column prop="status" label="状态" width="140">
         <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
+          <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
+            active-text="启用" inactive-text="停用" @change="getUdateStatus($event, scope.row)" />
         </template>
-      </el-table-column> -->
+      </el-table-column>
+      <el-table-column label="操作" width="170">
+        <template slot-scope="scope">
+          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">编辑</el-button>
+          <el-button type="text" style="color: #409eff" @click="getEditor(scope.row)">详情</el-button>
+          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </el-card>
 </template>
+
 
 <script>
 export default {
@@ -66,6 +72,11 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    // 修改状态
+    getUdateStatus(e, item) {
+      item.status = e
+      this.$emit('UdateStatus', item)
     },
   }
 }

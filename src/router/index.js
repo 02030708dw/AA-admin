@@ -512,12 +512,7 @@ export const asyncRoutes = [
         component: () => import('@/views/activity/gwticketrecord/index'),
         meta: { title: 'gwticketrecord', icon: 'el-icon-s-flag' }
       },
-      {//GW红包领取记录表
-        path: "/gwticketrecord",
-        name: "gwticketrecord",
-        component: () => import('@/views/activity/gwticketrecord/index'),
-        meta: { title: 'gwticketrecord', icon: 'el-icon-s-flag' }
-      },// 宾果配置
+      // 宾果配置
       {
         path: "/bingoconfig",
         name: "bingoconfig",
