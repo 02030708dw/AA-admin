@@ -89,6 +89,11 @@ export default {
     membercashmanage: 'Member Cash Manage',
     LivePromotionBonusRecord: "Live Promotion Bonus Record",
     websitePromotion: "Website Promotion",
+    bingoconfig: 'Bingo Config',
+    bingomember: 'Bingo Member',
+    bingomemberrecord: 'Bingo Member Record',
+    bingoprizeconfig: 'Bingo Prize Config',
+    bingoweight: 'Bingo Weight Group',
   },
   role: {
     permission: "Permission",

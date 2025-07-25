@@ -92,6 +92,11 @@ export default {
     membercashmanage: '会员提现配置管理',
     LivePromotionBonusRecord: "直播追加福利记录",
     websitePromotion: "网站推广",
+    bingoconfig: '宾果配置',
+    bingomember: '宾果用户信息',
+    bingomemberrecord: '宾果用户记录',
+    bingoprizeconfig: '宾果奖金配置',
+    bingoweight: '宾果权重分组',
   },
   role: {
     permission: "权限",
