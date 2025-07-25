@@ -1,9 +1,9 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @SelectDate="HandelSelectDate" @query="getquery" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @query="getquery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
   </el-card>
 </template>
 
@@ -11,9 +11,8 @@
 import Table from './Table.vue'
 import Control from './Control'
 import Pagination from '@/components/Pagination/Pagination.vue'
-import {
-  ServicePage,
-} from '@/api/activity/spinmemberrecord'
+import { ServicePage } from '@/api/activity/bingomemberrecord'
+
 export default {
   components: {
     Table,
@@ -26,36 +25,30 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      name:'',
-      // 开始时间
-      startDate: '',
-      // 结束时间
-      endDate: '',
+      // 搜索条件
+      memberName: '',
+      status: '',
+      type: '',
     }
   },
   created() {
     this.getdata(1)
   },
   methods: {
-    // 时间选择
-    HandelSelectDate(data) {
-      this.startDate = data.startDate
-      this.endDate = data.endDate
-      // 请求数据
-      this.getdata(1)
-    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
     },
-    // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate,name:this.name
+        pageNo: this.pageNo,
+        pageSize: this.PagesSize,
+        memberName: this.memberName,
+        status: this.status,
+        type: this.type,
       })
-        .then((res) => {
+        .then(res => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
           setTimeout(() => {
@@ -72,27 +65,36 @@ export default {
           this.$message.error('刷新失败!')
         })
     },
-    // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate,name:this.name })
-        .then((res) => {
+      ServicePage({
+        pageNo: index,
+        pageSize: this.PagesSize,
+        memberName: this.memberName,
+        status: this.status,
+        type: this.type,
+      })
+        .then(res => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err)
         })
     },
-    getquery(e) {
-      this.name = e.name
+    getquery(params) {
+      this.memberName = params.memberName
+      this.status = params.status
+      this.type = params.type
       this.getdata(1)
     },
     getresetting() {
-      this.name = ''
+      this.memberName = ''
+      this.status = ''
+      this.type = ''
       this.getdata(1)
     },
-  }
+  },
 }
 </script>
 

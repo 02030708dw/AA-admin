@@ -2,25 +2,29 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-
-      <el-table-column prop="userName" :label="$t('username')" />
-      <el-table-column prop="amount" :label="$t('Rewardamount')" />
-      <el-table-column prop="description" :label="$t('describe')" />
-      <el-table-column prop="spinTime" :label="$t('Turntabletime')" />
-      <el-table-column prop="sort" :label="$t('Creationtime')">
+      <el-table-column prop="memberName" label="用户名称" />
+      <el-table-column prop="bingoName" label="宾果名称" />
+      <el-table-column prop="prizeAmount" label="中奖金额" />
+      <el-table-column label="宾果结果">
+        <template slot-scope="scope">
+          <div v-if="scope.row.record">
+            <div v-for="(value, key) in parseRecord(scope.row.record)" :key="key">
+              {{ key }}: {{ value }}
+            </div>
+          </div>
+          <div v-else>-</div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="status" label="是否中奖" />
+      <el-table-column prop="type" label="用户类型" />
+      <el-table-column prop="uniqueCode" label="游客唯一码" />
+      <el-table-column prop="weightGroupName" label="权重名称" />
+      <el-table-column label="创建时间">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('Updatedby')" />
-      <!-- <el-table-column prop="" :label="$t('operate')" width="">
-        <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
-        </template>
-      </el-table-column> -->
+
     </el-table>
   </el-card>
 </template>
@@ -31,26 +35,32 @@ export default {
   props: {
     tableData: {
       type: Array,
-      default: () => {
-        return []
-      }
+      default: () => []
     }
   },
   data() {
     return {
-      loading: false
+      loading: false,
     }
   },
   methods: {
-    // 改变loading
     HandelLoading(status) {
       this.loading = status
     },
-    // 编辑
+    parseRecord(record) {
+      if (!record) return {}
+      if (typeof record === 'string') {
+        try {
+          return JSON.parse(record)
+        } catch {
+          return {}
+        }
+      }
+      return record
+    },
     getEditor(item) {
       this.$emit('EditorShow', item)
     },
-    // 删除
     getEdl(Id) {
       this.$confirm('确定删除吗?', '提示', {
         confirmButtonText: '确定',
@@ -66,23 +76,7 @@ export default {
             message: '已取消删除'
           })
         })
-    },
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.image_box {
-  margin: auto;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>
