@@ -2,25 +2,22 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="bingoWeightGroupName" label="权重分组名称" />
+      <el-table-column prop="lineNums" label="连线数量" />
+      <el-table-column prop="weight" label="权重" />
+      <el-table-column prop="updater" label="更新人" />
 
-      <el-table-column prop="userName" :label="$t('username')" />
-      <el-table-column prop="amount" :label="$t('Rewardamount')" />
-      <el-table-column prop="description" :label="$t('describe')" />
-      <el-table-column prop="spinTime" :label="$t('Turntabletime')" />
-      <el-table-column prop="sort" :label="$t('Creationtime')">
+      <el-table-column prop="updatedAt" label="更新时间">
         <template slot-scope="scope">
-          {{ $creationTime(scope.row.createdAt) }}
+          {{ $creationTime(scope.row.updatedAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('Updatedby')" />
-      <!-- <el-table-column prop="" :label="$t('operate')" width="">
+      <el-table-column label="操作" width="170">
         <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
+          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">编辑</el-button>
+          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">删除</el-button>
         </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
   </el-card>
 </template>
@@ -31,9 +28,7 @@ export default {
   props: {
     tableData: {
       type: Array,
-      default: () => {
-        return []
-      }
+      default: () => []
     }
   },
   data() {
@@ -42,47 +37,27 @@ export default {
     }
   },
   methods: {
-    // 改变loading
     HandelLoading(status) {
       this.loading = status
     },
-    // 编辑
     getEditor(item) {
       this.$emit('EditorShow', item)
     },
-    // 删除
     getEdl(Id) {
       this.$confirm('确定删除吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
+      }).then(() => {
+        this.$emit('Edl', Id)
+      }).catch(() => {
+        this.$message({ type: 'info', message: '已取消删除' })
       })
-        .then(() => {
-          this.$emit('Edl', Id)
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
     },
+    getUdateStatus(e, item) {
+      item.status = e
+      this.$emit('UdateStatus', item)
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.image_box {
-  margin: auto;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>
