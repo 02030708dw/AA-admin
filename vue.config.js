@@ -23,9 +23,9 @@ module.exports = {
     },
     proxy: {
       '/': {
-        target: 'http://192.168.124.11:8000', //zarek
+        // target: 'http://192.168.124.11:8000', //zarek
         // target: 'http://192.168.124.34:8000',//yang
-        // target: 'http://192.168.124.13:8000',//zzby
+        target: 'http://192.168.124.13:8000',//zzby
         changeOrigin: true
       }
     }
