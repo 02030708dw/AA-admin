@@ -16,8 +16,8 @@ import router, { resetRouter } from "@/router/index";
 
 // create an axios instance
 const service = axios.create({
-  // baseURL: selectedBaseURL,
-  baseURL: '/',
+  baseURL: selectedBaseURL,
+  // baseURL: '/',
   timeout: 60000, // request timeout
 });
 
