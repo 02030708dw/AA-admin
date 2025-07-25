@@ -2,25 +2,22 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-
-      <el-table-column prop="userName" :label="$t('username')" />
-      <el-table-column prop="amount" :label="$t('Rewardamount')" />
-      <el-table-column prop="description" :label="$t('describe')" />
-      <el-table-column prop="spinTime" :label="$t('Turntabletime')" />
-      <el-table-column prop="sort" :label="$t('Creationtime')">
+      <el-table-column prop="userName" label="用户名" />
+      <el-table-column prop="isAgent" label="用户类型" />
+      <el-table-column prop="bonusCards" label="奖励宾果" />
+      <el-table-column prop="pendingCards" label="待领取宾果" />
+      <el-table-column prop="shareCards" label="可分享宾果" />
+      <el-table-column prop="createType" label="创建类型" />
+      <el-table-column prop="linkType" label="链接类型" />
+      <el-table-column prop="recharged" label="已充值用户" />
+      <el-table-column prop="registered" label="已注册用户" />
+      <el-table-column prop="requirement" label="获取条件" />
+      <el-table-column prop="title" label="标题" />
+      <el-table-column label="创建时间">
         <template slot-scope="scope">
           {{ $creationTime(scope.row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="updater" :label="$t('Updatedby')" />
-      <!-- <el-table-column prop="" :label="$t('operate')" width="">
-        <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
-        </template>
-      </el-table-column> -->
     </el-table>
   </el-card>
 </template>
@@ -50,23 +47,7 @@ export default {
     getEditor(item) {
       this.$emit('EditorShow', item)
     },
-    // 删除
-    getEdl(Id) {
-      this.$confirm('确定删除吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(() => {
-          this.$emit('Edl', Id)
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
-    },
+
   }
 }
 </script>

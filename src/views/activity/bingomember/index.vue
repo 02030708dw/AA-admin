@@ -1,9 +1,9 @@
 <template>
   <el-card>
-    <Control ref="ControlView" @SelectDate="HandelSelectDate" @query="getquery" @Refresh="HandelRefresh" />
+    <Control ref="ControlView" @query="getquery" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
   </el-card>
 </template>
 
@@ -11,9 +11,8 @@
 import Table from './Table.vue'
 import Control from './Control'
 import Pagination from '@/components/Pagination/Pagination.vue'
-import {
-  ServicePage,
-} from '@/api/activity/spinmemberrecord'
+import { ServicePage } from '@/api/activity/bingomember'
+
 export default {
   components: {
     Table,
@@ -26,34 +25,25 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      name:'',
-      // 开始时间
-      startDate: '',
-      // 结束时间
-      endDate: '',
+      name: '',
+      isAgent: '',   // 新增用户类型搜索参数
     }
   },
   created() {
     this.getdata(1)
   },
   methods: {
-    // 时间选择
-    HandelSelectDate(data) {
-      this.startDate = data.startDate
-      this.endDate = data.endDate
-      // 请求数据
-      this.getdata(1)
-    },
     HandelPagesChange(e) {
       this.PagesSize = e
       this.getdata(this.pageNo)
     },
-    // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate,name:this.name
+        pageNo: this.pageNo,
+        pageSize: this.PagesSize,
+        name: this.name,
+        isAgent: this.isAgent
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -72,10 +62,14 @@ export default {
           this.$message.error('刷新失败!')
         })
     },
-    // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, startDate: this.startDate, endDate: this.endDate,name:this.name })
+      ServicePage({
+        pageNo: index,
+        pageSize: this.PagesSize,
+        name: this.name,
+        isAgent: this.isAgent
+      })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -86,10 +80,12 @@ export default {
     },
     getquery(e) {
       this.name = e.name
+      this.isAgent = e.isAgent  // 新增接收用户类型搜索值
       this.getdata(1)
     },
     getresetting() {
       this.name = ''
+      this.isAgent = ''
       this.getdata(1)
     },
   }
