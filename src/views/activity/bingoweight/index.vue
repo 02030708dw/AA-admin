@@ -21,8 +21,8 @@ import {
   ServiceAdd,
   ServiceDel,
   ServiceEdit,
-} from '@/api/activity/bingoprizeconfig'
-import { getWeightConfigId } from '@/api/activity/bingoweight'
+} from '@/api/activity/bingoweight'
+import { getConfigId } from '@/api/activity/bingoconfig'
 
 export default {
   components: {
@@ -38,7 +38,7 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      bingoWeightGroupId: null,
+      name: '',
       weightGroupOptions: {},
     }
   },
@@ -49,7 +49,7 @@ export default {
   methods: {
     // 获取权重组选项
     loadWeightGroups() {
-      getWeightConfigId()
+      getConfigId()
         .then(res => {
           this.weightGroupOptions = res.resultSet || {}
         })
@@ -69,7 +69,7 @@ export default {
       ServicePage({
         pageNo: this.pageNo,
         pageSize: this.PagesSize,
-        bingoWeightGroupId: this.bingoWeightGroupId,
+        name: this.name,
       })
         .then(res => {
           this.total = res.resultSet.total
@@ -92,7 +92,7 @@ export default {
       ServicePage({
         pageNo: index,
         pageSize: this.PagesSize,
-        bingoWeightGroupId: this.bingoWeightGroupId,
+        name: this.name,
       })
         .then(res => {
           this.total = res.resultSet.total
@@ -104,12 +104,12 @@ export default {
     },
 
     getquery(e) {
-      this.bingoWeightGroupId = e.bingoWeightGroupId
+      this.name = e.name
       this.getdata(1)
     },
 
     getresetting() {
-      this.bingoWeightGroupId = null
+      this.name = ''
       this.getdata(1)
     },
 

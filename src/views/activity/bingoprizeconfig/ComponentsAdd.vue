@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="新增权重配置" :visible.sync="dialogVisible" width="500px" :close-on-click-modal="false">
+  <el-dialog title="新增" :visible.sync="dialogVisible" width="500px" :close-on-click-modal="false">
     <el-form :model="form" :rules="rules" ref="form" label-width="100px">
       <el-form-item label="权重分组" prop="bingoWeightGroupId">
         <el-select v-model="form.bingoWeightGroupId" placeholder="请选择权重分组">

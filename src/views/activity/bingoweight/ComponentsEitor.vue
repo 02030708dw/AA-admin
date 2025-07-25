@@ -1,69 +1,83 @@
 <template>
-  <el-dialog title="编辑配置" :visible.sync="visible" width="500px" @close="reset">
-    <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
-      <el-form-item label="权重分组" prop="bingoWeightGroupId">
-        <el-select v-model="form.bingoWeightGroupId" placeholder="请选择权重分组" clearable>
-          <el-option v-for="(label, key) in weightGroupOptions" :key="key" :label="label" :value="Number(key)" />
+  <el-dialog title="编辑" :visible.sync="dialogVisible" width="50%">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="170px" class="demo-ruleForm">
+
+      <el-form-item label="宾果活动配置" prop="bingoConfigId">
+        <el-select v-model="ruleForm.bingoConfigId" placeholder="请选择宾果活动配置" clearable style="width: 200px">
+          <el-option v-for="(label, key) in weightGroupOptions" :key="key" :label="label" :value="key" />
         </el-select>
       </el-form-item>
 
-      <el-form-item label="连线数量" prop="lineNums">
-        <el-input-number v-model="form.lineNums" :min="1" :max="100" controls-position="right" />
+      <el-form-item label="权重组名称" prop="name">
+        <el-input v-model="ruleForm.name" placeholder="请输入名称" />
+      </el-form-item>
+      <el-form-item label="权重组描述" prop="description">
+        <el-input type="textarea" v-model="ruleForm.description" placeholder="请输入描述" />
       </el-form-item>
 
-      <el-form-item label="权重" prop="weight">
-        <el-input-number v-model="form.weight" :min="0" :step="0.1" controls-position="right" />
-      </el-form-item>
     </el-form>
 
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="onConfirm">确定</el-button>
-    </div>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="getAddstatus">取消</el-button>
+      <el-button type="primary" @click="getconfirm">确定</el-button>
+    </span>
   </el-dialog>
 </template>
 
 <script>
 export default {
-  name: "ComponentsEitor",
+  name: 'ComponentsEitor', // 编辑组件名，可根据需要改
   props: {
     weightGroupOptions: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
-      visible: false,
-      form: {
-        id: null,
-        bingoWeightGroupId: null,
-        lineNums: null,
-        weight: null
+      dialogVisible: false,
+      ruleForm: {
+        bingoConfigId: null,
+        name: '',
+        description: '',
       },
       rules: {
-        bingoWeightGroupId: [{ required: true, message: '请选择权重分组', trigger: 'change' }],
-        lineNums: [{ required: true, message: '请输入连线数量', trigger: 'blur' }],
-        weight: [{ required: true, message: '请输入权重', trigger: 'blur' }]
-      }
-    };
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+        description: [{ required: true, message: '请输入描述', trigger: 'blur' }],
+      },
+    }
   },
   methods: {
-    open(data) {
-      this.visible = true;
-      this.form = { ...data };
-    },
-    reset() {
-      this.$refs.formRef.resetFields();
-    },
-    onConfirm() {
-      this.$refs.formRef.validate((valid) => {
-        if (valid) {
-          this.$emit('confirm', this.form);
-          this.visible = false;
+    getAddstatus(row) {
+      if (row) {
+        this.ruleForm = {
+          id: row.id || null,
+          bingoConfigId: row.bingoConfigId || null,
+          name: row.name || '',
+          description: row.description || '',
         }
-      });
-    }
-  }
-};
+      } else {
+        this.ruleForm = {
+          id: null,
+          bingoConfigId: null,
+          name: '',
+          description: '',
+        }
+      }
+      this.dialogVisible = !this.dialogVisible
+    },
+    getconfirm() {
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          // console.log(this.weightGroupOptions, this.ruleForm.bingoConfigId);
+
+          this.$emit('confirm', { ...this.ruleForm })
+          this.dialogVisible = false
+        } else {
+          this.$message({ message: '请填写完整信息!', type: 'warning' })
+        }
+      })
+    },
+  },
+}
 </script>

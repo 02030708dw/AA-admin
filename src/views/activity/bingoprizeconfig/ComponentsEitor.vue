@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="编辑宾果奖金配置" :visible.sync="visible" width="500px">
+  <el-dialog title="编辑" :visible.sync="visible" width="500px">
     <el-form :model="form" label-width="120px" :rules="rules" ref="formRef">
       <el-form-item label="权重分组" prop="bingoWeightGroupId">
         <el-select v-model="form.bingoWeightGroupId" placeholder="请选择权重分组">

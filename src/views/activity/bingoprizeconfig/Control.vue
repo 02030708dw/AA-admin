@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      bingoWeightGroupId: null,
+      bingoWeightGroupId: '',
       btnIcoType: true,
     }
   },
