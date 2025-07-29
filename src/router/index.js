@@ -144,6 +144,12 @@ export const asyncRoutes = [
         component: () => import('@/views/agentmag/websitePromotion/index'),
         meta: { title: 'websitePromotion', icon: 'el-icon-news' }
       },
+      {
+        path: 'groupsendmould',
+        name: 'groupsendmould',
+        component: () => import('@/views/agentmag/groupsendmould/index'),
+        meta: { title: 'groupsendmould', icon: 'el-icon-news' }
+      },
     ]
   },
   {

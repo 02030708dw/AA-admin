@@ -97,6 +97,7 @@ export default {
     bingomemberrecord: '宾果用户记录',
     bingoprizeconfig: '宾果奖金配置',
     bingoweight: '宾果权重分组',
+    groupsendmould: '代金券信息'
   },
   role: {
     permission: "权限",

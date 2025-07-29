@@ -85,6 +85,7 @@ export default {
     bingomemberrecord: 'Bingo Member Record',
     bingoprizeconfig: 'Bingo Prize Config',
     bingoweight: 'Bingo Weight Group',
+    groupsendmould: 'Group Send Mould',
   },
   role: {
     permission: "การอนุญาต",
