@@ -135,7 +135,7 @@ export default {
     updateCron() {
       let cron = ''
       if (this.timeType === 1) {
-        // 每天多个时间点，如 07:00,09:00
+        // 每天指定时间点，例如 07:00,09:00
         if (!this.timeScale || typeof this.timeScale !== 'string') {
           this.$message.warning('请输入时间点，格式如 07:00,09:00')
           return false
@@ -157,7 +157,8 @@ export default {
             if (h < 0 || h > 23 || m < 0 || m > 59) {
               return null
             }
-            return `${m} ${h} * * *`
+            // Quartz 格式：秒 分 时 日 月 星期
+            return `0 ${m} ${h} * * ?`
           })
           .filter(Boolean)
           .join(';')
@@ -174,7 +175,8 @@ export default {
           this.$message.warning('请输入合法的小时间隔（1-24）')
           return false
         }
-        cron = `0 */${n} * * *`
+        // 从第 0 分钟的第 0 秒开始，每 N 小时执行一次
+        cron = `0 0 0/${n} * * ?`
 
       } else if (this.timeType === 3) {
         // 每 N 分钟
@@ -183,7 +185,8 @@ export default {
           this.$message.warning('请输入合法的分钟间隔（1-60）')
           return false
         }
-        cron = `*/${n} * * * *`
+        // 从第 0 秒开始，每 N 分钟执行一次
+        cron = `0 0/${n} * * * ?`
       }
 
       this.ruleForm.time = cron
