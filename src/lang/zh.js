@@ -97,6 +97,11 @@ export default {
     bingomemberrecord: '宾果用户记录',
     bingoprizeconfig: '宾果奖金配置',
     bingoweight: '宾果权重分组',
+    groupsendmould: '自动群发模板',
+    spinlinkconfig: '用户转盘链接信息配置',
+    spinlink: '转盘链接用户',
+    voucherlinkconfig: '用户代金券链接配置',
+    voucherlink: '代金券链接用户',
   },
   role: {
     permission: "权限",
