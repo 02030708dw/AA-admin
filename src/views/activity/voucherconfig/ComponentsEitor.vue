@@ -1,6 +1,12 @@
 <template>
   <el-dialog :title="$t('edit')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form-item label="类型" prop="type">
+        <el-radio-group v-model="ruleForm.type">
+          <el-radio :label="1">普通</el-radio>
+          <el-radio :label="2">炒群</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="代金券名称" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -57,10 +63,11 @@ export default {
         "minTurnoverMultiple": 0,
         "name": "",
         "status": 0,
-        "triggerType": 0
+        "triggerType": 0,
+        type: null
       },
       rules: {
-        amount: [{ required: true, message: '请输入代金券金额', trigger: 'blur' }],
+        type: [{ required: true, message: '请选择类型', trigger: 'blur' }],
         conditionValue: [{ required: true, message: '请输入触发条件值', trigger: 'blur' }],
         expirationDate: [{ required: true, message: '请输入有效期(小时)', trigger: 'blur' }],
         minRecharge: [{ required: true, message: '请输入最低充值金额条件', trigger: 'blur' }],
