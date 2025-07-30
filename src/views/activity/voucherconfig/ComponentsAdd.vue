@@ -1,6 +1,12 @@
 <template>
   <el-dialog :title="$t('increase')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form-item label="类型" prop="type">
+        <el-radio-group v-model="ruleForm.type">
+          <el-radio :label="1">普通</el-radio>
+          <el-radio :label="2">炒群</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="代金券名称" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -50,6 +56,7 @@ export default {
       // 弹窗状态
       dialogVisible: false,
       ruleForm: {
+        type: null,
         "amount": 0,
         "conditionValue": 0,
         "expirationDate": 0,
@@ -61,6 +68,7 @@ export default {
         "triggerType": 0
       },
       rules: {
+        type: [{ required: true, message: '请选择类型', trigger: 'blur' }],
         amount: [{ required: true, message: '请输入代金券金额', trigger: 'blur' }],
         conditionValue: [{ required: true, message: '请输入触发条件值', trigger: 'blur' }],
         expirationDate: [{ required: true, message: '请输入有效期(小时)', trigger: 'blur' }],
@@ -85,6 +93,7 @@ export default {
     getAddstatus() {
       if (!this.dialogVisible) {
         this.ruleForm = {
+          type: null,
           "amount": null,
           "conditionValue": null,
           "expirationDate": null,

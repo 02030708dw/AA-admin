@@ -9,6 +9,11 @@
       <el-table-column prop="minRecharge" label="最低充值金额条件" />
       <el-table-column prop="minTurnoverMultiple" label="最小流水倍数" />
       <el-table-column prop="maxTurnoverMultiple" label="最大流水倍数" />
+      <el-table-column prop="type" label="类型">
+        <template slot-scope="scope">
+          {{ scope.row.type == 1 ? '普通' : '炒群' }}
+        </template>
+      </el-table-column>
       <el-table-column prop="triggerType" label="触发类型">
         <template slot-scope="scope">
           {{ getTriggerType(scope.row.triggerType) }}
@@ -27,7 +32,7 @@
           <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
             $t("edit") }}</el-button>
           <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
+          }}</el-button>
         </template>
       </el-table-column>
     </el-table>
