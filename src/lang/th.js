@@ -86,6 +86,10 @@ export default {
     bingoprizeconfig: 'Bingo Prize Config',
     bingoweight: 'Bingo Weight Group',
     groupsendmould: 'Group Send Mould',
+    spinlinkconfig: 'Spin Link Config',
+    spinlink: 'Spin Link',
+    voucherlinkconfig: 'Voucher Link Config',
+    voucherlink: 'Voucher Link',
   },
   role: {
     permission: "การอนุญาต",

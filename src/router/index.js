@@ -552,7 +552,35 @@ export const asyncRoutes = [
         name: "bingomemberrecord",
         component: () => import('@/views/activity/bingomemberrecord/index'),
         meta: { title: 'bingomemberrecord', icon: 'el-icon-s-flag' }
-      }
+      },
+      // 用户转盘链接信息配置
+      {
+        path: "/spinlinkconfig",
+        name: "spinlinkconfig",
+        component: () => import('@/views/activity/spinlinkconfig/index'),
+        meta: { title: 'spinlinkconfig', icon: 'el-icon-s-flag' }
+      },
+      // 转盘链接用户
+      {
+        path: "/spinlink",
+        name: "spinlink",
+        component: () => import('@/views/activity/spinlink/index'),
+        meta: { title: 'spinlink', icon: 'el-icon-s-flag' }
+      },
+      // 用户代金券链接配置
+      {
+        path: "/voucherlinkconfig",
+        name: "voucherlinkconfig",
+        component: () => import('@/views/activity/voucherlinkconfig/index'),
+        meta: { title: 'voucherlinkconfig', icon: 'el-icon-s-flag' }
+      },
+      // 代金券链接用户
+      {
+        path: "/voucherlink",
+        name: "voucherlink",
+        component: () => import('@/views/activity/voucherlink/index'),
+        meta: { title: 'voucherlink', icon: 'el-icon-s-flag' }
+      },
     ]
   },
   {
