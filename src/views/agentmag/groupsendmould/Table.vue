@@ -144,7 +144,7 @@ export default {
     toUrl(url) {
       //保留语言判断
       if (url) {
-        return "https://gwstatic.mvkbnb.com/" + url;
+        return "https://static.44dog.cc/" + url;
       }
     },
     isVideo(file) {
