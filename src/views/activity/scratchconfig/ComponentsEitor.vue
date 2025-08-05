@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="$t('edit')" :visible.sync="dialogVisible" width="40%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-  
+
       <el-form-item :label="$t('name')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -19,6 +19,9 @@
       </el-form-item>
       <el-form-item label="每日刮刮卡初始数量" prop="dailyCardsLimit">
         <el-input v-model="ruleForm.dailyCardsLimit" />
+      </el-form-item>
+      <el-form-item label="代理创建一个要扣除的金额">
+        <el-input v-model="ruleForm.deductAmount" />
       </el-form-item>
       <el-form-item :label="$t('state')" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
@@ -50,7 +53,8 @@ export default {
         "rechargeCards": 0,
         "registrationBonus": 0,
         "registrationCards": 0,
-        "status": 0
+        "status": 0,
+        deductAmount: null
       },
       rules: {
         dailyCardsLimit: [{ required: true, message: '请输入每日刮刮卡初始数量', trigger: 'blur' }],
@@ -81,7 +85,8 @@ export default {
           "rechargeCards": 0,
           "registrationBonus": 0,
           "registrationCards": 0,
-          "status": 0
+          "status": 0,
+          deductAmount: null
         }
       } else {
         this.ruleForm = { ...data }
