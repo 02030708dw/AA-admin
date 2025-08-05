@@ -23,6 +23,15 @@
       <el-form-item label="平台每天赠送的红包金额" prop="dailyBonus">
         <el-input v-model="ruleForm.dailyBonus" />
       </el-form-item>
+      <el-form-item label="代理每天赠送红包金额">
+        <el-input v-model="ruleForm.giftAmount" />
+      </el-form-item>
+      <el-form-item label="代理每天赠送红包数量">
+        <el-input v-model="ruleForm.giftNumbers" />
+      </el-form-item>
+      <el-form-item label="代理创建一个要扣除的金额">
+        <el-input v-model="ruleForm.deductAmount" />
+      </el-form-item>
       <el-form-item label="是否是代理" prop="isAgent">
         <el-select v-model="ruleForm.isAgent" :placeholder="$t('customertype')" style="width: 200px">
           <el-option v-for="(item, index) in [{ index: 0, title: '普通用户' }, { index: 1, title: '代理' }]" :key="index"
@@ -69,7 +78,10 @@ export default {
         "isAgent": 0,
         "rechargeBonus": 0,
         "registrationBonus": 0,
-        "status": 0
+        "status": 0,
+        giftAmount: null,
+        giftNumbers: null,
+        deductAmount: null
       },
       rules: {
         amountRatioMax: [{ required: true, message: '请输入红包金额比例最大值', trigger: 'blur' }],
@@ -104,7 +116,10 @@ export default {
           "isAgent": null,
           "rechargeBonus": null,
           "registrationBonus": null,
-          "status": 0
+          "status": 0,
+          giftAmount: null,
+          giftNumbers: null,
+          deductAmount: null
         };
       }
       this.dialogVisible = !this.dialogVisible;
