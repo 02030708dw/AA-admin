@@ -7,6 +7,9 @@
       <el-form-item :label="$t('describe')" prop="description">
         <el-input v-model="ruleForm.description" />
       </el-form-item>
+      <el-form-item label="代理创建一个要扣除的金额">
+        <el-input v-model="ruleForm.deductAmount" />
+      </el-form-item>
       <el-form-item label="每日赠送投注次数">
         <el-input v-model="ruleForm.dailyGift" />
       </el-form-item>
@@ -54,7 +57,8 @@ export default {
         "rechargeNumbers": 0,
         "registrationBonus": 0,
         "registrationNumbers": 0,
-        "status": 0
+        "status": 0,
+        deductAmount: null
       },
       rules: {
         description: [{ required: true, message: '请输入描述', trigger: 'blur' }],
@@ -76,7 +80,8 @@ export default {
           "rechargeNumbers": null,
           "registrationBonus": null,
           "registrationNumbers": null,
-          "status": null
+          "status": null,
+          deductAmount: null
         };
       } else {
         this.ruleForm = { ...data }
