@@ -2,7 +2,7 @@
   <el-row style="padding-bottom: 10px" type="flex" align="middle">
     <el-button type="primary" @click="getAdd">{{ $t('increase') }}</el-button>
 
-    <el-input v-model="title" placeholder="请输入标题" clearable style="width: 200px; margin-left: 10px" />
+    <el-input v-model="name" placeholder="请输入模板名称" clearable style="width: 200px; margin-left: 10px" />
 
     <el-select v-model="status" clearable placeholder="请选择状态" style="width: 200px; margin-left: 10px">
       <el-option label="停用" :value="0" />
@@ -29,7 +29,7 @@ export default {
   name: 'Control',
   data() {
     return {
-      title: '',
+      name: '',
       status: null,
       type: null,
       btnIcoType: true,
@@ -49,7 +49,7 @@ export default {
       this.$emit('ControlAdd')
     },
     getresetting() {
-      this.title = ''
+      this.name = ''
       this.status = null
       this.type = null
       this.$emit('resetting')
@@ -63,7 +63,7 @@ export default {
     },
     getquery() {
       this.$emit('query', {
-        title: this.title,
+        name: this.name,
         status: this.status,
         type: this.type,
       })
