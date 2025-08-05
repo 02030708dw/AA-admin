@@ -1,13 +1,15 @@
 <template>
   <el-dialog title="新增" :visible.sync="dialogVisible" width="50%">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="170px" class="demo-ruleForm">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="190px" class="demo-ruleForm">
       <el-form-item label="名称" prop="name">
         <el-input v-model="ruleForm.name" placeholder="请输入名称" />
       </el-form-item>
       <el-form-item label="描述" prop="description">
         <el-input type="textarea" v-model="ruleForm.description" placeholder="请输入描述" />
       </el-form-item>
-
+      <el-form-item label="代理创建一个要扣除的金额" prop="deductAmount">
+        <el-input-number v-model="ruleForm.deductAmount" :min="0" />
+      </el-form-item>
       <el-form-item label="活动状态" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
       </el-form-item>
@@ -20,9 +22,6 @@
       </el-form-item>
       <el-form-item label="每日刮刮卡初始数量" prop="dailyCardsLimit">
         <el-input-number v-model="ruleForm.dailyCardsLimit" :min="0" />
-      </el-form-item>
-      <el-form-item label="代理扣除金额" prop="deductAmount">
-        <el-input-number v-model="ruleForm.deductAmount" :min="0" />
       </el-form-item>
       <el-form-item label="数字错误扣时(秒)" prop="errorTime">
         <el-input-number v-model="ruleForm.errorTime" :min="0" />
