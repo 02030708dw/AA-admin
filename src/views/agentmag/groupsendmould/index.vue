@@ -39,7 +39,7 @@ export default {
       PagesSize: 20,
       status: null,
       type: null,
-      title: '',
+      name: '',
     }
   },
   created() {
@@ -58,7 +58,7 @@ export default {
         pageSize: this.PagesSize,
         status: this.status,
         type: this.type,
-        title: this.title,
+        name: this.name,
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -83,7 +83,7 @@ export default {
         name: this.name,
         status: this.status,
         type: this.type,
-        title: this.title,
+        name: this.name,
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -96,13 +96,13 @@ export default {
     getquery(e) {
       this.status = e.status
       this.type = e.type
-      this.title = e.title
+      this.name = e.name
       this.getdata(1)
     },
     getresetting() {
       this.status = null
       this.type = null
-      this.title = ''
+      this.name = ''
       this.getdata(1)
     },
     getAddShow() {
