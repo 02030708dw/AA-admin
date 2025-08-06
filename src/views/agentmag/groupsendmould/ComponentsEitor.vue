@@ -1,12 +1,6 @@
 <template>
   <el-dialog title="编辑" :visible.sync="dialogVisible" width="70%">
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-width="100px"
-      class="demo-ruleForm"
-    >
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="模板名称" prop="name">
         <el-input v-model="ruleForm.name" placeholder="请输入模板名称" />
       </el-form-item>
@@ -17,17 +11,8 @@
         <el-input v-model="ruleForm.subtitle" placeholder="请输入副标题" />
       </el-form-item>
       <el-form-item label="类型" prop="type">
-        <el-select
-          v-model="ruleForm.type"
-          placeholder="请选择类型"
-          style="width: 200px"
-        >
-          <el-option
-            v-for="item in typeData"
-            :key="item.value"
-            :value="item.value"
-            :label="item.label"
-          />
+        <el-select v-model="ruleForm.type" placeholder="请选择类型" style="width: 200px">
+          <el-option v-for="item in typeData" :key="item.value" :value="item.value" :label="item.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="时间">
@@ -38,53 +23,26 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="timeType == 2 || timeType == 3" label="时间间隔">
-        <el-input-number
-          v-if="timeType == 2"
-          :max="24"
-          v-model="timeScale"
-          placeholder="时间间隔"
-        />
-        <el-input-number
-          v-else
-          :max="60"
-          v-model="timeScale"
-          placeholder="时间间隔"
-        />
+        <el-input-number v-if="timeType == 2" :max="24" v-model="timeScale" placeholder="时间间隔" />
+        <el-input-number v-else :max="60" v-model="timeScale" placeholder="时间间隔" />
       </el-form-item>
       <el-form-item label="时间点" v-else>
         <template>
-          <el-input
-            v-model="timeScale"
-            placeholder="请输入时间点，如 07:00,09:00"
-            :style="{ width: '250px' }"
-          />
+          <el-input v-model="timeScale" placeholder="请输入时间点，如 07:00,09:00" :style="{ width: '250px' }" />
         </template>
       </el-form-item>
       <el-form-item :label="$t('content')" prop="content">
-        <el-input
-          type="textarea"
-          v-model="ruleForm.content"
-          :autosize="{ minRows: 5 }"
-        ></el-input>
+        <el-input type="textarea" v-model="ruleForm.content" :autosize="{ minRows: 5 }"></el-input>
       </el-form-item>
 
       <el-form-item label="跳转链接" prop="link">
         <el-input v-model="ruleForm.link" placeholder="请输入跳转链接" />
       </el-form-item>
       <el-form-item label="图片">
-        <UploadImage
-          v-if="dialogVisible"
-          :img="ruleForm.picture"
-          Fn="groupsendmould"
-          @Upload="getImageURL"
-        />
+        <UploadImage v-if="dialogVisible" :img="ruleForm.picture" Fn="groupsendmould" @Upload="getImageURL" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
-        <el-switch
-          :active-value="1"
-          :inactive-value="0"
-          v-model="ruleForm.status"
-        ></el-switch>
+        <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -189,32 +147,30 @@ export default {
         const validTimes = times.filter((t) => /^\d{1,2}:\d{2}$/.test(t));
 
         if (validTimes.length !== times.length) {
-          this.$message.warning(
-            "时间点格式错误，请使用 07:00 格式并用英文逗号分隔"
-          );
+          this.$message.warning("时间点格式错误，请使用 07:00 格式并用英文逗号分隔");
           return false;
         }
 
-        cron = validTimes
-          .map((t) => {
-            const [hour, minute] = t.split(":");
-            const h = parseInt(hour);
-            const m = parseInt(minute);
-            if (h < 0 || h > 23 || m < 0 || m > 59) {
-              return null;
-            }
-            // Quartz 格式：秒 分 时 日 月 星期
-            return `0 ${m} ${h} * * ?`;
-          })
-          .filter(Boolean)
-          .join(";");
-
-        if (!cron) {
-          this.$message.warning(
-            "请确保时间点在合法范围内（小时0-23，分钟0-59）"
-          );
-          return false;
+        // 提取小时和分钟
+        const hourList = [];
+        let minute = null;
+        for (const t of validTimes) {
+          const [h, m] = t.split(":").map(Number);
+          if (h < 0 || h > 23 || m < 0 || m > 59) {
+            this.$message.warning("请确保时间点在合法范围内（小时0-23，分钟0-59）");
+            return false;
+          }
+          if (minute === null) {
+            minute = m;
+          } else if (minute !== m) {
+            this.$message.warning("多个时间点的分钟数必须相同，例如 09:00,13:00");
+            return false;
+          }
+          hourList.push(h);
         }
+
+        // 合并小时
+        cron = `0 ${minute} ${hourList.join(",")} * * ?`;
       } else if (this.timeType === 2) {
         // 每 N 小时
         const n = parseInt(this.timeScale);
@@ -241,66 +197,78 @@ export default {
     parseCronToTime(cron) {
       if (!cron) return;
 
+      // 多个 cron（分号分隔）
       if (cron.includes(";")) {
-        // 每天多个时间点
         const times = cron.split(";").map((c) => {
-          const [min, hour] = c.split(" ");
-          return `${hour.padStart(2, "0")}:${min.padStart(2, "0")}`;
-        });
+          const parts = c.trim().split(" ");
+          if (parts.length < 3) return "";
+          const minute = parts[1];
+          const hour = parts[2];
+          return `${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`;
+        }).filter(Boolean);
         this.timeType = 1;
         this.$nextTick(() => {
           this.timeScale = times.join(",");
         });
-      } else if (
-        /^\d+ \d+ \* \* \*$/.test(cron) ||
-        /^\d+ \d+ \* \* \* ?$/.test(cron)
-      ) {
-        // 每天单个时间点（兼容 Quartz 最后一个 ?）
-        const [min, hour] = cron.split(" ");
-        this.timeType = 1;
-        this.$nextTick(() => {
-          this.timeScale = `${hour.padStart(2, "0")}:${min.padStart(2, "0")}`;
-        });
-      } else if (
-        /^\d+ \*\/(\d+)/.test(cron) ||
-        /^\d+ \*\/(\d+) \* \* \* ?$/.test(cron)
-      ) {
-        // 每N小时（兼容 Quartz）
-        const match = cron.match(/^\d+ \*\/(\d+)/);
-        if (match) {
-          this.timeType = 2;
-          this.$nextTick(() => {
-            this.timeScale = parseInt(match[1]);
-          });
-        }
-      } else if (
-        /^\*\/(\d+)/.test(cron) ||
-        /^\*\/(\d+) \d+ \* \* \* ?$/.test(cron)
-      ) {
-        // 每N分钟（兼容 Quartz）
-        const match = cron.match(/^\*\/(\d+)/);
-        if (match) {
-          this.timeType = 3;
-          this.$nextTick(() => {
-            this.timeScale = parseInt(match[1]);
-          });
-        }
-      } else if (/^(\d+) (\d+)\/(\d+)/.test(cron)) {
-        // 特别处理如 0 0/2 * * * ?
-        const match = cron.match(/^(\d+) (\d+)\/(\d+)/);
-        if (match) {
-          const interval = parseInt(match[3]);
-          this.timeType = 3; // 你可以视情况设置为 2 或 3（分钟/小时）
-          this.$nextTick(() => {
-            this.timeScale = interval;
-          });
-        }
-      } else {
+        return;
+      }
+
+      const parts = cron.trim().split(" ");
+      if (parts.length < 6) {
         this.timeType = 1;
         this.timeScale = "";
+        return;
       }
-    },
 
+      const second = parts[0];
+      const minute = parts[1];
+      const hour = parts[2];
+
+      // 支持 0 0 8,9 * * ? 这种格式
+      if (/^\d+$/.test(minute) && /^\d+(,\d+)+$/.test(hour)) {
+        const timeList = hour
+          .split(",")
+          .map((h) => `${String(h).padStart(2, "0")}:${String(minute).padStart(2, "0")}`);
+        this.timeType = 1;
+        this.$nextTick(() => {
+          this.timeScale = timeList.join(",");
+        });
+        return;
+      }
+
+      // 支持每天固定时间点，例如 0 30 9 * * ?
+      if (/^\d+$/.test(minute) && /^\d+$/.test(hour)) {
+        this.timeType = 1;
+        this.$nextTick(() => {
+          this.timeScale = `${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`;
+        });
+        return;
+      }
+
+      // 每 N 小时，例如 0 0 0/3 * * ?
+      if (/^\d+$/.test(minute) && /^\d+\/\d+$/.test(hour)) {
+        const interval = hour.split("/")[1];
+        this.timeType = 2;
+        this.$nextTick(() => {
+          this.timeScale = parseInt(interval);
+        });
+        return;
+      }
+
+      // 每 N 分钟，例如 0 0/5 * * * ?
+      if (/^\d+\/\d+$/.test(minute)) {
+        const interval = minute.split("/")[1];
+        this.timeType = 3;
+        this.$nextTick(() => {
+          this.timeScale = parseInt(interval);
+        });
+        return;
+      }
+
+      // Fallback
+      this.timeType = 1;
+      this.timeScale = "";
+    },
     convertToTelegramHtml(text) {
       return text
         .replace(/<p>/g, "") // 去掉 <p>

@@ -1,12 +1,7 @@
 <template>
   <el-card>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      border
-      :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }"
-    >
+    <el-table v-loading="loading" :data="tableData" border :header-cell-style="{ 'text-align': 'center' }"
+      :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="name" label="模板名称" />
       <el-table-column prop="title" label="内容标题" />
       <el-table-column prop="subtitle" label="内容副标题" />
@@ -33,18 +28,10 @@
       <el-table-column prop="picture" label="资源">
         <template slot-scope="scope">
           <div class="image_box">
-            <img
-              v-if="isImage(scope.row.picture)"
-              :src="toUrl(scope.row.picture)"
-              alt=""
-              style="width: 100px; height: auto"
-            />
-            <video
-              v-else-if="isVideo(scope.row.picture)"
-              :src="toUrl(scope.row.picture)"
-              controls
-              style="width: 160px; height: auto"
-            ></video>
+            <img v-if="isImage(scope.row.picture)" :src="toUrl(scope.row.picture)" alt=""
+              style="width: 100px; height: auto" />
+            <video v-else-if="isVideo(scope.row.picture)" :src="toUrl(scope.row.picture)" controls
+              style="width: 160px; height: auto"></video>
             <span v-else>未知类型</span>
           </div>
         </template>
@@ -52,15 +39,8 @@
       <el-table-column prop="link" label="跳转链接" show-overflow-tooltip />
       <el-table-column prop="" :label="$t('state')" width="140">
         <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.status"
-            active-color="#13ce66"
-            :active-value="1"
-            :inactive-value="0"
-            :active-text="$t('Enable')"
-            :inactive-text="$t('Deactivate')"
-            @change="getUdateStatus($event, scope.row)"
-          />
+          <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
+            :active-text="$t('Enable')" :inactive-text="$t('Deactivate')" @change="getUdateStatus($event, scope.row)" />
         </template>
       </el-table-column>
       <el-table-column prop="updatedAt" label="更新时间">
@@ -70,18 +50,8 @@
       </el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
-          <el-button
-            type="text"
-            style="color: #e6a23c"
-            @click="handleEdit(scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            type="text"
-            style="color: red"
-            @click="handleDelete(scope.row)"
-            >删除</el-button
-          >
+          <el-button type="text" style="color: #e6a23c" @click="handleEdit(scope.row)">编辑</el-button>
+          <el-button type="text" style="color: red" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -104,8 +74,8 @@ export default {
   },
   methods: {
     parseCronToText(cronStr) {
-      if (!cronStr) return "无";
 
+      if (!cronStr) return "无";
       const cronArr = cronStr
         .split(";")
         .map((item) => item.trim())
@@ -119,21 +89,29 @@ export default {
         const minute = parts[1];
         const hour = parts[2];
 
-        // 每天固定时间
-        if (/^\d+$/.test(minute) && /^\d+$/.test(hour)) {
-          return `每天 ${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`;
-        }
-
         // 每 N 分钟，例如 0 0/3 * * * ?
         if (/^\d+\/\d+$/.test(minute)) {
           const interval = minute.split("/")[1];
           return `每 ${interval} 分钟`;
         }
 
-        // 每 N 小时，例如 0 0 */3 * * ?
+        // 每 N 小时，例如 0 0 0/3 * * ?
         if (/^\d+\/\d+$/.test(hour)) {
           const interval = hour.split("/")[1];
           return `每 ${interval} 小时`;
+        }
+
+        // 多个固定时间点（小时），例如 0 0 8,9 * * ?
+        if (/^\d{1,2}$/.test(minute) && /^\d{1,2}(,\d{1,2})+$/.test(hour)) {
+          const timePoints = hour
+            .split(",")
+            .map((h) => `${String(h).padStart(2, "0")}:${String(minute).padStart(2, "0")}`);
+          return `每天 ${timePoints.join(",")}`;
+        }
+
+        // 单个固定时间点
+        if (/^\d{1,2}$/.test(minute) && /^\d{1,2}$/.test(hour)) {
+          return `每天 ${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`;
         }
 
         return cron; // 兜底返回原始
