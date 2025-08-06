@@ -90,3 +90,21 @@ export function getReportIncomeCash(data) {
     data
   })
 }
+
+//直播报表
+export function getReportLiveStream(data) {
+  return request({
+    url: '/report/liveStream/report',
+    method: 'POST',
+    data
+  })
+}
+
+//直播报表详情
+export function getReportLiveStreamInfo(data) {
+  return request({
+    url: '/report/liveStream/report/info',
+    method: 'POST',
+    data
+  })
+}

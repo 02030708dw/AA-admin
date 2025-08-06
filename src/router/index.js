@@ -267,6 +267,12 @@ export const asyncRoutes = [
         component: () => import('@/views/reportformsmag/reportincomecash/index.vue'),
         meta: { title: 'reportincomecash', icon: 'el-icon-pie-chart' }
       },
+      {
+        path: '/livestreamingreport',
+        name: 'livestreamingreport',
+        component: () => import('@/views/reportformsmag/livestreamingreport/index.vue'),
+        meta: { title: 'livestreamingreport', icon: 'el-icon-pie-chart' }
+      },
     ]
   },
   {
