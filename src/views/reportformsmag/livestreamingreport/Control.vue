@@ -1,7 +1,7 @@
 <template>
   <el-row style="padding-bottom: 10px">
     <!-- 选择代理 -->
-    <el-select v-model="userId" clearable :placeholder="$t('SelectProxy')" style="width: 200px;margin-left:20px;">
+    <el-select filterable  v-model="userId" clearable :placeholder="$t('SelectProxy')" style="width: 200px;margin-left:20px;">
       <el-option v-for="(item, index) in AgentPagesList" :key="index" :value="item.index" :label="item.title" />
     </el-select>
 
