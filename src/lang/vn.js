@@ -90,6 +90,7 @@ export default {
     spinlink: 'Spin Link',
     voucherlinkconfig: 'Voucher Link Config',
     voucherlink: 'Voucher Link',
+    livestreamingreport: 'Live Streaming Report',
   },
   role: {
     permission: "quyền hạn",

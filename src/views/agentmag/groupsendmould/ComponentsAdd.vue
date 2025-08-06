@@ -1,17 +1,6 @@
 <template>
-  <el-dialog
-    title="添加"
-    :before-close="handleClose"
-    :visible.sync="dialogVisible"
-    width="70%"
-  >
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="ruleForm"
-      label-width="100px"
-      class="demo-ruleForm"
-    >
+  <el-dialog title="添加" :before-close="handleClose" :visible.sync="dialogVisible" width="70%">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="模板名称" prop="name">
         <el-input v-model="ruleForm.name" placeholder="请输入模板名称" />
       </el-form-item>
@@ -22,17 +11,8 @@
         <el-input v-model="ruleForm.subtitle" placeholder="请输入内容副标题" />
       </el-form-item>
       <el-form-item label="类型" prop="type">
-        <el-select
-          v-model="ruleForm.type"
-          placeholder="请选择类型"
-          style="width: 200px"
-        >
-          <el-option
-            v-for="item in typeData"
-            :key="item.value"
-            :value="item.value"
-            :label="item.label"
-          />
+        <el-select v-model="ruleForm.type" placeholder="请选择类型" style="width: 200px">
+          <el-option v-for="item in typeData" :key="item.value" :value="item.value" :label="item.label" />
         </el-select>
       </el-form-item>
       <el-form-item label="时间">
@@ -43,52 +23,26 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="timeType == 2 || timeType == 3" label="时间间隔">
-        <el-input-number
-          v-if="timeType == 2"
-          :max="24"
-          v-model="timeScale"
-          placeholder="时间间隔"
-        />
-        <el-input-number
-          v-else
-          :max="60"
-          v-model="timeScale"
-          placeholder="时间间隔"
-        />
+        <el-input-number v-if="timeType == 2" :max="24" v-model="timeScale" placeholder="时间间隔" />
+        <el-input-number v-else :max="60" v-model="timeScale" placeholder="时间间隔" />
       </el-form-item>
       <el-form-item label="时间点" v-else>
         <template>
-          <el-input
-            v-model="timeScale"
-            placeholder="请输入时间点，如 07:00,09:00"
-            :style="{ width: '250px' }"
-          />
+          <el-input v-model="timeScale" placeholder="请输入时间点，如 07:00,09:00" :style="{ width: '250px' }" />
         </template>
       </el-form-item>
       <el-form-item :label="$t('content')" prop="content">
-        <el-input
-          type="textarea"
-          v-model="ruleForm.content"
-          :autosize="{ minRows: 5 }"
-        ></el-input>
+        <el-input type="textarea" v-model="ruleForm.content" :autosize="{ minRows: 5 }"></el-input>
       </el-form-item>
 
       <el-form-item label="跳转链接" prop="link">
         <el-input v-model="ruleForm.link" placeholder="请输入跳转链接" />
       </el-form-item>
       <el-form-item label="图片" prop="picture">
-        <UploadImage
-          v-if="dialogVisible"
-          Fn="groupsendmould"
-          @Upload="getImageURL"
-        />
+        <UploadImage v-if="dialogVisible" Fn="groupsendmould" @Upload="getImageURL" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
-        <el-switch
-          :active-value="1"
-          :inactive-value="0"
-          v-model="ruleForm.status"
-        ></el-switch>
+        <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -145,7 +99,7 @@ export default {
         .then((_) => {
           done();
         })
-        .catch((_) => {});
+        .catch((_) => { });
     },
     getAddstatus() {
       this.dialogVisible = !this.dialogVisible;
@@ -197,32 +151,30 @@ export default {
         const validTimes = times.filter((t) => /^\d{1,2}:\d{2}$/.test(t));
 
         if (validTimes.length !== times.length) {
-          this.$message.warning(
-            "时间点格式错误，请使用 07:00 格式并用英文逗号分隔"
-          );
+          this.$message.warning("时间点格式错误，请使用 07:00 格式并用英文逗号分隔");
           return false;
         }
 
-        cron = validTimes
-          .map((t) => {
-            const [hour, minute] = t.split(":");
-            const h = parseInt(hour);
-            const m = parseInt(minute);
-            if (h < 0 || h > 23 || m < 0 || m > 59) {
-              return null;
-            }
-            // Quartz 格式：秒 分 时 日 月 星期
-            return `0 ${m} ${h} * * ?`;
-          })
-          .filter(Boolean)
-          .join(";");
-
-        if (!cron) {
-          this.$message.warning(
-            "请确保时间点在合法范围内（小时0-23，分钟0-59）"
-          );
-          return false;
+        // 提取小时和分钟
+        const hourList = [];
+        let minute = null;
+        for (const t of validTimes) {
+          const [h, m] = t.split(":").map(Number);
+          if (h < 0 || h > 23 || m < 0 || m > 59) {
+            this.$message.warning("请确保时间点在合法范围内（小时0-23，分钟0-59）");
+            return false;
+          }
+          if (minute === null) {
+            minute = m;
+          } else if (minute !== m) {
+            this.$message.warning("多个时间点的分钟数必须相同，例如 09:00,13:00");
+            return false;
+          }
+          hourList.push(h);
         }
+
+        // 合并小时
+        cron = `0 ${minute} ${hourList.join(",")} * * ?`;
       } else if (this.timeType === 2) {
         // 每 N 小时
         const n = parseInt(this.timeScale);

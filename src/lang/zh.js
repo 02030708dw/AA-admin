@@ -102,6 +102,7 @@ export default {
     spinlink: '转盘链接用户',
     voucherlinkconfig: '用户代金券链接配置',
     voucherlink: '代金券链接用户',
+    livestreamingreport: '直播报表',
   },
   role: {
     permission: "权限",
