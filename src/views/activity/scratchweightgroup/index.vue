@@ -4,7 +4,7 @@
       @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsAdd :configList="configList" ref="ComponentsAdd" @confirm="getAdd" />
     <ComponentsEitor :configList="configList" ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
@@ -38,6 +38,7 @@ export default {
       pageNo: 1,
       PagesSize: 20,
       name: null, //
+      type: null,
       configList: [] // 配置列表
     }
   },
@@ -47,7 +48,7 @@ export default {
   },
   methods: {
     getConfigList() {
-      ConfigList().then((res) =>{
+      ConfigList().then((res) => {
         this.configList = res.resultSet
       })
     },
@@ -60,7 +61,7 @@ export default {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name
+        pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, type: this.type
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -82,7 +83,7 @@ export default {
     // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, name: this.name })
+      ServicePage({ pageNo: index, pageSize: this.PagesSize, name: this.name, type: this.type })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -93,10 +94,12 @@ export default {
     },
     getquery(e) {
       this.name = e.name
+      this.type = e.type
       this.getdata(1)
     },
     getresetting() {
       this.name = null
+      this.type = null
       this.getdata(1)
     },
     // 显示添加弹窗

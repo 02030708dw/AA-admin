@@ -1,10 +1,10 @@
 <template>
   <el-card>
-    <Control :WeightGroup="WeightGroup" ref="ControlView" @resetting="getresetting" @query="getquery" @ControlAdd="getAddShow"
-      @Refresh="HandelRefresh" />
+    <Control :WeightGroup="WeightGroup" ref="ControlView" @resetting="getresetting" @query="getquery"
+      @ControlAdd="getAddShow" @Refresh="HandelRefresh" />
     <!-- 表格 -->
     <Table ref="TableView" :table-data="tableData" @Edl="getDel" @EditorShow="getEitorShow" />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getdata" />
     <ComponentsAdd :WeightGroup="WeightGroup" ref="ComponentsAdd" @confirm="getAdd" />
     <ComponentsEitor :WeightGroup="WeightGroup" ref="ComponentsEitor" @confirm="getEitor" />
   </el-card>
@@ -37,9 +37,9 @@ export default {
       total: 0,
       pageNo: 1,
       PagesSize: 20,
-      name: null, //
-      status: null,//
-      WeightGroup:[],
+      id: null,
+      type: null,
+      WeightGroup: [],
     }
   },
   created() {
@@ -53,12 +53,13 @@ export default {
       this.PagesSize = e
       this.getdata(this.pageNo)
     },
-    // 刷新事件
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
-      // 请求数据
       ServicePage({
-        pageNo: this.pageNo, pageSize: this.PagesSize, id:this.id
+        pageNo: this.pageNo,
+        pageSize: this.PagesSize,
+        id: this.id,
+        type: this.type
       })
         .then((res) => {
           this.total = res.resultSet.total
@@ -77,10 +78,14 @@ export default {
           this.$message.error('刷新失败!')
         })
     },
-    // 请求分页数据
     getdata(index = 1) {
       this.pageNo = index
-      ServicePage({ pageNo: index, pageSize: this.PagesSize, id:this.id})
+      ServicePage({
+        pageNo: index,
+        pageSize: this.PagesSize,
+        id: this.id,
+        type: this.type
+      })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -91,17 +96,19 @@ export default {
     },
     getquery(e) {
       this.id = e.id
+      this.type = e.type
       this.getdata(1)
     },
     getresetting() {
       this.id = null
+      this.type = null
       this.getdata(1)
     },
     // 显示添加弹窗
     getAddShow() {
       this.$refs.ComponentsAdd.getAddstatus()
     },
-  
+
     getAdd(e) {
       ServiceAdd(e)
         .then((res) => {
