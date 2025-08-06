@@ -2,9 +2,14 @@
   <el-card>
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="weight" :label="$t('weight')"/>
+      <el-table-column prop="weight" :label="$t('weight')" />
       <el-table-column prop="prize" label="充值奖金" />
       <el-table-column prop="scratchWeightGroupName" label="权重分组名称" />
+      <el-table-column prop="scratchWeightGroupType" label="刮刮乐类型">
+        <template #default="{ row }">
+          {{ formatType(row.scratchWeightGroupType) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="creator" label="创建人" />
       <el-table-column prop="updater" :label="$t('Updatedby')" />
       <el-table-column prop="" :label="$t('operate')" width="">
@@ -12,7 +17,7 @@
           <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
             $t("edit") }}</el-button>
           <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-            }}</el-button>
+          }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -36,6 +41,15 @@ export default {
     }
   },
   methods: {
+    formatType(type) {
+      const typeMap = {
+        1: 'RedHot7',
+        2: 'MoneyTree',
+        3: 'GoBananas',
+        4: 'LD'
+      }
+      return typeMap[type] || '未知类型'
+    },
     getRepeatableType(v) {
       switch (v) {
         case 1:
