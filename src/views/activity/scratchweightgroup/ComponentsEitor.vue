@@ -9,6 +9,14 @@
           <el-option v-for="(item, index) in configList" :key="index" :value="item.id" :label="item.name" />
         </el-select>
       </el-form-item>
+      <el-form-item label="刮刮乐类型">
+        <el-select clearable v-model="ruleForm.type" placeholder="刮刮乐类型" style="width:200px">
+          <el-option label="RedHot7" :value="1" />
+          <el-option label="MoneyTree" :value="2" />
+          <el-option label="GoBananas" :value="3" />
+          <el-option label="LD" :value="4" />
+        </el-select>
+      </el-form-item>
       <el-form-item :label="$t('describe')">
         <el-input v-model="ruleForm.description" />
       </el-form-item>
@@ -37,7 +45,8 @@ export default {
       ruleForm: {
         "description": "",
         "name": "",
-        "scratchConfigId": 0
+        "scratchConfigId": 0,
+        "type": null
       },
       rules: {
         name: [{ required: true, message: '请输入权重组名称', trigger: 'blur' }],
@@ -55,7 +64,8 @@ export default {
         this.ruleForm = {
           "description": "",
           "name": "",
-          "scratchConfigId": null
+          "scratchConfigId": null,
+          "type": 1
         }
       } else {
         this.ruleForm = { ...data }
