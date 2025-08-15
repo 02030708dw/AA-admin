@@ -1,38 +1,20 @@
 <template>
   <div class="upload-list">
     <div class="upload-img">
-      <el-upload
-        action=""
-        class="avatar-uploader"
-        :show-file-list="false"
-        :http-request="httpRequest"
-        accept="image/*,video/mp4"
-      >
+      <el-upload action="" class="avatar-uploader" :show-file-list="false" :http-request="httpRequest"
+        accept="image/*,video/mp4">
         <!-- 图片显示 -->
-        <img
-          v-if="isImage && imageURL && !imageFlag"
-          :src="base_img + imageURL"
-          class="avatar"
-        />
+        <img v-if="isImage && imageURL && !imageFlag" :src="base_img + imageURL" class="avatar" />
 
         <!-- 视频显示 -->
-        <video
-          v-else-if="isVideo && imageURL && !imageFlag"
-          :src="base_img + imageURL"
-          controls
-          class="avatar"
-          style="width: 100px; height: 100px"
-        ></video>
+        <video v-else-if="isVideo && imageURL && !imageFlag" :src="base_img + imageURL" controls class="avatar"
+          style="width: 100px; height: 100px"></video>
 
         <!-- 上传图标 -->
         <i v-else-if="!imageFlag" class="el-icon-plus avatar-uploader-icon"></i>
 
         <!-- 进度条 -->
-        <el-progress
-          v-if="imageFlag"
-          type="circle"
-          :percentage="UploadPercent"
-        ></el-progress>
+        <el-progress v-if="imageFlag" type="circle" :percentage="UploadPercent"></el-progress>
       </el-upload>
     </div>
   </div>
@@ -85,8 +67,11 @@ export default {
       this.isImage = item.file.type.startsWith("image/");
       this.isVideo = item.file.type === "video/mp4";
 
+
+      const safeName = item.file.name.replace(/\s+/g, "");
+
       const formData = new FormData();
-      formData.append("file", item.file);
+      formData.append("file", item.file, safeName);
 
       request({
         url: this.isImage ? `/upload/image/single` : `/upload/image/video`,
@@ -142,6 +127,7 @@ export default {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
 }
+
 .avatar {
   width: 100px;
   height: 100px;
