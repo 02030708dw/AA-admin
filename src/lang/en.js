@@ -626,4 +626,5 @@ export default {
   半输: "Half Lost",
   暂无数据: "No Data",
   提款总额: "Total Withdrawal Amount",
+  游戏商处用户名: "Game Username",
 };

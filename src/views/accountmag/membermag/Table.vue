@@ -3,6 +3,7 @@
     <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="userName" :label="$t('username')" width="" />
+      <el-table-column prop="gamerUserName" :label="$t('游戏商处用户名')" width="" />
       <el-table-column prop="vipLevel" :label="$t('VIPlevel')" width="" />
       <el-table-column prop="ip" :label="$t('IPAddress')" width="" />
 
