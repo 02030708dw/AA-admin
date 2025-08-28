@@ -632,4 +632,5 @@ export default {
   半输: "Thua nửa",
   暂无数据: "Không có dữ liệu",
   提款总额: "Tổng số tiền rút",
+  游戏商处用户名: "Tên người dùng game",
 };
