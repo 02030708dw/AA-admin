@@ -1,6 +1,9 @@
 // 会员充值管理
 import request from "@/utils/request";
 import axios from "axios";
+import { domain } from "@/utils/domain";
+const currentDomain = document.domain;
+const selectedBaseURL = domain[currentDomain] || process.env.VUE_APP_BASE_API;
 // 分页列表
 export function MemberrechargelPage(params) {
   console.log(params);
@@ -23,7 +26,7 @@ export function MemberrechargelToexamine(data) {
 // 导出excel
 export function incomeRecordOutput(params) {
   return axios({
-    url: process.env.VUE_APP_BASE_API + "/finance/incomeRecord/output",
+    url: selectedBaseURL + "/finance/incomeRecord/output",
     method: "GET",
     params,
     responseType: "blob",

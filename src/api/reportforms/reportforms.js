@@ -1,6 +1,9 @@
 // 报表管理接口
 import request from '@/utils/request'
 import axios from 'axios'
+import { domain } from "@/utils/domain";
+const currentDomain = document.domain;
+const selectedBaseURL = domain[currentDomain] || process.env.VUE_APP_BASE_API;
 
 // 代理报表
 export function getAgentPages({ pageNo, pageSize, agentId, endDay, startDay }) {
@@ -75,7 +78,7 @@ export function getGamerInfo(params) {
 // 导出平台报表excel
 export function reportOutput(params) {
   return axios({
-    url: process.env.VUE_APP_BASE_API + '/report/output',
+    url: selectedBaseURL + '/report/output',
     method: 'GET',
     params,
     responseType: 'blob'

@@ -1,6 +1,9 @@
 // 会员提现管理
 import request from '@/utils/request'
 import axios from 'axios'
+import { domain } from "@/utils/domain";
+const currentDomain = document.domain;
+const selectedBaseURL = domain[currentDomain] || process.env.VUE_APP_BASE_API;
 // 分页数据
 export function MemberwithdrawalPage(params) {
   return request({
@@ -47,7 +50,7 @@ export function toBeReviewed() {
 // 导出excel
 export function memberCashRecordOutput(params) {
   return axios({
-    url: process.env.VUE_APP_BASE_API + '/finance/memberCashRecord/output',
+    url: selectedBaseURL + '/finance/memberCashRecord/output',
     method: 'GET',
     params,
     responseType: 'blob'
