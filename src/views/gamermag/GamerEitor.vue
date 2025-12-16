@@ -4,6 +4,9 @@
       <el-form-item :label="$t('GameMerchantName')" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
+      <el-form-item :label="$t('GameproviderAPIbasicaddress')" prop="apiBaseUrl">
+        <el-input v-model="ruleForm.apiBaseUrl" />
+      </el-form-item>
       <el-form-item :label="$t('code')" prop="code">
         <el-input v-model="ruleForm.code" />
       </el-form-item>
@@ -21,14 +24,14 @@
       </el-form-item>
       <el-form-item :label="$t('Indonesiangamedevelopersridethousands')">
         <el-radio-group v-model="ruleForm.idr">
-          <el-radio :label="0" size="large">{{$t('correct')}}</el-radio>
-          <el-radio :label="1" size="large">{{$t('deny')}}</el-radio>
+          <el-radio :label="0" size="large">{{ $t('correct') }}</el-radio>
+          <el-radio :label="1" size="large">{{ $t('deny') }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item :label="$t('VietnameseDongGameMerchantRidingThousand')">
         <el-radio-group v-model="ruleForm.vnd">
-          <el-radio :label="0" size="large">{{$t('correct')}}</el-radio>
-          <el-radio :label="1" size="large">{{$t('deny')}}</el-radio>
+          <el-radio :label="0" size="large">{{ $t('correct') }}</el-radio>
+          <el-radio :label="1" size="large">{{ $t('deny') }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item :label="$t('Gamedevelopersdrawapercentage')" prop="rate">
@@ -43,7 +46,7 @@
                 </el-option>
               </el-select>
               <div class="inputnum" @dblclick="isdblclick = true" v-else>{{ scope.row.type
-                }} </div>
+              }} </div>
             </template>
           </el-table-column>
           <el-table-column prop="value" :label="$t('Drawproportion')" width="180">
@@ -52,15 +55,17 @@
                 <el-input min="0" max="1" step="0.01" v-model="scope.row.value" type="number" size="mini" />
               </div>
               <div class="inputnum" @dblclick="isdblclick = true" v-else>{{ scope.row.value
-                }} </div>
+              }} </div>
             </template>
           </el-table-column>
           <el-table-column :label="$t('operate')" align="right">
             <template slot="header" slot-scope="scope">
-              <el-button size="mini" type="success" @click="handAdd(scope.$index, scope.row)">{{$t('increase')}}</el-button>
+              <el-button size="mini" type="success" @click="handAdd(scope.$index, scope.row)">{{ $t('increase')
+              }}</el-button>
             </template>
             <template slot-scope="scope">
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, ruleForm.rate)">{{$t('delete')}}</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, ruleForm.rate)">{{ $t('delete')
+              }}</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -94,6 +99,7 @@ export default {
       // 表单数据
       ruleForm: {
         name: '',
+        apiBaseUrl: '',
         status: 0,
         typeList: [],
         incomeUrl: '',
@@ -108,6 +114,9 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入游戏商名称', trigger: 'blur' }
+        ],
+        apiBaseUrl: [
+          { required: true, message: '请输入游戏商api基础地址', trigger: 'blur' }
         ],
         incomeUrl: [
           { required: true, message: '请输入充值接口地址', trigger: 'blur' }
@@ -151,6 +160,7 @@ export default {
       if (!this.dialogVisible) {
         this.ruleForm = {
           name: '',
+          apiBaseUrl: '',
           status: 0,
           typeList: [],
           incomeUrl: '',
