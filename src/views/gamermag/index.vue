@@ -1,17 +1,12 @@
 <template>
   <el-card>
-    <Control ref="ControlView" :gameriddata="GamerIdData" @Refresh="HandelRefresh" @gamerAdd="getGamerAddshow" @query="getquery" @resetting="getresetting" />
-    <Table
-      ref="TableView"
-      :table-data="tableData"
-      @eitor="getGamerEitorShow"
-      @delete="getGamerDelete"
-      @updateStatus="getGamerupdateStatus"
-      @bind="getbindShow"
-    />
-    <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
-    <GamerAdd ref="GamerAdd" @confirm="getGamerAdd"  :CurrencytPageData="CurrencytPageData"/>
-    <GamerEitor ref="GamerEitor" @confirm="getGamerEitor"  :CurrencytPageData="CurrencytPageData"/>
+    <Control ref="ControlView" :gameriddata="GamerIdData" @Refresh="HandelRefresh" @gamerAdd="getGamerAddshow"
+      @query="getquery" @resetting="getresetting" />
+    <Table ref="TableView" :table-data="tableData" @eitor="getGamerEitorShow" @delete="getGamerDelete"
+      @updateStatus="getGamerupdateStatus" @bind="getbindShow" />
+    <Pagination :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getroledata" />
+    <GamerAdd ref="GamerAdd" @confirm="getGamerAdd" :CurrencytPageData="CurrencytPageData" />
+    <GamerEitor ref="GamerEitor" @confirm="getGamerEitor" :CurrencytPageData="CurrencytPageData" />
     <BindGamer ref="BindGamer" @confirm="getBind" />
   </el-card>
 </template>
@@ -52,10 +47,10 @@ export default {
       name: '',
       status: null,
       PagesSize: 20,
-       // 游戏商id
+      // 游戏商id
       //  GamerIdData: [],
       //获取币种
-      CurrencytPageData:[],
+      CurrencytPageData: [],
     }
   },
   created() {
@@ -65,14 +60,14 @@ export default {
   methods: {
     // 获取币种
     getCurrencytPage() {
-     let res = this.$store.state.user.currency
-     this.CurrencytPageData = []
-       for(let i = 0; i < res.length ;i++){
-         this.CurrencytPageData.push({
-           item:res[i].currency,
-           index:res[i].id
-         })
-       }
+      let res = this.$store.state.user.currency
+      this.CurrencytPageData = []
+      for (let i = 0; i < res.length; i++) {
+        this.CurrencytPageData.push({
+          item: res[i].currency,
+          index: res[i].id
+        })
+      }
     },
     HandelPagesChange(e) {
       this.PagesSize = e
@@ -82,7 +77,7 @@ export default {
     HandelRefresh() {
       this.$refs.TableView.HandelLoading(true)
       // 请求数据
-      gamerPage({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, status: this.status  })
+      gamerPage({ pageNo: this.pageNo, pageSize: this.PagesSize, name: this.name, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -132,7 +127,7 @@ export default {
     },
     // 添加
     getGamerAdd(e) {
-      gamerAdd({...e,rate:JSON.stringify(e.rate)})
+      gamerAdd({ ...e, rate: JSON.stringify(e.rate) })
         .then((res) => {
           // 刷新数据
           this.getroledata(this.pageNo)
@@ -173,6 +168,7 @@ export default {
         gamerId: item.id,
         status: item.status,
         name: item.name,
+        apiBaseUrl: item.apiBaseUrl,
         incomeUrl: item.incomeUrl,
         cashUrl: item.cashUrl,
         betUrl: item.betUrl,
@@ -180,7 +176,7 @@ export default {
         code: item.code,
         currency: item.currency,
         memberRate: item.memberRate,
-        typeList:item.typeList,
+        typeList: item.typeList,
         sort: item.sort,
         vnd: item.vnd,
         idr: item.idr
@@ -231,19 +227,18 @@ export default {
       })
     }
   },
-  computed:{
+  computed: {
     GamerIdData() {
-        let data=[],res = this.$store.state.user.gamer || []
-        for (let i = 0; i < res.length; i++) {
-          data.push({
-            title: res[i].name,
-            index: res[i].id
-          })
-        }
-        return data
+      let data = [], res = this.$store.state.user.gamer || []
+      for (let i = 0; i < res.length; i++) {
+        data.push({
+          title: res[i].name,
+          index: res[i].id
+        })
       }
+      return data
+    }
   },
 }
 </script>
-<style>
-</style>
+<style></style>
