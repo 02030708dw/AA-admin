@@ -103,6 +103,9 @@ export default {
     voucherlinkconfig: '用户代金券链接配置',
     voucherlink: '代金券链接用户',
     livestreamingreport: '直播报表',
+    shortvideo:'短视频管理',
+    bucket:'存储桶文件管理',
+    shotvideo:'短视频管理',
   },
   role: {
     permission: "权限",
