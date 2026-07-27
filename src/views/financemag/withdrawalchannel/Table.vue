@@ -77,6 +77,10 @@ export default {
           return "微信";
         case 3:
           return "虚拟币";
+        case 4:
+          return "Gcash";
+        case 5:
+          return "Gcash";
       }
     },
   },
