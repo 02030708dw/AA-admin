@@ -100,6 +100,9 @@ export default {
     voucherlinkconfig: 'Voucher Link Config',
     voucherlink: 'Voucher Link',
     livestreamingreport: 'Live Streaming Report',
+    shortvideo:'Short Video Management',
+    bucket:'Bucket Management',
+    shotvideo:'Short Video Management',
   },
   role: {
     permission: "Permission",

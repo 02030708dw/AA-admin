@@ -1,39 +1,50 @@
 <template>
-  <el-card>
-    <el-table v-loading="loading" :data="tableData" :border="true" :header-cell-style="{ 'text-align': 'center' }"
-      :cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="videoId" label="视频id" />
-      <el-table-column prop="title" label="标题" />
-      <el-table-column prop="playCount" label="播放次数" />
-      <el-table-column prop="" :label="$t('customertype')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.isAgent == 0 ? '普通用户' : '代理' }}
+  <el-card shadow="never">
+    <el-table
+      v-loading="loading"
+      :data="tableData"
+      border
+      :header-cell-style="{ textAlign: 'center' }"
+      :cell-style="{ textAlign: 'center' }"
+      empty-text="No short video records"
+    >
+      <el-table-column prop="id" label="ID" width="90" />
+      <el-table-column prop="videoName" label="Video name" min-width="180" show-overflow-tooltip />
+      <el-table-column prop="fileName" label="File name" min-width="180" show-overflow-tooltip />
+      <el-table-column prop="filePath" label="File path" min-width="240" show-overflow-tooltip />
+      <el-table-column prop="videoComment" label="Comment" min-width="220" show-overflow-tooltip />
+      <el-table-column label="Preview" width="120">
+        <template slot-scope="{ row }">
+          <el-button v-if="row.videoUrl" type="text" @click="openUrl(row.videoUrl)">Open</el-button>
+          <span v-else>--</span>
         </template>
       </el-table-column>
-      <el-table-column prop="publishTime" label="发布时间">
-        <template slot-scope="scope">
-          {{ $YMDHMS(scope.row.publishTime) }}
+      <el-table-column label="Status" width="140">
+        <template slot-scope="{ row }">
+          <el-switch
+            v-model="row.status"
+            :active-value="1"
+            :inactive-value="0"
+            active-color="#13ce66"
+            inactive-color="#dcdfe6"
+            @change="handleStatusChange(row, $event)"
+          />
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('icon')" width="120">
-        <template slot-scope="scope">
-          <div class="image_box">
-            <img :src="scope.row.image" alt="">
-          </div>
+      <el-table-column label="Created" width="180">
+        <template slot-scope="{ row }">
+          {{ formatTime(row.createdAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('state')" width="140">
-        <template slot-scope="scope">
-          <el-switch v-model="scope.row.status" active-color="#13ce66" :active-value="1" :inactive-value="0"
-            :active-text="$t('Enable')" :inactive-text="$t('Deactivate')" @change="getUdateStatus($event, scope.row)" />
+      <el-table-column label="Updated" width="180">
+        <template slot-scope="{ row }">
+          {{ formatTime(row.updatedAt) }}
         </template>
       </el-table-column>
-      <el-table-column prop="" :label="$t('operate')" width="">
-        <template slot-scope="scope">
-          <el-button type="text" style="color: #e6a23c" @click="getEditor(scope.row)">{{
-            $t("edit") }}</el-button>
-          <el-button type="text" style="color: red" @click="getEdl(scope.row.id)">{{ $t("delete")
-          }}</el-button>
+      <el-table-column label="Actions" width="180" fixed="right">
+        <template slot-scope="{ row }">
+          <el-button type="text" style="color: #e6a23c" @click="$emit('edit', row)">Edit</el-button>
+          <el-button type="text" style="color: #f56c6c" @click="handleDelete(row)">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -46,63 +57,56 @@ export default {
   props: {
     tableData: {
       type: Array,
-      default: () => {
+      default: function() {
         return []
       }
-    }
-  },
-  data() {
-    return {
-      loading: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-    // 改变loading
-    HandelLoading(status) {
-      this.loading = status
-    },
-    // 编辑
-    getEditor(item) {
-      this.$emit('EditorShow', item)
-    },
-    // 删除
-    getEdl(Id) {
-      this.$confirm('确定删除吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+    handleDelete(row) {
+      this.$confirm('Delete this short video record?', 'Confirm', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
         type: 'warning'
       })
         .then(() => {
-          this.$emit('Edl', Id)
+          this.$emit('delete', row)
         })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
+        .catch(function() {})
     },
-    // 修改状态
-    getUdateStatus(e, item) {
-      item.status = e
-      this.$emit('UdateStatus', item)
+    handleStatusChange(row, status) {
+      this.$emit('status-change', {
+        row: row,
+        status: status,
+        oldStatus: status === 1 ? 0 : 1
+      })
     },
+    formatTime(value) {
+      if (!value) {
+        return '--'
+      }
+
+      const date = new Date(value)
+      if (Number.isNaN(date.getTime())) {
+        return value
+      }
+
+      const year = date.getFullYear()
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const day = String(date.getDate()).padStart(2, '0')
+      const hour = String(date.getHours()).padStart(2, '0')
+      const minute = String(date.getMinutes()).padStart(2, '0')
+      const second = String(date.getSeconds()).padStart(2, '0')
+
+      return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+    },
+    openUrl(url) {
+      window.open(url, '_blank')
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.image_box {
-  margin: auto;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>
