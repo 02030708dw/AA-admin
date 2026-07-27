@@ -115,12 +115,6 @@ export const asyncRoutes = [
         meta: { title: 'agentmanagement', icon: 'el-icon-news' },
       },
       {
-        path: 'video',
-        name: 'video',
-        component: () => import('@/views/agentmag/agentvideo/index'),
-        meta: { title: 'agentvideo', icon: 'el-icon-news' }
-      },
-      {
         path: 'agentrebatesetting',
         name: 'agentrebatesetting',
         component: () => import('@/views/agentmag/agentrebatesetting/index'),
@@ -150,6 +144,27 @@ export const asyncRoutes = [
         component: () => import('@/views/agentmag/groupsendmould/index'),
         meta: { title: 'groupsendmould', icon: 'el-icon-news' }
       },
+    ]
+  },
+  {
+    path: '/shortvideo',
+    component: Layout,
+    name: 'shortvideo',
+    redirect: '/shortvideo/bucket',
+    meta: { title: 'shortvideo', icon: 'el-icon-video-camera-solid' },
+    children: [
+      {
+        path: 'bucket',
+        name: 'bucket',
+        component: () => import('@/views/shortvideo/bucket/index.vue'),
+        meta: { title: 'bucket', icon: 'el-icon-folder-opened' }
+      },
+      {
+        path: 'shotvideo',
+        name: 'shotvideo',
+        component: () => import('@/views/shortvideo/manage/index.vue'),
+        meta: { title: 'shotvideo', icon: 'el-icon-video-camera' }
+      }
     ]
   },
   {
@@ -656,25 +671,25 @@ export const asyncRoutes = [
       }
     ]
   },
-  {
-    path: '/test',
-    component: Layout,
-    meta: { title: 'test', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'test',
-        name: 'test',
-        component: () => import('@/views/t_mode/index'),
-        meta: { title: 'test', icon: 'form' }
-      },
-      {
-        path: 'test2',
-        name: 'test2',
-        component: () => import('@/views/t_mode/index'),
-        meta: { title: 'test2', icon: 'form' }
-      }
-    ]
-  },
+  // {
+  //   path: '/test',
+  //   component: Layout,
+  //   meta: { title: 'test', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'test',
+  //       name: 'test',
+  //       component: () => import('@/views/t_mode/index'),
+  //       meta: { title: 'test', icon: 'form' }
+  //     },
+  //     {
+  //       path: 'test2',
+  //       name: 'test2',
+  //       component: () => import('@/views/t_mode/index'),
+  //       meta: { title: 'test2', icon: 'form' }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/rule',
   //   component: Layout,
