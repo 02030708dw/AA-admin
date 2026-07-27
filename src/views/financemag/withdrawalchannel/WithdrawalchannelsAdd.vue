@@ -39,16 +39,8 @@ export default {
         { title: '支付宝', index: 1 },
         { title: '微信', index: 2 },
         { title: '虚拟币', index: 3 },
-        { title: 'QR支付', index: 4 },
-        { title: 'gcash充值', index: 5 },
-        { title: 'PMP充值', index: 6 },
-        { title: 'UBP充值', index: 7 },
-        { title: 'usdt充值', index: 8 },
-        { title: 'MAYA充值', index: 9 },
-        { title: '网银', index: 10 },
-        { title: '充值卡', index: 11 },
-        { title: 'GrabPay', index: 12 },
-        { title: 'QR2', index: 13 },
+        { title: 'Gcash', index: 4 },
+        { title: 'Gcash', index: 5 }
       ],
       rules: {
         name: [{ required: true, message: "请输入渠道名称", trigger: "blur" }],
