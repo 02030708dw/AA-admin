@@ -13,7 +13,7 @@
         <el-input v-model="ruleForm.memberName" />
       </el-form-item>
 
-      <el-form-item v-if="Channeltype == 0" :label="$t('Withdrawalbankcardnumber')" prop="bankCardNo">
+      <el-form-item v-if="[0, 4, 5].includes(Channeltype)" :label="accountNumberLabel" prop="bankCardNo">
         <el-input v-model="ruleForm.bankCardNo" />
       </el-form-item>
       <el-form-item v-if="Channeltype == 0" :label="$t('Nameofwithdrawalbank')" prop="bankName">
@@ -53,6 +53,11 @@ export default {
     }
   },
   computed: {
+    accountNumberLabel() {
+      if (this.Channeltype === 4) return 'GCash收款手机号';
+      if (this.Channeltype === 5) return 'MAYA收款手机号';
+      return this.$t('Withdrawalbankcardnumber');
+    },
     Channeltype() {
       let type = null;
       this.channelidList.forEach((v) => {

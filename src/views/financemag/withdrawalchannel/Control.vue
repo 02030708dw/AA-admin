@@ -48,7 +48,7 @@ export default {
         { title: '微信', index: 2 },
         { title: '虚拟币', index: 3 },
         { title: 'Gcash', index: 4 },
-        { title: 'Gcash', index: 5 }
+        { title: 'MAYA', index: 5 }
       ],
       statusType: [
         { title: '停用', index: 0 },

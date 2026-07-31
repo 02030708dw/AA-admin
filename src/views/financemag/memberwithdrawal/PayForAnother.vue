@@ -9,19 +9,19 @@
             <el-form-item v-if="ruleForm.channelType == 1" :label="$t('Alipayaccount')">
                 <el-input v-model="ruleForm.alipay" disabled />
             </el-form-item>
-            <el-form-item v-if="ruleForm.channelType == 4" label="收款人姓名">
+            <el-form-item v-if="isMobileWallet" label="收款人姓名">
                 <el-input v-model="ruleForm.bankAccount" disabled />
             </el-form-item>
             <el-form-item v-if="ruleForm.channelType == 0" :label="$t('Withdrawalbankcardnumber')">
                 <el-input v-model="ruleForm.bankCardNo" disabled />
             </el-form-item>
-            <el-form-item v-if="ruleForm.channelType == 4" label="Gcash收款手机号">
+            <el-form-item v-if="isMobileWallet" :label="`${mobileWalletName}收款手机号`">
                 <el-input v-model="ruleForm.bankCardNo" disabled />
             </el-form-item>
             <el-form-item v-if="ruleForm.channelType == 0" :label="$t('Nameofwithdrawalbank')">
                 <el-input v-model="ruleForm.bankName" disabled />
             </el-form-item>
-            <el-form-item v-if="ruleForm.channelType == 4" label="'银行code'">
+            <el-form-item v-if="isMobileWallet" label="银行code">
                 <el-input v-model="ruleForm.bankName" disabled />
             </el-form-item>
             <el-form-item v-if="ruleForm.channelType == 3" label="虚拟币地址">
@@ -30,8 +30,8 @@
             <el-form-item :label="$t('icon')">
                 <el-input v-model="ruleForm.bankName" disabled />
             </el-form-item>
-            <el-form-item v-if="ruleForm.channelType == 4" label="收款人IFSC">
-                <el-input v-model="ruleForm.bankName" disabled />
+            <el-form-item v-if="isMobileWallet" label="收款人IFSC">
+                <el-input v-model="ruleForm.ifsc" disabled />
             </el-form-item>
             <el-form-item v-if="ruleForm.channelType == 2" label="微信账号">
                 <el-input v-model="ruleForm.wechat" disabled />
@@ -71,6 +71,12 @@ export default {
         }
     },
     computed: {
+        isMobileWallet() {
+            return [4, 5].includes(Number(this.ruleForm.channelType))
+        },
+        mobileWalletName() {
+            return Number(this.ruleForm.channelType) === 5 ? 'MAYA' : 'GCash'
+        },
         ThreePayfiletr() {
             let minbankCount = { bankCount: 99 }
             const result = this.ruleForm?.threePayIds?.length && this.threePayList
