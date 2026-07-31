@@ -37,7 +37,7 @@ export default {
         { title: '微信', index: 2 },
         { title: '虚拟币', index: 3 },
         { title: 'Gcash', index: 4 },
-        { title: 'Gcash', index: 5 }
+        { title: 'MAYA', index: 5 }
       ],
       rules: {
         name: [{ required: true, message: "请输入渠道名称", trigger: "blur" }],
