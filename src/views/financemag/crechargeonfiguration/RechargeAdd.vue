@@ -193,7 +193,6 @@ export default {
           { required: true, message: "请输入微信账号", trigger: "blur" },
         ],
         type: [{ required: true, message: "请输入渠道类型", trigger: "blur" }],
-        icon: [{ required: true, message: "请上传图标", trigger: "blur" }],
         currency: [{ required: true, message: "请选择币种", trigger: "blur" }],
         threePayId: [
           { required: true, message: "请选择充值类型", trigger: "blur" },
