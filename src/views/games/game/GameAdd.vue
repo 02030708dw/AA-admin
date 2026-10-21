@@ -70,12 +70,12 @@
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('Gamevendorimages')" prop="pictureInfos">
-        <UploadImage v-if="dialogVisible" fn="gamer" :code="this.selectedTitle" @Upload="getImageURL" />
+        <UploadImage v-if="dialogVisible" storage="s3" fn="gamer" :code="this.selectedTitle" @Upload="getImageURL" @uploading="imageUploading = $event" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">{{ $t("cancellation") }}</el-button>
-      <el-button type="primary" @click="getconfirm()">{{
+      <el-button type="primary" :disabled="imageUploading" @click="getconfirm()">{{
         $t("determine")
       }}</el-button>
     </span>
@@ -100,6 +100,7 @@ export default {
     return {
       // 用于保存选中的游戏名字，上传图片时使用
       selectedTitle: '',
+      imageUploading: false,
       // 弹窗状态
       dialogVisible: false,
       // 表单数据
@@ -155,8 +156,10 @@ export default {
     },
     // 改变弹窗状态
     getAddstatus() {
+      this.imageUploading = false;
       // 关闭时清空
       if (!this.dialogVisible) {
+        this.selectedTitle = '';
         this.ruleForm = {
           gamerId: null,
           name: "",

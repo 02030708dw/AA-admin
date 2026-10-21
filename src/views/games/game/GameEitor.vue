@@ -20,6 +20,7 @@
           v-model="ruleForm.gamerId"
           :placeholder="$t('SelectGameMerchant')"
           style="width: 200px;margin-left: 10px"
+          @change="handleSelectChange"
         >
           <el-option
             v-for="(item, index) in gameriddata"
@@ -69,12 +70,12 @@
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('Gamevendorimages')" prop="pictureInfos">
-        <UploadImage v-if="dialogVisible" fn="gamer" :code="ruleForm.gamerName" :img="ruleForm.pictureUrl" @Upload="getImageURL" />
+        <UploadImage v-if="dialogVisible" storage="s3" fn="gamer" :code="ruleForm.gamerName" :img="ruleForm.pictureUrl" @Upload="getImageURL" @uploading="imageUploading = $event" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getEitorstatus()">{{ $t("cancellation") }}</el-button>
-      <el-button type="primary" @click="getconfirm()">{{
+      <el-button type="primary" :disabled="imageUploading" @click="getconfirm()">{{
         $t("determine")
       }}</el-button>
     </span>
@@ -99,6 +100,7 @@ export default {
     return {
       // 弹窗状态
       dialogVisible: false,
+      imageUploading: false,
       // 表单数据
       ruleForm: {
         gamerId: null,
@@ -142,8 +144,13 @@ export default {
     }
   },
   methods: {
+    handleSelectChange(value) {
+      const gamer = this.gameriddata.find(item => item.index === value)
+      this.$set(this.ruleForm, 'gamerName', gamer ? gamer.title : '')
+    },
     // 改变弹窗状态
     getEitorstatus(data) {
+      this.imageUploading = false
       this.dialogVisible = !this.dialogVisible
       // 关闭时清空
       if (!this.dialogVisible) {
