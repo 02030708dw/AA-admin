@@ -11,7 +11,7 @@
     />
     <Pagination  :pageNo="pageNo" :total="total" @PageSizeChange="HandelPagesChange" @PageChange="getgamedata" />
     <GameAdd ref="GameAdd" :gameriddata="GamerIdData" @confirm="getGameAdd" />
-    <GameEitor ref="GameEitor" :gameriddata="GamerIdData" @confirm="getGameEitor" />
+    <GameEitor ref="GameEitor" :gameriddata="GamerIdData" :saving="gameSaving" @confirm="getGameEitor" />
   </el-card>
 </template>
 
@@ -53,6 +53,7 @@ export default {
       status: null,
       // 游戏商id
       GamerIdData: [],
+      gameSaving: false,
       PagesSize: 20
     }
   },
@@ -105,7 +106,7 @@ export default {
     getgamedata(index) {
       // 记录当前页码
       this.pageNo = index
-      gamePage({ pageNo: index, pageSize: this.PagesSize, gamerId: this.gamerId, name: this.name, type: this.type, status: this.status })
+      return gamePage({ pageNo: index, pageSize: this.PagesSize, gamerId: this.gamerId, name: this.name, type: this.type, status: this.status })
         .then((res) => {
           this.total = res.resultSet.total
           this.tableData = res.resultSet.data
@@ -168,29 +169,41 @@ export default {
       this.$refs.GameEitor.getEitorstatus(e)
     },
     // 编辑
-    getGameEitor(data) {
-      gameEdit({
-        gameId: data.id,
-        gamerId: data.gamerId,
-        name: data.name,
-        status: data.status,
-        threeId: data.threeId,
-        type: data.type,
-        sort: data.sort,
-        pictureInfos:data.pictureInfos,
-        code: data.code
-      })
-        .then((res) => {
-          this.getgamedata(this.pageNo)
-          this.$message({
-            message: '编辑成功!',
-            type: 'success'
-          })
+    async getGameEitor(data) {
+      if (this.gameSaving) return
+      this.gameSaving = true
+      const submitted = {
+        ...data,
+        pictureInfos: (data.pictureInfos || []).map(picture => ({ ...picture }))
+      }
+      try {
+        await gameEdit({
+          gameId: submitted.id,
+          gamerId: submitted.gamerId,
+          name: submitted.name,
+          status: submitted.status,
+          threeId: submitted.threeId,
+          type: submitted.type,
+          sort: submitted.sort,
+          pictureInfos: submitted.pictureInfos,
+          code: submitted.code
         })
-        .catch((err) => {
-          this.$message.error('编辑失败!')
-          console.log(err)
+        await this.getgamedata(this.pageNo)
+        // Reopening must use the saved images even if the list response is delayed or stale.
+        this.tableData = this.tableData.map(row => row.id === submitted.id
+          ? { ...row, ...submitted, pictureUrl: JSON.stringify(submitted.pictureInfos) }
+          : row)
+        this.$refs.GameEitor.close()
+        this.$message({
+          message: '编辑成功!',
+          type: 'success'
         })
+      } catch (err) {
+        this.$message.error('编辑失败!')
+        console.log(err)
+      } finally {
+        this.gameSaving = false
+      }
     },
     // 改变状态
     getGameupdateStatus(e) {

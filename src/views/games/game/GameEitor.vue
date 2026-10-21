@@ -1,10 +1,12 @@
 <template>
   <!-- 新增角色弹窗 -->
-  <el-dialog :title="$t('Editgame')" :visible.sync="dialogVisible" width="50%">
+  <el-dialog :title="$t('Editgame')" :visible.sync="dialogVisible" width="50%"
+    :show-close="!saving" :close-on-click-modal="!saving" :close-on-press-escape="!saving">
     <el-form
       ref="ruleForm"
       :model="ruleForm"
       :rules="rules"
+      :disabled="saving"
       label-width="150px"
       class="demo-ruleForm"
     >
@@ -74,8 +76,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="getEitorstatus()">{{ $t("cancellation") }}</el-button>
-      <el-button type="primary" :disabled="imageUploading" @click="getconfirm()">{{
+      <el-button :disabled="saving" @click="getEitorstatus()">{{ $t("cancellation") }}</el-button>
+      <el-button type="primary" :loading="saving" :disabled="imageUploading || saving" @click="getconfirm()">{{
         $t("determine")
       }}</el-button>
     </span>
@@ -89,6 +91,10 @@ export default {
     UploadImage
   },
   props: {
+    saving: {
+      type: Boolean,
+      default: false
+    },
     gameriddata: {
       type: Array,
       default: () => {
@@ -150,30 +156,29 @@ export default {
     },
     // 改变弹窗状态
     getEitorstatus(data) {
+      if (this.saving) return
       this.imageUploading = false
-      this.dialogVisible = !this.dialogVisible
-      // 关闭时清空
-      if (!this.dialogVisible) {
-        this.ruleForm = {
-          gamerId: null,
-          name: '',
-          status: 0,
-          threeId: '',
-          type: null,
-          sort:0,
-          code: '',
-        }
+      if (this.dialogVisible) {
+        this.close()
       } else {
         this.ruleForm = {...data}
+        this.dialogVisible = true
+      }
+    },
+    close() {
+      this.dialogVisible = false
+      this.imageUploading = false
+      this.ruleForm = {
+        gamerId: null, name: '', status: 0, threeId: '',
+        type: null, sort: 0, code: '', pictureInfos: []
       }
     },
     // 确定添加事件
     getconfirm() {
+      if (this.saving || this.imageUploading) return
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.$emit('confirm', this.ruleForm)
-          // 关闭弹窗
-          this.dialogVisible = false
         } else {
           this.$message({
             message: '请填写完整信息!',
