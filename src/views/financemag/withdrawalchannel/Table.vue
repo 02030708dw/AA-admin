@@ -80,7 +80,7 @@ export default {
         case 4:
           return "Gcash";
         case 5:
-          return "Gcash";
+          return "MAYA";
       }
     },
   },
