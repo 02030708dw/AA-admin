@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MessageBox, Message } from "element-ui";
+import { Message } from "element-ui";
 import store from "@/store";
 import { domain } from "@/utils/domain";
 const currentDomain = document.domain;
@@ -10,9 +10,28 @@ import {
   getTokenPrefix,
   getTokenHeader,
   getLange,
-  removeToken,
 } from "@/utils/auth";
-import router, { resetRouter } from "@/router/index";
+import router from "@/router/index";
+import { isLoginRequest, isSessionExpiredResponse } from "@/utils/session-expiry";
+
+const requestTokens = new WeakMap();
+let redirectingToLogin = false;
+
+function expireSession(config) {
+  if (!config || isLoginRequest(config.url)) return;
+  // Responses from a replaced session cannot clear a newly signed-in user's token.
+  if (requestTokens.has(config) && requestTokens.get(config) !== getToken()) return;
+  if (redirectingToLogin || !getToken()) return;
+  redirectingToLogin = true;
+  const route = router.currentRoute;
+  const target = { path: "/login" };
+  if (route.path !== "/login") target.query = { redirect: route.fullPath };
+  store.dispatch("user/resetToken");
+  Message({ message: "登录状态已失效，请重新登录", type: "warning", duration: 5000 });
+  const done = () => { redirectingToLogin = false; };
+  if (route.path === "/login") done();
+  else router.replace(target, done, done);
+}
 
 // create an axios instance
 const service = axios.create({
@@ -26,9 +45,15 @@ service.interceptors.request.use(
   (config) => {
     // do something before request is sent
 
-    if (getToken()) {
+    const token = getToken();
+    requestTokens.set(config, token);
+    if (token && !isLoginRequest(config.url)) {
       // 设置请求头
-      config.headers[getTokenHeader()] = getTokenPrefix() + getToken();
+      const header = getTokenHeader() || "Authorization";
+      const prefix = getTokenPrefix() || "";
+      // Preserve custom prefixes such as Bearer_; normalize the standard Bearer separator.
+      config.headers[header] = prefix.trim().toLowerCase() === "bearer"
+        ? prefix.trim() + " " + token : prefix + token;
       config.headers["language"] = getLange();
     }
     return config;
@@ -45,6 +70,11 @@ service.interceptors.response.use(
   (response) => {
     const res = response.data;
 
+    if (isSessionExpiredResponse(res, response.config.url, response.status)) {
+      expireSession(response.config);
+      return Promise.reject(new Error("登录状态已失效，请重新登录"));
+    }
+
     // if the custom code is not 20000, it is judged as an error.
     if (res.resCode !== "000000") {
       Message({
@@ -52,39 +82,19 @@ service.interceptors.response.use(
         type: "error",
         duration: 5 * 1000,
       });
-      if (res.resCode === "000104") {
-        // token验证失效，后端回传未登录
-        removeToken();
-        resetRouter();
-        router.push("/login");
-        // useRouter().push('/login')
-      }
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        // to re-login
-        MessageBox.confirm(
-          "You have been logged out, you can cancel to stay on this page, or log in again",
-          "Confirm logout",
-          {
-            confirmButtonText: "Re-Login",
-            cancelButtonText: "Cancel",
-            type: "warning",
-          }
-        ).then(() => {
-          store.dispatch("user/resetToken").then(() => {
-            location.reload();
-          });
-        });
-      }
-      return Promise.reject(new Error(res.message || "Error"));
+      return Promise.reject(new Error(res.resDesc || res.message || "Error"));
     } else {
       return res;
     }
   },
   (error) => {
-    console.log("err" + error); // for debug
+    if (isSessionExpiredResponse(error.response && error.response.data,
+      error.config && error.config.url, error.response && error.response.status)) {
+      expireSession(error.config);
+      return Promise.reject(new Error("登录状态已失效，请重新登录"));
+    }
     Message({
-      message: error.message,
+      message: (error.response && error.response.data && error.response.data.resDesc) || error.message,
       type: "error",
       duration: 5 * 1000,
     });
