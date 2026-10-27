@@ -40,7 +40,14 @@ router.beforeEach(async (to, from, next) => {
           newRouter(accessRoutes);
           next({ ...to, replace: true });
         } catch (error) {
-          await store.dispatch('user/logout')
+          if (getToken() !== hasToken) {
+            next(false)
+            NProgress.done()
+            return
+          }
+          // Failed authentication/menu loading must clear local state even when
+          // the old token can no longer authenticate a server logout request.
+          await store.dispatch('user/resetToken')
           Message.error({message:error || 'Has Error'})
           next(`/login?redirect=${to.path}`)
           NProgress.done();

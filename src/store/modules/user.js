@@ -48,7 +48,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ userName: username.trim(), password: password }).then(response => {
         const { resultSet } = response
-        console.log('登录', resultSet)
         commit('SET_TOKEN', resultSet)
         setToken(resultSet)
         resolve()
@@ -85,17 +84,8 @@ const actions = {
   },
 
   // 退出登录
-  logout({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+  logout({ dispatch }) {
+    return logout().finally(() => dispatch('resetToken'))
   },
 
   //游戏商
@@ -125,7 +115,9 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
+      resetRouter()
       commit('RESET_STATE')
+      commit('permission/RESET_STATE', null, { root: true })
       resolve()
     })
   },

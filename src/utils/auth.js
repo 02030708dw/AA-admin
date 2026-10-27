@@ -1,7 +1,5 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'token'
-
 export function getToken() {
   // return Cookies.get(TokenKey)
   return localStorage.getItem('token')
@@ -34,6 +32,7 @@ export function getTokenPrefix() {
   return localStorage.getItem('tokenPrefix')
 }
 export function removeToken() {
-  // return Cookies.remove(TokenKey)
-  return localStorage.removeItem('token')
+  localStorage.removeItem('token')
+  localStorage.removeItem('tokenHeader')
+  localStorage.removeItem('tokenPrefix')
 }
