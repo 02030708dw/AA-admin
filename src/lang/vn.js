@@ -23,6 +23,7 @@ export default {
     rechargechannel: "Quản lý kênh nạp tiền",
     crechargeconfiguration: "Quản lý cấu hình nạp tiền",
     withdrawalchannel: "Quản lý kênh rút tiền",
+    usdtRate: "Cài đặt tỷ giá USDT",
     thirdpartypayment: "Quản lý thanh toán bên thứ ba",
     reportformsmag: "Quản lý báo cáo",
     gamer: "Quản lý nhà cung cấp trò chơi",

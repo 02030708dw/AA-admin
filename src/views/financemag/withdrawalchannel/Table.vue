@@ -8,6 +8,7 @@
       :cell-style="{ 'text-align': 'center' }"
     >
       <el-table-column prop="name" :label="$t('Channelname')" width="" />
+      <el-table-column prop="usdtNetwork" label="USDT 代付网络" />
       <el-table-column prop="" :label="$t('Channeltype')" width="">
         <template slot-scope="scope">
           <span>{{ scope.row.type | Channeltype }}</span>

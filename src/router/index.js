@@ -204,6 +204,12 @@ export const asyncRoutes = [
         meta: { title: 'withdrawalchannel', icon: 'el-icon-position' }
       },
       {
+        path: 'usdtRate',
+        name: 'usdtRate',
+        component: () => import('@/views/financemag/usdtRate/index'),
+        meta: { title: 'usdtRate', icon: 'el-icon-coin' }
+      },
+      {
         path: 'WithdrawalBank',
         name: 'WithdrawalBank',
         component: () => import('@/views/financemag/WithdrawalBank/index'),

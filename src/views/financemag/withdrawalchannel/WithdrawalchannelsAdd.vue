@@ -13,6 +13,11 @@
       <el-form-item :label="$t('state')" prop="status">
         <el-switch :active-value="1" :inactive-value="0" v-model="ruleForm.status"></el-switch>
       </el-form-item>
+      <el-form-item v-if="ruleForm.type === 3" label="USDT 代付网络" prop="usdtNetwork">
+        <el-select v-model="ruleForm.usdtNetwork" clearable placeholder="未配置时不能发起USDT代付">
+          <el-option label="TRC20" value="TRC20" />
+        </el-select>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="getAddstatus()">取 消</el-button>
@@ -32,6 +37,7 @@ export default {
         name: "",
         status: 0,
         type: null,
+        usdtNetwork: null,
       },
       //游戏类型选项
       gamertype: [
@@ -57,6 +63,7 @@ export default {
           name: "",
           status: 0,
           type: null,
+          usdtNetwork: null,
         };
       }
       this.dialogVisible = !this.dialogVisible;
@@ -65,7 +72,7 @@ export default {
     getconfirm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.$emit("confirm", this.ruleForm);
+          this.$emit("confirm", { ...this.ruleForm, usdtNetwork: this.ruleForm.type === 3 ? this.ruleForm.usdtNetwork : null });
           // 关闭弹窗
           this.dialogVisible = false;
         } else {

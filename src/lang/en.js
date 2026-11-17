@@ -23,6 +23,7 @@ export default {
     rechargechannel: "Deposit Channel ID",
     crechargeonfiguration: "Deposit Management",
     withdrawalchannel: "Withdrawal Channel Management",
+    usdtRate: "USDT Exchange Rates",
     thirdpartypayment: "3rd party payment management",
     reportformsmag: "Report Management",
     gamer: "Game Provider Management",

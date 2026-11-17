@@ -23,6 +23,7 @@ export default {
     rechargechannel: "การจัดการช่องทางการเติมเงิน",
     crechargeonfiguration: "การจัดการการกำหนดค่าการเติมเงิน",
     withdrawalchannel: "การจัดการช่องทางการถอนเงิน",
+    usdtRate: "ตั้งค่าอัตราแลกเปลี่ยน USDT",
     thirdpartypayment: "การจัดการการชำระเงินของบุคคลที่สาม",
     reportformsmag: "การจัดการรายงาน",
     gamer: "การจัดการเกมเมอร์",

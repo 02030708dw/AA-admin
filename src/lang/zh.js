@@ -23,6 +23,7 @@ export default {
     rechargechannel: "充值渠道管理",
     crechargeonfiguration: "充值配置管理",
     withdrawalchannel: "提现渠道管理",
+    usdtRate: "USDT 汇率设置",
     thirdpartypayment: "第三方支付管理",
     reportformsmag: "报表管理",
     gamer: "游戏商管理",

@@ -29,6 +29,9 @@
               <div class="item_title">{{ $t("Virtualcoinaddress") }}:</div>
               <div class="item_conent">{{ scope.row.coin }}</div>
             </div>
+            <div v-if="scope.row.usdtNetwork" class="item_box">
+              <div class="item_title">USDT 网络:</div><div class="item_conent">{{ scope.row.usdtNetwork }}</div>
+            </div>
           </div>
         </template>
       </el-table-column>
@@ -47,6 +50,7 @@
             <el-tag :type="getStatusType(scope.row.aduitStatus)" size="small">
               {{ FaduitStatus(scope.row.aduitStatus) }}
             </el-tag>
+            <div v-if="scope.row.usdtPayoutManaged">USDT：{{ scope.row.usdtPayoutStatus }}</div>
 
             <!-- 驳回原因 -->
             <div v-if="scope.row.aduitStatus === 2" class="text_box">
@@ -93,7 +97,7 @@
           <el-button v-if="scope.row.aduitStatus != 0" type="text" @click="HandelInfo(scope.row)">{{ $t("Detail") }}
           </el-button>
 
-          <template v-if="scope.row.aduitStatus === 0">
+          <template v-if="scope.row.aduitStatus === 0 && !scope.row.usdtPayoutManaged">
             <el-popconfirm :confirm-button-text="$t('determine')" :cancel-button-text="$t('cancellation')"
               :title="$t('passthrough')" @confirm="getaudit(1, scope.row.id)">
               <el-button style="margin-right: 5px" slot="reference" v-has="'memberwithdrawal:aduit'" type="text">
@@ -118,7 +122,7 @@
             }}</el-button>
           </template>
 
-          <el-button v-if="scope.row.aduitStatus === 3 || scope.row.aduitStatus === 4" type="text"
+          <el-button v-if="!scope.row.usdtPayoutManaged && (scope.row.aduitStatus === 3 || scope.row.aduitStatus === 4)" type="text"
             @click="Through(scope.row)">{{ $t('ForceThrough') }}</el-button>
 
           <el-button type="text" @click="CopyInfo(scope.row)">{{ $t("复制") }}

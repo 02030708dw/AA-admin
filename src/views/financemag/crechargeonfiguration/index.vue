@@ -1,7 +1,5 @@
 <template>
   <el-card>
-    <el-button v-has="'crechargeonfiguration:edit'" type="primary" plain icon="el-icon-coin" style="margin-bottom: 16px" @click="$refs.usdtRateConfig.open()">USDT 汇率</el-button>
-    <UsdtRateConfig ref="usdtRateConfig" />
     <Control
       ref="ControlView"
       :channelid-list="channelIdList"
@@ -51,7 +49,6 @@ import Pagination from '@/components/Pagination/Pagination.vue'
 // 添加配置
 import rechargeAdd from './RechargeAdd.vue'
 import rechargeEitor from './RechargeEitor.vue'
-import UsdtRateConfig from './UsdtRateConfig.vue'
 import { channelPage } from '../../../api/finance/rechargechannel'
 
 // 获取币种分页数据
@@ -69,7 +66,6 @@ import {
 } from '@/api/finance/rechargeconfiguration'
 export default {
   components: {
-    UsdtRateConfig,
     Table,
     Control,
     Pagination,
