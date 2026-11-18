@@ -16,6 +16,19 @@ import { isLoginRequest, isSessionExpiredResponse } from "@/utils/session-expiry
 
 const requestTokens = new WeakMap();
 let redirectingToLogin = false;
+const SENSITIVE_REQUEST_ERROR = "敏感请求提交失败，内容已从错误信息中清除";
+
+function isSensitiveRequest(config) {
+  return !!(config && config.sensitiveRequest === true);
+}
+
+function redactSensitiveRequest(error) {
+  if (!error) return;
+  const configs = [error.config, error.response && error.response.config];
+  configs.forEach(config => {
+    if (config) config.data = undefined;
+  });
+}
 
 function expireSession(config) {
   if (!config || isLoginRequest(config.url)) return;
@@ -60,6 +73,10 @@ service.interceptors.request.use(
   },
   (error) => {
     // do something with request error
+    if (isSensitiveRequest(error && error.config)) {
+      redactSensitiveRequest(error);
+      return Promise.reject(new Error(SENSITIVE_REQUEST_ERROR));
+    }
     console.log(error); // for debug
     return Promise.reject(error);
   }
@@ -69,6 +86,9 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     const res = response.data;
+    const sensitive = isSensitiveRequest(response.config);
+    // The adapter has completed; remove the encrypted envelope from Axios' retained config.
+    if (sensitive) response.config.data = undefined;
 
     if (isSessionExpiredResponse(res, response.config.url, response.status)) {
       expireSession(response.config);
@@ -78,20 +98,28 @@ service.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     if (res.resCode !== "000000") {
       Message({
-        message: res.resDesc || "Error",
+        message: sensitive ? SENSITIVE_REQUEST_ERROR : (res.resDesc || "Error"),
         type: "error",
         duration: 5 * 1000,
       });
-      return Promise.reject(new Error(res.resDesc || res.message || "Error"));
+      return Promise.reject(new Error(sensitive ? SENSITIVE_REQUEST_ERROR : (res.resDesc || res.message || "Error")));
     } else {
       return res;
     }
   },
   (error) => {
+    const sensitive = isSensitiveRequest(error && error.config)
+      || isSensitiveRequest(error && error.response && error.response.config);
     if (isSessionExpiredResponse(error.response && error.response.data,
       error.config && error.config.url, error.response && error.response.status)) {
       expireSession(error.config);
+      if (sensitive) redactSensitiveRequest(error);
       return Promise.reject(new Error("登录状态已失效，请重新登录"));
+    }
+    if (sensitive) {
+      redactSensitiveRequest(error);
+      Message({ message: SENSITIVE_REQUEST_ERROR, type: "error", duration: 5 * 1000 });
+      return Promise.reject(new Error(SENSITIVE_REQUEST_ERROR));
     }
     Message({
       message: (error.response && error.response.data && error.response.data.resDesc) || error.message,

@@ -210,6 +210,18 @@ export const asyncRoutes = [
         meta: { title: 'usdtRate', icon: 'el-icon-coin' }
       },
       {
+        path: 'usdtWallet',
+        name: 'usdtWallet',
+        component: () => import('@/views/financemag/usdtWallet/index'),
+        meta: { title: 'usdtWallet', icon: 'el-icon-wallet' }
+      },
+      {
+        path: 'usdtCollection',
+        name: 'usdtCollection',
+        component: () => import('@/views/financemag/usdtCollection/index'),
+        meta: { title: 'usdtCollection', icon: 'el-icon-download' }
+      },
+      {
         path: 'WithdrawalBank',
         name: 'WithdrawalBank',
         component: () => import('@/views/financemag/WithdrawalBank/index'),

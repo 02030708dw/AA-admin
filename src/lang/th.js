@@ -24,6 +24,8 @@ export default {
     crechargeonfiguration: "การจัดการการกำหนดค่าการเติมเงิน",
     withdrawalchannel: "การจัดการช่องทางการถอนเงิน",
     usdtRate: "ตั้งค่าอัตราแลกเปลี่ยน USDT",
+    usdtWallet: "การจัดการกระเป๋า USDT",
+    usdtCollection: "รวบรวม USDT ด้วยตนเอง",
     thirdpartypayment: "การจัดการการชำระเงินของบุคคลที่สาม",
     reportformsmag: "การจัดการรายงาน",
     gamer: "การจัดการเกมเมอร์",

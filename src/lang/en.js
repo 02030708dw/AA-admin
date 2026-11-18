@@ -24,6 +24,8 @@ export default {
     crechargeonfiguration: "Deposit Management",
     withdrawalchannel: "Withdrawal Channel Management",
     usdtRate: "USDT Exchange Rates",
+    usdtWallet: "USDT Wallet Management",
+    usdtCollection: "USDT Manual Collection",
     thirdpartypayment: "3rd party payment management",
     reportformsmag: "Report Management",
     gamer: "Game Provider Management",
